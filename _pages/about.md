@@ -10,13 +10,12 @@ redirect_from:
 
 {% include base_path %}
 
-Welcome to my website! Just here for my CV? You can download that [here](/files/Kurchin_CV.pdf). Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work!
+Welcome to my website! Just here for my CV? You can download that [here](/files/Jain_CV.pdf). Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work!
 
 ## What do/did I do?
 
-**As of September 1, 2022, I will be an Assistant Research Professor in Materials Science and Engineering at Carnegie Mellon!** Please feel free to reach out if you are interested in working together, either collaboratively or as a mentee.
-
-I'm a computational materials scientist (with significant previous experimental experience), until recently a Molecular Sciences Software Institute Postdoctoral Fellow working in the group of [Venkat Viswanathan](http://www.andrew.cmu.edu/user/venkatv/index.html) on discovery of battery and catalyst materials, with affiliations in the Departments of Mechanical Engineering and Materials Science and Engineering. I am the lead developer of the [Chemellia](https://github.com/Chemellia) "machine learning with atoms" ecosystem, in particular the [ChemistryFeaturization](https://chemellia.github.io/ChemistryFeaturization.jl/stable/) and [AtomicGraphNets](https://github.com/Chemellia/AtomicGraphNets.jl) packages.
+I'm a Principal Research Software Developer at the Argonne National Laboratory in the suburbs of Chicago!.
+Please feel free to reach out if you are interested in working together, either collaboratively or as a mentor/mentee.
 
 Previously, I did my PhD in Materials Science and Engineering in the [Photovoltaics Research Lab](http://pv.mit.edu) at MIT, where I performed first-principles simulations to understand defect physics in solar cell materials (in close collaboration with [Vladan Stevanovic](https://scholar.google.com/citations?user=itfRzZAAAAAJ&hl=en) of the Colorado School of Mines and National Renewable Energy Lab) as well as high-throughput device-level simulations to use Bayesian inference along with experimental data to more quickly and accurately measure fundamental materials properties. Prior to that, I received my MPhil in Materials Science and Metallurgy from the University of Cambridge, supported by a Gates Cambridge Scholarship.
 
