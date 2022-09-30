@@ -7,13 +7,13 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Rachel C. Kurchin"
+title                    : "Rajeev Jain"
 title_separator          : "-"
-name                     : &name "Rachel C. Kurchin"
-description              : &description "Postdoctoral fellow at Carnegie Mellon"
-url                      : https://rkurchin.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+name                     : &name "Rajeev Jain"
+description              : &description "Research Software Developer at Argonne"
+url                      : https://jain.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "rkurchin.github.io"
+repository               : "jain.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -80,29 +80,28 @@ analytics:
 
 # Site Author
 author:
-  name             : "Rachel C. Kurchin"
+  name             : "Rajeev Jain"
   avatar           : "profile.png"
-  bio		   : "Postdoctoral fellow at Carnegie Mellon"
+  bio		   : "Research Software Developer at Argonner"
   cv		   : "https://rkurchin.github.io/files/Kurchin_CV.pdf"
-  location         : "Pittsburgh, PA"
+  location         : "Chicago, IL"
   employer         :
-  googlescholar    : "https://scholar.google.ch/citations?user=CSHe53oAAAAJ&hl=en&oi=ao"
-  email            : "rkurchin@cmu.edu"
-  researchgate     : "https://www.researchgate.net/profile/Rachel_Kurchin"
+  googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
+  email            : "rajeeja@gmail.com"
+  researchgate     : "https://www.researchgate.net/profile/Rajeev-Jain-7"
   uri              :
   bitbucket        :
   codepen          :
   facebook         :
-  github           : "rkurchin"
+  github           : "rajeeja"
   keybase          :
   instagram        :
-  linkedin         : "https://www.linkedin.com/in/rachel-kurchin-4b618864/"
-  orcid            : "https://orcid.org/0000-0002-2147-4809"
+  linkedin         : "https://www.linkedin.com/in/rajeeja"
+  orcid            : "https://orcid.org/0000-0002-1235-918X"
   pinterest        :
-  ravelry          : "https://www.ravelry.com/projects/FiberFiend6891"
   stackoverflow    : # http://stackoverflow.com/users/123456/username
-  strava           : "https://www.strava.com/athletes/4506195"
-  twitter          : "rachel_kurchin"
+  # strava           : "https://www.strava.com/athletes/4506195"
+  twitter          : "rajeeja"
   weibo            :
   xing             :
   youtube          :
@@ -257,7 +256,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: America/New_York # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: America/Chicago # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
