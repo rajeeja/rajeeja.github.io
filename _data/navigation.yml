@@ -9,8 +9,8 @@ main:
 #  - title: "Talks"
 #    url: /talks/
 
-#  - title: "Posters"
-#    url: /posters/
+ - title: "Blog"
+   url: /posters/
 
   - title: "Teaching"
     url: /teaching/
@@ -18,11 +18,11 @@ main:
 #  - title: "Service"
 #    url: /service/
 
-  - title: "Posters"
-    url: /year-archive/
+  # - title: "Posters"
+  #   url: /year-archive/
 
-  - title: "Press"
-    url: /press/
+  # - title: "Press"
+  #   url: /press/
 
 #  - title: "Tools"
 #    url: /tools/
