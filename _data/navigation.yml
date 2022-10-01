@@ -1,7 +1,7 @@
 # main links links
-main:
-  - title: "Publications"
-    url: /publications/
+# main:
+#   - title: "Publications"
+#     url: /publications/
 
   #- title: "Presentations"
   #  url: /presentations/
@@ -9,11 +9,11 @@ main:
 #  - title: "Talks"
 #    url: /talks/
 
- - title: "Blog"
-   url: /posters/
+#  - title: "Blog"
+#    url: /posters/
 
-  - title: "Teaching"
-    url: /teaching/
+#   - title: "Teaching"
+#     url: /teaching/
 
 #  - title: "Service"
 #    url: /service/
