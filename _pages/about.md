@@ -29,5 +29,5 @@ I worked as a project engineer with Wipro Technologies, India from 2006 to 2007,
 
 About this site
 ===============
-Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspiration info to motivate and start this page.
+Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
 This website is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub Pages. [GitHub Pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads!
