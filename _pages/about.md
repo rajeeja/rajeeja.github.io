@@ -14,7 +14,9 @@ Welcome to my website! Just here for my CV? You can download that [here](/files/
 
 ## What do I do?
 
-I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1)
+<!-- I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1) -->
+
+I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](http://people.cs.uchicago.edu/~lamonts/classes/mpcs51082/index.html)
 
 Over the years I have contributed to software products in a variety of fields from AI, Urban, Nuclear, Climate, Astrophysics and even Cancer, the common theme tying all these broad topics is computation, simulation and optimization. I am interested in developing/managing multi-disciplinary complex applications-oriented projects, software development and blockchain. 
 
