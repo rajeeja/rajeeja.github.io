@@ -25,8 +25,8 @@ main:
 #  - title: "Service"
 #    url: /service/
 
-  # - title: "Posters"
-  #   url: /year-archive/
+  - title: "Posters"
+    url: /year-archive/
 
   # - title: "Press"
   #   url: /press/
