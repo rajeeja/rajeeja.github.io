@@ -10,7 +10,9 @@ redirect_from:
 
 {% include base_path %}
 
-Welcome to my website! Just here for my CV? You can download that [here](/files/Jain_CV.pdf). 
+Welcome to my website[^1] Just here for my CV? You can download that [here](/files/Jain_CV.pdf). 
+
+[^1]: Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
 <!-- 
 Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work! -->
 
@@ -34,7 +36,8 @@ I graduated with a Bachelor of Technology (B.Tech) in Mechanical Engineering fro
 I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in Computer Science from University of Chicago (2020). 
 
 
-#### About this site
-
+<!-- #### About this site -->
+<!-- <font size="8">
 Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
+</font> -->
 <!-- This website is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub Pages. [GitHub Pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! -->
