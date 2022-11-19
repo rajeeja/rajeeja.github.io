@@ -10,9 +10,10 @@ redirect_from:
 
 {% include base_path %}
 
-Welcome to my website[^1] Just here for my CV? You can download that [here](/files/Jain_CV.pdf). 
-
-[^1]: Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
+<!--Welcome to my website[^1] Just here for my CV? You can download that [here](/files/Jain_CV.pdf). 
+--!>
+<!--[^1]: Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
+--!>
 <!-- 
 Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work! -->
 

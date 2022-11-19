@@ -83,7 +83,7 @@ author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
   bio		   : "Principal Research Software Specialist at Argonne"
-  cv		   : "https://rajeeja.github.io/files/Jain_CV.pdf"
+#  cv		   : "https://rajeeja.github.io/files/Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
