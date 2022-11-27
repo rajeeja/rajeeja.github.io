@@ -1,11 +1,11 @@
 # main links 
 main:
 
-  - title: "Current Projects"
-    url: /current_projects 
+  # - title: "Current Projects"
+  #   url: /current_projects 
     
-  - title: "Past Projects"
-    url: /past_projects 
+  # - title: "Past Projects"
+  #   url: /past_projects 
 
   - title: "Publications"
     url: /publications/
