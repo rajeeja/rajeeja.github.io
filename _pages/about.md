@@ -31,9 +31,14 @@ I'm a Principal Research Software Specialist at the Argonne National Laboratory 
 
 I graduated with a Bachelor of Technology (B.Tech) in Mechanical Engineering from Indian School of Mines (now Indian Institute of Technology, IIT) Dhanbad in 2006.
 
-I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in **Computer Science** from University of Chicago (2020). 
+I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. **I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in **Computer Science** from University of Chicago (2020). 
+**
 
+Over the years at Argonne I have worked on several projects, two major completed projects:
 
+- [NEAMS](https://neams.inl.gov/) PI for [MeshKit](https://www.osti.gov/biblio/1224960), published several [papers](https://www.researchgate.net/publication/285446364_Scalable_Mesh_Generation_for_HPC_Applications)
+  
+- [Multiscale Coupled Urban Systems](https://www.tandfonline.com/doi/abs/10.1080/19401493.2018.1534275) - led a team of spanning 6 DOE labs. Idea: retrofit and improve urban districts with new technologies, knowledge, and tools.
 <!-- #### About this site -->
 <!-- <font size="8">
 Credits to [Rachel](https://github.com/rkurchin/rkurchin.github.io) her webpage had inspirational info to motivate and start this page.
