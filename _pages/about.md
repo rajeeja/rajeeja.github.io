@@ -19,7 +19,7 @@ Please check out ways to reach me as well as my various other homes on the web i
 
 <!-- I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1) -->
 
-I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain). My work focuses on managing multi-disciplinary simulation/computation for applications-oriented problems. Currently I work on several DOE-funded projects, including [FLASH-X](https://flash-x.org/), a highly composable multi-physics software system that can be used to simulate physical phenomena in several scientific domains; [CANDLE](https://ecp-candle.github.io/Candle/)/[IMPROVE](https://jdacs4c-improve.github.io/docs/), which develops Exascale deep-learning-enabled precision medicine for cancer; and [UXARRAY/SEATS](https://github.com/UXARRAY/uxarray/), which provides the geoscience community with tools that enable standard data analysis techniques to operate directly on unstructured grid data.
+I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain). 
 
 <!-- `As things get back to normal after the pandemic, I am contributing to my alma mater, the masters program [MPCS](https://masters.cs.uchicago.edu/) at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](http://people.cs.uchicago.edu/~lamonts/classes/mpcs51082/index.html).  -->
 <!-- Over the years I have contributed to software products in a variety of fields from AI, Urban, Nuclear, Climate, Astrophysics and even Cancer, the common theme tying all these broad topics is computation, simulation and optimization. I am interested in developing/managing multi-disciplinary complex applications-oriented projects, software development and blockchain.  -->
@@ -29,14 +29,8 @@ I'm a Principal Research Software Specialist at the Argonne National Laboratory 
 
 I graduated with a Bachelor of Technology (B.Tech) in Mechanical Engineering from Indian School of Mines (now Indian Institute of Technology, IIT) Dhanbad in 2006.
 
-I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. **I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in **Computer Science** from University of Chicago (2020). 
-**
+I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in Computer Science from University of Chicago (2020).
 
-Over the years at Argonne I have worked on several projects, two major completed projects:
-
-- [NEAMS](https://neams.inl.gov/) PI for [MeshKit](https://www.osti.gov/biblio/1224960), published several [papers](https://www.researchgate.net/publication/285446364_Scalable_Mesh_Generation_for_HPC_Applications)
-  
-- [Multiscale Coupled Urban Systems](https://www.tandfonline.com/doi/abs/10.1080/19401493.2018.1534275) - led a team of spanning 6 DOE labs. Idea: retrofit and improve urban districts with new technologies, knowledge, and tools.
 
 
 <!-- #### About this site -->
