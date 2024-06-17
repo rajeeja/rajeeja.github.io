@@ -8,28 +8,79 @@ redirect_from:
   - /about.html
 ---
 
-{% include base_path %}
+<!-- {% include base_path %} -->
 
 <!--Welcome to my website[^1] Just here for my CV? You can download that [here](/files/Jain_CV.pdf). 
 --!>
 <!-- 
 Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work! -->
+# Journey: From Code to Cancer Research
 
-## What do I do?
+## Introduction
+
+I’m Rajeev Jain, a seasoned software developer and researcher. My journey has taken me through the fascinating realms of high-performance computing, where I’ve worked on diverse projects, from cancer data science to nuclear reactor simulations. Let’s dive into the chapters of my story. Currently, I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago - [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain)
+
+## Education
+
+I graduated with a **[Bachelor of Technology (B.Tech) in Mechanical Engineering](https://mechanical.iitism.ac.in/)** from **[Indian School of Mines (now Indian Institute of Technology, Dhanbad)](https://www.iitism.ac.in/)** in 2006.
+
+I worked as a project engineer with **[Wipro Technologies](https://www.wipro.com)**, India from 2006 to 2007 before moving to the U.S.A. for higher education. I obtained two master’s degrees in the U.S.: first, in **[Structural Engineering](https://ssebe.engineering.asu.edu/)** from **[Arizona State University (ASU)](https://www.asu.edu/)** in 2009, and second, in **[Computer Science](https://cs.uchicago.edu/mpcs/)** from the **[University of Chicago](https://www.uchicago.edu/)** in 2020.
+
+Feel free to explore more about these institutions by following the hyperlinks! 😊🎓
+
+## Projects
+
+### IMPROVE/CANDLE (Cancer Data Science)
+- **Duration:** January 2017 - Present
+- **Highlights:**
+  - Collaborated on a scalable workflow suite for comparing deep learning models in cancer drug response prediction.
+  - Spearheaded CANDLE/Supervisor, a pioneering machine learning framework for cancer research, recognized with the prestigious R&D 100 Award in 2023.
+  - Presented groundbreaking research at the Supercomputing conference in 2021, focusing on RNA-seq classification using abstention classifiers.
+
+### UXARRAY (Climate Computation/Modeling)
+- **Duration:** June 2021 - Present
+- **Highlights:**
+  - Actively contributed to the design and project management of UXarray, a Python library for managing unstructured climate and weather data.
+  - Showcased UXarray at the SciPy conference in 2023.
+
+### FLASH-X (Multiphysics Simulation, Astrophysics)
+- **Duration:** June 2016 - September 2023
+- **Highlights:**
+  - Led the implementation of cutting-edge asynchronous I/O (HDF5) and compression functionalities (SZ3/ZFP) for the FLASH-X multiphysics simulation software.
+  - Acknowledged with the R&D 100 Award in 2022 for achieving over 20% performance improvement in I/O-bound simulations.
+
+### Urban ECP (Coupled Urban Simulations)
+- **Duration:** June 2016 - September 2018
+- **Highlights:**
+  - Developed coupling software as part of the Urban ECP, integrating building energy models with high-fidelity weather data for downtown Chicago.
+  - Co-authored a widely recognized research paper resulting from extensive teamwork with 12 researchers across 3 institutions.
+
+### NEAMS SIGMA/MeshKit/RGG (Nuclear Reactor Simulations)
+- **Duration:** August 2009 - September 2018
+- **Highlights:**
+  - Led the development of RGG MeshKit, a C++ toolkit for reactor geometry mesh generation.
+  - Advised Kitware Inc. during the commercialization of RGG through SBIR Phase I & II.
+  - Streamlined nuclear reactor core design using RGG software, reducing model generation time from weeks to hours.
+  - Developed the core functionality of MeshKit, a directed acyclic graph (DAG) mesh generation toolkit.
+
+My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field.
+
+Ah, I should add that about my journey to the EB1-A green card; it was a bit like waiting for a perfectly brewed cup of coffee. It seemed like an eternity, but oh, the sweet aroma of success was worth it! So here’s the scoop: after what felt like a gazillion paperwork seasons and a marathon of patience, I finally snagged that coveted EB1-A green card in March 2024. It’s like winning the bureaucratic lottery, and now I’m ready to paint the town red, white, and blue! 🎉🇺🇸
+<!-- ## What do I do? -->
 
 <!-- I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1) -->
 
-I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain). 
+<!-- I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain).  -->
 
 <!-- `As things get back to normal after the pandemic, I am contributing to my alma mater, the masters program [MPCS](https://masters.cs.uchicago.edu/) at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](http://people.cs.uchicago.edu/~lamonts/classes/mpcs51082/index.html).  -->
 <!-- Over the years I have contributed to software products in a variety of fields from AI, Urban, Nuclear, Climate, Astrophysics and even Cancer, the common theme tying all these broad topics is computation, simulation and optimization. I am interested in developing/managing multi-disciplinary complex applications-oriented projects, software development and blockchain.  -->
 
 <!-- I enjoy interacting with the local junior high and high school students in STEM-related activities.  -->
-## What I did?
-
+<!-- ## What I did? -->
+<!-- 
 I graduated with a Bachelor of Technology (B.Tech) in Mechanical Engineering from Indian School of Mines (now Indian Institute of Technology, IIT) Dhanbad in 2006.
 
-I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in Computer Science from University of Chicago (2020).
+I worked as a project engineer with Wipro Technologies, India from 2006 to 2007, before moving to the U.S.A for higher education. I obtained two master’s degrees in the U.S., first, in Structural Engineering from Arizona State University (2009) and second, in Computer Science from University of Chicago (2020). -->
 
 
 
