@@ -14,11 +14,12 @@ redirect_from:
 --!>
 <!-- 
 Please check out ways to reach me as well as my various other homes on the web in the menu (either to the left or above, depending on your screen resolution) and click the links at the top of the page to check out some of my other experience and work! -->
-# Journey: From Code to Cancer Research
+<!-- # Journey: From Code to Cancer Research
+ -->
 
-## Introduction
+## Hello!
+I’m Rajeev Jain, a software developer and researcher. My journey has taken me through the fascinating realms of high-performance computing, where I’ve worked on diverse projects, from cancer data science to nuclear reactor simulations. Currently, I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago - [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain)
 
-I’m Rajeev Jain, a seasoned software developer and researcher. My journey has taken me through the fascinating realms of high-performance computing, where I’ve worked on diverse projects, from cancer data science to nuclear reactor simulations. Let’s dive into the chapters of my story. Currently, I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago - [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain)
 
 ## Education
 
@@ -29,6 +30,8 @@ I worked as a project engineer with **[Wipro Technologies](https://www.wipro.com
 Feel free to explore more about these institutions by following the hyperlinks! 😊🎓
 
 ## Projects
+
+After 2016, I started working on the three Exascale Compute Projects [ECP](https://www.exascaleproject.org/) two of them were R&D100 award winners: [CANDLE](https://candle.cels.anl.gov/), and [FLASH-X](https://flash-x.org/). The other exascale project was seed-funding, it lasted for 2-years (2016-2018) [Urban ECP](https://www.anl.gov/exascale/multiscale-coupled-urban-systems). Prior to that my work at Argonne revolved around managing different facets for the  [NEAMS](https://www.anl.gov/article/using-supercomputers-to-explore-nuclear-energy) project under team -[SIGMA/MeshKit/RGG](https://sigma.mcs.anl.gov/).
 
 ### IMPROVE/CANDLE (Cancer Data Science)
 - **Duration:** January 2017 - Present
@@ -65,7 +68,16 @@ Feel free to explore more about these institutions by following the hyperlinks! 
 
 My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field.
 
+## Green Card Journey :)
 Ah, I should add that about my journey to the EB1-A green card; it was a bit like waiting for a perfectly brewed cup of coffee. It seemed like an eternity, but oh, the sweet aroma of success was worth it! So here’s the scoop: after what felt like a gazillion paperwork seasons and a marathon of patience, I finally snagged that coveted EB1-A green card in March 2024. It’s like winning the bureaucratic lottery, and now I’m ready to paint the town red, white, and blue! 🎉🇺🇸
+
+Applied EB2 in 2013, 
+PD Sep-2014,
+EB1-A applied in 2022, - should have applied earlier :(
+PD 2023, ported date from EB2 to EB1-A
+Approved and card received March 2024.
+
+
 <!-- ## What do I do? -->
 
 <!-- I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1) -->
