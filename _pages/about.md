@@ -69,13 +69,17 @@ After 2016, I started working on the three Exascale Compute Projects [ECP](https
 My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field.
 
 ## Green Card Journey :)
-Ah, I should add that about my journey to the EB1-A green card; it was a bit like waiting for a perfectly brewed cup of coffee. It seemed like an eternity, but oh, the sweet aroma of success was worth it! So here’s the scoop: after what felt like a gazillion paperwork seasons and a marathon of patience, I finally snagged that coveted EB1-A green card in March 2024. It’s like winning the bureaucratic lottery, and now I’m ready to paint the town red, white, and blue! 🎉🇺🇸
+I should mention my journey to obtaining the EB1-A green card; it was like waiting for a perfectly brewed cup of coffee. Although it felt like an eternity, the sweet success was worth it. After enduring countless paperwork cycles and a test of patience, I finally received the EB1-A green card in March 2024. It felt like winning the bureaucratic lottery, and now I'm ready to celebrate!
 
-Applied EB2 in 2013, 
-PD Sep-2014,
-EB1-A applied in 2022, - should have applied earlier :(
-PD 2023, ported date from EB2 to EB1-A
-Approved and card received March 2024.
+Applied for EB2 in 2013
+
+Priority Date: September 2014
+
+Applied for EB1-A in 2022 (should have applied earlier)
+
+Priority Date: 2023, ported from EB2 to EB1-A
+
+Approved and received card: March 2024
 
 
 <!-- ## What do I do? -->
