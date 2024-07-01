@@ -11,7 +11,7 @@ redirect_from:
 
 Detailed list is on <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en">my Google Scholar profile</a>. Here are a few selected ones:
 
-{% include publications}
+{% include publications limit=60 %}
 
 <!-- 
 {% include base_path %}
