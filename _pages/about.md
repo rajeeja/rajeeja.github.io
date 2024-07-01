@@ -73,11 +73,11 @@ I should mention my journey to obtaining the EB1-A green card; it was like waiti
 
 Applied for EB2 in 2013
 
-Priority Date: September 2014
+Priority Date (PD): September 2014
 
 Applied for EB1-A in 2022 (should have applied earlier)
 
-Priority Date: 2023, ported from EB2 to EB1-A
+Priority Date: 2023, ported just the PD from EB2 to EB1-A
 
 Approved and received card: March 2024
 
