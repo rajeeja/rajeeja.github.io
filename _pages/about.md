@@ -66,7 +66,7 @@ After 2016, I started working on the three Exascale Compute Projects [ECP](https
   - Streamlined nuclear reactor core design using RGG software, reducing model generation time from weeks to hours.
   - Developed the core functionality of MeshKit, a directed acyclic graph (DAG) mesh generation toolkit.
 
-My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field.
+<!-- My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field. -->
 
 <!-- ## What do I do? -->
 
