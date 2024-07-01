@@ -8,4 +8,4 @@ redirect_from:
   - /pubs
   - /publication
 ---
-{% include publications link=true %}
+{% include publications}
