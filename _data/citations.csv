@@ -7,6 +7,7 @@
 "Jain, Rajeev; Tautges, Tim; ",RGG: Reactor geometry (and mesh) generator,Proceedings of ICAPP’12,,,24-28,2012,
 "Mohanty, Subhasish; Jain, Rajeev; Majumdar, Saurin; Tautges, Timothy J; Srinivasan, Makuteswara; ",Coupled field structural analysis of HTGR fuel brick using Abaqus,Proceedings of ICAPP,12,,24-28,2012,
 "Jain, Rajeev; Tautges, Timothy J; ",NEAMS MeshKit: Nuclear Reactor Mesh Generation Solutions,Proceedings of International Congress on the Advances in Nuclear Power Plants (ICAPP),,,6-9,2015,
+"Tautges, Timothy J; Kraftcheck, Jason A; Smith, Brandon M; Kim, Hong-Jun; ",Mesh-Oriented datABase (MOAB) Version 4.6 User's Guide,,,,,2012,
 "Bingham, Avery; Ortensi, Javier; ",SHARP/PRONGHORN Interoperability: Mesh Generation,,,,,2012,"Idaho National Lab.(INL), Idaho Falls, ID (United States)"
 "Jain, Rajeev; Tautges, Timothy J; ",Generating unstructured nuclear reactor core meshes in parallel,Procedia Engineering,82,,351-363,2014,No longer published by Elsevier
 "Jain, Rajeev; Tautges, Timothy J; ",PostBL: Post-mesh boundary layer mesh generation tool,Proceedings of the 22nd International Meshing Roundtable,,,331-348,2014,Springer International Publishing Cham
@@ -17,15 +18,14 @@
 "Tautges, Timothy J; Jain, Rajeev; ",Mesh Copy/Move/Merge Tool for Reactor Simulation Applications,,,,,2014,"Argonne National Lab.(ANL), Argonne, IL (United States)"
 "Mahadevan, Vijay S; Merzari, Elia; Tautges, Timothy; Jain, Rajeev; Obabko, Aleksandr; Smith, Michael; Fischer, Paul; ",High-resolution coupled physics solvers for analysing fine-scale nuclear reactor design problems,"Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences",372,2021,20130381,2014,The Royal Society Publishing
 "Tautges, TJ; Fischer, P; Grindeanu, I; Jain, R; Mahadevan, V; Obabko, A; Smith, MA; Merzari, E; Ferencz, RM; ",SHARP Assembly-Scale Multiphysics Demonstration Simulations.,,,,,2013,"Argonne National Lab.(ANL), Argonne, IL (United States)"
-"Grindeanu, Iulian; Peterson, Kara; Mahadevan, Vijay; Ray, Navamita; Jain, Rajeev; ",Scalable Advection Algorithms for Multi-Tracers in Climate Codes,,,,,,
-"Mahadevan, Vijay S; Merzari, Elia; Grindeanu, Iulian; ",A glass box coupling methodology for rigorously solving strongly coupled phenomena in nuclear reactors,,,,,,
+"Grindeanu, Iulian; Peterson, Kara; Mahadevan, Vijay; Ray, Navamita; Jain, Rajeev; ",Scalable Advection Algorithms for Multi-Tracers in Climate Codes,SIAM Conference on Computational Science and Engineering (Poster),,,,2015,
 "Mahadevan, Vijay; Grindeanu, Iulian R; Ray, Navamita; Jain, Rajeev; Wu, Danqing; ","SIGMA release v1. 2-capabilities, enhancements and fixes",,,,,2015,"Argonne National Lab.(ANL), Argonne, IL (United States)"
 "Jain, Rajeev; Vanderzee, Evan; Mahadevan, Vijay; ",Update on Development of Mesh Generation Algorithms in MeshKit,,,,,2015,"Argonne National Lab.(ANL), Argonne, IL (United States)"
 "Jain, Rajeev; Mahadevan, Vijay; ",Documentation for MeshKit-Reactor Geometry (&mesh) Generator,,,,,2015,"Argonne National Lab.(ANL), Argonne, IL (United States)"
-"Jain, Rajeev; Ray, Navamita; Grindeanu, Iulian; Wu, Danqing; Mahadevan, Vijay; ",Scalable Mesh Generation for HPC Applications,,,,,,
+"Jain, Rajeev; Ray, Navamita; Grindeanu, Iulian; Wu, Danqing; Mahadevan, Vijay; ",Scalable Mesh Generation for HPC Applications,"The International Conference for High Performance Computing, Networking, Storage and Analysis",,,,2015,
 "Merzari, E; Shemon, ER; Yu, YQ; Thomas, JW; Obabko, A; Jain, Rajeev; Mahadevan, Vijay; Tautges, Timothy; Solberg, Jerome; Ferencz, Robert Mark; ",Multi-physics demonstration problem with the sharp reactor simulation toolkit,,,,,2015,"Argonne National Lab.(ANL), Argonne, IL (United States)"
 "Merzari, E; Shemon, ER; Yu, Y; Thomas, JW; Obabko, A; Jain, Rajeev; Mahadevan, Vijay; Solberg, Jerome; Ferencz, R; Whitesides, R; ",Full Core Multiphysics Simulation with Offline Mesh Deformation,,,,,2015,"Argonne National Lab.(ANL), Argonne, IL (United States)"
-"Jain, Rajeev; ",Reactor Geometry (&Mesh) Generator Users Manual–17th Feb 2017,,,,,,
+"Jain, Rajeev; ",Reactor Geometry (&Mesh) Generator Users Manual,DOE Manual,,,,2017,
 "Tautges, TJ; Kraftcheck, J; Porter, Jim; Caceres, Alvaro; Grindeanu, Iulian; Karpeev, DMITRY; Jain, RAJEEV; Kim, Hong-Jun; Cai, SHENGYONG; Jackson, STEVE; ",MeshKit: a Open-Source library for mesh generation,"Proceedings, SIAM Conference on Computational Science & Engineering. SIAM, Reno, NV",,,,2011,
 "Wozniak, Justin M; Jain, Rajeev; Balaprakash, Prasanna; Ozik, Jonathan; Collier, Nicholson T; Bauer, John; Xia, Fangfang; Brettin, Thomas; Stevens, Rick; Mohd-Yusof, Jamaludin; ",CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research,BMC bioinformatics,19,,59-69,2018,BioMed Central
 "O'Leary, Patrick; Becker, Jacob; O’Bara, Robert; Thompson, David; Jain, Rajeev; Mahadevan, Vijay; ",Providing a Graphical Tool for Modeling Reactor Cores,Transactions of the American Nuclear Society,118,1,,2018,"Kitware, Inc., Clifton Park, NY (United States); Argonne National Lab.(ANL …"
@@ -41,7 +41,6 @@
 "Jain, Rajeev; Weide, Klaus; Chawdhary, Saurabh; Klostermann, Thomas; ",Checkpoint/Restart for Lagrangian particle mesh with AMR in community code FLASH-X,arXiv preprint arXiv:2103.04267,,,,2021,
 "Harris, J Austin; Chu, Ran; Couch, Sean M; Dubey, Anshu; Endeve, Eirik; Georgiadou, Antigoni; Jain, Rajeev; Kasen, Daniel; Laiu, M Paul; Messer, OE B; ",Exascale models of stellar explosions: Quintessential multi-physics simulation,The International Journal of High Performance Computing Applications,36,1,59-77,2022,"SAGE Publications Sage UK: London, England"
 "Merzari, E; Shemon, E; Yu, Y; Thomas, J; Obabko, A; Jain, R; Mahadevan, V; Solberg, J; Ferencz, R; Whitesides, R; ",Full core multi-physics simulation with offline core deformation,ANL/NE,15,,42,2015,
-"Dubey, Anshu; Weide, K; O’Neal, J; Dhruv, A; Couch, S; Harris, JA; Klosterman, T; Jain, R; Messer, OEB; Pajkos, M; ",Flash-X,,,,,,
 "Jain, Rajeev; Shah, Ashka; Mohd-Yusof, Jamaludin; Wozniak, Justin M; Brettin, T; Xia, Fangfang; Stevens, R; ",Probing decision boundaries in cancer data using noise injection and counterfactual analysis,Computational Approaches for Cancer Workshop@ SC,,,,2021,
 "Dubey, Anshu; Weide, Klaus; O’Neal, Jared; Dhruv, Akash; Couch, Sean; Harris, J Austin; Klosterman, Tom; Jain, Rajeev; Rudi, Johann; Messer, Bronson; ",Flash-X: A multiphysics simulation software instrument,SoftwareX,19,,101168,2022,Elsevier
 "Jain, Rajeev; Tang, Houjun; Dhruv, Akash; Harris, J Austin; Byna, Suren; ",Accelerating flash-x simulations with asynchronous i/o,2022 IEEE/ACM International Parallel Data Systems Workshop (PDSW),,,13-19,2022,IEEE
@@ -53,5 +52,5 @@
 "Chen, Hongyu; Ullrich, Paul Aaron; Panetta, Julian; Eroglu, Orhan; Chmielowiec, Philip; Jain, Rajeev; Jacob, Robert L; ",Accurate and Robust Geometry Operators on the Sphere in UXarray,AGU23,,,,2023,AGU
 "Jacob, Robert L; Ullrich, Paul Aaron; Zhang, Chengzhu; Jain, Rajeev; Chen, Hongyu; Vo, Tom; Po-Chedley, Stephen; ",Creating New Standards to Simplify Earth System Model Analysis,AGU23,,,,2023,AGU
 "Chmielowiec, Philip; Chen, Hongyu; DeCiampa, Corrine Nicole; Eroglu, Orhan; Hannay, Cécile; Jacob, Robert; Jain, Rajeev; Loft, Richard; Medeiros, Brian; Sun, Lantao; ",UXarray: Extending Xarray with Support for Unstructured Grids,104th AMS Annual Meeting,,,,2024,AMS
-"Panapitiya, Gihan Uthpala; Knutson, Carter; McNaughton, Andrew D; Jain, Rajeev; Wozniak, Justin; Brettin, Thomas; Stevens, Rick L; Kumar, Neeraj; ",Impact of Molecular Representations on Deep Learning Model Comparisons in Drug Response Predictions,,,,,,
+"Panapitiya, Gihan Uthpala; Knutson, Carter; McNaughton, Andrew D; Jain, Rajeev; Wozniak, Justin; Brettin, Thomas; Stevens, Rick L; Kumar, Neeraj; ",Impact of Molecular Representations on Deep Learning Model Comparisons in Drug Response Predictions,https://openreview.net/,,,,2024,
 "Eroglu, Orhan; Chen, Hongyu; Chmielowiec, Philip; Clyne, John; DeCiampa, Corrine; Hannay, Cecile; Jacob, Robert; Jain, Rajeev; Loft, Richard; Medeiros, Brian; ",UXarray: Extensions to Xarray to support unstructured grids,,,,,2024,Copernicus Meetings
