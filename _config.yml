@@ -75,7 +75,7 @@ social:
 analytics:
   provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          : "UA-131916961-1"
+    tracking_id          : "G-3ZVH8WXDBW"
 
 
 # Site Author
@@ -83,7 +83,6 @@ author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
   bio		   : "Principal Specialist, Research Software Engineering at Argonne"
-#  cv		   : "https://rajeeja.github.io/files/Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
