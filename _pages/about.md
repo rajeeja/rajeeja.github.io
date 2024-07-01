@@ -28,6 +28,8 @@ I graduated with a **[Bachelor of Technology (B.Tech) in Mechanical Engineering]
 I worked as a project engineer with **[Wipro Technologies](https://www.wipro.com)**, India from 2006 to 2007 before moving to the U.S.A. for higher education. I obtained two master’s degrees in the U.S.: first, in **[Structural Engineering](https://ssebe.engineering.asu.edu/)** from **[Arizona State University (ASU)](https://www.asu.edu/)** in 2009, and second, in **[Computer Science](https://cs.uchicago.edu/mpcs/)** from the **[University of Chicago](https://www.uchicago.edu/)** in 2020.
 
 Feel free to explore more about these institutions by following the hyperlinks! 😊🎓
+
+
 <!-- My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field. -->
 
 <!-- ## What do I do? -->

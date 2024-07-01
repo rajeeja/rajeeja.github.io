@@ -71,11 +71,11 @@ social:
   links: # An array of links to social media profiles
 
 
-# Analytics
-analytics:
-  provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
-  google:
-    tracking_id          : "G-3ZVH8WXDBW"
+# # Analytics
+# analytics:
+#   provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
+#   google:
+#     tracking_id          : "G-3ZVH8WXDBW"
 
 
 # Site Author
@@ -87,7 +87,7 @@ author:
   location         : "Chicago, IL"
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
-   email            : "rajeeja@gmail.com"
+  email            : "rajeeja@gmail.com"
   researchgate     : "https://www.researchgate.net/profile/Rajeev-Jain-7"
   uri              :
   bitbucket        :
