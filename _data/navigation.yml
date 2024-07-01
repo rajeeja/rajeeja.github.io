@@ -1,8 +1,8 @@
 # main links 
 main:
 
-  # - title: "Projects"
-  #   url: /projects 
+  - title: "Projects"
+    url: /projects 
     
   # - title: "Past Projects"
   #   url: /past_projects 

@@ -28,44 +28,6 @@ I graduated with a **[Bachelor of Technology (B.Tech) in Mechanical Engineering]
 I worked as a project engineer with **[Wipro Technologies](https://www.wipro.com)**, India from 2006 to 2007 before moving to the U.S.A. for higher education. I obtained two master’s degrees in the U.S.: first, in **[Structural Engineering](https://ssebe.engineering.asu.edu/)** from **[Arizona State University (ASU)](https://www.asu.edu/)** in 2009, and second, in **[Computer Science](https://cs.uchicago.edu/mpcs/)** from the **[University of Chicago](https://www.uchicago.edu/)** in 2020.
 
 Feel free to explore more about these institutions by following the hyperlinks! 😊🎓
-
-## Projects
-
-After 2016, I started working on the three Exascale Compute Projects [ECP](https://www.exascaleproject.org/) two of them were R&D100 award winners: [CANDLE](https://candle.cels.anl.gov/), and [FLASH-X](https://flash-x.org/). The other exascale project was seed-funding, it lasted for 2-years (2016-2018) [Urban ECP](https://www.anl.gov/exascale/multiscale-coupled-urban-systems). Prior to that my work at Argonne revolved around managing different facets for the  [NEAMS](https://www.anl.gov/article/using-supercomputers-to-explore-nuclear-energy) project under team -[SIGMA/MeshKit/RGG](https://sigma.mcs.anl.gov/).
-
-### IMPROVE/CANDLE (Cancer Data Science)
-- **Duration:** January 2017 - Present
-- **Highlights:**
-  - Collaborated on a scalable workflow suite for comparing deep learning models in cancer drug response prediction.
-  - Spearheaded CANDLE/Supervisor, a pioneering machine learning framework for cancer research, recognized with the prestigious R&D 100 Award in 2023.
-  - Presented groundbreaking research at the Supercomputing conference in 2021, focusing on RNA-seq classification using abstention classifiers.
-
-### UXARRAY (Climate Computation/Modeling)
-- **Duration:** June 2021 - Present
-- **Highlights:**
-  - Actively contributed to the design and project management of UXarray, a Python library for managing unstructured climate and weather data.
-  - Showcased UXarray at the SciPy conference in 2023.
-
-### FLASH-X (Multiphysics Simulation, Astrophysics)
-- **Duration:** June 2016 - September 2023
-- **Highlights:**
-  - Led the implementation of cutting-edge asynchronous I/O (HDF5) and compression functionalities (SZ3/ZFP) for the FLASH-X multiphysics simulation software.
-  - Acknowledged with the R&D 100 Award in 2022 for achieving over 20% performance improvement in I/O-bound simulations.
-
-### Urban ECP (Coupled Urban Simulations)
-- **Duration:** June 2016 - September 2018
-- **Highlights:**
-  - Developed coupling software as part of the Urban ECP, integrating building energy models with high-fidelity weather data for downtown Chicago.
-  - Co-authored a widely recognized research paper resulting from extensive teamwork with 12 researchers across 3 institutions.
-
-### NEAMS SIGMA/MeshKit/RGG (Nuclear Reactor Simulations)
-- **Duration:** August 2009 - September 2018
-- **Highlights:**
-  - Led the development of RGG MeshKit, a C++ toolkit for reactor geometry mesh generation.
-  - Advised Kitware Inc. during the commercialization of RGG through SBIR Phase I & II.
-  - Streamlined nuclear reactor core design using RGG software, reducing model generation time from weeks to hours.
-  - Developed the core functionality of MeshKit, a directed acyclic graph (DAG) mesh generation toolkit.
-
 <!-- My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field. -->
 
 <!-- ## What do I do? -->
