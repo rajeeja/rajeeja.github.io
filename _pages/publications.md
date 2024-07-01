@@ -9,9 +9,10 @@ redirect_from:
   - /publication
 ---
 
-Detailed list is on <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en">my Google Scholar profile</a>. Here are a few selected ones:
+Detailed list is on <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en">my Google Scholar profile</a>. 
+If you would like PDFs of any of these papers, please email. Here are a few selected ones with links:
 
-{% include publications limit=60 link=true %}
+{% include publications link=true style="chicago" limit=60 %}
 
 <!-- 
 {% include base_path %}
