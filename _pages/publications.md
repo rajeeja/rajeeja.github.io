@@ -1,4 +1,4 @@
-<!-- ---
+---
 layout: archive
 title: "Publications"
 permalink: /publications/
@@ -7,7 +7,7 @@ redirect_from:
   - /publications
   - /pubs
   - /publication
---- -->
+---
 
   <!-- Detailed list is on <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en">my Google Scholar profile</a>. Here are a few selected ones:
 
