@@ -68,20 +68,6 @@ After 2016, I started working on the three Exascale Compute Projects [ECP](https
 
 My journey showcases innovation, collaboration, and impactful contributions to computational science. My work continues to shape the landscape of high-performance computing, leaving an indelible mark on the field.
 
-## Green Card Journey :)
-I should mention my journey to obtaining the EB1-A green card; it was like waiting for a perfectly brewed cup of coffee. Although it felt like an eternity, the sweet success was worth it. After enduring countless paperwork cycles and a test of patience, I finally received the EB1-A green card in March 2024. It felt like winning the bureaucratic lottery, and now I'm ready to celebrate!
-
-Applied for EB2 in 2013
-
-Priority Date (PD): September 2014
-
-Applied for EB1-A in 2022 (should have applied earlier)
-
-Priority Date: 2023, ported just the PD from EB2 to EB1-A
-
-Approved and received card: March 2024
-
-
 <!-- ## What do I do? -->
 
 <!-- I'm a Principal Research Software Specialist at the Argonne National Laboratory in the suburbs of Chicago. I enjoy interacting with the local junior high and high school students in STEM-related activities. As things get back to normal after the pandemic, I am contributing to the masters program at UChicago, Autumn 2022 grader for [Introduction to Unix Systems](https://mpcs-courses.cs.uchicago.edu/2022-23/autumn/courses/mpcs-51082-1) -->
