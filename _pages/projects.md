@@ -11,10 +11,6 @@ redirect_from:
 
 {% include base_path %}
 
-List of all the projects I have worked on, currently working on or have managed in the past.
-
-## Projects
-
 After 2016, I started working on the three Exascale Compute Projects [ECP](https://www.exascaleproject.org/) two of them were R&D100 award winners: [CANDLE](https://candle.cels.anl.gov/), and [FLASH-X](https://flash-x.org/). The other exascale project was seed-funding, it lasted for 2-years (2016-2018) [Urban ECP](https://www.anl.gov/exascale/multiscale-coupled-urban-systems). Prior to that my work at Argonne revolved around managing different facets for the  [NEAMS](https://www.anl.gov/article/using-supercomputers-to-explore-nuclear-energy) project under team -[SIGMA/MeshKit/RGG](https://sigma.mcs.anl.gov/).
 
 ### IMPROVE/CANDLE (Cancer Data Science)

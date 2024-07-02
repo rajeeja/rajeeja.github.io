@@ -18,7 +18,9 @@ Please check out ways to reach me as well as my various other homes on the web i
  -->
 
 ## Hello!
-I’m Rajeev Jain, a software developer and researcher. My journey has taken me through the fascinating realms of high-performance computing, where I’ve worked on diverse projects, from cancer data science to nuclear reactor simulations. Currently, I'm a Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago - [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain)
+I’m Rajeev Jain, a software developer and researcher. My current title is Principal Specialist, Research Software Engineering at the Argonne National Laboratory in the suburbs of Chicago - [Argonne Profile Page](https://www.anl.gov/profile/rajeev-jain) 
+
+My journey at Argonne since August 2009 has taken me through the fascinating realms of high-performance computing, where I’ve worked on diverse projects, from cancer data science to nuclear reactor simulations. During this time, I’ve been fortunate to learn from great people who have shaped my path. Collaborating with exceptional peers has also enriched my professional experience and I’ve had the pleasure of mentoring motivated juniors, which is incredibly rewarding. See my [projects](/projects/).
 
 
 ## Education
