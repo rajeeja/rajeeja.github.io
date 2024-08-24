@@ -10,6 +10,9 @@
     padding: 2px;
     cursor: pointer;
     font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Adjust if necessary */
 }
 .container .content {
     display: none;
