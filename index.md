@@ -8,11 +8,11 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 
 <div class="page-intro" style="margin-top:.5rem">
   <p><strong>Principal Specialist, Research Software Engineering at Argonne National Laboratory.</strong> Since 2009, I’ve built high‑performance, reliable research software with domain scientists across cancer data science, climate computation, multiphysics simulation, urban systems, and nuclear reactor modeling.</p>
-  <p>My work focuses on HPC I/O, unstructured data tooling, and applied ML for science. Recent efforts include <em>UXarray</em> (unstructured climate grids, Python), <em>FLASH‑X</em> (asynchronous HDF5 I/O with SZ3/ZFP, verification), and <em>CANDLE/Supervisor</em> (scalable deep‑learning workflows across supercomputers).</p>
+  <p>I work across fields and teams to turn complex problems into dependable software. I like clear goals, simple designs, and fast feedback: build, test, measure, improve. Most of my work sits at the boundary between research and production.</p>
   <ul>
-    <li>Built and maintained production‑quality tools adopted by DOE projects and used at national facilities.</li>
-    <li>Presented at venues including SciPy, AMS, and EGU; publications and software recognized by the community.</li>
-    <li>Hands‑on with performance, testing, CI, and reproducibility to turn prototypes into dependable systems.</li>
+    <li>Projects span cancer data science, climate tools, multiphysics codes, urban systems, and reactor modeling.</li>
+    <li>Grateful to have worked with great people; I try to keep things simple, practical, and useful.</li>
+    <li>Prefer small, steady steps over big promises; measure outcomes and improve.</li>
   </ul>
   
   <p style="margin-top:.4rem"><a href="/about/">Read more about my background →</a></p>
