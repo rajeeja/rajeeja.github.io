@@ -23,8 +23,8 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 <h2>Projects</h2>
 <ul>
   <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python), up to 60× faster on key workloads. <a href="/projects/#uxarray" class="small">Details →</a></li>
-  <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response across supercomputers. <a href="/projects/#candle" class="small">Details →</a></li>
-  <li><strong>FLASH‑X</strong> — Async HDF5 I/O and verification for multiphysics; >20% I/O speedups. <a href="/projects/#flashx" class="small">Details →</a></li>
+  <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response across supercomputers. <a href="/projects/#candle" class="small">Details →</a> · <a href="{{ site.data.rd_awards.candle.url }}" class="small" target="_blank">R&D 100 ({{ site.data.rd_awards.candle.year }})</a></li>
+  <li><strong>FLASH‑X</strong> — Async HDF5 I/O and verification for multiphysics; >20% I/O speedups. <a href="/projects/#flashx" class="small">Details →</a> · <a href="{{ site.data.rd_awards.flashx.url }}" class="small" target="_blank">R&D 100 ({{ site.data.rd_awards.flashx.year }})</a></li>
   <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale insights. <a href="/projects/#urban-ecp" class="small">Details →</a></li>
   <li><strong>NEAMS SIGMA/MeshKit/RGG</strong> — Reactor core mesh tools; cut modeling time from weeks to hours. <a href="/projects/#neams" class="small">Details →</a></li>
 </ul>
@@ -34,7 +34,7 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 <h2>Selected Publications</h2>
 <ul>
   {% for p in site.data.selected_publications limit:3 %}
-    <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}). {% if p.doi %}<a href="{{ p.doi }}" target="_blank">DOI</a>{% endif %}</li>
+    <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}). {% if p.doi %}<a href="{{ p.doi }}" target="_blank" class="small">DOI</a>{% endif %}</li>
   {% endfor %}
 </ul>
 <p><a href="/publications/">View full list →</a></p>
