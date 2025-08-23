@@ -20,7 +20,8 @@ main:
 #  - title: "Service"
 #    url: /service/
 
-  
+  - title: "Blogs"
+    url: /year-archive/
 
   # - title: "Press"
   #   url: /press/
