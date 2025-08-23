@@ -1,0 +1,182 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{mdwlist}
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+% Define custom colors
+\definecolor{linkcolor}{HTML}{0066CC}
+\definecolor{namecolor}{HTML}{003366}
+\definecolor{sectioncolor}{HTML}{004C99}
+\definecolor{subheadingcolor}{HTML}{444444}
+\definecolor{datecolor}{HTML}{666666}
+\definecolor{iconcolor}{HTML}{3399CC}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,
+    filecolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=linkcolor,
+}
+
+\urlstyle{same}
+\usepackage{fontawesome5}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1.0ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.0ex plus 1ex minus .2ex}{0.5ex plus .2ex}
+\titleformat{\section}{\Large\bfseries\color{sectioncolor}}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries\color{subheadingcolor}}{}{0em}{}
+
+\pagestyle{empty}
+
+% Updated resume macros with color for date and location
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*, itemsep=2pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\
+    \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}
+}
+\newcommand{\resumeProject}[2]{
+  \item
+    \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}
+}
+\newcommand{\resumeItem}[1]{\item{#1}}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{\color{namecolor}Rajeev Jain}} \\ \vspace{2mm}
+    Chicago, IL \\
+    {\color{iconcolor}\faEnvelope} \href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad
+    {\color{iconcolor}\faPhone} (312) 725-3380 \quad
+    {\color{iconcolor}\faLinkedin} \href{https://www.linkedin.com/in/rajeeja/}{linkedin.com/in/rajeeja} \\
+    {\color{iconcolor}\faGoogle} \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en}{Google Scholar} \quad
+    {\color{iconcolor}\faGithub} \href{https://github.com/rajeeja}{github.com/rajeeja} \quad
+    {\color{iconcolor}\faGlobe} \href{https://rajeeja.github.io/}{rajeeja.github.io} \\
+    {\color{iconcolor}\faTwitter} \href{https://twitter.com/rajeeja}{twitter.com/rajeeja} \quad
+    {\color{iconcolor}\faBuilding} \href{https://www.anl.gov/profile/rajeev-jain}{Argonne Profile}
+\end{center}
+
+\section*{Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+  {CASE Staff At-Large}{Sep 2023 -- Present}
+  {The University of Chicago (UChicago)}{Chicago, IL}
+  \resumeItemListStart
+    \resumeItem{Joint appointment supporting computational cancer research initiatives between Argonne National Laboratory (ANL) and UChicago.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Principal Specialist, Research Software Engineering (formerly Research Software Developer)}{Aug 2009 -- Present}
+  {Mathematics and Computer Science Division, Argonne National Laboratory (ANL)}{Lemont, IL}
+  \resumeItemListStart
+    \resumeItem{Contributed to five major projects across cancer data science, climate computation, multiphysics simulation, urban coupled simulations, and nuclear reactor modeling.}
+    \resumeItem{Pursued high-performance computing challenges in diverse scientific domains; mentored junior researchers.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Research and Teaching Assistant}{Aug 2007 -- Jul 2009}
+  {Structural Engineering, Arizona State University}{Tempe, AZ}
+  \resumeItemListStart
+    \resumeItem{Enhanced blast-resistant structure design for the U.S. Army Research Office using FEM-based shape optimization.}
+  \resumeItemListEnd
+
+\resumeSubheading
+  {Project Engineer}{May 2006 -- Jun 2007}
+  {Wipro Technologies}{Bangalore/Hyderabad, India}
+  \resumeItemListStart
+    \resumeItem{Developed production-ready code in Java and SAP; quickly adapted to large-scale software environments.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\section*{Major Projects}
+\resumeSubHeadingListStart
+
+\resumeProject
+  {IMPROVE/CANDLE (Cancer Data Science - ECP)}{Jan 2017 -- Present}
+  \resumeItemListStart
+    \resumeItem{Lead developer of CANDLE/Supervisor, a scalable deep learning workflow suite on DOE supercomputers; awarded R\&D 100 Award in 2023.}
+    \resumeItem{Pioneered gene discovery method using noise injection and counterfactual analysis.}
+  \resumeItemListEnd
+
+\resumeProject
+  {Uxarray (Climate Computation/Modeling - DOE)}{Jun 2021 -- Present}
+  \resumeItemListStart
+    \resumeItem{Co-created Uxarray, a performant Python library for unstructured grid analysis; enabled 60× speedups via vectorization and parallelization.}
+  \resumeItemListEnd
+
+\resumeProject
+  {FLASH-X (Multiphysics Simulation, Astrophysics - ECP)}{Jun 2016 -- Sep 2023}
+  \resumeItemListStart
+    \resumeItem{Improved FLASH-X with HDF5 async I/O and SZ3/ZFP compression, achieving >20\% performance gains; R\&D 100 Award 2022.}
+    \resumeItem{Architected a test and verification framework for composable physics solvers.}
+  \resumeItemListEnd
+
+\resumeProject
+  {Urban Coupled Simulations (ECP Seed Funded)}{Jun 2016 -- Sep 2018}
+  \resumeItemListStart
+    \resumeItem{Led a cross-disciplinary team to build an urban climate simulation framework.}
+  \resumeItemListEnd
+
+\resumeProject
+  {SIGMA/MeshKit/RGG (Nuclear Reactor Simulations - DOE NEAMS)}{Aug 2009 -- Sep 2018}
+  \resumeItemListStart
+    \resumeItem{Principal investigator for RGG/MeshKit, a toolkit for reactor mesh generation; commercialized via SBIR (Kitware, 2014–2017).}
+    \resumeItem{Enabled parallel mesh generation for large-scale multiphysics simulations.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\section*{Technical Skills}
+\resumeSubHeadingListStart
+  \item \textbf{HPC and Programming:} Python, Fortran, C++; MPI, OpenMP, HDF5, parallel I/O, performance tuning on supercomputers.
+  \item \textbf{ML and Data Tools:} PyTorch, Keras, NumPy, Matplotlib, pandas, Scikit-learn, Jupyter; software engineering with Git, CI/CD.
+\resumeSubHeadingListEnd
+
+\section*{Education}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+  {The University of Chicago}{Chicago, IL}
+  {M.S. in Computer Science}{Jun 2020}
+
+\resumeSubheading
+  {Arizona State University}{Tempe, AZ}
+  {M.S. in Structural Engineering (Minor: Computer Science)}{Jul 2009}
+
+\resumeSubheading
+  {Indian Institute of Technology (IIT) Dhanbad}{Dhanbad, India}
+  {B.Tech. in Mechanical Engineering}{May 2006}
+
+\resumeSubHeadingListEnd
+
+\section*{Selected Publications}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+\item \textbf{Jain, R.}, Eroglu, O., Chen, H., Chmielowiec, P., Clyne, J., Hannay, C., Jacob, R., Medeiros, B., Ullrich, P., \& Zarzycki, C. (2025). UXarray: Extending Xarray for Enhanced Support of Unstructured Grids. \textit{EGU General Assembly 2025}, Vienna, Austria, 27 Apr--2 May 2025, EGU25-13873. \href{https://doi.org/10.5194/egusphere-egu25-13873}{https://doi.org/10.5194/egusphere-egu25-13873}
+    
+    \item Wozniak, J. M., \textbf{Jain, R.}, Balaprakash, P., Ozik, J., Collier, N. T., Bauer, J., Xia, F., Brettin, T., Stevens, R., \& Mohd-Yusof, J. (2018). CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research. \textit{BMC Bioinformatics}, 19, 59--69. (Cited by 107). \href{https://doi.org/10.1186/s12859-018-2056-3}{https://doi.org/10.1186/s12859-018-2056-3}
+    
+    \item Mahadevan, V. S., Merzari, E., Tautges, T., \textbf{Jain, R.}, Obabko, A., Smith, M., \& Fischer, P. (2014). High-resolution coupled physics solvers for analysing fine-scale nuclear reactor design problems. \textit{Philosophical Transactions of the Royal Society A}, 372(2021), 20130381. (Cited by 79). \href{https://doi.org/10.1098/rsta.2013.0381}{https://doi.org/10.1098/rsta.2013.0381}
+    
+    \item \textbf{Jain, R.}, Luo, X., Sever, G., Hong, T., \& Catlett, C. (2020). Representation and evolution of urban weather boundary conditions in downtown Chicago. \textit{Journal of Building Performance Simulation}, 13(2), 182--194. (Cited by 23). \href{https://doi.org/10.1080/19401493.2020.1739106}{https://doi.org/10.1080/19401493.2020.1739106}
+    
+    \item \textbf{Jain, R.}, Shah, A., Mohd-Yusof, J., Wozniak, J., Brettin, T., Xia, F., \& Stevens, R. (2021). Probing decision boundaries in cancer data using noise injection and counterfactual analysis. \textit{Computational Approaches for Cancer Workshop@ SC}. (Cited by 2). \href{https://doi.org/10.1145/3489146.3492790}{https://doi.org/10.1145/3489146.3492790}
+    
+    \item \textbf{Jain, R.}, \& Tautges, T. J. (2012). Creating geometry and mesh models for nuclear reactor core geometries using a lattice hierarchy-based approach. \textit{Engineering with Computers}, 28, 319--329. (Cited by 35). 
+    
+    \href{https://doi.org/10.1007/s00366-011-0221-4}{https://doi.org/10.1007/s00366-011-0221-4}
+
+  %  \item \textbf{Jain, R.}, \& Tautges, T. J. (2013). PostBL: Post-mesh Boundary Layer Mesh Generation Tool. In \textit{Proceedings of the 22nd International Meshing Roundtable} (pp. 331--348).
+  %  \item \textbf{Jain, R.}, \& Tautges, T. J. (2010). MeshKit: An Open-Source Toolkit for %Mesh Generation. In \textit{Proceedings of the 19th International Meshing Roundtable} (pp. 173--190). 
+\end{itemize}
+
+\end{document}

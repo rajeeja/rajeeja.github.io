@@ -1,0 +1,38 @@
+name: Build CV PDF
+
+on:
+  push:
+    paths:
+      - 'cv/**.tex'
+      - '.github/workflows/build-cv.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
+      - name: Build PDF
+        working-directory: cv
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error Jain_CV.tex
+      - name: Move PDF to files/
+        run: |
+          mkdir -p files
+          cp cv/Jain_CV.pdf files/Jain_CV.pdf
+      - name: Commit PDF
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add files/Jain_CV.pdf
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cv): update generated PDF"
+            git push
+          fi
