@@ -186,25 +186,36 @@
     {% capture jr %}Jain, R{% endcapture %}
     {% assign formatted_with_highlight = formatted_author_list | replace: 'Jain, R', '<strong>Jain, R</strong>' %}
     
+    {% assign links = site.data.pub_links[citation.Title] %}
+    {% capture buttons %}
+      {% if links %}
+        <span class="pub-actions">
+          {% if links.doi %}<a class="btn btn--primary btn--small" href="{{ links.doi }}" target="_blank">DOI</a>{% endif %}
+          {% if links.pdf %}<a class="btn btn--light-outline btn--small" href="{{ links.pdf }}" target="_blank">PDF</a>{% endif %}
+          {% if links.code %}<a class="btn btn--info btn--small" href="{{ links.code }}" target="_blank">Code</a>{% endif %}
+        </span>
+      {% endif %}
+    {% endcapture %}
+
     {% if style == "mla" %}
       <li class="pub-item">
-        {{ formatted_with_highlight | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}).
+        {{ formatted_with_highlight | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
       </li>
     {% elsif style == "apa" %}  
-      <li>
-        {{ formatted_author_list | split: ";" | array_to_sentence_string: "&"}} ({{citation.Year}}). {{ title_link }}. <em>{{citation.Publication}}</em>.
+      <li class="pub-item">
+        {{ formatted_author_list | split: ";" | array_to_sentence_string: "&"}} ({{citation.Year}}). {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
       </li>
     {% elsif style == "chicago" %}
-      <li>
-        {{ formatted_author_list | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}).
+      <li class="pub-item">
+        {{ formatted_author_list | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
       </li>
     {% elsif style == "harvard" %}
-      <li>
-        {{ formatted_author_list | split: ";" | array_to_sentence_string }}, {{citation.Year}}. {{ title_link }}. <em>{{citation.Publication}}</em>.
+      <li class="pub-item">
+        {{ formatted_author_list | split: ";" | array_to_sentence_string }}, {{citation.Year}}. {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
       </li>
     {% elsif style == "vancouver" %}
-      <li>
-        {{ formatted_author_list | split: ";" | join: ", " }}. {{ title_link }}. {{citation.Publication}}. {{citation.Year}}.
+      <li class="pub-item">
+        {{ formatted_author_list | split: ";" | join: ", " }}. {{ title_link }}. {{citation.Publication}}. {{citation.Year}}. {{ buttons }}
       </li>
     {% endif %}
     
