@@ -27,6 +27,7 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
   <li><strong>FLASH‑X</strong> — Async HDF5 I/O and verification for multiphysics; >20% I/O speedups. <a href="/projects/#flashx" class="small">Details →</a> · <a href="{{ site.data.rd_awards.flashx.url }}" class="small" target="_blank">R&D 100 ({{ site.data.rd_awards.flashx.year }})</a></li>
   <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale insights. <a href="/projects/#urban-ecp" class="small">Details →</a></li>
   <li><strong>NEAMS SIGMA/MeshKit/RGG</strong> — Reactor core mesh tools; cut modeling time from weeks to hours. <a href="/projects/#neams" class="small">Details →</a></li>
+  <li><strong>Arizona State University</strong> — RA/TA: FEM-based blast mitigation and instruction in structural engineering. <a href="/projects/#asu" class="small">Details →</a></li>
 </ul>
 
 <hr/>

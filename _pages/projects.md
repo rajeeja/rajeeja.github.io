@@ -50,3 +50,9 @@ I work across DOE/ANL projects turning complex scientific problems into fast, re
 - Publications:
   - [Scalable Mesh Generation for HPC Applications (SC15 Poster)](https://sc15.supercomputing.org/sites/all/themes/SC15images/tech_poster/poster_files/post319s2-file3.pdf)
   - [Generating unstructured nuclear reactor core meshes in parallel (2014)](https://www.sciencedirect.com/science/article/pii/S1877705814016750)
+
+### Arizona State University (Research & Teaching) {#asu}
+- Problem: Improve blast-resistant structural design and support instruction in structural engineering.
+- My approach: As an RA, worked on FEM-based shape optimization for blast mitigation sponsored by the U.S. Army Research Office; as a TA, supported coursework and labs in structural engineering.
+- Impact: Enhanced design methodology for blast resistance; contributed to student learning and lab instruction.
+- Sponsors/Tools: U.S. Army Research Office; FEM, shape optimization.
