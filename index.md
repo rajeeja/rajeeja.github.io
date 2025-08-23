@@ -21,10 +21,10 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 </div>
 
 <div class="text-center" style="margin:1.2rem 0;opacity:.9;display:flex;gap:16px;justify-content:center;align-items:center">
-  <img alt="ANL" src="/images/logos/anl.svg" style="height:28px;opacity:.95">
-  <img alt="DOE" src="/images/logos/doe.svg" style="height:28px;opacity:.95">
-  <img alt="UChicago" src="/images/logos/uchicago.svg" style="height:28px;opacity:.95">
-  <img alt="R&D 100" src="/images/logos/rd100.svg" style="height:28px;opacity:.95">
+  <img alt="ANL" src="{{ '/images/logos/anl.svg' | relative_url }}" style="height:28px;opacity:.95">
+  <img alt="DOE" src="{{ '/images/logos/doe.svg' | relative_url }}" style="height:28px;opacity:.95">
+  <img alt="UChicago" src="{{ '/images/logos/uchicago.svg' | relative_url }}" style="height:28px;opacity:.95">
+  <img alt="R&D 100" src="{{ '/images/logos/rd100.svg' | relative_url }}" style="height:28px;opacity:.95">
 </div>
 
 <div class="feature__wrapper">

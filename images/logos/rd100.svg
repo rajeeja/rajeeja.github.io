@@ -1,1 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="#0f0f11"/><circle cx="20" cy="24" r="10" fill="#ffd54f"/><text x="10" y="50" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#e6e6e6">R&D</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="20" cy="20" r="10" fill="#ffd54f"/>
+  <rect x="28" y="16" width="24" height="24" rx="4" fill="#ffecb3"/>
+</svg>
