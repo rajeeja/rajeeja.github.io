@@ -12,6 +12,9 @@ html.dark .page__content,
 html.dark .archive,
 html.dark .home,
 html.dark .sidebar { background: #0b0b0c; color: #e6e6e6; }
+html.dark .author__urls a, html.dark .author__urls li, html.dark .author__content, html.dark .author__avatar { color: #e6e6e6 !important; }
+html.dark .author__urls a { color: #9fd0ff !important; }
+html.dark .author__urls a:hover { color: #bfe0ff !important; }
 
 /* Links */
 html.dark a { color: #8cc7ff; }
