@@ -13,14 +13,6 @@ redirect_from:
 
 I work across DOE/ANL projects turning complex scientific problems into fast, reliable software. Below are concise case studies with the problem, my approach, and impact. For more details or demos, email me.
 
-### IMPROVE/CANDLE (Cancer Data Science)
-- Problem: Scale deep learning workflows for drug response prediction across DOE supercomputers.
-- My approach: Led CANDLE/Supervisor; standardized experiments/HPO; added CI for reproducible multi-system runs.
-- Impact: R&D 100 Award (2023); widely cited; enabled fair, apples-to-apples model comparison.
-- Key Publications:
-  - [Probing decision boundaries in cancer data using noise injection and counterfactual analysis (SC'21 Workshop)](https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf)
-  - [CANDLE/Supervisor: A workflow framework for ML applied to cancer research (BMC Bioinformatics, 2018)](https://link.springer.com/article/10.1186/s12859-018-2508-4)
-
 ### UXARRAY (Climate Computation/Modeling)
 - Problem: Analyze and visualize unstructured climate grids without bespoke scripts.
 - My approach: Co-created UXarray; API design for mesh/topology; vectorized cores; parallelized heavy paths.
@@ -28,6 +20,14 @@ I work across DOE/ANL projects turning complex scientific problems into fast, re
 - Key Presentations:
   - [UXarray: Python package for analysis and visualization on unstructured climate grids (EESM PI Meeting, 2024)](https://climatemodeling.science.energy.gov/presentations/uxarray-python-package-analysis-and-visualization-model-output-unstructured-climate)
   - [Extending Xarray with support for unstructured grids (AMS 2024)](https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/434638)
+
+### IMPROVE/CANDLE (Cancer Data Science)
+- Problem: Scale deep learning workflows for drug response prediction across DOE supercomputers.
+- My approach: Led CANDLE/Supervisor; standardized experiments/HPO; added CI for reproducible multi-system runs.
+- Impact: R&D 100 Award (2023); widely cited; enabled fair, apples-to-apples model comparison.
+- Key Publications:
+  - [Probing decision boundaries in cancer data using noise injection and counterfactual analysis (SC'21 Workshop)](https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf)
+  - [CANDLE/Supervisor: A workflow framework for ML applied to cancer research (BMC Bioinformatics, 2018)](https://link.springer.com/article/10.1186/s12859-018-2508-4)
 
 ### FLASH-X (Multiphysics Simulation, Astrophysics)
 - Problem: I/O bottlenecks and verification complexity in exascale multiphysics simulations.
