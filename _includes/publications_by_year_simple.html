@@ -6,13 +6,14 @@
     <h3 class="pub-year">{{ current_year }}</h3>
   {% endif %}
   {% assign links = site.data.pub_links[citation.Title] %}
+  {% assign href = citation.Title | cgi_escape | prepend: "https://scholar.google.com/scholar?q=" %}
   {% if links and links.doi %}
     {% assign href = links.doi %}
-  {% else %}
-    {% assign href = citation.Title | cgi_escape | prepend: "https://scholar.google.com/scholar?q=" %}
   {% endif %}
   <p class="pub-line">
     <a href="{{ href }}" target="_blank">{{ citation.Title }}</a>
     — <em>{{ citation.Publication }}</em>{% if citation.Volume %} {{ citation.Volume }}{% endif %}{% if citation.Number %}({{ citation.Number }}){% endif %}{% if citation.Pages %}, {{ citation.Pages }}{% endif %}
+    {% if links and links.pdf %} · <a href="{{ links.pdf }}" target="_blank">PDF</a>{% endif %}
+    {% if links and links.code %} · <a href="{{ links.code }}" target="_blank">Code</a>{% endif %}
   </p>
 {% endfor %}

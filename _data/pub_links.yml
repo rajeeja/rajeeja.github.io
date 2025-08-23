@@ -1,25 +1,14 @@
-# Map publication Title (exact match) to resource links
-# Example:
-# "CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research":
-#   doi: https://doi.org/10.1186/s12859-018-2056-3
-#   pdf: /files/papers/candle_supervisor.pdf
-#   code: https://github.com/ECP-CANDLE/Supervisor
-
 "CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research":
   doi: https://doi.org/10.1186/s12859-018-2056-3
+  pdf: /files/papers/candle_supervisor.pdf
   code: https://github.com/ECP-CANDLE/Supervisor
-
 "Representation and evolution of urban weather boundary conditions in downtown Chicago":
   doi: https://doi.org/10.1080/19401493.2020.1739106
-
 "High-resolution coupled physics solvers for analysing fine-scale nuclear reactor design problems":
   doi: https://doi.org/10.1098/rsta.2013.0381
-
 "UXarray: Extending Xarray for Enhanced Support of Unstructured Grids":
   doi: https://doi.org/10.5194/egusphere-egu25-13873
-
 "Framework and Methodology for Verification of a Complex Scientific Simulation Software, Flash-X":
   doi: https://doi.org/10.1109/ICSE-Companion60176.2023.00107
-
 "Accelerating flash-x simulations with asynchronous I/O":
   doi: https://doi.org/10.1109/PDSW56682.2022.00009
