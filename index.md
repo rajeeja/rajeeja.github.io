@@ -17,6 +17,7 @@ excerpt: "Computational Scientist at Argonne National Laboratory. I develop high
     <li>Applied ML for Science</li>
     <li>Exascale Software</li>
   </ul>
+  <p style="margin-top:.5rem;opacity:.9;font-size:.95rem">Explore: <a href="/about/">About</a> · <a href="/projects/">Projects</a> · <a href="/publications/">Publications</a> · <a href="/year-archive/">Blog</a></p>
 </div>
 
 <div class="text-center" style="margin:1.2rem 0;opacity:.9">
