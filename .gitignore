@@ -5,3 +5,5 @@ future_content*
 *.DS_Store
 *#
 *Gemfile*
+# local venv
+.venv/
