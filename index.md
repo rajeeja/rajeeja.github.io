@@ -7,27 +7,20 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 ---
 
 <div class="page-intro" style="margin-top:.5rem">
-  <p>I develop high‑performance, reliable research software with domain scientists. Focus areas: HPC I/O, unstructured data tooling, and applied ML for science. Current efforts include UXarray, FLASH‑X, and CANDLE/Supervisor.</p>
+  <p><strong>Principal Specialist, Research Software Engineering at Argonne National Laboratory.</strong> Since 2009, I’ve built high‑performance, reliable research software with domain scientists across cancer data science, climate computation, multiphysics simulation, urban systems, and nuclear reactor modeling.</p>
+  <p>My work focuses on HPC I/O, unstructured data tooling, and applied ML for science. Recent efforts include <em>UXarray</em> (unstructured climate grids, Python), <em>FLASH‑X</em> (asynchronous HDF5 I/O with SZ3/ZFP, verification), and <em>CANDLE/Supervisor</em> (scalable deep‑learning workflows across supercomputers).</p>
+  <ul>
+    <li>Built and maintained production‑quality tools adopted by DOE projects and used at national facilities.</li>
+    <li>Presented at venues including SciPy, AMS, and EGU; publications and software recognized by the community.</li>
+    <li>Hands‑on with performance, testing, CI, and reproducibility to turn prototypes into dependable systems.</li>
+  </ul>
 </div>
-
-<div style="margin:0.75rem 0 0.5rem;display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:.95">
-  <img alt="Argonne National Laboratory" src="{{ '/images/logos/anl.svg' | relative_url }}" style="height:26px">
-  <img alt="U.S. Department of Energy" src="{{ '/images/logos/doe.svg' | relative_url }}" style="height:26px">
-  <img alt="The University of Chicago" src="{{ '/images/logos/uchicago.svg' | relative_url }}" style="height:26px">
-  <span style="font-size:.9rem;border:1px solid #1b1b1f;border-radius:999px;padding:.15rem .5rem;background:#111214">R&D 100 Winner</span>
-</div>
-
-<hr/>
-
-<h2>About</h2>
-<p>Principal Specialist, Research Software Engineering at Argonne National Laboratory. Since 2009, I’ve worked across cancer data science, climate computation, multiphysics simulation, urban coupled systems, and nuclear reactor modeling. I enjoy building teams and mentoring, and I care about software that is fast, reproducible, and useful.</p>
-<p><a href="/about/">Read more →</a></p>
 
 <hr/>
 
 <h2>Projects</h2>
 <ul>
-  <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python). 60× speed‑ups on key workloads; adopted by DOE users. <a href="/projects/">Details →</a></li>
+  <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python). Up to 60× speed‑ups on key workloads; adopted by DOE users. <a href="/projects/">Details →</a></li>
   <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response; standardized HPO/experiments across supercomputers. <a href="/projects/">Details →</a></li>
   <li><strong>FLASH‑X</strong> — Async HDF5 I/O + SZ3/ZFP; >20% speedup on I/O‑bound runs; verification framework. <a href="/projects/">Details →</a></li>
   <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale analyses. <a href="/projects/">Details →</a></li>
