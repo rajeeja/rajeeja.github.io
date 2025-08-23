@@ -16,8 +16,9 @@
   (function(){
     try {
       var saved = localStorage.getItem('site-theme');
-      var isDark = saved ? saved === 'dark' : true; // default dark
-      if (isDark) document.documentElement.classList.add('dark');
+      if (!saved) { localStorage.setItem('site-theme', 'dark'); }
+      var isDark = (localStorage.getItem('site-theme') === 'dark');
+      if (isDark) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
     } catch(e) {}
   })();
 </script>
