@@ -3,12 +3,15 @@ main:
 
   - title: "Projects"
     url: /projects 
-    
-  # - title: "Past Projects"
-  #   url: /past_projects 
 
   - title: "Publications"
     url: /publications/
+
+  - title: "Awards & Talks"
+    url: /awards-talks/
+
+  - title: "Mentoring & Service"
+    url: /mentoring-service/
 
   #- title: "Presentations"
   #  url: /presentations/
