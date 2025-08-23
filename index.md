@@ -14,6 +14,13 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
     <li>Presented at venues including SciPy, AMS, and EGU; publications and software recognized by the community.</li>
     <li>Hands‑on with performance, testing, CI, and reproducibility to turn prototypes into dependable systems.</li>
   </ul>
+  <div style="margin:.5rem 0;display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:.95">
+    <img alt="ANL" src="{{ '/images/logos/anl.png' | relative_url }}" style="height:22px">
+    <img alt="DOE" src="{{ '/images/logos/doe.png' | relative_url }}" style="height:22px">
+    <img alt="UChicago" src="{{ '/images/logos/uchicago.png' | relative_url }}" style="height:22px">
+    <span style="font-size:.85rem;border:1px solid #1b1b1f;border-radius:999px;padding:.1rem .45rem;background:#111214">R&D 100 Winner</span>
+  </div>
+  <p style="margin-top:.4rem"><a href="/about/">Read more about my background →</a></p>
 </div>
 
 <hr/>
