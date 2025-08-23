@@ -197,25 +197,27 @@
       {% endif %}
     {% endcapture %}
 
+    {% assign authors_highlighted = formatted_author_list | replace: 'Jain, R.', '<strong>Jain, R.</strong>' | replace: 'Jain, R', '<strong>Jain, R</strong>' %}
+
     {% if style == "mla" %}
       <li class="pub-item">
-        {{ formatted_with_highlight | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
+        {{ authors_highlighted | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
       </li>
     {% elsif style == "apa" %}  
       <li class="pub-item">
-        {{ formatted_author_list | split: ";" | array_to_sentence_string: "&"}} ({{citation.Year}}). {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
+        {{ authors_highlighted | split: ";" | array_to_sentence_string: "&"}} ({{citation.Year}}). {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
       </li>
     {% elsif style == "chicago" %}
       <li class="pub-item">
-        {{ formatted_author_list | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
+        {{ authors_highlighted | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}). {{ buttons }}
       </li>
     {% elsif style == "harvard" %}
       <li class="pub-item">
-        {{ formatted_author_list | split: ";" | array_to_sentence_string }}, {{citation.Year}}. {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
+        {{ authors_highlighted | split: ";" | array_to_sentence_string }}, {{citation.Year}}. {{ title_link }}. <em>{{citation.Publication}}</em>. {{ buttons }}
       </li>
     {% elsif style == "vancouver" %}
       <li class="pub-item">
-        {{ formatted_author_list | split: ";" | join: ", " }}. {{ title_link }}. {{citation.Publication}}. {{citation.Year}}. {{ buttons }}
+        {{ authors_highlighted | split: ";" | join: ", " }}. {{ title_link }}. {{citation.Publication}}. {{citation.Year}}. {{ buttons }}
       </li>
     {% endif %}
     
