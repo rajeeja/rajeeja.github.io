@@ -1,0 +1,18 @@
+{% assign pub_list = site.data.citations | sort: "Year" | reverse %}
+{% assign current_year = "" %}
+{% for citation in pub_list %}
+  {% if citation.Year != current_year %}
+    {% assign current_year = citation.Year %}
+    <h3 class="pub-year">{{ current_year }}</h3>
+  {% endif %}
+  {% assign links = site.data.pub_links[citation.Title] %}
+  {% if links and links.doi %}
+    {% assign href = links.doi %}
+  {% else %}
+    {% assign href = citation.Title | cgi_escape | prepend: "https://scholar.google.com/scholar?q=" %}
+  {% endif %}
+  <p class="pub-line">
+    <a href="{{ href }}" target="_blank">{{ citation.Title }}</a>.
+    <em>{{ citation.Publication }}</em>{% if citation.Volume %} {{ citation.Volume }}{% endif %}{% if citation.Number %}({{ citation.Number }}){% endif %}{% if citation.Pages %}, {{ citation.Pages }}{% endif %}.
+  </p>
+{% endfor %}

@@ -13,7 +13,7 @@ If you would like PDFs of any of these papers, please email.
 
 <div class="theme-toggle"><button id="theme-toggle-btn" aria-label="Toggle theme">Toggle theme</button></div>
 
-{% include publications_by_year.html %}
+{% include publications_by_year_simple.html %}
 
 <!-- 
 {% include base_path %}

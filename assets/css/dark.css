@@ -48,12 +48,10 @@ html.dark pre { border: 1px solid #222; }
 html.dark table { background: #0e0f14; color: #e6e6e6; }
 html.dark table th, html.dark table td { border-color: #222; }
 
-/* Publication cards by year */
-.pub-year { margin: 1rem 0 .5rem; color: #e6e6e6; }
-.pub-cards { display:grid; gap:.5rem; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
-.pub-card { background:#111214; border:1px solid #1b1b1f; border-radius:8px; padding:.6rem .8rem; }
-.pub-title { color:#f0f0f0; font-size:.95rem; }
-.pub-venue { color:#b6b6b6; font-size:.85rem; }
+/* Publications simple list */
+.pub-year { margin: 1rem 0 .25rem; color: #e6e6e6; }
+.pub-line { margin:.2rem 0; font-size:.95rem; }
+.pub-line em { color:#b6b6b6; }
 
 /* Toggle button */
 .theme-toggle { position: fixed; right: 12px; bottom: 12px; z-index: 9999; }
