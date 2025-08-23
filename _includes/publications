@@ -182,10 +182,13 @@
     {% else %}
       {% assign title_link = citation.Title %}
     {% endif %}
+
+    {% capture jr %}Jain, R{% endcapture %}
+    {% assign formatted_with_highlight = formatted_author_list | replace: 'Jain, R', '<strong>Jain, R</strong>' %}
     
     {% if style == "mla" %}
-      <li>
-        {{ formatted_author_list | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}).
+      <li class="pub-item">
+        {{ formatted_with_highlight | split: ";" | array_to_sentence_string }}. "{{ title_link }}." <em>{{citation.Publication}}</em> ({{citation.Year}}).
       </li>
     {% elsif style == "apa" %}  
       <li>
