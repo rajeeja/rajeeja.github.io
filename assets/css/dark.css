@@ -2,7 +2,7 @@
 .pub-item { margin: 0 0 0.6rem 0; line-height: 1.55; }
 .pub-item em { color: #555; }
 .pub-item a { text-decoration: underline; }
-.pub-item strong { font-weight: 700; }
+.pub-item strong { font-weight: 700; color: #dcdcdc; }
 
 /* Dark mode base */
 :root { color-scheme: dark light; }
