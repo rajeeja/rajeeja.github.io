@@ -11,9 +11,9 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 </div>
 
 <div style="margin:0.75rem 0 0.5rem;display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:.95">
-  <img alt="Argonne National Laboratory" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Argonne_National_Laboratory_logo.svg" style="height:26px">
-  <img alt="U.S. Department of Energy" src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Seal_of_the_United_States_Department_of_Energy.svg" style="height:26px">
-  <img alt="The University of Chicago" src="https://upload.wikimedia.org/wikipedia/en/6/68/University_of_Chicago_shield.svg" style="height:26px">
+  <img alt="Argonne National Laboratory" src="{{ '/images/logos/anl.svg' | relative_url }}" style="height:26px">
+  <img alt="U.S. Department of Energy" src="{{ '/images/logos/doe.svg' | relative_url }}" style="height:26px">
+  <img alt="The University of Chicago" src="{{ '/images/logos/uchicago.svg' | relative_url }}" style="height:26px">
   <span style="font-size:.9rem;border:1px solid #1b1b1f;border-radius:999px;padding:.15rem .5rem;background:#111214">R&D 100 Winner</span>
 </div>
 
