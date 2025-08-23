@@ -13,7 +13,7 @@ name                     : &name "Rajeev Jain"
 description              : &description "Principal Specialist, Research Software Engineering at Argonne"
 url                      : https://rajeeja.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "rajeeja.github.io"
+repository               : "rajeeja/rajeeja.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -71,11 +71,11 @@ social:
   links: # An array of links to social media profiles
 
 
-# # Analytics
-# analytics:
-#   provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
-#   google:
-#     tracking_id          : "G-3ZVH8WXDBW"
+# Analytics
+analytics:
+  provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
+  google:
+    tracking_id          : "G-3ZVH8WXDBW"
 
 
 # Site Author
