@@ -6,7 +6,7 @@ header:
   overlay_color: "#000"
   overlay_filter: 0.6
   caption:
-excerpt: "Computational Scientist at Argonne National Laboratory. I develop high-performance computing and AI/ML solutions that accelerate breakthroughs in climate science, astrophysics, and beyond."
+excerpt: "Research software engineer developing fast, reliable tools for scientific discovery at scale."
 ---
 
 <div class="text-center" style="margin-top:1rem">
@@ -20,11 +20,11 @@ excerpt: "Computational Scientist at Argonne National Laboratory. I develop high
   <p style="margin-top:.5rem;opacity:.9;font-size:.95rem">Explore: <a href="/about/">About</a> · <a href="/projects/">Projects</a> · <a href="/publications/">Publications</a> · <a href="/year-archive/">Blog</a></p>
 </div>
 
-<div class="text-center" style="margin:1.2rem 0;opacity:.9">
-  <a href="https://www.anl.gov/" target="_blank"><img alt="ANL" src="/images/logos/anl.png" style="height:36px;margin:0 10px"></a>
-  <a href="https://www.energy.gov/" target="_blank"><img alt="DOE" src="/images/logos/doe.png" style="height:36px;margin:0 10px"></a>
-  <a href="https://www.uchicago.edu/" target="_blank"><img alt="UChicago" src="/images/logos/uchicago.png" style="height:36px;margin:0 10px"></a>
-  <a href="https://www.rdworldonline.com/rd-100-awards/" target="_blank"><img alt="R&D 100" src="/images/logos/rd100.png" style="height:36px;margin:0 10px"></a>
+<div class="text-center" style="margin:1.2rem 0;opacity:.9;display:flex;gap:16px;justify-content:center;align-items:center">
+  <img alt="ANL" src="/images/logos/anl.svg" style="height:28px;opacity:.95">
+  <img alt="DOE" src="/images/logos/doe.svg" style="height:28px;opacity:.95">
+  <img alt="UChicago" src="/images/logos/uchicago.svg" style="height:28px;opacity:.95">
+  <img alt="R&D 100" src="/images/logos/rd100.svg" style="height:28px;opacity:.95">
 </div>
 
 <div class="feature__wrapper">
