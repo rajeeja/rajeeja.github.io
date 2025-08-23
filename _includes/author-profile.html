@@ -20,7 +20,7 @@
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse" style="background:#1c1c1f;color:#fff;border-color:#444">Follow</button>
+    <button class="btn btn--inverse" style="background:#1c1c1f;color:#fff;border-color:#444"><i class="fab fa-github" aria-hidden="true"></i> Follow</button>
     <ul class="author__urls social-icons" style="background:#0f0f11;border:1px solid #1b1b1f">
       {% if author.location %}
         <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> {{ author.location }}</li>
@@ -41,7 +41,7 @@
         <li><a href="{{ author.researchgate }}"><i class="fab fa-researchgate" aria-hidden="true"></i> ResearchGate</a></li>
       {% endif %}
       {% if author.github %}
-        <li><a href="https://github.com/{{ author.github }}"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+        <li><a href="https://github.com/{{ author.github }}"><i class="fab fa-github-square" aria-hidden="true"></i> GitHub</a></li>
       {% endif %}
       {% if author.twitter %}
         <li><a href="https://twitter.com/{{ author.twitter }}"><i class="fab fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
