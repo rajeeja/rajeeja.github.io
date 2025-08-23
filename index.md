@@ -18,6 +18,12 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
   <p style="margin-top:.4rem"><a href="/about/">Read more about my background →</a></p>
 </div>
 
+<div class="achievements" style="margin:.6rem 0 0.8rem;display:flex;gap:.4rem;flex-wrap:wrap">
+  <span style="font-size:.85rem;border:1px solid #1b1b1f;border-radius:999px;padding:.1rem .5rem;background:#111214">R&D 100 Award (2022)</span>
+  <span style="font-size:.85rem;border:1px solid #1b1b1f;border-radius:999px;padding:.1rem .5rem;background:#111214">>20% FLASH‑X I/O speedup</span>
+  <span style="font-size:.85rem;border:1px solid #1b1b1f;border-radius:999px;padding:.1rem .5rem;background:#111214">60× UXarray speed‑ups</span>
+</div>
+
 <hr/>
 
 <h2>Projects</h2>

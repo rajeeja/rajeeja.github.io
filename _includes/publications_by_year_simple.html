@@ -12,7 +12,7 @@
     {% assign href = citation.Title | cgi_escape | prepend: "https://scholar.google.com/scholar?q=" %}
   {% endif %}
   <p class="pub-line">
-    <a href="{{ href }}" target="_blank">{{ citation.Title }}</a>.
-    <em>{{ citation.Publication }}</em>{% if citation.Volume %} {{ citation.Volume }}{% endif %}{% if citation.Number %}({{ citation.Number }}){% endif %}{% if citation.Pages %}, {{ citation.Pages }}{% endif %}.
+    <a href="{{ href }}" target="_blank">{{ citation.Title }}</a>
+    — <em>{{ citation.Publication }}</em>{% if citation.Volume %} {{ citation.Volume }}{% endif %}{% if citation.Number %}({{ citation.Number }}){% endif %}{% if citation.Pages %}, {{ citation.Pages }}{% endif %}
   </p>
 {% endfor %}
