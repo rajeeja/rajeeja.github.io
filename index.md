@@ -3,6 +3,7 @@ layout: single
 title: "Rajeev Jain"
 permalink: /
 classes: wide
+author_profile: false
 ---
 
 <style>
@@ -21,35 +22,19 @@ a { color: var(--accent); }
 blockquote { border-left:3px solid var(--border); padding-left:1rem; color: var(--muted); }
 .pub-item { margin:.4rem 0; line-height:1.55; }
 .pub-actions .btn { margin-left:.4rem; }
-.figurebar img { height:36px; opacity:.9; margin:0 10px; }
 .hero { text-align:center; padding-top: 1.2rem; }
+/* hide theme layout title to avoid duplicate name */
+.page__title { display:none; }
 </style>
 
 <div class="section hero">
   <div class="h1">Rajeev Jain</div>
-  <div class="lead">Computational Scientist at Argonne National Laboratory</div>
+  <div class="lead">Principal Specialist, Research Software Engineering at Argonne National Laboratory</div>
   <div class="pills">
     <span class="pill">HPC & I/O</span>
     <span class="pill">Scientific Data & Visualization</span>
     <span class="pill">Applied ML for Science</span>
     <span class="pill">Exascale Software</span>
-  </div>
-</div>
-
-<div class="section figurebar" style="text-align:center; margin:1rem auto">
-  <a href="https://www.anl.gov/" target="_blank"><img alt="ANL" src="/images/logos/anl.png"></a>
-  <a href="https://www.energy.gov/" target="_blank"><img alt="DOE" src="/images/logos/doe.png"></a>
-  <a href="https://www.uchicago.edu/" target="_blank"><img alt="UChicago" src="/images/logos/uchicago.png"></a>
-  <a href="https://www.rdworldonline.com/rd-100-awards/" target="_blank"><img alt="R&D 100" src="/images/logos/rd100.png"></a>
-</div>
-
-<div class="section">
-  <h2>Key Achievements</h2>
-  <div class="row">
-    <div class="card"><div class="muted">R&D 100 Award</div><h3>2022 Winner</h3><p>Recognized for contributions to high-impact scientific software.</p></div>
-    <div class="card"><div class="muted">I/O Performance</div><h3>20% Speedup</h3><p>FLASH-X simulations with async HDF5 I/O and compression (SZ3, ZFP).</p></div>
-    <div class="card"><div class="muted">Toolkit Acceleration</div><h3>60× Faster</h3><p>UXarray climate analysis via vectorization and parallelization.</p></div>
-    <div class="card"><div class="muted">Research Impact</div><h3>100+ Citations</h3><p>CANDLE/Supervisor publications widely cited in ML for science.</p></div>
   </div>
 </div>
 
