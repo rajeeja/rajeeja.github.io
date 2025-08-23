@@ -3,7 +3,7 @@
 {% for citation in pub_list %}
   {% if citation.Year != current_year %}
     {% assign current_year = citation.Year %}
-    <h2 class="pub-year">{{ current_year }}</h2>
+    <div class="pub-year">{{ current_year }}</div>
   {% endif %}
   {% assign links = site.data.pub_links[citation.Title] %}
   {% assign href = citation.Title | cgi_escape | prepend: "https://scholar.google.com/scholar?q=" %}

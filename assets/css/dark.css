@@ -50,7 +50,7 @@ html.dark table { background: #0e0f14; color: #e6e6e6; }
 html.dark table th, html.dark table td { border-color: #222; }
 
 /* Publications simple list */
-.pub-year { margin: .6rem 0 .2rem; color: #e6e6e6; font-weight:600; }
+.pub-year { margin: .8rem 0 .25rem; color: #e6e6e6; font-weight:600; font-size: 1rem; border-top:1px solid #1b1b1f; padding-top:.6rem; }
 .pub-line { margin:.1rem 0; font-size:.9rem; line-height:1.4; }
 .pub-line a { text-decoration: underline; }
 .pub-line em { color:#b6b6b6; }
