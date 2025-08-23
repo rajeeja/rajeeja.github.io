@@ -1,0 +1,16 @@
+{% assign pub_list = site.data.citations | sort: "Year" | reverse %}
+{% assign current_year = "" %}
+<div class="pub-grid">
+{% for citation in pub_list %}
+  {% if citation.Year != current_year %}
+    {% if current_year != "" %}</div>{% endif %}
+    {% assign current_year = citation.Year %}
+    <h3 class="pub-year">{{ current_year }}</h3>
+    <div class="pub-cards">
+  {% endif %}
+  <div class="pub-card">
+    <div class="pub-title">{{ citation.Title }}</div>
+    <div class="pub-venue">{{ citation.Publication }}{% if citation.Volume %} {{ citation.Volume }}{% endif %}{% if citation.Number %}({{ citation.Number }}){% endif %}{% if citation.Pages %}, {{ citation.Pages }}{% endif %}</div>
+  </div>
+{% endfor %}
+</div>

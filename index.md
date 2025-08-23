@@ -22,10 +22,11 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 
 <h2>Projects</h2>
 <ul>
-  <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python). Up to 60× speed‑ups on key workloads; adopted by DOE users. <a href="/projects/">Details →</a></li>
-  <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response; standardized HPO/experiments across supercomputers. <a href="/projects/">Details →</a></li>
-  <li><strong>FLASH‑X</strong> — Async HDF5 I/O + SZ3/ZFP; >20% speedup on I/O‑bound runs; verification framework. <a href="/projects/">Details →</a></li>
-  <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale analyses. <a href="/projects/">Details →</a></li>
+  <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python), up to 60× faster on key workloads. <a href="/projects/#uxarray">Details →</a></li>
+  <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response across supercomputers. <a href="/projects/#candle">Details →</a></li>
+  <li><strong>FLASH‑X</strong> — Async HDF5 I/O and verification for multiphysics; >20% I/O speedups. <a href="/projects/#flashx">Details →</a></li>
+  <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale insights. <a href="/projects/#urban-ecp">Details →</a></li>
+  <li><strong>NEAMS SIGMA/MeshKit/RGG</strong> — Reactor core mesh tools; cut modeling time from weeks to hours. <a href="/projects/#neams">Details →</a></li>
 </ul>
 
 <hr/>
