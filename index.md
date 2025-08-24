@@ -15,10 +15,9 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
     <li>Prefer small, steady steps over big promises; measure outcomes and improve.</li>
   </ul>
   
-  <p style="margin-top:.4rem"><a href="/about/">Read more about my background →</a></p>
+  <p style="margin-top:.4rem">For fun: I like to bike 🚴, play pickleball 🏓, and learn about crypto ₿.</p>
+  <p style="margin-top:.2rem"><a href="/about/">Read more about my background →</a></p>
 </div>
-
-<hr/>
 
 <h2>Projects</h2>
 <ul>
@@ -30,8 +29,6 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
   <li><strong>Arizona State University</strong> — RA/TA: FEM-based blast mitigation and instruction in structural engineering. <a href="/projects/#asu" class="small">Details →</a></li>
 </ul>
 
-<hr/>
-
 <h2>Selected Publications</h2>
 <ul>
   {% for p in site.data.selected_publications limit:3 %}
@@ -39,8 +36,6 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
   {% endfor %}
 </ul>
 <p><a href="/publications/">View full list →</a></p>
-
-<hr/>
 
 <h2>Latest Posts</h2>
 <ul>
