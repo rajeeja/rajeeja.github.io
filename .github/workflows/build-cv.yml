@@ -32,10 +32,13 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
+          # Update local with remote before pushing to avoid non-fast-forward
+          git fetch origin master
+          git pull --rebase origin master || true
           git add files/Jain_CV.pdf
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             git commit -m "chore(cv): update generated PDF"
-            git push
+            git push origin HEAD:master
           fi
