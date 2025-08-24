@@ -24,13 +24,11 @@
 
 \urlstyle{same}
 \usepackage{fontawesome5}
-
 \usepackage{titlesec}
 \titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1.0ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{1.0ex plus 1ex minus .2ex}{0.5ex plus .2ex}
 \titleformat{\section}{\Large\bfseries\color{sectioncolor}}{}{0em}{}
 \titleformat{\subsection}{\large\bfseries\color{subheadingcolor}}{}{0em}{}
-
 \pagestyle{empty}
 
 % Updated resume macros with color for date and location
@@ -38,15 +36,8 @@
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 \newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*, itemsep=2pt]}
 \newcommand{\resumeItemListEnd}{\end{itemize}}
-\newcommand{\resumeSubheading}[4]{
-  \item
-    \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\
-    \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}
-}
-\newcommand{\resumeProject}[2]{
-  \item
-    \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}
-}
+\newcommand{\resumeSubheading}[4]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\ \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}}
+\newcommand{\resumeProject}[2]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}}
 \newcommand{\resumeItem}[1]{\item{#1}}
 
 \begin{document}
@@ -59,88 +50,98 @@
     {\color{iconcolor}\faLinkedin} \href{https://www.linkedin.com/in/rajeeja/}{linkedin.com/in/rajeeja} \\
     {\color{iconcolor}\faGoogle} \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en}{Google Scholar} \quad
     {\color{iconcolor}\faGithub} \href{https://github.com/rajeeja}{github.com/rajeeja} \quad
-    {\color{iconcolor}\faGlobe} \href{https://rajeeja.github.io/}{rajeeja.github.io} \\
-    {\color{iconcolor}\faTwitter} \href{https://twitter.com/rajeeja}{twitter.com/rajeeja} \quad
-    {\color{iconcolor}\faBuilding} \href{https://www.anl.gov/profile/rajeev-jain}{Argonne Profile}
+    {\color{iconcolor}\faGlobe} \href{https://rajeeja.github.io/}{rajeeja.github.io}
 \end{center}
 
 \section*{Experience}
 \resumeSubHeadingListStart
 
-\resumeSubheading
-  {CASE Staff At-Large}{Sep 2023 -- Present}
-  {The University of Chicago (UChicago)}{Chicago, IL}
-  \resumeItemListStart
-    \resumeItem{Joint appointment supporting computational cancer research initiatives between Argonne National Laboratory (ANL) and UChicago.}
-  \resumeItemListEnd
+\resumeSubheading{CASE Staff At-Large}{Sep 2023 -- Present}{The University of Chicago (UChicago)}{Chicago, IL}
+\resumeItemListStart
+  \resumeItem{Joint appointment supporting computational cancer research initiatives between Argonne National Laboratory (ANL) and UChicago.}
+\resumeItemListEnd
 
-\resumeSubheading
-  {Principal Specialist, Research Software Engineering (formerly Research Software Developer)}{Aug 2009 -- Present}
-  {Mathematics and Computer Science Division, Argonne National Laboratory (ANL)}{Lemont, IL}
-  \resumeItemListStart
-    \resumeItem{Contributed to five major projects across cancer data science, climate computation, multiphysics simulation, urban coupled simulations, and nuclear reactor modeling.}
-    \resumeItem{Pursued high-performance computing challenges in diverse scientific domains; mentored junior researchers.}
-  \resumeItemListEnd
+\resumeSubheading{Principal Specialist, Research Software Engineering (formerly Research Software Developer)}{Aug 2009 -- Present}{Mathematics and Computer Science Division, Argonne National Laboratory (ANL)}{Lemont, IL}
+\resumeItemListStart
+  \resumeItem{Delivered reliable research software across cancer data science, climate computation, multiphysics simulation, urban systems, and reactor modeling.}
+  \resumeItem{Partnered with domain scientists and engineers to turn prototypes into maintainable, tested tools used at DOE facilities.}
+  \resumeItem{Mentored junior researchers; emphasized performance, reproducibility, and clear engineering practices.}
+\resumeItemListEnd
 
-\resumeSubheading
-  {Research and Teaching Assistant}{Aug 2007 -- Jul 2009}
-  {Structural Engineering, Arizona State University}{Tempe, AZ}
-  \resumeItemListStart
-    \resumeItem{Enhanced blast-resistant structure design for the U.S. Army Research Office using FEM-based shape optimization.}
-    \resumeItem{Graded and supported instruction for structural engineering courses and lab work.}
-  \resumeItemListEnd
+\resumeSubheading{Research and Teaching Assistant}{Aug 2007 -- Jul 2009}{Structural Engineering, Arizona State University}{Tempe, AZ}
+\resumeItemListStart
+  \resumeItem{Researched FEM-based shape optimization for blast-resistant structural design sponsored by the U.S. Army Research Office; supported structural engineering courses and labs.}
+\resumeItemListEnd
 
-\resumeSubheading
-  {Project Engineer}{May 2006 -- Jun 2007}
-  {Wipro Technologies}{Bangalore/Hyderabad, India}
-  \resumeItemListStart
-    \resumeItem{Developed production-ready code in Java and SAP; quickly adapted to large-scale software environments.}
-  \resumeItemListEnd
-
+\resumeSubheading{Project Engineer}{May 2006 -- Jun 2007}{Wipro Technologies}{Bangalore/Hyderabad, India}
+\resumeItemListStart
+  \resumeItem{Developed production-ready code in Java and SAP; quickly adapted to large-scale software environments.}
+\resumeItemListEnd
 \resumeSubHeadingListEnd
 
-\section*{Selected Talks}
+\section*{Awards}
 \begin{itemize}[leftmargin=*, itemsep=2pt]
-  \item SciPy: UXarray for Unstructured Grids — \href{https://www.youtube.com/watch?v=qwqJeOO8m6A&t=545s}{YouTube}
-  \item HDF5 Annual Meeting: FLASH-X Async I/O — \href{https://www.youtube.com/watch?v=MuifQ7lHRR8&t=176s}{YouTube}
+  \item \textbf{R\&D 100 Award (2023):} CANDLE/Supervisor — \href{https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/}{RDWorld}; coverage: \href{https://nvidianews.nvidia.com/news/nvidia-teams-with-national-cancer-institute-u-s-department-of-energy-to-create-ai-platform-for-accelerating-cancer-research}{NVIDIA News}, \href{https://cacm.acm.org/news/combating-cancer-with-data/}{CACM}
+  \item \textbf{R\&D 100 Award (2022):} FLASH-X — \href{https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/}{RDWorld}
 \end{itemize}
 
 \section*{Major Projects}
 \resumeSubHeadingListStart
+\resumeProject{IMPROVE/CANDLE (Cancer Data Science - ECP)}{Jan 2017 -- Present}
+\resumeItemListStart
+  \resumeItem{Led CANDLE/Supervisor across DOE supercomputers; standardized experiments and HPO; \textbf{R\&D 100 (2023)}.}
+  \resumeItem{Improved reproducibility and fair model comparisons; widely cited and covered by NVIDIA News and CACM.}
+\resumeItemListEnd
 
-\resumeProject
-  {IMPROVE/CANDLE (Cancer Data Science - ECP)}{Jan 2017 -- Present}
-  \resumeItemListStart
-    \resumeItem{Lead developer of CANDLE/Supervisor, a scalable deep learning workflow suite on DOE supercomputers; \textbf{R\&D 100 Award (2023)}.}
-    \resumeItem{Probing decision boundaries in cancer data using noise injection and counterfactual analysis (SC workshop).}
-  \resumeItemListEnd
+\resumeProject{Uxarray (Climate Computation/Modeling - DOE)}{Jun 2021 -- Present}
+\resumeItemListStart
+  \resumeItem{Co-created a Python toolkit for unstructured climate grids; enabled up to 60\times{} speed-ups via vectorization and parallelization; adopted by DOE climate users.}
+\resumeItemListEnd
 
-\resumeProject
-  {Uxarray (Climate Computation/Modeling - DOE)}{Jun 2021 -- Present}
-  \resumeItemListStart
-    \resumeItem{Co-created Uxarray, a performant Python library for unstructured grid analysis; enabled up to 60× speedups via vectorization and parallelization.}
-  \resumeItemListEnd
+\resumeProject{FLASH-X (Multiphysics Simulation, Astrophysics - ECP)}{Jun 2016 -- Sep 2023}
+\resumeItemListStart
+  \resumeItem{Implemented asynchronous HDF5 I/O with compression; \textbf{R\&D 100 (2022)}; improved I/O-bound runs by more than 20\%.}
+  \resumeItem{Architected a verification framework with nightly testing and baselines to stabilize releases.}
+\resumeItemListEnd
 
-\resumeProject
-  {FLASH-X (Multiphysics Simulation, Astrophysics - ECP)}{Jun 2016 -- Sep 2023}
-  \resumeItemListStart
-    \resumeItem{Implemented asynchronous HDF5 I/O and SZ3/ZFP compression; \textbf{R\&D 100 Award (2022)}; >20\% performance gains on I/O-bound runs.}
-    \resumeItem{Architected a verification framework with nightly testing and baselines.}
-  \resumeItemListEnd
+\resumeProject{Urban Coupled Simulations (ECP Seed Funded)}{Jun 2016 -- Sep 2018}
+\resumeItemListStart
+  \resumeItem{Built coupling and data pipelines integrating high-fidelity weather with building energy models for city-scale analysis.}
+\resumeItemListEnd
 
-\resumeProject
-  {Urban Coupled Simulations (ECP Seed Funded)}{Jun 2016 -- Sep 2018}
-  \resumeItemListStart
-    \resumeItem{Built coupling and data pipelines integrating high-fidelity weather with building energy models for city-scale analysis.}
-  \resumeItemListEnd
-
-\resumeProject
-  {SIGMA/MeshKit/RGG (Nuclear Reactor Simulations - DOE NEAMS)}{Aug 2009 -- Sep 2018}
-  \resumeItemListStart
-    \resumeItem{Led MeshKit/DAG and RGG tools; advised Kitware during SBIR commercialization; reduced reactor core modeling time from weeks to hours.}
-  \resumeItemListEnd
-
+\resumeProject{SIGMA/MeshKit/RGG (Nuclear Reactor Simulations - DOE NEAMS)}{Aug 2009 -- Sep 2018}
+\resumeItemListStart
+  \resumeItem{Led MeshKit/DAG and RGG tools; advised Kitware during SBIR commercialization; reduced reactor core modeling time from weeks to hours.}
+\resumeItemListEnd
 \resumeSubHeadingListEnd
+
+\section*{Open-Source Contributions}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item \textbf{UXarray:} \href{https://github.com/UXARRAY/uxarray/}{github.com/UXARRAY/uxarray} — unstructured climate grids toolkit (Python)
+  \item \textbf{FLASH-X:} Asynchronous I/O and verification contributions — \href{https://flash-x.org/}{flash-x.org}
+  \item \textbf{CANDLE/Supervisor:} Workflow framework for ML — \href{https://github.com/ECP-CANDLE/Supervisor}{github.com/ECP-CANDLE/Supervisor}
+\end{itemize}
+
+\section*{Selected Publications}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item Wozniak, J. M., \textbf{Jain, R.}, et al. (2018). CANDLE/Supervisor. \textit{BMC Bioinformatics}. \href{https://doi.org/10.1186/s12859-018-2056-3}{doi:10.1186/s12859-018-2056-3}
+  \item Mahadevan, V. S., Merzari, E., Tautges, T., \textbf{Jain, R.}, et al. (2014). High-resolution coupled physics solvers. \textit{Phil. Trans. R. Soc. A}. \href{https://doi.org/10.1098/rsta.2013.0381}{doi:10.1098/rsta.2013.0381}
+  \item \textbf{Jain, R.}, Luo, X., Sever, G., Hong, T., \& Catlett, C. (2020). Urban weather boundary conditions. \textit{Journal of Building Performance Simulation}. \href{https://doi.org/10.1080/19401493.2020.1739106}{doi:10.1080/19401493.2020.1739106}
+  \item \textbf{Jain, R.}, \& Tautges, T. J. (2012). Geometry and mesh models for reactor cores using a lattice hierarchy. \textit{Engineering with Computers}. \href{https://doi.org/10.1007/s00366-011-0221-4}{doi:10.1007/s00366-011-0221-4}
+  \item Dhruv, A., \textbf{Jain, R.}, et al. (2023). Verification of Flash-X. \textit{ICSE Companion}. \href{https://doi.org/10.1109/ICSE-Companion60176.2023.00107}{doi:10.1109/ICSE-Companion60176.2023.00107}
+  \item \textbf{Jain, R.}, et al. (2025). UXarray: Extending Xarray for Unstructured Grids. \textit{EGU General Assembly}. \href{https://doi.org/10.5194/egusphere-egu25-13873}{doi:10.5194/egusphere-egu25-13873}
+\end{itemize}
+
+\section*{Teaching \& Mentoring}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item TA/RA at Arizona State University (2007--2009): blast mitigation research (U.S. Army Research Office) and structural engineering instruction.
+\end{itemize}
+
+\section*{Talks \& Media}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item SciPy: UXarray for Unstructured Grids — \href{https://www.youtube.com/watch?v=qwqJeOO8m6A&t=545s}{YouTube}
+  \item HDF5 Annual Meeting: FLASH-X Async I/O — \href{https://www.youtube.com/watch?v=MuifQ7lHRR8&t=176s}{YouTube}
+\end{itemize}
 
 \section*{Technical Skills}
 \resumeSubHeadingListStart
@@ -150,26 +151,9 @@
 
 \section*{Education}
 \resumeSubHeadingListStart
-
-\resumeSubheading
-  {The University of Chicago}{Chicago, IL}
-  {M.S. in Computer Science}{Jun 2020}
-
-\resumeSubheading
-  {Arizona State University}{Tempe, AZ}
-  {M.S. in Structural Engineering (Minor: Computer Science)}{Jul 2009}
-
-\resumeSubheading
-  {Indian Institute of Technology (IIT) Dhanbad}{Dhanbad, India}
-  {B.Tech. in Mechanical Engineering}{May 2006}
-
+\resumeSubheading{The University of Chicago}{Chicago, IL}{M.S. in Computer Science}{Jun 2020}
+\resumeSubheading{Arizona State University}{Tempe, AZ}{M.S. in Structural Engineering (Minor: Computer Science)}{Jul 2009}
+\resumeSubheading{Indian Institute of Technology (IIT) Dhanbad}{Dhanbad, India}{B.Tech. in Mechanical Engineering}{May 2006}
 \resumeSubHeadingListEnd
-
-\section*{Selected Publications}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-\item \textbf{Jain, R.}, Eroglu, O., Chen, H., Chmielowiec, P., Clyne, J., Hannay, C., Jacob, R., Medeiros, B., Ullrich, P., \& Zarzycki, C. (2025). UXarray: Extending Xarray for Enhanced Support of Unstructured Grids. \textit{EGU General Assembly 2025}. \href{https://doi.org/10.5194/egusphere-egu25-13873}{https://doi.org/10.5194/egusphere-egu25-13873}
-\item Wozniak, J. M., \textbf{Jain, R.}, et al. (2018). CANDLE/Supervisor. \textit{BMC Bioinformatics}. \href{https://doi.org/10.1186/s12859-018-2056-3}{https://doi.org/10.1186/s12859-018-2056-3}
-\item Mahadevan, V. S., Merzari, E., Tautges, T., \textbf{Jain, R.}, et al. (2014). High-resolution coupled physics solvers. \textit{Phil. Trans. R. Soc. A}. \href{https://doi.org/10.1098/rsta.2013.0381}{https://doi.org/10.1098/rsta.2013.0381}
-\end{itemize}
 
 \end{document}
