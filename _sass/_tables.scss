@@ -20,6 +20,12 @@ thead {
   border-bottom: 1px solid $light-gray;
 }
 
+/* Improve contrast for about page tables in both themes */
+.page__content table thead th { color: #222; background: #f2f2f4; }
+html.dark .page__content table thead th { color: #e6e6e6; background: #14161c; }
+.page__content table td a, .page__content table th a { box-shadow: none; }
+html.dark .page__content table td a, html.dark .page__content table th a { box-shadow: none; color: #8cc7ff; }
+
 th {
   padding: 0.5em;
   font-weight: bold;
