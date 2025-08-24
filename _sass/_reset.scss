@@ -68,19 +68,17 @@ audio:not([controls]) {
 
 a {
   color: $link-color;
-}
+  text-decoration: underline;
+  box-shadow: none; /* remove underline overlay that looks like a box in light mode */
 
-/* Apply focus state */
+  &:focus {
+    @extend %tab-focus;
+  }
 
-a:focus {
-  @extend %tab-focus;
-}
-
-/* Remove outline from links */
-
-a:hover,
-a:active {
-  outline: 0;
+  &:hover,
+  &:active {
+    outline: 0;
+  }
 }
 
 /* Prevent sub and sup affecting line-height in all browsers */
