@@ -26,16 +26,16 @@
 \urlstyle{same}
 \usepackage{fontawesome5}
 \usepackage{titlesec}
-\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1.0ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{1.0ex plus 1ex minus .2ex}{0.5ex plus .2ex}
+\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{0.8ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.0ex plus 1ex minus .2ex}{0.4ex plus .2ex}
 \titleformat{\section}{\Large\bfseries\color{sectioncolor}}{}{0em}{}
 \titleformat{\subsection}{\large\bfseries\color{subheadingcolor}}{}{0em}{}
 \pagestyle{empty}
 
-% Updated resume macros with color for date and location
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+% Resume macros
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}% no bullets
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*, itemsep=2pt]}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*, itemsep=1pt]}
 \newcommand{\resumeItemListEnd}{\end{itemize}}
 \newcommand{\resumeSubheading}[4]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\ \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}}
 \newcommand{\resumeProject}[2]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}}
@@ -57,7 +57,6 @@
 \section*{Experience}
 \vspace{-0.5em}
 \resumeSubHeadingListStart
-
 \resumeSubheading{CASE Staff At-Large}{Sep 2023 -- Present}{The University of Chicago (UChicago)}{Chicago, IL}
 \resumeItemListStart
   \resumeItem{Joint appointment supporting computational cancer research initiatives between Argonne National Laboratory (ANL) and UChicago.}
@@ -66,13 +65,13 @@
 \resumeSubheading{Principal Specialist, Research Software Engineering (formerly Research Software Developer)}{Aug 2009 -- Present}{Mathematics and Computer Science Division, Argonne National Laboratory (ANL)}{Lemont, IL}
 \resumeItemListStart
   \resumeItem{Delivered reliable research software across cancer data science, climate computation, multiphysics simulation, urban systems, and reactor modeling.}
-  \resumeItem{Partnered with domain scientists and engineers to turn prototypes into maintainable, tested tools used at DOE facilities.}
+  \resumeItem{Partnered with domain scientists to turn prototypes into maintainable, tested tools used at DOE facilities.}
   \resumeItem{Mentored junior researchers; emphasized performance, reproducibility, and clear engineering practices.}
 \resumeItemListEnd
 
 \resumeSubheading{Research and Teaching Assistant}{Aug 2007 -- Jul 2009}{Structural Engineering, Arizona State University}{Tempe, AZ}
 \resumeItemListStart
-  \resumeItem{Researched FEM-based shape optimization for blast-resistant structural design sponsored by the U.S. Army Research Office; supported structural engineering courses and labs.}
+  \resumeItem{Researched FEM-based shape optimization for blast-resistant structural design (U.S. Army Research Office); supported structural engineering courses and labs.}
 \resumeItemListEnd
 
 \resumeSubheading{Project Engineer}{May 2006 -- Jun 2007}{Wipro Technologies}{Bangalore/Hyderabad, India}
@@ -83,8 +82,9 @@
 
 \section*{Awards}
 \begin{itemize}[leftmargin=*, itemsep=1pt]
-  \item \textbf{R\&D 100 Award (2023):} CANDLE/Supervisor — \href{https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/}{RDWorld}; coverage: \href{https://nvidianews.nvidia.com/news/nvidia-teams-with-national-cancer-institute-u-s-department-of-energy-to-create-ai-platform-for-accelerating-cancer-research}{NVIDIA News}, \href{https://cacm.acm.org/news/combating-cancer-with-data/}{CACM}
+  \item \textbf{R\&D 100 Award (2023):} CANDLE/Supervisor — \href{https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/}{RDWorld}
   \item \textbf{R\&D 100 Award (2022):} FLASH-X — \href{https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/}{RDWorld}
+  \item University Graduate Fellowship, Arizona State University (2007--2009)
 \end{itemize}
 
 \section*{Major Projects}
@@ -118,17 +118,23 @@
 \resumeItemListEnd
 \resumeSubHeadingListEnd
 
-
+\section*{Education}
+\vspace{-0.5em}
+\resumeSubHeadingListStart
+\resumeSubheading{The University of Chicago}{Chicago, IL}{M.S. in Computer Science}{Jun 2020}
+\resumeSubheading{Arizona State University}{Tempe, AZ}{M.S. in Structural Engineering (Minor: Computer Science)}{Jul 2009}
+\resumeSubheading{Indian Institute of Technology (IIT) Dhanbad}{Dhanbad, India}{B.Tech. in Mechanical Engineering}{May 2006}
+\resumeSubHeadingListEnd
 
 \section*{Selected Publications, Talks \& Media}
 \begin{itemize}[leftmargin=*, itemsep=1pt]
-  \item Wozniak, J. M., \textbf{Jain, R.}, et al. (2018). CANDLE/Supervisor. \textit{BMC Bioinformatics}. \href{https://doi.org/10.1186/s12859-018-2056-3}{doi:10.1186/s12859-018-2056-3}
-  \item Mahadevan, V. S., Merzari, E., Tautges, T., \textbf{Jain, R.}, et al. (2014). High-resolution coupled physics solvers. \textit{Phil. Trans. R. Soc. A}. \href{https://doi.org/10.1098/rsta.2013.0381}{doi:10.1098/rsta.2013.0381}
-  \item \textbf{Jain, R.}, Luo, X., Sever, G., Hong, T., \& Catlett, C. (2020). Urban weather boundary conditions. \textit{Journal of Building Performance Simulation}. \href{https://doi.org/10.1080/19401493.2020.1739106}{doi:10.1080/19401493.2020.1739106}
-  \item \textbf{Jain, R.}, \& Tautges, T. J. (2012). Geometry and mesh models for reactor cores using a lattice hierarchy. \textit{Engineering with Computers}. \href{https://doi.org/10.1007/s00366-011-0221-4}{doi:10.1007/s00366-011-0221-4}
-  \item Dhruv, A., \textbf{Jain, R.}, et al. (2023). Verification of Flash-X. \textit{ICSE Companion}. \href{https://doi.org/10.1109/ICSE-Companion60176.2023.00107}{doi:10.1109/ICSE-Companion60176.2023.00107}
-  \item \textbf{Jain, R.}, et al. (2025). UXarray: Extending Xarray for Unstructured Grids. \textit{EGU General Assembly}. \href{https://doi.org/10.5194/egusphere-egu25-13873}{doi:10.5194/egusphere-egu25-13873} — \href{https://www.youtube.com/watch?v=qwqJeOO8m6A&t=545s}{SciPy video}
-  \item HDF5 Annual Meeting: FLASH-X Async I/O — \href{https://www.youtube.com/watch?v=MuifQ7lHRR8&t=176s}{YouTube}
+  \item Wozniak, J. M., \textbf{Jain, R.}, et al. (2018). CANDLE/Supervisor. \textit{BMC Bioinformatics}. [\href{https://doi.org/10.1186/s12859-018-2056-3}{DOI}]
+  \item Mahadevan, V. S., Merzari, E., Tautges, T., \textbf{Jain, R.}, et al. (2014). High-resolution coupled physics solvers. \textit{Phil. Trans. R. Soc. A}. [\href{https://doi.org/10.1098/rsta.2013.0381}{DOI}]
+  \item \textbf{Jain, R.}, Luo, X., Sever, G., Hong, T., \& Catlett, C. (2020). Urban weather boundary conditions. \textit{Journal of Building Performance Simulation}. [\href{https://doi.org/10.1080/19401493.2020.1739106}{DOI}]
+  \item \textbf{Jain, R.}, \& Tautges, T. J. (2012). Geometry and mesh models for reactor cores using a lattice hierarchy. \textit{Engineering with Computers}. [\href{https://doi.org/10.1007/s00366-011-0221-4}{DOI}]
+  \item Dhruv, A., \textbf{Jain, R.}, et al. (2023). Verification of Flash-X. \textit{ICSE Companion}. [\href{https://doi.org/10.1109/ICSE-Companion60176.2023.00107}{DOI}]
+  \item \textbf{Jain, R.}, et al. (2025). UXarray: Extending Xarray for Unstructured Grids. \textit{EGU General Assembly}. [\href{https://doi.org/10.5194/egusphere-egu25-13873}{DOI}] — [\href{https://www.youtube.com/watch?v=qwqJeOO8m6A&t=545s}{Video}]
+  \item HDF5 Annual Meeting: FLASH-X Async I/O — [\href{https://www.youtube.com/watch?v=MuifQ7lHRR8&t=176s}{Video}]
 \end{itemize}
 
 \section*{Teaching \& Mentoring}
@@ -141,14 +147,6 @@
 \resumeSubHeadingListStart
   \item \textbf{HPC and Programming:} Python, Fortran, C++; MPI, OpenMP, HDF5, parallel I/O, performance tuning on supercomputers.
   \item \textbf{ML and Data Tools:} PyTorch, Keras, NumPy, Matplotlib, pandas, Scikit-learn, Jupyter; software engineering with Git, CI/CD.
-\resumeSubHeadingListEnd
-
-\section*{Education}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeSubheading{The University of Chicago}{Chicago, IL}{M.S. in Computer Science}{Jun 2020}
-\resumeSubheading{Arizona State University}{Tempe, AZ}{M.S. in Structural Engineering (Minor: Computer Science)}{Jul 2009}
-\resumeSubheading{Indian Institute of Technology (IIT) Dhanbad}{Dhanbad, India}{B.Tech. in Mechanical Engineering}{May 2006}
 \resumeSubHeadingListEnd
 
 \end{document}
