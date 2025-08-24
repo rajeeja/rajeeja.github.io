@@ -1,0 +1,24 @@
+/* Global link overrides to remove box-shadow underline in light and dark themes */
+html:not(.dark) a,
+html:not(.dark) .page__content a,
+html:not(.dark) .pub-item a,
+html:not(.dark) table a,
+html:not(.dark) .archive a,
+html:not(.dark) .page-intro a {
+  text-decoration: underline !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+html.dark a,
+html.dark .page__content a,
+html.dark .pub-item a,
+html.dark table a,
+html.dark .archive a,
+html.dark .page-intro a {
+  text-decoration: underline !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-bottom: none !important;
+}
