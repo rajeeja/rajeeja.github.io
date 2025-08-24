@@ -74,6 +74,7 @@
 
   a {
     text-decoration: underline;
+    box-shadow: none; /* remove default underline box-shadow */
 
     &:hover {
       text-decoration: underline;
