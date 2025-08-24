@@ -21,6 +21,8 @@ html.dark .author__urls a:hover { color: #bfe0ff !important; }
 /* Links */
 html.dark a { color: #8cc7ff; }
 html.dark a:hover { color: #b5ddff; }
+/* Ensure links have no box-shadow/underline artifacts in dark */
+html.dark a { box-shadow: none !important; }
 
 /* Masthead / nav */
 html.dark .masthead,

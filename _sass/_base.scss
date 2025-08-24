@@ -315,4 +315,4 @@ b, i, strong, em, blockquote, p, q, span, figure, img, h1, h2, header, input, a,
 }
 
 /* Remove underline box-shadow for links in tables and publication items to avoid black boxes on theme toggle */
-.page__content table a, .pub-item a { box-shadow: none; }
+.page__content table a, .pub-item a, .page-intro a, .archive a, .page__content a { box-shadow: none !important; }
