@@ -5,7 +5,7 @@ main:
     url: /about/
 
   - title: "Projects"
-    url: /projects 
+    url: /projects/ 
 
   - title: "Publications"
     url: /publications/
