@@ -31,7 +31,8 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 
 <h2>Selected Publications</h2>
 <ul>
-  {% for p in site.data.selected_publications limit:3 %}
+  {% assign pubs = site.data.selected_publications %}
+  {% for p in pubs %}
     <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}). {% if p.doi %}<a href="{{ p.doi }}" target="_blank" class="small">DOI</a>{% endif %}</li>
   {% endfor %}
 </ul>
