@@ -33,7 +33,10 @@ excerpt: "Research software engineer developing fast, reliable tools for scienti
 <ul>
   {% assign pubs = site.data.selected_publications %}
   {% for p in pubs %}
-    <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}). {% if p.doi %}<a href="{{ p.doi }}" target="_blank" class="small">DOI</a>{% endif %}</li>
+    <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}).
+      {% if p.doi %}<a href="{{ p.doi }}" target="_blank" class="small">DOI</a>
+      {% elsif p.link %}<a href="{{ p.link }}" target="_blank" class="small">Link</a>{% endif %}
+    </li>
   {% endfor %}
 </ul>
 <p><a href="/publications/">View full list →</a></p>
