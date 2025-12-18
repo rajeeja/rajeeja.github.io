@@ -1,24 +1,210 @@
-/* Global link overrides to remove box-shadow underline in light and dark themes */
-html:not(.dark) a,
-html:not(.dark) .page__content a,
-html:not(.dark) .pub-item a,
-html:not(.dark) table a,
-html:not(.dark) .archive a,
-html:not(.dark) .page-intro a {
-  text-decoration: underline !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  border-bottom: none !important;
+:root {
+  --ink: #1f2a2e;
+  --muted: #4d5b60;
+  --accent: #0b5d6a;
+  --accent-strong: #083f47;
+  --accent-soft: #d9ecef;
+  --paper: #f8f5f0;
+  --paper-deep: #efe9e1;
+  --border: #d9d2c8;
 }
 
-html.dark a,
-html.dark .page__content a,
-html.dark .pub-item a,
-html.dark table a,
-html.dark .archive a,
-html.dark .page-intro a {
-  text-decoration: underline !important;
-  box-shadow: none !important;
+body {
+  background: linear-gradient(180deg, #fbfaf7 0%, #f3efe8 55%, #fbfaf7 100%);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  line-height: 1.65;
+}
+
+#main .page__inner-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.page__title {
+  font-family: "Fraunces", "Times New Roman", serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.1rem);
+  color: var(--accent-strong);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
+}
+
+.page__content {
+  font-size: 1.05rem;
+}
+
+.page__content h2,
+.page__content h3 {
+  font-family: "Fraunces", "Times New Roman", serif;
+  color: var(--accent-strong);
+  letter-spacing: -0.01em;
+  scroll-margin-top: 6rem;
+}
+
+.page__content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(11, 93, 106, 0.3);
+}
+
+.page__content a:hover {
+  color: var(--accent-strong);
+  border-bottom-color: rgba(8, 63, 71, 0.55);
+}
+
+.page__content a.btn {
+  border-bottom: none;
+}
+
+.masthead {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.masthead a {
+  color: var(--accent-strong);
+}
+
+.page-intro {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(15, 24, 28, 0.06);
+  scroll-margin-top: 6rem;
+}
+
+.intro-grid {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.intro-media {
+  flex: 0 0 auto;
+}
+
+.intro-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(15, 24, 28, 0.08);
+}
+
+.intro-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--accent-strong);
+  margin-bottom: 0.8rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  background-color: var(--accent) !important;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.btn--primary {
+  background-color: var(--accent) !important;
+}
+
+.btn:hover {
+  background-color: var(--accent-strong) !important;
+}
+
+.btn--ghost {
+  color: var(--accent-strong) !important;
   background: transparent !important;
-  border-bottom: none !important;
+  border: 1px solid var(--accent-strong) !important;
+}
+
+.btn--ghost:hover {
+  color: #fff !important;
+  background: var(--accent-strong) !important;
+}
+
+.content-section {
+  margin-top: 2.5rem;
+  animation: fade-up 0.7s ease both;
+  animation-delay: var(--delay, 0s);
+}
+
+.impact-list,
+.work-list,
+.pub-list,
+.talk-list,
+.timeline {
+  padding-left: 1.1rem;
+}
+
+.impact-list li,
+.work-list li,
+.pub-list li,
+.talk-list li,
+.timeline li {
+  margin-bottom: 0.5rem;
+}
+
+.skill-note {
+  margin-top: 0.9rem;
+  color: var(--muted);
+}
+
+.more-links {
+  margin-top: 0.6rem;
+}
+
+.page__content em {
+  color: var(--muted);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-section {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-intro {
+    padding: 1rem;
+  }
+
+  .intro-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .intro-photo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .page__content {
+    font-size: 1rem;
+  }
 }

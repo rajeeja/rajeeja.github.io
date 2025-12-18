@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Rajeev Jain"
 title_separator          : "-"
 name                     : &name "Rajeev Jain"
-description              : &description "Principal Specialist, Research Software Engineering at Argonne"
+description              : &description "Research software engineer with 16+ years solving novel problems in scientific computing and HPC"
 url                      : https://rajeeja.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "rajeeja/rajeeja.github.io"
@@ -82,8 +82,8 @@ analytics:
 author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
-  bio		   : "Principal Specialist, Research Software Engineering at Argonne"
-  cv		   : "https://rajeeja.github.io/files/Jain_CV.pdf"
+  bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years building high-performance scientific software."
+  cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_Resume.pdf"
   location         : "Chicago, IL"
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
@@ -164,13 +164,7 @@ kramdown:
 
 
 # Collections
-collections:
-  teaching:
-    output: true
-    permalink: /:collection/:path/
-  publications:
-    output: true
-    permalink: /:collection/:path/
+collections: {}
 #  talks:
 #    output: true
 #    permalink: /:collection/:path/

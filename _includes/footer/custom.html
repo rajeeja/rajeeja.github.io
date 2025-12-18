@@ -1,18 +1,2 @@
 <!-- start custom footer snippets -->
-<a href="/sitemap/">Sitemap</a>
-<div class="theme-toggle">
-  <button id="theme-toggle-btn" aria-label="Toggle theme">Toggle theme</button>
-</div>
-<script>
-  (function() {
-    try {
-      var btn = document.getElementById('theme-toggle-btn');
-      if (!btn) return;
-      btn.addEventListener('click', function(){
-        var d = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('site-theme', d ? 'dark' : 'light');
-      });
-    } catch (e) {}
-  })();
-</script>
 <!-- end custom footer snippets -->

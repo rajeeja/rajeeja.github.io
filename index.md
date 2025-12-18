@@ -2,49 +2,86 @@
 layout: single
 title: "Rajeev Jain"
 permalink: /
-author_profile: true
-excerpt: "Research software engineer developing fast, reliable tools for scientific discovery at scale."
+author_profile: false
+classes: wide
+excerpt: "Engineer at heart with 16+ years solving novel problems in software, scientific computing, and HPC."
 ---
 
-<div class="page-intro" style="margin-top:.5rem">
-  <p><strong>Principal Specialist, Research Software Engineering at Argonne National Laboratory.</strong> Since 2009, I’ve built high‑performance, reliable research software with domain scientists across cancer data science, climate computation, multiphysics simulation, urban systems, and nuclear reactor modeling.</p>
-  <p>I work across fields and teams to turn complex problems into dependable software. I like clear goals, simple designs, and fast feedback: build, test, measure, improve. Most of my work sits at the boundary between research and production.</p>
-  <ul>
-    <li>Projects span cancer data science, climate tools, multiphysics codes, urban systems, and reactor modeling.</li>
-    <li>Grateful to have worked with great people; I try to keep things simple, practical, and useful.</li>
-    <li>Prefer small, steady steps over big promises; measure outcomes and improve.</li>
-  </ul>
-  
-  <p style="margin-top:.4rem">For fun: I like to bike 🚴, play pickleball 🏓, and learn about crypto ₿.</p>
-  <p style="margin-top:.2rem"><a href="/about/">Read more about my background →</a></p>
+<div class="page-intro content-section" id="about" style="--delay: 0s;">
+  <div class="intro-grid">
+    <div class="intro-media">
+      <img class="intro-photo" src="/images/profile.png" alt="Rajeev Jain">
+    </div>
+    <div class="intro-copy">
+      <p class="lead">Research software engineer with 16+ years building and maintaining scientific software.</p>
+      <p>Currently: Principal Specialist, Research Software Engineering at Argonne National Laboratory. My work spans climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.</p>
+      <p>Focus areas include scientific computing, data platforms, and performance-sensitive systems.</p>
+      <p>At my core, I am an engineer who enjoys solving problems. Outside of work, I like rapid chess, pickleball, cricket, a board of Catan, and biking.</p>
+      <p class="compact-links"><a href="mailto:rajeeja@gmail.com">Email</a> · <a href="https://github.com/rajeeja">GitHub</a> · <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Scholar</a></p>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume (PDF)</a>
+        <a class="btn btn--ghost" href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<h2>Projects</h2>
-<ul>
-  <li><strong>UXarray</strong> — Unstructured climate grids toolkit (Python), up to 60× faster on key workloads. <a href="/projects/#uxarray" class="small">Details →</a></li>
-  <li><strong>CANDLE/Supervisor</strong> — Scalable DL workflows for drug response across supercomputers. <a href="/projects/#candle" class="small">Details →</a> · <a href="{{ site.data.rd_awards.candle.url }}" class="small" target="_blank">R&D 100 ({{ site.data.rd_awards.candle.year }})</a></li>
-  <li><strong>FLASH‑X</strong> — Async HDF5 I/O and verification for multiphysics; >20% I/O speedups. <a href="/projects/#flashx" class="small">Details →</a> · <a href="{{ site.data.rd_awards.flashx.url }}" class="small" target="_blank">R&D 100 ({{ site.data.rd_awards.flashx.year }})</a></li>
-  <li><strong>Urban ECP</strong> — Coupled microclimate + building energy modeling for city‑scale insights. <a href="/projects/#urban-ecp" class="small">Details →</a></li>
-  <li><strong>NEAMS SIGMA/MeshKit/RGG</strong> — Reactor core mesh tools; cut modeling time from weeks to hours. <a href="/projects/#neams" class="small">Details →</a></li>
-  <li><strong>Arizona State University</strong> — RA/TA: FEM-based blast mitigation and instruction in structural engineering. <a href="/projects/#asu" class="small">Details →</a></li>
-</ul>
+<section class="content-section" id="impact" style="--delay: 0.05s;">
+  <h2>Selected Impact</h2>
+  <ul class="impact-list">
+    <li><strong>UXarray</strong> - Reported speedups up to 60x on unstructured climate grid analysis via vectorization and parallelism.</li>
+    <li><strong>FLASH-X</strong> - Implemented async HDF5 I/O and compression; reported 20%+ I/O gains (R&amp;D 100 Award 2022).</li>
+    <li><strong>Urban Exascale Project</strong> - Coupled urban weather boundary conditions for city-scale simulations. <a href="https://eta-publications.lbl.gov/sites/default/files/17_-_urban_weather_boundary_conditions_-_tianzhen_hong.pdf">Paper</a></li>
+    <li><strong>MeshKit/RGG</strong> - Helped reduce reactor core mesh modeling time from weeks to hours; supported SBIR Phase I/II work.</li>
+  </ul>
+  <p class="skill-note"><strong>Core skills:</strong> Python, C++, Fortran; MPI, OpenMP, HDF5, parallel I/O, performance tuning; PyTorch, Keras, NumPy, pandas; Git and CI/CD.</p>
+</section>
 
-<h2>Selected Publications</h2>
-<ul>
-  {% assign pubs = site.data.selected_publications %}
-  {% for p in pubs %}
-    <li class="pub-item"><strong>{{ p.title }}</strong>. <em>{{ p.venue }}</em> ({{ p.year }}).
-      {% if p.doi %}<a href="{{ p.doi }}" target="_blank" class="small">DOI</a>
-      {% elsif p.link %}<a href="{{ p.link }}" target="_blank" class="small">Link</a>{% endif %}
-    </li>
-  {% endfor %}
-</ul>
-<p><a href="/publications/">View full list →</a></p>
+<section class="content-section" id="experience" style="--delay: 0.1s;">
+  <h2>Experience Snapshot</h2>
+  <ul class="timeline">
+    <li><strong>Argonne National Laboratory</strong> - Principal Specialist, Research Software Engineering (2009-present). Research software engineering across scientific teams.</li>
+    <li><strong>The University of Chicago</strong> - CASE Staff At-Large (2023-present). Joint appointment supporting computational cancer research.</li>
+    <li><strong>Arizona State University</strong> - Research and Teaching Assistant (2007-2009).</li>
+    <li><strong>Wipro Technologies</strong> - Project Engineer (2006-2007).</li>
+  </ul>
+</section>
 
-<h2>Latest Posts</h2>
-<ul>
-  {% for post in site.posts limit:3 %}
-    <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="small">— {{ post.date | date: "%b %d, %Y" }}</span></li>
-  {% endfor %}
-</ul>
-<p><a href="/year-archive/">All posts →</a></p>
+<section class="content-section" id="work" style="--delay: 0.15s;">
+  <h2>Selected Work</h2>
+  <ul class="work-list">
+    <li><strong>UXarray</strong> - Unstructured climate grid analysis toolkit.</li>
+    <li><strong>CANDLE/Supervisor</strong> - Workflow tooling for drug response modeling.</li>
+    <li><strong>FLASH-X</strong> - Async I/O and verification for multiphysics simulations.</li>
+    <li><strong>MeshKit/RGG</strong> - Reactor core mesh tools.</li>
+  </ul>
+</section>
+
+<section class="content-section" id="publications" style="--delay: 0.2s;">
+  <h2>Selected Publications and Awards</h2>
+  <ul class="pub-list">
+    <li><strong>R&amp;D 100 Awards</strong> - CANDLE/Supervisor (2023) and FLASH-X (2022).</li>
+    <li><strong>UXarray</strong> - Analysis and Visualization of Unstructured Grid Data in Xarray. <em>SciPy 2023</em>.</li>
+    <li><strong>MeshKit</strong> - Reactor core mesh generation. <em>Engineering with Computers</em> (2012). <a href="https://doi.org/10.1007/s00366-011-0221-4">DOI</a></li>
+  </ul>
+  <p class="more-links"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full publications list</a></p>
+</section>
+
+<section class="content-section" id="talks" style="--delay: 0.25s;">
+  <h2>Selected Talks</h2>
+  <ul class="talk-list">
+    <li><a href="https://www.youtube.com/watch?v=qwqJeOO8m6A&amp;t=545s">UXarray for unstructured climate data (SciPy 2023)</a></li>
+    <li><a href="https://www.youtube.com/watch?v=MuifQ7lHRR8&amp;t=176s">Data reduction for FLASH-X simulations (HDF5 User Group 2023)</a></li>
+  </ul>
+</section>
+
+<section class="content-section" id="resume" style="--delay: 0.3s;">
+  <h2>Resume</h2>
+  <p>Download the latest resume PDF.</p>
+  <p><a class="btn btn--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume (PDF)</a></p>
+</section>
+
+<section class="content-section" id="contact" style="--delay: 0.35s;">
+  <h2>Contact</h2>
+  <p><a href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a></p>
+</section>
