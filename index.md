@@ -68,7 +68,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
   <h2>Awards and Publications</h2>
   <ul class="pub-list">
     <li><strong>Awards:</strong> Research and Development 100 (R&amp;D 100) Awards for <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X (2022)</a> and <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE (2023)</a>; Best Paper (International Meshing Roundtable 2010); Arizona State University Graduate Fellowship (2007-2009).</li>
-    <li><strong>MeshKit:</strong> Reactor core mesh generation. <a href="https://doi.org/10.1007/s00366-011-0221-4">DOI</a></li>
+    <li><strong>MeshKit:</strong> Reactor core mesh generation. <a href="https://link.springer.com/article/10.1007/s00366-011-0221-4">Paper</a></li>
   </ul>
   <p class="more-links"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full publications list</a></p>
 </section>
