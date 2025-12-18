@@ -32,14 +32,14 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
     <article class="case-study">
       <h3>UXarray: conservative zonal averaging for unstructured grids</h3>
       <p><strong>Problem:</strong> Unstructured climate grids needed accurate, conservative zonal averages that preserve integrals and scale in Python.</p>
-      <p><strong>Approach:</strong> Implemented conservative zonal averaging in UXarray using Gauss-Legendre quadrature, with validation tests and regular Python Package Index releases.</p>
+      <p><strong>Approach:</strong> Implemented conservative zonal averaging in UXarray using Gauss-Legendre quadrature, with validation tests and regular Python Package Index (PyPI) releases.</p>
       <p><strong>Outcome:</strong> Released as part of UXarray with validated accuracy and scalable analysis in Python.</p>
       <p class="case-links"><a href="https://eesm.science.energy.gov/presentations/uxarray-python-package-analysis-and-visualization-model-output-unstructured-climate">Paper</a>  &middot;  <a href="https://github.com/UXARRAY/uxarray/pull/1345">Pull request #1345</a></p>
     </article>
     <article class="case-study">
       <h3>FLASH-X: asynchronous input/output and compression</h3>
       <p><strong>Problem:</strong> Checkpoint input/output and restart overhead dominated runtime in large multiphysics simulations.</p>
-      <p><strong>Approach:</strong> Added asynchronous Hierarchical Data Format input/output with compression and a verification workflow with nightly baselines.</p>
+      <p><strong>Approach:</strong> Added asynchronous Hierarchical Data Format 5 (HDF5) input/output with compression and a verification workflow with nightly baselines.</p>
       <p><strong>Outcome:</strong> Reduced input/output time in benchmarks (20%+ gains) and improved restart reliability.</p>
       <p class="case-links"><a href="https://arxiv.org/abs/2208.11630">Paper 1</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Paper 2</a></p>
     </article>
@@ -56,7 +56,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
 <section class="content-section" id="experience" style="--delay: 0.1s;">
   <h2>Experience Snapshot</h2>
   <ul class="timeline">
-    <li><strong>Argonne National Laboratory</strong> - Research software engineering roles (2009-present); current title: Principal Specialist, Research Software Engineering. Work across UXarray, FLASH-X, the Cancer Distributed Learning Environment, MeshKit, Reactor Geometry Generator, and urban simulation; ran large-scale hyperparameter optimization workflows for cancer data science projects.</li>
+    <li><strong>Argonne National Laboratory</strong> - Research software engineering roles (2009-present); current title: Principal Specialist, Research Software Engineering. Work across UXarray, FLASH-X, the Cancer Distributed Learning Environment (CANDLE), MeshKit, Reactor Geometry Generator, and urban simulation; ran large-scale hyperparameter optimization workflows for cancer data science projects.</li>
     <li><strong>The University of Chicago</strong> - Staff At-Large (2023-present). Joint appointment supporting cancer and earth science research.</li>
     <li><strong>Arizona State University</strong> - Research and Teaching Assistant (2007-2009).</li>
     <li><strong>Wipro Technologies</strong> - Project Engineer (2006-2007).</li>
@@ -66,8 +66,8 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
 <section class="content-section" id="publications" style="--delay: 0.2s;">
   <h2>Awards and Publications</h2>
   <ul class="pub-list">
-    <li><strong>Awards:</strong> Research and Development 100 Awards for <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X (2022)</a> and <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">Cancer Distributed Learning Environment / Supervisor (2023)</a>; Best Paper (International Meshing Roundtable 2010); Arizona State University Graduate Fellowship (2007-2009).</li>
-    <li><strong>MeshKit:</strong> Reactor core mesh generation. <a href="https://doi.org/10.1007/s00366-011-0221-4">Digital Object Identifier (DOI)</a></li>
+    <li><strong>Awards:</strong> Research and Development 100 (R&amp;D 100) Awards for <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X (2022)</a> and <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE / Supervisor (2023)</a>; Best Paper (International Meshing Roundtable 2010); Arizona State University Graduate Fellowship (2007-2009).</li>
+    <li><strong>MeshKit:</strong> Reactor core mesh generation. <a href="https://doi.org/10.1007/s00366-011-0221-4">DOI</a></li>
   </ul>
   <p class="more-links"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full publications list</a></p>
 </section>
