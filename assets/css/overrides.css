@@ -93,6 +93,12 @@ body {
   box-shadow: 0 10px 24px rgba(15, 24, 28, 0.08);
 }
 
+.intro-caption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 .intro-copy {
   flex: 1;
   min-width: 0;

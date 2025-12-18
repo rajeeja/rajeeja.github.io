@@ -11,6 +11,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
   <div class="intro-grid">
     <div class="intro-media">
       <img class="intro-photo" src="/images/profile.png" alt="Rajeev Jain">
+      <p class="intro-caption"><a href="https://www.anl.gov/profile/rajeev-jain">Principal Specialist, Research Software Engineering</a> &middot; Mathematics and Computer Science Division &middot; Argonne National Laboratory (Lemont, IL)</p>
     </div>
     <div class="intro-copy">
       <p class="lead">Research software engineer with 16+ years in scientific software and high-performance computing.</p>
@@ -66,7 +67,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
 <section class="content-section" id="publications" style="--delay: 0.2s;">
   <h2>Awards and Publications</h2>
   <ul class="pub-list">
-    <li><strong>Awards:</strong> Research and Development 100 (R&amp;D 100) Awards for <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X (2022)</a> and <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE / Supervisor (2023)</a>; Best Paper (International Meshing Roundtable 2010); Arizona State University Graduate Fellowship (2007-2009).</li>
+    <li><strong>Awards:</strong> Research and Development 100 (R&amp;D 100) Awards for <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X (2022)</a> and <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE (2023)</a>; Best Paper (International Meshing Roundtable 2010); Arizona State University Graduate Fellowship (2007-2009).</li>
     <li><strong>MeshKit:</strong> Reactor core mesh generation. <a href="https://doi.org/10.1007/s00366-011-0221-4">DOI</a></li>
   </ul>
   <p class="more-links"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full publications list</a></p>
