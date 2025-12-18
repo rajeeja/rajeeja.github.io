@@ -23,14 +23,14 @@ body {
 
 .page__title {
   font-family: "Crimson Pro", "Times New Roman", serif;
-  font-size: clamp(2.2rem, 3.5vw, 3.1rem);
+  font-size: clamp(2rem, 3.1vw, 2.9rem);
   color: var(--accent-strong);
   letter-spacing: -0.01em;
   margin-bottom: 0.6rem;
 }
 
 .page__content {
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .page__content h2,
@@ -110,7 +110,7 @@ body {
 }
 
 .lead {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--accent-strong);
   margin-bottom: 0.8rem;
 }
