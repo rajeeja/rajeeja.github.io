@@ -35,10 +35,18 @@ body {
 
 .page__content h2,
 .page__content h3 {
-  font-family: "Crimson Pro", "Times New Roman", serif;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   color: var(--accent-strong);
   letter-spacing: -0.01em;
   scroll-margin-top: 6rem;
+}
+
+.page__content h2 {
+  font-size: 1.55rem;
+}
+
+.page__content h3 {
+  font-size: 1.15rem;
 }
 
 .page__content a {
@@ -96,7 +104,7 @@ body {
 
 .intro-caption {
   margin-top: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   line-height: 1.35;
   color: var(--muted);
 }
