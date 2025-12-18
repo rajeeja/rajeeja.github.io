@@ -143,6 +143,23 @@ body {
   animation-delay: var(--delay, 0s);
 }
 
+.case-studies {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.case-study h3 {
+  margin-bottom: 0.4rem;
+}
+
+.case-study p {
+  margin: 0.35rem 0;
+}
+
+.case-links {
+  margin-top: 0.5rem;
+}
+
 .impact-list,
 .work-list,
 .pub-list,

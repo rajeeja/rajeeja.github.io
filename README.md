@@ -27,7 +27,7 @@ See more info at https://academicpages.github.io/
 # Update publications + resume PDF
 
 1. Install the Scholar fetch dependency: `python3 -m pip install -r scripts/requirements.txt`
-1. Run `scripts/update_resume.sh` to update `_data/citations.csv` and write `files/Rajeev_Jain_Resume.pdf`
+1. Run `scripts/update_resume.sh` to update `_data/citations.csv` and write `files/Rajeev_Jain_Resume.pdf` and `files/Rajeev_Jain_CV.pdf`
 1. To skip Scholar fetch (e.g., offline), run `SKIP_SCHOLAR=1 scripts/update_resume.sh`
 
 # Changelog -- bugfixes and enhancements

@@ -7,3 +7,4 @@ future_content*
 *Gemfile*
 # local venv
 .venv/
+files/texmf-var/

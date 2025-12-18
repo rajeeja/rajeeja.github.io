@@ -83,7 +83,7 @@ author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
   bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years building high-performance scientific software."
-  cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_Resume.pdf"
+  cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :
   googlescholar    : "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
@@ -100,8 +100,8 @@ author:
   orcid            : "https://orcid.org/0000-0002-1235-918X"
   pinterest        :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
-  strava           : "https://www.strava.com/athletes/22287025"
-  twitter          : "rajeeja"
+  strava           :
+  twitter          :
   weibo            :
   xing             :
   youtube          :
