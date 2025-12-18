@@ -46,7 +46,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <p><strong>Challenge:</strong> Checkpoint and restart operations were taking 30-50% of total runtime in billion-element FLASH-X simulations on leadership-class supercomputers.</p>
       <p><strong>Contribution:</strong> Implemented asynchronous HDF5 I/O with Argobots for non-blocking checkpoint operations and integrated SZ3/ZFP compression. Built verification workflow with nightly baseline testing to ensure reproducibility. Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</p>
       <p><strong>Impact:</strong> Achieved 40-70% reduction in checkpoint write times on Summit supercomputer. Compression reduced storage requirements by 50%+ with minimal accuracy loss. Published at SC24 workshop, contributed to R&D 100 Award (2022).</p>
-      <p class="case-links"><a href="https://arxiv.org/abs/2208.11630">Async I/O Paper</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Compression Paper</a>  &middot;  <a href="https://github.com/Flash-X/Flash-X">Flash-X GitHub</a></p>
+      <p class="case-links"><a href="https://flash-x.org/">FLASH-X Project</a>  &middot;  <a href="https://arxiv.org/abs/2208.11630">FLASH-X Paper</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Compression Paper</a>  &middot;  <a href="https://github.com/Flash-X/Flash-X">GitHub</a></p>
     </article>
     <article class="case-study">
       <h3>CANDLE/IMPROVE: hyperparameter optimization for cancer drug response models</h3>

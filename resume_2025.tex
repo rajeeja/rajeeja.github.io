@@ -1,0 +1,129 @@
+%-------------------------
+% Resume in LaTeX - One Page Version
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \scshape Rajeev Jain} \\ \vspace{8pt}
+    \small 
+    \href{mailto:rajeeja@gmail.com}{\raisebox{-0.2\height}\faEnvelope\ rajeeja@gmail.com} ~ 
+    \href{https://github.com/rajeeja}{\raisebox{-0.2\height}\faGithub\ rajeeja} ~
+    \href{https://linkedin.com/in/rajeeja}{\raisebox{-0.2\height}\faLinkedin\ rajeeja} ~
+    \href{https://rajeeja.github.io}{\raisebox{-0.2\height}\faGlobe\ rajeeja.github.io}
+    \vspace{-8pt}
+\end{center}
+
+\section{Summary}
+Research software engineer building high-performance tools for climate science, cancer research, and exascale computing. Lead developer of UXarray (205+ GitHub stars), 2× R\&D 100 Award winner, with 16+ years optimizing scientific workflows at Argonne National Laboratory.
+
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Principal Specialist, Research Software Engineering}{2009 -- Present}
+      {Argonne National Laboratory $\cdot$ Joint Appointment, University of Chicago}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{\textbf{UXarray (2022--Present):} Lead developer for Python library enabling analysis of multi-petabyte unstructured climate datasets. Implemented conservative zonal averaging using Gauss-Legendre quadrature, Grid I/O readers for ESMF, MPAS, SCRIP, and HEALPix formats, and comprehensive testing infrastructure. Established CI/CD pipeline with GitHub Actions and regular PyPI releases. Presented tutorials at SC24, AMS 2024, and ESDS Annual Event. \textbf{205+ GitHub stars, adopted by NCAR, DOE labs, and universities worldwide.}}
+        \resumeItem{\textbf{FLASH-X (2019--2024):} Implemented asynchronous HDF5 I/O achieving \textbf{40-70\% reduction} in checkpoint write times on Summit supercomputer. Integrated SZ3 and ZFP compression algorithms reducing storage requirements by \textbf{50\%+} with minimal accuracy loss. Built verification workflow with nightly baseline testing. Published at SC24 10th International Workshop on Data Analysis and Reduction. \textbf{R\&D 100 Award 2022.}}
+        \resumeItem{\textbf{CANDLE/IMPROVE (2020--2025):} Built hyperparameter optimization infrastructure running \textbf{10,000+ training experiments} across Summit, Theta, and Cori supercomputers. Developed GitHub Actions workflows for cross-study validation and Docker-based reproducibility. Maintained benchmarking framework used by \textbf{15+ researchers}. Results published in Briefings in Bioinformatics (2025). \textbf{R\&D 100 Award 2023.}}
+        \resumeItem{\textbf{Urban ECP \& MeshKit (2009--2019):} Led bi-weekly coordination across 4 national labs for urban microclimate simulation project. Coupled WRF weather models with Nek5000 CFD simulations achieving 11\% improvement in building energy prediction accuracy. Developed parallel reactor core mesh generator creating billion-element hex meshes. Published in Engineering with Computers. \textbf{Best Paper Award, IMR 2010.}}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {M.S. in Computer Science}{2020}
+      {University of Chicago}{Chicago, IL}
+    \resumeSubheading
+      {M.S. in Structural Engineering}{2009}
+      {Arizona State University $\cdot$ Graduate Fellowship Recipient}{Tempe, AZ}
+    \resumeSubheading
+      {B.Tech in Mechanical Engineering}{2006}
+      {Indian Institute of Technology (IIT), Indian School of Mines}{Dhanbad, India}
+  \resumeSubHeadingListEnd
+
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages:} Python, C++, Fortran, R, Bash \\
+     \textbf{ML/Data Science:} PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, Swift/T \\
+     \textbf{HPC/Systems:} MPI, OpenMP, HDF5, NetCDF, Docker, Singularity, Git, GitHub Actions, Jenkins \\
+     \textbf{Domains:} Climate modeling, cancer pharmacogenomics, computational physics, mesh generation
+    }}
+ \end{itemize}
+
+\section{Selected Publications \& Presentations}
+\resumeSubHeadingListStart
+  \resumeItem{Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Jain, R., et al. (2025). "Benchmarking community drug response prediction models: datasets, models, tools, and metrics." \textit{Briefings in Bioinformatics} (forthcoming).}
+  \resumeItem{Jain, R., Tang, H., Dhruv, A., Byna, S. (2024). "Enabling Data Reduction for Flash-X Simulations." \textit{10th International Workshop on Data Analysis and Reduction for Big Scientific Data}, SC24.}
+  \resumeItem{Jain, R., Wozniak, J., Partin, A., et al. (2024). "Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Datasets." \textit{Tenth Computational Approaches for Cancer Workshop}, SC24.}
+  \resumeItem{Chmielowiec, P., Chen, H., Jacob, R., Jain, R., et al. (2024). "UXarray: Extending Xarray with Support for Unstructured Grids." \textit{104th AMS Annual Meeting}.}
+  \resumeItem{Tautges, T. J., Jain, R. (2011). "Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach." \textit{Engineering with Computers}.}
+\resumeSubHeadingListEnd
+
+\end{document}
