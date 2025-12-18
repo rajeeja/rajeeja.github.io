@@ -4,14 +4,14 @@ main:
   - title: "About"
     url: /#about
 
-  - title: "Impact"
-    url: /#impact
+  - title: "Work"
+    url: /#work
 
-  - title: "Experience"
-    url: /#experience
+  - title: "Recognition"
+    url: /#recognition
 
-  - title: "Publications"
-    url: /#publications
+  - title: "Background"
+    url: /#background
 
   - title: "Resume"
     url: /files/Rajeev_Jain_Resume.pdf
