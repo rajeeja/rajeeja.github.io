@@ -23,7 +23,7 @@ body {
 
 .page__title {
   font-family: "Crimson Pro", "Times New Roman", serif;
-  font-size: clamp(2rem, 3.1vw, 2.9rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   color: var(--accent-strong);
   letter-spacing: -0.01em;
   margin-bottom: 0.6rem;
@@ -46,7 +46,8 @@ body {
 }
 
 .page__content h3 {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .page__content a {
@@ -74,7 +75,7 @@ body {
 }
 
 .page-intro {
-  padding: 1.1rem 1.2rem;
+  padding: 1rem;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.85);
@@ -84,13 +85,13 @@ body {
 
 .intro-grid {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.2rem;
   align-items: flex-start;
 }
 
 .intro-media {
-  flex: 0 1 240px;
-  max-width: 240px;
+  flex: 0 1 280px;
+  max-width: 280px;
 }
 
 .intro-photo {
@@ -104,9 +105,10 @@ body {
 
 .intro-caption {
   margin-top: 0.5rem;
-  font-size: 0.8rem;
-  line-height: 1.35;
-  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 400;
 }
 
 .intro-education {
@@ -215,6 +217,7 @@ body {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
