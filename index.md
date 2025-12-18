@@ -13,10 +13,11 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <img class="intro-photo" src="/images/profile.png" alt="Rajeev Jain">
     </div>
     <div class="intro-copy">
-      <p class="lead">Research software engineer with 16+ years in scientific software.</p>
-      <p>Currently: Principal Specialist, Research Software Engineering at Argonne National Laboratory. Work spans climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.</p>
+      <p class="lead">Research software engineer with 16+ years in scientific software and HPC.</p>
+      <p>Currently: Principal Specialist, Research Software Engineering at Argonne National Laboratory. Projects include climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.</p>
       <p><strong>Focus areas:</strong> parallel I/O, profiling/optimization, reproducibility, and scalable pipelines.</p>
-      <p>I am an engineer who likes to solve problems. Outside of work, I play rapid chess, pickleball, and cricket, and I like a board of Catan and biking.</p>
+      <p><strong>Scope:</strong> multi-institution projects, exascale-class systems, and software practices around testing, CI, and releases.</p>
+      <p>I am an engineer who likes to solve problems. Outside of work, I play rapid chess and pickleball, enjoy cricket, a board of Catan, and biking.</p>
       <p class="compact-links"><a href="mailto:rajeeja@gmail.com">Email</a>  &middot;  <a href="https://github.com/rajeeja">GitHub</a>  &middot;  <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>  &middot;  <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Scholar</a></p>
       <div class="hero-actions">
         <a class="btn btn--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume (PDF)</a>
@@ -32,8 +33,8 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
     <article class="case-study">
       <h3>UXarray: conservative zonal averaging for unstructured grids</h3>
       <p><strong>Problem:</strong> Unstructured climate grids needed accurate, conservative zonal averages that preserve integrals and scale in Python.</p>
-      <p><strong>Approach:</strong> Implemented conservative zonal averaging in UXarray using Gauss-Legendre quadrature, with validation tests and monthly PyPI releases.</p>
-      <p><strong>Outcome:</strong> A scalable, accurate method for unstructured grid analysis in a pip-installable package.</p>
+      <p><strong>Approach:</strong> Implemented conservative zonal averaging in UXarray using Gauss-Legendre quadrature, with validation tests and regular PyPI releases.</p>
+      <p><strong>Outcome:</strong> A scalable method for unstructured grid analysis in a pip-installable package.</p>
       <p class="case-links"><a href="https://eesm.science.energy.gov/presentations/uxarray-python-package-analysis-and-visualization-model-output-unstructured-climate">Paper</a>  &middot;  <a href="https://github.com/UXARRAY/uxarray/pull/1345">PR #1345</a></p>
     </article>
     <article class="case-study">
@@ -47,7 +48,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <h3>Urban Exascale: boundary conditions for urban microclimate</h3>
       <p><strong>Problem:</strong> City-scale building energy models needed realistic urban microclimate boundary conditions.</p>
       <p><strong>Approach:</strong> Coupled urban weather boundary conditions into a city-scale workflow and ran multi-domain simulations.</p>
-      <p><strong>Outcome:</strong> Improved urban boundary conditions for building energy modeling and published results.</p>
+      <p><strong>Outcome:</strong> Improved boundary conditions for building energy modeling and published results.</p>
       <p class="case-links"><a href="https://eta-publications.lbl.gov/sites/default/files/17_-_urban_weather_boundary_conditions_-_tianzhen_hong.pdf">Paper</a></p>
     </article>
   </div>
