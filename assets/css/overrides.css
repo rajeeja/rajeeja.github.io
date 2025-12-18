@@ -81,7 +81,8 @@ body {
 }
 
 .intro-media {
-  flex: 0 0 auto;
+  flex: 0 0 150px;
+  max-width: 150px;
 }
 
 .intro-photo {
@@ -95,7 +96,8 @@ body {
 
 .intro-caption {
   margin-top: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
   color: var(--muted);
 }
 
@@ -225,6 +227,11 @@ body {
   .intro-grid {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .intro-media {
+    flex: 0 0 auto;
+    max-width: none;
   }
 
   .intro-photo {
