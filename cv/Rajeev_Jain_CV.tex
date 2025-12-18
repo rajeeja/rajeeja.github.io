@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{mdwlist}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+% Define custom colors
+\definecolor{linkcolor}{HTML}{0066CC}
+\definecolor{namecolor}{HTML}{003366}
+\definecolor{sectioncolor}{HTML}{004C99}
+\definecolor{subheadingcolor}{HTML}{444444}
+\definecolor{datecolor}{HTML}{666666}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,
+    filecolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=linkcolor,
+}
+
+\urlstyle{same}
+\pagestyle{empty}
+
+% CV macros
+\newcommand{\resumeSubHeadingListStart}{\begin{list}{}{\setlength{\leftmargin}{0pt}\setlength{\itemsep}{0pt}}}% no bullets
+\newcommand{\resumeSubHeadingListEnd}{\end{list}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+\newcommand{\resumeSubheading}[4]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\ \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}}
+\newcommand{\resumeProject}[2]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}}
+\newcommand{\resumeItem}[1]{\item{#1}}
+
+\begin{document}
+
+\begin{center}
+    {\Huge \textbf{\color{namecolor}Rajeev Jain}} \\ \vspace{2mm}
+    Chicago, IL \\
+    Email: \href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad
+    Phone: (312) 725-3380 \quad
+    LinkedIn: \href{https://www.linkedin.com/in/rajeeja/}{linkedin.com/in/rajeeja} \\
+    Scholar: \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en}{scholar.google.com} \quad
+    GitHub: \href{https://github.com/rajeeja}{github.com/rajeeja} \quad
+    Web: \href{https://rajeeja.github.io/}{rajeeja.github.io}
+\end{center}
+
+\section*{Summary}
+\begin{itemize}
+  \item Research software engineer with 16+ years building scientific software across climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.
+  \item Focus areas: parallel input/output, profiling and optimization, reproducibility, scalable pipelines, and Python programming.
+  \item Scope includes multi-institution projects, exascale-class systems, and software practices around testing, continuous integration, and releases.
+\end{itemize}
+
+\section*{Appointments}
+\vspace{-0.5em}
+\resumeSubHeadingListStart
+\resumeSubheading{Research Software Engineering Roles (current: Principal Specialist)}{Aug 2009 -- Present}{Mathematics and Computer Science Division, Argonne National Laboratory}{Lemont, IL}
+\resumeItemListStart
+  \resumeItem{Research software engineering across UXarray, FLASH-X, Cancer Distributed Learning Environment workflows, MeshKit, Reactor Geometry Generator, and urban simulation workflows.}
+  \resumeItem{Work spans exascale-class systems and large-scale workflows.}
+\resumeItemListEnd
+
+\resumeSubheading{Staff At-Large}{Sep 2023 -- Present}{The University of Chicago}{Chicago, IL}
+\resumeItemListStart
+  \resumeItem{Joint appointment supporting cancer and earth science research.}
+\resumeItemListEnd
+
+\resumeSubheading{Research and Teaching Assistant}{Aug 2007 -- Jul 2009}{Arizona State University}{Tempe, AZ}
+\resumeItemListStart
+  \resumeItem{Researched finite element method-based shape optimization for blast-resistant design; supported structural engineering courses.}
+\resumeItemListEnd
+
+\resumeSubheading{Project Engineer}{May 2006 -- Jun 2007}{Wipro Technologies}{Bangalore/Hyderabad, India}
+\resumeItemListStart
+  \resumeItem{Developed production software in Java and enterprise resource planning systems in large enterprise environments.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section*{Education}
+\vspace{-0.5em}
+\resumeSubHeadingListStart
+\resumeSubheading{The University of Chicago}{Chicago, IL}{Master of Science in Computer Science}{Jun 2020}
+\resumeSubheading{Arizona State University}{Tempe, AZ}{Master of Science in Structural Engineering (Minor: Computer Science)}{Jul 2009}
+\resumeSubheading{Indian Institute of Technology Dhanbad}{Dhanbad, India}{Bachelor of Technology in Mechanical Engineering}{May 2006}
+\resumeSubHeadingListEnd
+
+\section*{Leadership and Funding}
+\begin{itemize}
+  \item Principal investigator, Nuclear Energy Advanced Modeling and Simulation Integration (Frameworks) Product Line (Meshing), \$300k+ (2011--2016).
+  \item Principal investigator, MeshKit Nuclear Energy Advanced Modeling and Simulation toolkit development (2012--2016).
+  \item Co-principal investigator and project lead for the Urban Exascale Computing Project effort; contributed to growth from \$300k (fiscal year 2017) to \$1M (fiscal year 2018) with projected \$2.5M (fiscal year 2019).
+  \item Small Business Innovation Research Phase I and II awards for Reactor Geometry Generator commercialization with Kitware (2014--2017).
+  \item Kitware subcontract for web-based nuclear reactor modeling, \$75k (Phase IIB Small Business Innovation Research, 2017).
+\end{itemize}
+
+\section*{Selected Projects and Technical Contributions}
+\vspace{-0.5em}
+\resumeSubHeadingListStart
+\resumeProject{UXarray (Climate Computing)}{2021 -- Present}
+\resumeItemListStart
+  \resumeItem{Core contributor to a Python toolkit for unstructured climate grids; pip-installable with monthly releases.}
+  \resumeItem{Implemented conservative zonal averaging (pull request \#1345) and accelerated unstructured grid analysis via vectorization.}
+\resumeItemListEnd
+
+\resumeProject{FLASH-X (Multiphysics Simulation)}{2016 -- 2023}
+\resumeItemListStart
+  \resumeItem{Implemented asynchronous Hierarchical Data Format input/output with compression; reported 20\%+ input/output gains in benchmarks.}
+  \resumeItem{Built verification workflows and nightly baselines to stabilize releases.}
+\resumeItemListEnd
+
+\resumeProject{Cancer Data Science (Cancer Distributed Learning Environment workflows)}{2017 -- Present}
+\resumeItemListStart
+  \resumeItem{Ran large-scale hyperparameter optimization workflows and standardized reproducible pipelines.}
+  \resumeItem{Contributed to counterfactual analysis and benchmarking for drug response modeling.}
+\resumeItemListEnd
+
+\resumeProject{Urban Exascale (Urban Microclimate)}{2016 -- 2018}
+\resumeItemListStart
+  \resumeItem{Coupled urban weather boundary conditions into city-scale building energy workflows.}
+\resumeItemListEnd
+
+\resumeProject{MeshKit and Reactor Geometry Generator (Reactor Modeling)}{2009 -- 2018}
+\resumeItemListStart
+  \resumeItem{Led MeshKit and Reactor Geometry Generator development for Nuclear Energy Advanced Modeling and Simulation; reduced reactor core mesh turnaround from weeks to hours.}
+  \resumeItem{Developed PostBL and parallel mesh generation tools for large reactor models.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section*{Reports to the Department of Energy}
+\begin{itemize}
+  \item Jain, R. and Tautges, T. J. \textit{MeshKit}, ANL/MCS-TM/336, Sept 30, 2013.
+  \item Jain, R. and Mahadevan, V. \textit{2014 MeshKit Release}, ANL/MCS-TM/344, Sept 30, 2014.
+  \item Jain, R., Vanderzee, E., Grindeanu, I., Mahadevan, V. \textit{Mesh Generation and Algorithm Development for Nuclear Energy Advanced Modeling and Simulation}, ANL-P60660916, Sept 30, 2016.
+  \item Tautges, T. J., Fischer, P. F., Grindeanu, I., Jain, R., et al. \textit{SHARP Assembly-Scale Multiphysics Demonstration Simulations}, ANL/MCS-NE-13-9, Mar 30, 2013.
+  \item Bingham, A., Ortensi, J., Jain, R., Grindeanu, I., Tautges, T. \textit{SHARP/PRONGHORN}, INL/EXT-12-27171, 2012.
+  \item Tautges, T. J., Fischer, P., Grindeanu, I., Jain, R., et al. \textit{Coupled Thermal/Hydraulics -- Neutronics -- Fuel Performance Analysis of a sodium-cooled fast reactor fuel assembly}, Apr 30, 2012.
+  \item Tautges, T. J. and Jain, R. \textit{Extensions to MeshKit and Reactor Geometry Generator}, ANL/MCS-TM316, Oct 30, 2011.
+  \item Tautges, T. J. and Jain, R. \textit{Mesh Copy/Move/Merge Tool for Reactor Simulation Applications}, ANL/MCS-P1773-0610, Apr 30, 2010.
+  \item Merzari, E., Shemon, E. R., Yu, Y., Thomas, J. W., Obabko, A., Jain, R., Mahadevan, V., et al. \textit{Full Core Multiphysics Simulation with Offline Mesh Deformation}, ANL/NE-15/42, Dec 21, 2015.
+  \item Catlett, C., Jain, R., Jacob, R., Muehleisen, R., Hong, T., Luo, X., et al. \textit{Data Flow Characteristics for Coupled Urban Models}, Exascale Computing Project report, Dec 31, 2017.
+\end{itemize}
+
+\section*{Selected Publications}
+\begin{itemize}
+  \item UXarray: \href{https://eesm.science.energy.gov/presentations/uxarray-python-package-analysis-and-visualization-model-output-unstructured-climate}{UXarray presentation and paper}.
+  \item FLASH-X: \href{https://arxiv.org/abs/2208.11630}{Paper 1} and \href{https://ieeexplore.ieee.org/document/10026923}{Paper 2}.
+  \item Cancer Distributed Learning Environment / Supervisor: \href{https://pubmed.ncbi.nlm.nih.gov/30577736/}{BMC Bioinformatics}.
+  \item Counterfactual analysis in cancer data: \href{https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf}{Paper}.
+  \item Urban microclimate boundary conditions: \href{https://eta-publications.lbl.gov/sites/default/files/17_-_urban_weather_boundary_conditions_-_tianzhen_hong.pdf}{Paper}.
+  \item MeshKit and Reactor Geometry Generator: \href{https://doi.org/10.1007/s00366-011-0221-4}{Engineering with Computers}.
+  \item PostBL: \textit{Post-Mesh Boundary Layer Generation Tool}, International Meshing Roundtable 2013.
+  \item MeshKit and Reactor Geometry Generator: \textit{Generating Unstructured Reactor Core Meshes in Parallel}, International Meshing Roundtable 2014.
+\end{itemize}
+
+\section*{Awards and Honors}
+\begin{itemize}
+  \item Research and Development 100 Award: Cancer Distributed Learning Environment / Supervisor (2023).
+  \item Research and Development 100 Award: FLASH-X (2022).
+  \item Best Paper, International Meshing Roundtable (2010).
+  \item University Graduate Fellowship, Arizona State University (2007--2009).
+  \item Small Business Innovation Research Phase I and II awards for Reactor Geometry Generator commercialization with Kitware (2014--2017).
+\end{itemize}
+
+\section*{Service and Mentoring}
+\begin{itemize}
+  \item Mentored junior researchers and interns across climate and cancer data science projects.
+  \item Session chair, Computational Geometries, International Conference on Mathematics and Computational Methods Applied to Nuclear Science and Engineering (2015).
+  \item Peer reviewer for International Meshing Roundtable papers.
+  \item Judge for Monte Carlo conference submissions.
+  \item Peer reviewer for Journal of Open Research Software (selected manuscripts).
+\end{itemize}
+
+\section*{Professional Memberships (active/inactive)}
+\begin{itemize}
+  \item American Nuclear Society (ANS).
+  \item Association for Computing Machinery (ACM).
+  \item American Meteorological Society (AMS).
+\end{itemize}
+
+\section*{Technical Skills}
+\resumeSubHeadingListStart
+  \item \textbf{High-performance computing and programming:} Python, C++, Fortran; Message Passing Interface, Open Multi-Processing, Hierarchical Data Format, parallel input/output, performance tuning.
+  \item \textbf{Machine learning and data tools:} PyTorch, Keras, NumPy, pandas; Git, continuous integration/continuous delivery.
+\resumeSubHeadingListEnd
+
+\end{document}
