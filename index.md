@@ -17,6 +17,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <p class="lead">Research software engineer with 16+ years in scientific software and high-performance computing.</p>
       <p>Currently: Principal Specialist, Research Software Engineering at Argonne National Laboratory. Work includes climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.</p>
       <p>Focus areas include parallel input/output, profiling and optimization, reproducibility, scalable pipelines, and Python programming, with emphasis on testing, continuous integration, and releases.</p>
+      <p class="intro-education">Education: M.S. Computer Science (University of Chicago, 2020) &middot; M.S. Structural Engineering (Arizona State University, 2009)</p>
       <p>I am an engineer who likes to solve problems. Outside of work, I play rapid chess and pickleball, enjoy cricket, a board of Catan, and biking.</p>
       <p class="compact-links"><a href="mailto:rajeeja@gmail.com">Email</a>  &middot;  <a href="https://github.com/rajeeja">GitHub</a>  &middot;  <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>  &middot;  <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Scholar</a></p>
       <div class="hero-actions">

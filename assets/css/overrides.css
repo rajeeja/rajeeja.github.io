@@ -99,6 +99,11 @@ body {
   color: var(--muted);
 }
 
+.intro-education {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
 .intro-copy {
   flex: 1;
   min-width: 0;
