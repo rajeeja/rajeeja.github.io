@@ -8,3 +8,21 @@ future_content*
 # local venv
 .venv/
 files/texmf-var/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Local reference files (SOA documents)
+soa-*.txt
+cv-*.txt
+cv17.txt
+
+# Development files
+.bundle/
+vendor/
+.jekyll-metadata

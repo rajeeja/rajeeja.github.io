@@ -10,7 +10,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
 <div class="hero-section" id="about">
   <div class="hero-content">
     <div class="hero-image">
-      <img src="/images/profile.png" alt="Rajeev Jain">
+      <img src="/images/bio-photo.jpg" alt="Rajeev Jain">
     </div>
     <div class="hero-text">
       <h1 class="hero-title">Rajeev Jain</h1>

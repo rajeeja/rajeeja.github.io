@@ -1,138 +1,129 @@
-\documentclass[10pt,letterpaper]{article}
-\usepackage[letterpaper,margin=0.75in]{geometry}
-\usepackage{mdwlist}
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp}
-\usepackage{hyperref}
-\usepackage{xcolor}
+%-------------------------
+% Resume in LaTeX - One Page Version
+%------------------------
 
-% Define custom colors
-\definecolor{linkcolor}{HTML}{0066CC}
-\definecolor{namecolor}{HTML}{003366}
-\definecolor{sectioncolor}{HTML}{004C99}
-\definecolor{subheadingcolor}{HTML}{444444}
-\definecolor{datecolor}{HTML}{666666}
+\documentclass[letterpaper,11pt]{article}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=linkcolor,
-    filecolor=linkcolor,
-    urlcolor=linkcolor,
-    citecolor=linkcolor,
-}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
 
 \urlstyle{same}
-\pagestyle{empty}
 
-% Resume macros
-\newcommand{\resumeSubHeadingListStart}{\begin{list}{}{\setlength{\leftmargin}{0pt}\setlength{\itemsep}{0pt}}}% no bullets
-\newcommand{\resumeSubHeadingListEnd}{\end{list}}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 \newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}}
-\newcommand{\resumeSubheading}[4]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\ \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}}
-\newcommand{\resumeProject}[2]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}}
-\newcommand{\resumeItem}[1]{\item{#1}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
 
 \begin{document}
 
 \begin{center}
-    {\Huge \textbf{\color{namecolor}Rajeev Jain}} \\ \vspace{2mm}
-    Chicago, IL \\
-    Email: \href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad
-    Phone: (312) 725-3380 \quad
-    LinkedIn: \href{https://www.linkedin.com/in/rajeeja/}{linkedin.com/in/rajeeja} \\
-    Scholar: \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en}{scholar.google.com} \quad
-    GitHub: \href{https://github.com/rajeeja}{github.com/rajeeja} \quad
-    Web: \href{https://rajeeja.github.io/}{rajeeja.github.io}
+    {\Huge \scshape Rajeev Jain} \\ \vspace{8pt}
+    \small 
+    \href{mailto:rajeeja@gmail.com}{\raisebox{-0.2\height}\faEnvelope\ rajeeja@gmail.com} ~ 
+    \href{https://github.com/rajeeja}{\raisebox{-0.2\height}\faGithub\ rajeeja} ~
+    \href{https://linkedin.com/in/rajeeja}{\raisebox{-0.2\height}\faLinkedin\ rajeeja} ~
+    \href{https://rajeeja.github.io}{\raisebox{-0.2\height}\faGlobe\ rajeeja.github.io}
+    \vspace{-8pt}
 \end{center}
 
-\section*{Summary}
-\begin{itemize}
-  \item Research software engineer with 16+ years building scientific software across climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.
-  \item Focus areas: parallel input/output, profiling and optimization, reproducibility, scalable pipelines, and Python programming.
-  \item Scope includes multi-institution projects, exascale-class systems, and software practices around testing, continuous integration, and releases.
-\end{itemize}
+\section{Summary}
+Research software engineer building high-performance tools for climate science, cancer research, and exascale computing. Lead developer of UXarray (205+ GitHub stars), 2× R\&D 100 Award winner, with 16+ years optimizing scientific workflows at Argonne National Laboratory.
 
-\section*{Experience}
-\vspace{-0.5em}
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Principal Specialist, Research Software Engineering}{2009 -- Present}
+      {Argonne National Laboratory $\cdot$ Joint Appointment, University of Chicago}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{\textbf{UXarray (2022--Present):} Lead developer for Python library enabling analysis of multi-petabyte unstructured climate datasets. Implemented conservative zonal averaging using Gauss-Legendre quadrature, Grid I/O readers for ESMF, MPAS, SCRIP, and HEALPix formats, and comprehensive testing infrastructure. Established CI/CD pipeline with GitHub Actions and regular PyPI releases. Presented tutorials at SC24, AMS 2024, and ESDS Annual Event. \textbf{205+ GitHub stars, adopted by NCAR, DOE labs, and universities worldwide.}}
+        \resumeItem{\textbf{FLASH-X (2019--2024):} Implemented asynchronous HDF5 I/O achieving \textbf{40-70\% reduction} in checkpoint write times on Summit supercomputer. Integrated SZ3 and ZFP compression algorithms reducing storage requirements by \textbf{50\%+} with minimal accuracy loss. Built verification workflow with nightly baseline testing. Published at SC24 10th International Workshop on Data Analysis and Reduction. \textbf{R\&D 100 Award 2022.}}
+        \resumeItem{\textbf{CANDLE/IMPROVE (2020--2025):} Built hyperparameter optimization infrastructure running \textbf{10,000+ training experiments} across Summit, Theta, and Cori supercomputers. Developed GitHub Actions workflows for cross-study validation and Docker-based reproducibility. Maintained benchmarking framework used by \textbf{15+ researchers}. Results published in Briefings in Bioinformatics (2025). \textbf{R\&D 100 Award 2023.}}
+        \resumeItem{\textbf{Urban ECP \& MeshKit (2009--2019):} Led bi-weekly coordination across 4 national labs for urban microclimate simulation project. Coupled WRF weather models with Nek5000 CFD simulations achieving 11\% improvement in building energy prediction accuracy. Developed parallel reactor core mesh generator creating billion-element hex meshes. Published in Engineering with Computers. \textbf{Best Paper Award, IMR 2010.}}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {M.S. in Computer Science}{2020}
+      {University of Chicago}{Chicago, IL}
+    \resumeSubheading
+      {M.S. in Structural Engineering}{2009}
+      {Arizona State University $\cdot$ Graduate Fellowship Recipient}{Tempe, AZ}
+    \resumeSubheading
+      {B.Tech in Mechanical Engineering}{2006}
+      {Indian Institute of Technology (IIT), Indian School of Mines}{Dhanbad, India}
+  \resumeSubHeadingListEnd
+
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages:} Python, C++, Fortran, R, Bash \\
+     \textbf{ML/Data Science:} PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, Swift/T \\
+     \textbf{HPC/Systems:} MPI, OpenMP, HDF5, NetCDF, Docker, Singularity, Git, GitHub Actions, Jenkins \\
+     \textbf{Domains:} Climate modeling, cancer pharmacogenomics, computational physics, mesh generation
+    }}
+ \end{itemize}
+
+\section{Selected Publications \& Presentations}
 \resumeSubHeadingListStart
-\resumeSubheading{Research Software Engineering Roles (current: Principal Specialist)}{Aug 2009 -- Present}{Mathematics and Computer Science Division, Argonne National Laboratory}{Lemont, IL}
-\resumeItemListStart
-\resumeItem{Built and maintained research software across UXarray, FLASH-X, Cancer Distributed Learning Environment (CANDLE) workflows, MeshKit, Reactor Geometry Generator, and urban simulation workflows.}
-  \resumeItem{Implemented conservative zonal averaging in UXarray (pull request \#1345) and contributed to regular Python Package Index releases.}
-  \resumeItem{Ran large-scale hyperparameter optimization workflows for cancer data science projects; standardized reproducibility and benchmarking pipelines.}
-  \resumeItem{Implemented asynchronous Hierarchical Data Format 5 (HDF5) input/output and compression for FLASH-X; reduced input/output time in benchmarks (20\%+).}
-  \resumeItem{Work spans exascale-class systems and large-scale workflows.}
-\resumeItemListEnd
-
-\resumeSubheading{Staff At-Large}{Sep 2023 -- Present}{The University of Chicago}{Chicago, IL}
-\resumeItemListStart
-  \resumeItem{Joint appointment supporting cancer and earth science research.}
-\resumeItemListEnd
-
-\resumeSubheading{Research and Teaching Assistant}{Aug 2007 -- Jul 2009}{Arizona State University}{Tempe, AZ}
-\resumeItemListStart
-  \resumeItem{Researched finite element method-based shape optimization for blast-resistant design and supported structural engineering courses.}
-\resumeItemListEnd
-
-\resumeSubheading{Project Engineer}{May 2006 -- Jun 2007}{Wipro Technologies}{Bangalore/Hyderabad, India}
-\resumeItemListStart
-  \resumeItem{Developed production software in Java and enterprise resource planning systems in large enterprise environments.}
-\resumeItemListEnd
-\resumeSubHeadingListEnd
-
-\section*{Selected Projects}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeProject{UXarray (Climate Computing)}{2021 -- Present}
-\resumeItemListStart
-  \resumeItem{Core contributor to a Python toolkit for unstructured climate grids; focused on scalable analysis and conservative averaging.}
-\resumeItemListEnd
-
-\resumeProject{FLASH-X (Multiphysics Simulation)}{2016 -- 2023}
-\resumeItemListStart
-  \resumeItem{Built async input/output and verification workflows; contributed to Research and Development 100 Award (2022).}
-\resumeItemListEnd
-
-\resumeProject{Cancer Data Science (CANDLE workflows)}{2017 -- Present}
-\resumeItemListStart
-  \resumeItem{Standardized pipelines and hyperparameter optimization workflows for reproducible model evaluation.}
-\resumeItemListEnd
-
-\resumeProject{MeshKit and Reactor Geometry Generator (Reactor Modeling)}{2009 -- 2018}
-\resumeItemListStart
-  \resumeItem{Principal investigator for Nuclear Energy Advanced Modeling and Simulation meshing; reduced reactor core modeling time from weeks to hours; Small Business Innovation Research commercialization with Kitware.}
-\resumeItemListEnd
-\resumeSubHeadingListEnd
-
-\section*{Education}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeSubheading{The University of Chicago}{Chicago, IL}{Master of Science in Computer Science}{Jun 2020}
-\resumeSubheading{Arizona State University}{Tempe, AZ}{Master of Science in Structural Engineering (Minor: Computer Science)}{Jul 2009}
-\resumeSubheading{Indian Institute of Technology Dhanbad}{Dhanbad, India}{Bachelor of Technology in Mechanical Engineering}{May 2006}
-\resumeSubHeadingListEnd
-
-\section*{Awards}
-\begin{itemize}
-  \item Research and Development 100 (R\&D 100) Awards: \href{https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/}{CANDLE (2023)} and \href{https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/}{FLASH-X (2022)}.
-  \item Best Paper, International Meshing Roundtable (2010).
-  \item University Graduate Fellowship, Arizona State University (2007--2009).
-  \item Small Business Innovation Research (SBIR) Phase I and II awards for Reactor Geometry Generator commercialization with Kitware (2014--2017).
-\end{itemize}
-
-\section*{Selected Publications}
-\begin{itemize}
-  \item UXarray: \href{https://eesm.science.energy.gov/presentations/uxarray-python-package-analysis-and-visualization-model-output-unstructured-climate}{UXarray presentation and paper}.
-  \item FLASH-X: \href{https://arxiv.org/abs/2208.11630}{Paper 1} and \href{https://ieeexplore.ieee.org/document/10026923}{Paper 2}.
-  \item CANDLE: \href{https://pubmed.ncbi.nlm.nih.gov/30577736/}{Supervisor workflow} and \href{https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf}{Counterfactual analysis}.
-  \item Urban microclimate: \href{https://eta-publications.lbl.gov/sites/default/files/17_-_urban_weather_boundary_conditions_-_tianzhen_hong.pdf}{Boundary conditions paper}.
-\end{itemize}
-
-\section*{Technical Skills}
-\resumeSubHeadingListStart
-  \item \textbf{High-performance computing and programming:} Python, C++, Fortran; Message Passing Interface (MPI), Open Multi-Processing (OpenMP), HDF5, parallel input/output, performance tuning.
-  \item \textbf{Machine learning and data tools:} PyTorch, Keras, NumPy, pandas; Git, continuous integration/continuous delivery.
+  \resumeItem{Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Jain, R., et al. (2025). "Benchmarking community drug response prediction models: datasets, models, tools, and metrics." \textit{Briefings in Bioinformatics} (forthcoming).}
+  \resumeItem{Jain, R., Tang, H., Dhruv, A., Byna, S. (2024). "Enabling Data Reduction for Flash-X Simulations." \textit{10th International Workshop on Data Analysis and Reduction for Big Scientific Data}, SC24.}
+  \resumeItem{Jain, R., Wozniak, J., Partin, A., et al. (2024). "Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Datasets." \textit{Tenth Computational Approaches for Cancer Workshop}, SC24.}
+  \resumeItem{Chmielowiec, P., Chen, H., Jacob, R., Jain, R., et al. (2024). "UXarray: Extending Xarray with Support for Unstructured Grids." \textit{104th AMS Annual Meeting}.}
+  \resumeItem{Tautges, T. J., Jain, R. (2011). "Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach." \textit{Engineering with Computers}.}
 \resumeSubHeadingListEnd
 
 \end{document}

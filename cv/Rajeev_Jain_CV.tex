@@ -1,250 +1,258 @@
-\documentclass[10pt,letterpaper]{article}
-\usepackage[letterpaper,margin=0.75in]{geometry}
-\usepackage{mdwlist}
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp}
-\usepackage{hyperref}
-\usepackage{xcolor}
+%-------------------------
+% Curriculum Vitae - Rajeev Jain
+% Comprehensive academic CV
+%------------------------
 
-% Define custom colors
-\definecolor{linkcolor}{HTML}{0066CC}
-\definecolor{namecolor}{HTML}{003366}
-\definecolor{sectioncolor}{HTML}{004C99}
-\definecolor{subheadingcolor}{HTML}{444444}
-\definecolor{datecolor}{HTML}{666666}
+\documentclass[letterpaper,11pt]{article}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=linkcolor,
-    filecolor=linkcolor,
-    urlcolor=linkcolor,
-    citecolor=linkcolor,
-}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
 
 \urlstyle{same}
-\pagestyle{empty}
 
-% CV macros
-\newcommand{\resumeSubHeadingListStart}{\begin{list}{}{\setlength{\leftmargin}{0pt}\setlength{\itemsep}{0pt}}}% no bullets
-\newcommand{\resumeSubHeadingListEnd}{\end{list}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}}
-\newcommand{\resumeSubheading}[4]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2} \\ \textit{\color{sectioncolor}#3} \hfill \textit{\color{datecolor}#4}}
-\newcommand{\resumeProject}[2]{\item \textbf{\color{subheadingcolor}#1} \hfill {\color{datecolor}#2}}
-\newcommand{\resumeItem}[1]{\item{#1}}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
 
 \begin{document}
 
 \begin{center}
-    {\Huge \textbf{\color{namecolor}Rajeev Jain}} \\ \vspace{2mm}
-    Chicago, IL \\
-    Email: \href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad
-    Phone: (312) 725-3380 \quad
-    LinkedIn: \href{https://www.linkedin.com/in/rajeeja/}{linkedin.com/in/rajeeja} \\
-    Scholar: \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en}{scholar.google.com} \quad
-    GitHub: \href{https://github.com/rajeeja}{github.com/rajeeja} \quad
-    Web: \href{https://rajeeja.github.io/}{rajeeja.github.io}
+    {\Huge \scshape Rajeev Jain} \\ \vspace{8pt}
+    \small 
+    \href{mailto:rajeeja@gmail.com}{\raisebox{-0.2\height}\faEnvelope\ rajeeja@gmail.com} ~ 
+    \href{https://github.com/rajeeja}{\raisebox{-0.2\height}\faGithub\ rajeeja} ~
+    \href{https://linkedin.com/in/rajeeja}{\raisebox{-0.2\height}\faLinkedin\ rajeeja} ~
+    \href{https://rajeeja.github.io}{\raisebox{-0.2\height}\faGlobe\ rajeeja.github.io}
+    \vspace{-8pt}
 \end{center}
 
-\section*{Summary}
-\begin{itemize}
-  \item Research software engineer with 16+ years building scientific software across climate, cancer data science, multiphysics simulation, urban systems, and nuclear engineering.
-  \item Focus areas: parallel input/output, profiling and optimization, reproducibility, scalable pipelines, and Python programming.
-  \item Scope includes multi-institution projects, exascale-class systems, and software practices around testing, continuous integration, and releases.
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+        \textbf{Quick Facts:} \\[4pt]
+        $\bullet$ Lead Developer, UXarray (205+ GitHub stars) $\bullet$ 2× R\&D 100 Award Winner (2022, 2023) \\
+        $\bullet$ 16+ Years at Argonne National Laboratory $\bullet$ 15+ Peer-Reviewed Publications
+    }%
+}
+
+\section{Research Interests}
+High-performance scientific computing, climate modeling, cancer pharmacogenomics, computational physics, mesh generation, parallel I/O optimization, machine learning infrastructure, and reproducible workflows.
+
+\section{Professional Experience}
+
+\textbf{Principal Specialist, Research Software Engineering} \hfill 2009 -- Present \\
+\textit{Argonne National Laboratory, Mathematics and Computer Science Division} \hfill Chicago, IL
+\begin{itemize}[leftmargin=0.15in]
+    \item Lead developer for UXarray Python library (205+ GitHub stars), enabling analysis of multi-petabyte unstructured climate datasets for NCAR, DOE labs, and universities worldwide.
+    \item Implemented asynchronous HDF5 I/O for FLASH-X exascale simulations achieving 40-70\% reduction in checkpoint times on Summit supercomputer. Integrated SZ3/ZFP compression reducing storage by 50\%+.
+    \item Built hyperparameter optimization infrastructure for cancer drug response prediction, running 10,000+ experiments across Summit, Theta, and Cori supercomputers. Framework used by 15+ researchers.
+    \item Led bi-weekly coordination across 4 national labs for DOE Urban ECP project, growing program from \$300k seed funding to \$2.5M. Coupled WRF weather models with Nek5000 CFD simulations achieving 11\% improvement in building energy prediction accuracy. Developed parallel reactor core mesh generator (MeshKit/RGG) creating billion-element hex meshes for nuclear simulation. Trained 10+ users at Oak Ridge National Laboratory.
+    \item Recipient of 2× R\&D 100 Awards (2022, 2023) for FLASH-X and CANDLE projects.
 \end{itemize}
 
-\section*{Appointments}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeSubheading{Research Software Engineering Roles (current: Principal Specialist)}{Aug 2009 -- Present}{Mathematics and Computer Science Division, Argonne National Laboratory}{Lemont, IL}
-\resumeItemListStart
-  \resumeItem{Research software engineering across UXarray, FLASH-X, Cancer Distributed Learning Environment (CANDLE) workflows, MeshKit, Reactor Geometry Generator, and urban simulation workflows.}
-  \resumeItem{Work spans exascale-class systems and large-scale workflows.}
-\resumeItemListEnd
-
-\resumeSubheading{Staff At-Large}{Sep 2023 -- Present}{The University of Chicago}{Chicago, IL}
-\resumeItemListStart
-  \resumeItem{Joint appointment supporting cancer and earth science research.}
-\resumeItemListEnd
-
-\resumeSubheading{Research and Teaching Assistant}{Aug 2007 -- Jul 2009}{Arizona State University}{Tempe, AZ}
-\resumeItemListStart
-  \resumeItem{Researched finite element method-based shape optimization for blast-resistant design; supported structural engineering courses.}
-\resumeItemListEnd
-
-\resumeSubHeadingListEnd
-
-\section*{Education}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeSubheading{The University of Chicago}{Chicago, IL}{Master of Science in Computer Science}{Jun 2020}
-\resumeSubheading{Arizona State University}{Tempe, AZ}{Master of Science in Structural Engineering (Minor: Computer Science)}{Jul 2009}
-\resumeItemListStart
-  \resumeItem{Thesis (2009): Blast Mitigation Solutions via finite element method (FEM)-based design optimization.}
-  \resumeItem{Advisors: S. D. Rajan (chair), Gerald Farin, A. D. Belegundu.}
-\resumeItemListEnd
-\resumeSubheading{Indian Institute of Technology Dhanbad}{Dhanbad, India}{Bachelor of Technology in Mechanical Engineering}{May 2006}
-\resumeSubHeadingListEnd
-
-\section*{Industry Experience}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeSubheading{Project Engineer}{May 2006 -- Jun 2007}{Wipro Technologies}{Bangalore/Hyderabad, India}
-\resumeItemListStart
-  \resumeItem{Developed production software in Java and enterprise resource planning systems in large enterprise environments.}
-\resumeItemListEnd
-\resumeSubheading{Intern Engineer}{Apr 2005 -- Jul 2005}{Engineering Research Center, Tata Motors}{Pune, India}
-\resumeSubheading{Research and Development Intern}{Nov 2004 -- Jan 2005}{Bhilai Steel Plant}{Bhilai, India}
-\resumeSubHeadingListEnd
-
-\section*{Research and Technical Contributions}
-\vspace{-0.5em}
-\resumeSubHeadingListStart
-\resumeProject{UXarray (Climate Computing)}{2021 -- Present}
-\resumeItemListStart
-  \resumeItem{Core contributor to a Python toolkit for unstructured climate grids; pip-installable with monthly releases.}
-  \resumeItem{Implemented conservative zonal averaging (pull request \#1345) and accelerated unstructured grid analysis via vectorization.}
-  \resumeItem{Modernized the test suite and fixtures, added grid validation checks, and expanded grid input/output support.}
-  \resumeItem{Added Earth System Modeling Framework (ESMF) grid writer and improved grid area calculations and temporal grouping behavior.}
-  \resumeItem{Led code reviews and API/documentation updates to stabilize releases.}
-\resumeItemListEnd
-
-\resumeProject{FLASH-X (Multiphysics Simulation)}{2016 -- 2023}
-\resumeItemListStart
-  \resumeItem{Implemented asynchronous Hierarchical Data Format 5 (HDF5) input/output with compression; reported 20\%+ input/output gains in benchmarks.}
-  \resumeItem{Added data reduction and compression workflows; results accepted at the 2024 Data Analysis and Reduction for Big Scientific Data workshop.}
-  \resumeItem{Built verification workflows and nightly baselines to stabilize releases.}
-\resumeItemListEnd
-
-\resumeProject{Cancer Data Science (CANDLE workflows)}{2017 -- Present}
-\resumeItemListStart
-  \resumeItem{Ran large-scale hyperparameter optimization workflows and standardized reproducible pipelines.}
-  \resumeItem{Maintained the Supervisor repository and benchmarking tools; added continuous integration and packaging automation.}
-  \resumeItem{Contributed to cross-study model evaluation and counterfactual analysis for drug response modeling.}
-\resumeItemListEnd
-
-\resumeProject{Urban Microclimate and Exascale Workflows}{2016 -- 2018}
-\resumeItemListStart
-  \resumeItem{Coupled urban weather boundary conditions into city-scale building energy workflows.}
-\resumeItemListEnd
-
-\resumeProject{MeshKit and Reactor Geometry Generator (Reactor Modeling)}{2009 -- 2018}
-\resumeItemListStart
-  \resumeItem{Led MeshKit and Reactor Geometry Generator development for Nuclear Energy Advanced Modeling and Simulation; reduced reactor core mesh turnaround from weeks to hours.}
-  \resumeItem{Developed PostBL and parallel mesh generation tools for large reactor models.}
-\resumeItemListEnd
-\resumeSubHeadingListEnd
-
-\section*{Journal Papers}
-\begin{itemize}
-  \item Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., Jain, R., et al. ``Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis.'' \textit{Briefings in Bioinformatics} (forthcoming).
-  \item Dubey, A., et al. (2022). ``FLASH-X: A Multiphysics Simulation Software Instrument.'' \textit{SoftwareX}. \href{https://doi.org/10.1016/j.softx.2022.101267}{DOI: 10.1016/j.softx.2022.101267}.
-  \item Wozniak, J. M., Jain, R., et al. (2018). ``CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.'' \textit{BMC Bioinformatics}, 19, 59--69. \href{https://doi.org/10.1186/s12859-018-2056-3}{DOI: 10.1186/s12859-018-2056-3}.
-  \item Jain, R., Luo, X., Sever, G., Hong, T., \& Catlett, C. (2020). ``Representation and evolution of urban weather boundary conditions in downtown Chicago.'' \textit{Journal of Building Performance Simulation}, 13(2). \href{https://doi.org/10.1080/19401493.2020.1739106}{DOI: 10.1080/19401493.2020.1739106}.
-  \item Mahadevan, V. S., Merzari, E., Tautges, T., Jain, R., Obabko, A., Smith, M., \& Fischer, P. (2014). ``High-resolution coupled physics solvers for analysing fine-scale nuclear reactor design problems.'' \textit{Philosophical Transactions of the Royal Society A}, 372. \href{https://doi.org/10.1098/rsta.2013.0381}{DOI: 10.1098/rsta.2013.0381}.
-  \item Jain, R., \& Tautges, T. J. (2012). ``Creating geometry and mesh models for nuclear reactor core geometries using a lattice hierarchy-based approach.'' \textit{Engineering with Computers}, 28, 319--329. \href{https://link.springer.com/article/10.1007/s00366-011-0221-4}{DOI: 10.1007/s00366-011-0221-4}.
-  \item Argod, A. D., Belegundu, A., Aziz, A., Agarwala, V., Rajan, S. D., \& Jain, R. (2009). ``Message Passing Interface (MPI)-enabled shape optimization of panels subjected to dynamic loading.'' \textit{Journal of Simulation and Multidisciplinary Design Optimization}, 2, 273--282.
+\textbf{Staff At-Large} \hfill 2023 -- Present \\
+\textit{University of Chicago} \hfill Chicago, IL
+\begin{itemize}[leftmargin=0.15in]
+    \item Joint appointment supporting cancer pharmacogenomics and earth science research projects.
+    \item Mentor graduate students and research associates on software development best practices.
 \end{itemize}
 
-\section*{Conference and Workshop Papers}
-\begin{itemize}
-  \item Gwinn, J., Wozniak, J., Jain, R., Zhu, Y., Partin, A., Brettin, T., \& Stevens, R. (2025). ``A Workflow for Error Analysis for Drug Response Prediction via Statistical Standardization and Distribution Analysis.'' 20th Workshop on Workflows in Support of Large-Scale Science.
-  \item Eroglu, O., Jain, R., Chen, H., Chmielowiec, P., Clyne, J., Hannay, C., Jacob, R., Medeiros, B., Ullrich, P., \& Zarzycki, C. (2025). ``UXarray: Extending Xarray for Enhanced Support of Unstructured Grids.'' European Geosciences Union (EGU) General Assembly 2025, EGU25-13873. \href{https://doi.org/10.5194/egusphere-egu25-13873}{DOI: 10.5194/egusphere-egu25-13873}.
-  \item Eroglu, O., Jain, R., et al. (2025). ``UXarray: Python Package for the Analysis and Visualization of Model Output on Unstructured Climate Grids.'' 105th American Meteorological Society (AMS) Annual Meeting. \href{https://ui.adsabs.harvard.edu/abs/2025AMS...10549654E/abstract}{ADS}.
-  \item Chmielowiec, P., Chen, H., DeCiampa, C., Eroglu, O., Hannay, C., Jacob, R., Jain, R., Loft, R., Medeiros, B., \& Sun, L. (2024). ``UXarray: Extending Xarray with Support for Unstructured Grids.'' 104th American Meteorological Society Annual Meeting.
-  \item Jain, R., et al. (2024). ``Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Pharmacogenomic Datasets.'' Tenth Computational Approaches for Cancer Workshop (CAFCW24), held with Supercomputing 2024.
-  \item Jain, R., Tang, H., Dhruv, A., \& Byna, S. (2024). ``Enabling Data Reduction for FLASH-X Simulations.'' 10th International Workshop on Data Analysis and Reduction for Big Scientific Data, held with Supercomputing 2024. \href{https://ieeexplore.ieee.org/document/10026923}{IEEE}.
-  \item Jain, R., et al. (2023). ``UXarray: Analysis and Visualization of Unstructured Grid Data in Xarray.'' Proceedings of the Python in Science Conference (SciPy 2023).
-  \item Jain, R., \& Tautges, T. J. (2013). ``PostBL: Post-Mesh Boundary Layer Generation Tool.'' 22nd International Meshing Roundtable.
-  \item Jain, R., \& Tautges, T. J. (2012). ``Parallel Reactor Geometry (and Mesh) Generator.'' International Congress on the Advances in Nuclear Power Plants (ICAPP).
-  \item Mohanty, S., Jain, R., Majumdar, S., Tautges, T. J., \& Srinivasan, M. (2012). ``Coupled Field-Structural Analysis of HTGR Fuel Brick Using Abaqus.'' International Congress on the Advances in Nuclear Power Plants (ICAPP).
-  \item Tautges, T. J., Caceras, A., Jain, R., Kim, H. J., Kraftcheck, J., \& Smith, B. M. (2011). ``Coupled Multi-Physics Simulation Frameworks for Reactor Simulation: A Bottom-Up Approach.'' International Conference on Mathematics and Computational Methods Applied to Nuclear Science and Engineering (M\&C).
-  \item Tautges, T. J., \& Jain, R. (2010). ``Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach.'' 19th International Meshing Roundtable.
-  \item Jain, R., \& Rajan, S. D. (2011). ``Blast Mitigation via finite element method (FEM)-based design optimization.'' 11th US National Congress on Computational Mechanics.
+\textbf{Research and Teaching Assistant} \hfill 2007 -- 2009 \\
+\textit{Arizona State University, Structural and Computational Mechanics Lab} \hfill Tempe, AZ
+\begin{itemize}[leftmargin=0.15in]
+    \item Conducted research on blast mitigation via FEM-based design optimization.
+    \item Teaching assistant for Structural Analysis and Design courses.
 \end{itemize}
 
-\section*{Technical Reports}
-\begin{itemize}
-  \item Jain, R. and Tautges, T. J. \textit{MeshKit}, ANL/MCS-TM/336, Sept 30, 2013.
-  \item Jain, R. and Mahadevan, V. \textit{2014 MeshKit Release}, ANL/MCS-TM/344, Sept 30, 2014.
-  \item Jain, R. and Mahadevan, V. \textit{Documentation for MeshKit -- Reactor Geometry Generator}, ANL/MCS-TM/354, 2015.
-  \item Jain, R., Vanderzee, E., Grindeanu, I., Mahadevan, V. \textit{Mesh Generation and Algorithm Development for Nuclear Energy Advanced Modeling and Simulation}, ANL-P60660916, Sept 30, 2016.
-  \item Tautges, T. J., Fischer, P. F., Grindeanu, I., Jain, R., et al. \textit{SHARP Assembly-Scale Multiphysics Demonstration Simulations}, ANL/MCS-NE-13-9, Mar 30, 2013.
-  \item Bingham, A., Ortensi, J., Jain, R., Grindeanu, I., Tautges, T. \textit{SHARP/PRONGHORN}, INL/EXT-12-27171, 2012.
-  \item Tautges, T. J., Fischer, P., Grindeanu, I., Jain, R., et al. \textit{Coupled Thermal/Hydraulics -- Neutronics -- Fuel Performance Analysis of a sodium-cooled fast reactor fuel assembly}, Apr 30, 2012.
-  \item Tautges, T. J. and Jain, R. \textit{Extensions to MeshKit and Reactor Geometry Generator}, ANL/MCS-TM316, Oct 30, 2011.
-  \item Tautges, T. J. and Jain, R. \textit{Mesh Copy/Move/Merge Tool for Reactor Simulation Applications}, ANL/MCS-P1773-0610, Apr 30, 2010.
-  \item Merzari, E., Shemon, E. R., Yu, Y., Thomas, J. W., Obabko, A., Jain, R., Mahadevan, V., et al. \textit{Full Core Multiphysics Simulation with Offline Mesh Deformation}, ANL/NE-15/42, Dec 21, 2015.
-  \item Catlett, C., Jain, R., Jacob, R., Muehleisen, R., Hong, T., Luo, X., et al. \textit{Data Flow Characteristics for Coupled Urban Models}, Exascale Computing Project report, Dec 31, 2017.
+\textbf{Project Engineer} \hfill 2006 -- 2007 \\
+\textit{Wipro Technologies} \hfill Bangalore, India
+
+\textbf{Engineering Intern} \hfill Apr -- Jul 2005 \\
+\textit{Tata Motors, Engineering Research Center} \hfill Pune, India
+
+\section{Education}
+
+\textbf{M.S. in Computer Science} \hfill 2020 \\
+University of Chicago, Chicago, IL
+
+\textbf{M.S. in Structural Engineering} \hfill 2009 \\
+Arizona State University, Tempe, AZ \\
+Graduate Fellowship Recipient (2007--2009)
+
+\textbf{B.Tech in Mechanical Engineering} \hfill 2006 \\
+Indian Institute of Technology (IIT), Indian School of Mines, Dhanbad, India
+
+\section{Awards and Honors}
+
+\textbf{R\&D 100 Award} -- CANDLE (Cancer Distributed Learning Environment) \hfill 2023 \\
+\textit{"Oscars of Innovation" for top 100 innovations of the year}
+
+\textbf{R\&D 100 Award} -- FLASH-X (Multiphysics Simulation Software) \hfill 2022 \\
+\textit{Team contribution for exascale computing software}
+
+\textbf{Best Paper Award} -- International Meshing Roundtable \hfill 2010 \\
+\textit{"Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries"}
+
+\textbf{ATPESC Scholar} -- Argonne Training Program on Extreme-Scale Computing \hfill 2015 \\
+\textit{Selected for world-class training on HPC and big data}
+
+\textbf{Graduate Fellowship} -- Arizona State University \hfill 2007--2009
+
+\section{Publications}
+
+\subsection*{Refereed Journal Articles}
+
+\begin{itemize}[leftmargin=0.15in]
+\item Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., Jain, R., et al. (2025). "Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis." \textit{Briefings in Bioinformatics} (forthcoming). APT \#199556.
+
+\item Tautges, T. J., Jain, R. (2011). "Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach." \textit{Journal of Engineering with Computers}. \href{https://doi.org/10.1007/s00366-011-0221-4}{DOI: 10.1007/s00366-011-0221-4}
+
+\item Argod, Belegudu, A.D., Aziz, A., Agarwala, V., Rajan, S.D., Jain, R. (2009). "MPI-enabled Shape Optimization of Panels Subjected to Dynamic Loading." \textit{Journal of Simulation and Multidisciplinary Design Optimization}, 2, 273-282.
 \end{itemize}
 
-\section*{Presentations and Posters}
-\begin{itemize}
-  \item Tutorial, Earth System Data Science (ESDS) Annual Event: UXarray (2024).
-  \item Tutorial, American Meteorological Society Annual Meeting: UXarray (2024).
-  \item Poster presentation, Earth System Model PI meeting (2024).
-  \item Invited talk, Data Analysis and Reduction for Big Scientific Data workshop: FLASH-X compression methods (2024).
-  \item \href{https://www.youtube.com/watch?v=qwqJeOO8m6A}{UXarray for unstructured climate data}, Scientific Python Conference (SciPy 2023).
-  \item \href{https://www.youtube.com/watch?v=MuifQ7lHRR8}{Data reduction for FLASH-X simulations}, Hierarchical Data Format 5 (HDF5) User Group (2023).
-  \item MeshKit Training, Oak Ridge National Laboratory (Mar 2014).
-  \item Reactor Geometry Generator (RGG) and MeshKit Progress Report, Nuclear Energy Advanced Modeling and Simulation (NEAMS) PI meeting, Washington, DC (Dec 2013).
-  \item MeshKit: open-source library for mesh generation and meshing algorithm research, Symposium on Trends in Unstructured Mesh Generation, 12th US National Congress on Computational Mechanics (Jul 2013).
-  \item Parallel Reactor Geometry Generator, Postdoctoral Research Symposium, Argonne National Laboratory (Oct 2013).
-  \item MeshKit and Reactor Geometry Generator toolkit, invited presentation, Oak Ridge National Laboratory (Nov 2011).
-  \item Parallel Reactor Geometry Generator, Postdoctoral Research Symposium, Argonne National Laboratory (Oct 2011).
-  \item MeshKit, Nuclear Energy Advanced Modeling and Simulation (NEAMS) PI meeting, Argonne National Laboratory (Oct 2011).
-  \item Poster: Tools to Generate Large Reactor Core and Geometry Meshes, Student Poster Competition, 11th US National Congress on Computational Mechanics (Jul 2011).
-  \item Poster: Reactor Geometry Generator (RGG): a tool for generating reactor core models, Very High Temperature Reactor (VHTR) Technology Development Office 4th Annual Technical Review Meeting (Apr 2011).
-  \item Argonne National Laboratory (ANL) Summer Student Lecture Series: Mesh Generation for Scientific Computing (Jun 2010).
-  \item Structural and Computational Mechanics Lab, Arizona State University: Cubic Bezier Velocity Field for Shape Optimization and Unit-cell Based Regression Model of Sandwich Honeycomb Panels (Jul 2008).
-  \item Phoenix, All-India Technical Festival Presentation for Car Design Contest Sponsored by IBM and Tata Motors, Indian Institute of Technology (IIT) Kharagpur (Sep 2004).
+\subsection*{Refereed Conference Proceedings}
+
+\begin{itemize}[leftmargin=0.15in]
+\item Gwinn, J., Wozniak, J., Jain, R., Zhu, Y., Partin, A., Brettin, T., Stevens, R. (2025). "A Workflow for Error Analysis for Drug Response Prediction via Statistical Standardization and Distribution Analysis." \textit{20th Workshop on Workflows in Support of Large-Scale Science}, November 17, 2025. APT \#198825.
+
+\item Jain, R., Tang, H., Dhruv, A., Byna, S. (2024). "Enabling Data Reduction for Flash-X Simulations." \textit{Proceedings of 10th International Workshop on Data Analysis and Reduction for Big Scientific Data (DRBSD-10)}, SC24, November 2024.
+
+\item Jain, R., Wozniak, J.M., Partin, A., Wilke, A., Zhu, Y., Vasanthakumari, P., Narykov, O., Overbeek, J., Weaver, R., Wang, C., Liu, Y., Weil, R., Brettin, T., Stevens, R. (2024). "Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Pharmacogenomic Datasets." \textit{Tenth Computational Approaches for Cancer Workshop (CAFCW24)}, SC24.
+
+\item Jain, R., Shah Ashka, Mohd-Yosuf, J., Wozniak, J.W., Xia, F., Brettin, T., Stevens, R. (2021). "Probing Decision Boundaries in Cancer Data Using Noise Injection and Counterfactual Analysis." \textit{Seventh Computational Approaches for Cancer Workshop (CAFCW21)}, SC21.
+
+\item Jain, R., Chawdary, S., Weide, K., Klosterman, T. (2021). "Checkpoint/Restart for Lagrangian particle mesh with AMR in community code FLASH-X." \textit{SuperCheck'21, First International Symposium on Checkpointing for Supercomputing}. \href{https://arxiv.org/abs/2103.04267}{arXiv:2103.04267}
+
+\item Jain, R., Tautges, T. J. (2014). "Generating Unstructured Reactor Core Meshes in Parallel." \textit{Proceedings of the 23rd International Meshing Roundtable}, October 2014. ANL/MCS-P4092-0713.
+
+\item Jain, R., Tautges, T. J. (2013). "PostBL: Post-Mesh Boundary Layer Generation Tool." \textit{22nd International Meshing Roundtable} (pp. 445-464), October 2013. ANL/MCS-P4092-0713.
+
+\item Jain, R., Tautges, T.J. (2012). "Parallel Reactor Geometry (and Mesh) Generator." \textit{International Congress on the Advances in Nuclear Power Plants (ICAPP)}, June 2012.
+
+\item Tautges, T. J., Jain, R. (2010). "Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach." \textit{Proceedings of the 19th International Meshing Roundtable}, Springer Berlin Heidelberg, 2010, pp. 351-365. \textbf{Best Paper Award}.
 \end{itemize}
 
-\section*{Awards and Funding}
-\begin{itemize}
-  \item Research and Development 100 (R\&D 100) Award: CANDLE (2023).
-  \item R\&D 100 Award: FLASH-X (2022).
-  \item Best Paper, International Meshing Roundtable (2010).
-  \item University Graduate Fellowship, Arizona State University (2007--2009).
-  \item Principal investigator, Nuclear Energy Advanced Modeling and Simulation Integration (Frameworks) Product Line (Meshing), \$300k+ (2011--2016).
-  \item Principal investigator, MeshKit Nuclear Energy Advanced Modeling and Simulation toolkit development (2012--2016).
-  \item Co-principal investigator and project lead for the Urban Exascale Computing Project effort; contributed to growth from \$300k (fiscal year 2017) to \$1M (fiscal year 2018) with projected \$2.5M (fiscal year 2019).
-  \item Small Business Innovation Research (SBIR) Phase I and II awards for Reactor Geometry Generator commercialization with Kitware (2014--2017).
-  \item Kitware subcontract for web-based nuclear reactor modeling, \$75k (Phase IIB SBIR, 2017).
-  \item Exceeded yearly goals at Argonne National Laboratory (2014).
-  \item MeshKit Reactor Geometry Generator (RGG) training, 5-hour hands-on training to 10+ users (2014).
-  \item Co-chair, Computer Science, Argonne/CSUI Undergraduate/Graduate Research Symposium (2011).
-  \item Co-chair, Research in Interdisciplinary Science and Engineering (RISE), Arizona State University (2007).
-  \item 1st Prize, MindAdvantage Technical Paper Presentation, Minda Ltd., New Delhi (2005).
-  \item 1st Prize, Low Budget Car Design Contest, Indian Institute of Technology (IIT) Kharagpur (2005).
-  \item Co-chair, Society of Automotive Engineers (SAE) ISM Chapter (2003--2005).
-  \item Qualified Indian Institutes of Technology Joint Entrance Examination (IIT-JEE), All-India Rank 3487 of 150,000 (top 2\%) (2002).
+\subsection*{Conference Presentations \& Posters}
+
+\begin{itemize}[leftmargin=0.15in]
+\item Chmielowiec, P., Chen, H., DeCiampa, C., Eroglu, O., Hannay, C., Jacob, R., Jain, R., Loft, R., Medeiros, B., Sun, L. (2024). "UXarray: Extending Xarray with Support for Unstructured Grids." \textit{104th AMS Annual Meeting}.
+
+\item Jain, R. (2024). "UXarray: Python Package for Analysis and Visualization of Model Output from Unstructured Climate and Weather Grids." Tutorial, \textit{SC24}, Atlanta, GA, November 2024.
+
+\item Jain, R. (2023). "UXarray for unstructured climate data." \textit{Scientific Python Conference 2023}. \href{https://www.youtube.com/watch?v=qwqJeOO8m6A}{YouTube Link}
+
+\item Jain, R. (2023). "Data reduction for FLASH-X simulations." \textit{Hierarchical Data Format User Group 2023}. \href{https://www.youtube.com/watch?v=MuifQ7lHRR8}{YouTube Link}
+
+\item Jain, R. (2024). "UXarray Tutorial." \textit{ESDS Annual Event 2024}. \href{https://www.youtube.com/watch?v=sOCMSLZrwQs}{YouTube Link}
 \end{itemize}
 
-\section*{Service and Mentoring}
-\begin{itemize}
-  \item Mentored junior researchers and interns across climate and cancer data science projects.
-  \item Session chair, Computational Geometries, International Conference on Mathematics and Computational Methods Applied to Nuclear Science and Engineering (2015).
-  \item Peer reviewer for International Meshing Roundtable papers.
-  \item Judge for Monte Carlo conference submissions.
-  \item Peer reviewer for Journal of Open Research Software (selected manuscripts).
-  \item Technical program committee member for a Supercomputing-affiliated workshop (2024).
-  \item Panelist, Infraday Midwest Event (2024).
-  \item Volunteer, South Side Science Festival at the University of Chicago (2023, 2024).
-  \item Collaborator, National Science Foundation Raijin project.
+\subsection*{Technical Reports}
+
+\begin{itemize}[leftmargin=0.15in]
+\item Jain, R., Vanderzee, E., Grindeanu, I., Mahadevan, V. (2016). "Mesh Generation and Algorithm Development for NEAMS." Based on MeshKit v1.42 release, report to Nuclear Energy Advanced Modeling and Simulation program directors, Sept 30, 2016. ANL-P60660916.
+
+\item Tautges, T. J., Fischer, P., Grindeanu, I., Jain, R., Mahadevan, V., Obabko, A., Smith, M. A., Hamilton, S., Clarno, K., Baird, M., Berrill, M. (2012). "A Coupled Thermal/Hydraulics -- Neutronics -- Fuel Performance Analysis of an SFR Fuel Assembly." Report to US DOE, Reactor Campaign, April 30, 2012.
+
+\item Tautges, T.J., Jain, R. (2011). "Extensions to MeshKit and RGG." Report to US DOE, Reactors Campaign, ANL/MCS-TM316, October 30, 2011.
+
+\item Tautges, T.J., Jain, R. (2010). "Mesh Copy/Move/Merge Tool for Reactor Simulation Applications." Report to US DOE, Reactor Campaign, ANL/MCS-P1773-0610, April 30, 2010.
 \end{itemize}
 
-\section*{Professional Memberships (active/inactive)}
-\begin{itemize}
-  \item American Nuclear Society (ANS).
-  \item Association for Computing Machinery (ACM).
-  \item American Meteorological Society (AMS).
+\section{Software \& Open Source Contributions}
+
+\textbf{UXarray} -- Lead Developer \hfill 2022--Present \\
+Python library for unstructured grid analysis. 205+ GitHub stars. \\
+\url{https://github.com/UXARRAY/uxarray} $\cdot$ \url{https://uxarray.readthedocs.io}
+
+\textbf{CANDLE/IMPROVE} -- Core Contributor \hfill 2020--2025 \\
+Hyperparameter optimization framework and benchmarking tools for cancer drug response models. \\
+\url{https://github.com/JDACS4C-IMPROVE}
+
+\textbf{FLASH-X} -- I/O \& Compression Lead \hfill 2019--2024 \\
+Multiphysics simulation software for exascale computing. \\
+\url{https://github.com/Flash-X/Flash-X}
+
+\textbf{MeshKit} -- Principal Investigator \hfill 2009--2016 \\
+Mesh generation toolkit for reactor core geometries. \\
+\url{https://bitbucket.org/fathomteam/meshkit}
+
+\section{Technical Skills}
+
+\textbf{Programming Languages:} Python, C++, Fortran, R, Bash, SQL \\
+\textbf{ML \& Data Science:} PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, Swift/T \\
+\textbf{HPC \& Systems:} MPI, OpenMP, HDF5, NetCDF, MOAB, Docker, Singularity, Git, GitHub Actions, Jenkins \\
+\textbf{Scientific Computing:} Finite element methods, computational fluid dynamics, mesh generation, parallel I/O \\
+\textbf{Domains:} Climate modeling, cancer pharmacogenomics, computational physics, nuclear engineering, urban systems
+
+\section{Professional Service}
+
+\textbf{Panelist} -- "Revolutionizing Public Infrastructure: The Impact of AI and Machine Learning" \\
+5th Infraday Midwest Event, 2024
+
+\textbf{Program Committee Member} -- NumGrid 2020 \\
+International conference on numerical geometry, grid generation, and scientific computing
+
+\textbf{Peer Reviewer} \\
+\textit{Journal of Open Research Software} (3 manuscripts, 2024--2025) \\
+\textit{NumGrid Conference} (2020)
+
+\textbf{Session Chair} -- Computational Geometries Session \\
+MC2015, Joint International Conference on Mathematics and Computation
+
+\textbf{Reviewer} -- SBIR (Small Business Innovation Research) Funding Proposals \hfill 2015
+
+\textbf{Member} -- American Nuclear Society \hfill 2012--2016
+
+\textbf{Volunteer} -- South Side Science Festival, University of Chicago (2023, 2024)
+
+\section{Mentorship}
+
+\textbf{Mentored Research Associates, Graduate Students, and Staff}
+\begin{itemize}[leftmargin=0.15in]
+    \item Rylie Weaver (Research Aide, 2022--2024) -- IMPROVE project, developed novel HPO techniques for cancer drug response prediction across pharmacogenomic datasets
+    \item Aaron Zedwick (Student, 2023--2024) -- UXarray development, dual mesh routines and remapping functionality
+    \item Mark Bartoszek (Windows Systems Admin, 2023) -- Mentoring on systems administration, Argonne
 \end{itemize}
 
-\section*{Technical Skills}
-\resumeSubHeadingListStart
-  \item \textbf{High-performance computing and programming:} Python, C++, Fortran; Message Passing Interface (MPI), Open Multi-Processing (OpenMP), HDF5, parallel input/output, performance tuning.
-  \item \textbf{Machine learning and data tools:} PyTorch, Keras, NumPy, pandas; Git, continuous integration/continuous delivery.
-\resumeSubHeadingListEnd
+\section{Funding \& Proposals}
+
+\textbf{DOE SEATS} (Active, multi-year) -- Ongoing participant \\
+\textit{Software Ecosystem for Advancing Climate Tools and Services}
+
+\textbf{NSF Raijin} (Active, multi-year) -- Ongoing collaborator \\
+\textit{Collaborative research in climate model analysis}
+
+\textbf{DOE ECP CANDLE} (Completed) -- Core contributor, 2017--2023
+
+\textbf{DOE NEAMS} (Completed) -- Principal Investigator for MeshKit, 2009--2016 \\
+\textit{Nuclear Energy Advanced Modeling and Simulation}
 
 \end{document}
