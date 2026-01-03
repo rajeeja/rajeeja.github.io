@@ -7,13 +7,30 @@
     <title>Interactive Guide: Atma Siddhi Shastra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chosen Palette: Calm Harmony (Stone, Emerald, Slate) -->
-    <!-- Application Structure Plan: A single-page, top-down scrolling app with a sticky navigation bar for the 3 Phases. Phase 1 and 3 use an interactive tab component to organize sub-sections neatly. Phase 2 (the core) uses a vertical accordion ("Ladder of Logic") to let users explore each of the 6 Truths (Doubt/Answer) one by one. This structure was chosen to mirror the report's logical flow (Diagnosis, Cure, Transformation) while adding interactivity to prevent it from being a static text document. A conceptual donut chart in the intro visualizes the verse distribution. -->
-    <!-- Visualization & Content Choices: 1. Report Info: Verse Distribution (Intro) -> Goal: Inform -> Viz: Donut Chart -> Interaction: Hover Tooltip -> Justification: Provides high-level quantitative context of the text's structure. -> Library: Chart.js. 2. Report Info: Phase 1 & 3 Sub-sections -> Goal: Organize -> Viz: Tabbed Interface -> Interaction: Click to show content -> Justification: Prevents long scrolling, improves UX. -> Library: Vanilla JS/Tailwind. 3. Report Info: Phase 2 (6 Truths) -> Goal: Organize/Inform -> Viz: Vertical Accordion ("Ladder") -> Interaction: Click to expand/collapse Doubt & Answer -> Justification: Mirrors "Ladder of Logic" metaphor, makes dense info consumable. -> Library: Vanilla JS/Tailwind. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
+            background-attachment: fixed;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e;
         }
 
         .chart-container {
@@ -32,57 +49,101 @@
             }
         }
 
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+
         .tab-btn.active {
             border-color: #059669;
-            background-color: #ecfdf5;
+            background-color: rgba(236, 253, 245, 0.6);
+            /* emerald-50/60 */
             color: #065f46;
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .accordion-btn.active .accordion-icon {
             transform: rotate(180deg);
         }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 
-<body class="bg-stone-50 text-stone-800">
+<body
+    class="bg-stone-50 text-stone-800 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-50 via-stone-50 to-stone-100 min-h-screen">
 
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
-        <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm transition-all duration-300"
+        id="navbar">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <span class="text-xl font-bold text-emerald-800">Atma Siddhi Model</span>
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-md"></div>
+                    <span class="text-xl font-bold tracking-tight text-stone-800">Atma Siddhi Model</span>
                 </div>
-                <div class="hidden sm:block sm:ml-6">
-                    <div class="flex space-x-4">
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="flex space-x-1">
                         <a href="#phase-1"
-                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md text-sm font-medium">Phase
+                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-emerald-50/50">Phase
                             1: Diagnosis</a>
                         <a href="#phase-2"
-                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md text-sm font-medium">Phase
+                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-emerald-50/50">Phase
                             2: The Cure</a>
                         <a href="#phase-3"
-                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md text-sm font-medium">Phase
+                            class="text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-emerald-50/50">Phase
                             3: Transformation</a>
                     </div>
                 </div>
-                <div class="sm:hidden">
-                    <button id="mobile-menu-btn" class="text-stone-600 hover:text-emerald-700 p-2 rounded-md">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="text-stone-600 hover:text-emerald-700 p-2 rounded-md focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
@@ -90,114 +151,228 @@
                 </div>
             </div>
         </nav>
-        <div id="mobile-menu" class="sm:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1">
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-stone-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-4 space-y-1">
                 <a href="#phase-1"
-                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-2 rounded-md text-base font-medium">Phase
+                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-3 rounded-md text-base font-medium">Phase
                     1: Diagnosis</a>
                 <a href="#phase-2"
-                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-2 rounded-md text-base font-medium">Phase
+                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-3 rounded-md text-base font-medium">Phase
                     2: The Cure</a>
                 <a href="#phase-3"
-                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-2 rounded-md text-base font-medium">Phase
+                    class="block text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 px-3 py-3 rounded-md text-base font-medium">Phase
                     3: Transformation</a>
             </div>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 mt-8">
+    <main class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 mt-4 sm:mt-8 space-y-24">
 
-        <section id="intro" class="mb-16">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-emerald-900 mb-6">Interactive Guide to the
-                Mental Model of Atma Siddhi Shastra</h1>
-            <p class="text-lg text-stone-700 text-center max-w-3xl mx-auto mb-10">
-                This application translates the mental model of the *Atma Siddhi Shastra* into an interactive
-                experience. Its purpose is to help you explore the logical flow of the 142-verse scripture, moving from
-                the diagnosis of spiritual ignorance to the cure of self-realization.
-            </p>
+        <!-- Intro / Hero Section -->
+        <section id="intro" class="reveal relative">
+            <div class="absolute -top-20 -left-20 w-64 h-64 bg-emerald-200/20 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute top-40 -right-20 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl -z-10"></div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200">
-                <h2 class="text-2xl font-bold text-emerald-800 text-center mb-4">Structure of the Shastra (142 Verses)
-                </h2>
-                <p class="text-stone-600 text-center mb-6">
-                    The text is logically divided into three distinct phases. This chart visualizes the proportion of
-                    the 142 verses dedicated to each part of the journey.
+            <div class="text-center max-w-4xl mx-auto mb-12">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold tracking-wider uppercase mb-4 shadow-sm">Spiritual
+                    Logic</span>
+                <h1
+                    class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-stone-900 tracking-tight mb-6 leading-tight">
+                    The Logic of <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Liberation</span>
+                </h1>
+
+                <div class="flex justify-center mb-8">
+                    <a href="https://www.youtube.com/watch?v=vSs0WUWYITA" target="_blank"
+                        class="transform hover:scale-105 transition-transform inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 hover:shadow-sm text-sm font-semibold group">
+                        <svg class="w-5 h-5 mr-2 group-hover:text-red-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                        </svg>
+                        Watch Pithika/Introduction (Video 001)
+                    </a>
+                </div>
+
+                <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                    An interactive journey through the mental model of the <strong>Atma Siddhi Shastra</strong>. Explore
+                    the 142 verses from the diagnosis of ignorance to the cure of self-realization.
                 </p>
-                <div class="chart-container">
-                    <canvas id="structureChart"></canvas>
+            </div>
+
+            <div
+                class="glass-card p-6 sm:p-10 rounded-3xl shadow-xl border border-white/60 mx-auto max-w-4xl transform hover:scale-[1.01] transition-transform duration-500">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-stone-800 mb-4">Structure of the Path</h2>
+                        <p class="text-stone-600 mb-6 leading-relaxed">
+                            The scripture isn't just a collection of verses; it's a structured argument. It mimics a
+                            medical treatment logic:
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">1</span>
+                                <span class="text-stone-700"><strong>Diagnosis:</strong> Identifying the illness
+                                    (Ignorance).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">2</span>
+                                <span class="text-stone-700"><strong>Cure:</strong> The 6 Logical Truths.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</span>
+                                <span class="text-stone-700"><strong>Health:</strong> The experience of freedom.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="relative">
+                        <div class="chart-container">
+                            <canvas id="structureChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="phase-1" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-emerald-800 mb-3">Phase 1: The Diagnosis</h2>
-            <p class="text-lg text-stone-700 mb-8">
-                (Verses 1–44) Before the "medicine" of knowledge can be administered, this phase diagnoses the core
-                spiritual illness and establishes the qualifications needed for both the "patient" (the seeker) and the
-                "doctor" (the Guru). It helps the seeker identify if they are approaching the path correctly.
+        <!-- Phase 1 -->
+        <section id="phase-1" class="reveal scroll-mt-24">
+            <div class="flex items-center gap-4 mb-2">
+                <div class="h-px bg-stone-300 flex-1"></div>
+                <h2 class="text-3xl font-bold text-stone-800 text-center">Phase 1: The Diagnosis</h2>
+                <div class="h-px bg-stone-300 flex-1"></div>
+            </div>
+            <div class="text-center mb-8">
+                <a href="https://www.youtube.com/@AdhyaatmYogi" target="_blank"
+                    class="inline-block text-xs font-semibold text-stone-500 hover:text-red-600 bg-white hover:bg-red-50 px-3 py-1 rounded-full border border-stone-200 transition-colors">
+                    ▶ Covers Videos 001-008
+                </a>
+            </div>
+
+            <p class="text-lg text-stone-600 text-center max-w-3xl mx-auto mb-10 leading-relaxed">
+                (Verses 1–44) Before the knowledge can be effective, the vessel must be clean. This phase distinguishes
+                true seekers from sectarian bigots and establishes the need for a Guru.
             </p>
 
-            <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
-                <div class="border-b border-stone-200">
-                    <nav id="tabs-phase-1" class="flex flex-col sm:flex-row -mb-px">
+            <div class="glass-card rounded-2xl shadow-lg overflow-hidden">
+                <div class="border-b border-stone-200 bg-stone-50/50">
+                    <nav id="tabs-phase-1" class="flex flex-col sm:flex-row overflow-x-auto">
                         <button data-tab="p1-tab1"
-                            class="tab-btn active w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            1. The Root Problem
+                            class="tab-btn active flex-1 py-4 px-6 text-sm sm:text-base font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none whitespace-nowrap">
+                            1. Root Problem
                         </button>
                         <button data-tab="p1-tab2"
-                            class="tab-btn w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            2. The Need for a Guru
+                            class="tab-btn flex-1 py-4 px-6 text-sm sm:text-base font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none whitespace-nowrap">
+                            2. Need for Guru
                         </button>
                         <button data-tab="p1-tab3"
-                            class="tab-btn w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            3. The "Bad Patient" (Matarthi)
+                            class="tab-btn flex-1 py-4 px-6 text-sm sm:text-base font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none whitespace-nowrap">
+                            3. The Bigot
                         </button>
                         <button data-tab="p1-tab4"
-                            class="tab-btn w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            4. The "Good Patient" (Atmarthi)
+                            class="tab-btn flex-1 py-4 px-6 text-sm sm:text-base font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none whitespace-nowrap">
+                            4. The Seeker
                         </button>
                     </nav>
                 </div>
-                <div id="tab-content-phase-1" class="p-6 sm:p-8">
-                    <div id="p1-tab1" class="tab-content active">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The Root Problem (Verses 1–8)</h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> We suffer
-                            because we don't know who we are.</p>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">The Trap:</strong> We often
-                            mistake "religious activities" (rituals, reading) for spiritual progress.</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Key Insight:</strong> Without
-                            Self-knowledge, all other knowledge is barren.</p>
+                <div id="tab-content-phase-1" class="p-6 sm:p-10 min-h-[300px]">
+                    <div id="p1-tab1" class="tab-content active space-y-4">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span
+                                class="text-4xl text-emerald-200 font-black absolute opacity-20 transform -translate-x-2 -translate-y-2 select-none">1-8</span>
+                            <h3 class="text-2xl font-bold text-emerald-800 relative z-10">The Root Problem</h3>
+                        </div>
+                        <p class="text-stone-700 leading-relaxed text-lg">
+                            We suffer not because of the world, but because we don't know <em>who we are</em>.
+                        </p>
+                        <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                            <p class="text-stone-700"><strong>The Trap:</strong> Doing religious rituals (Kriya Jada) or
+                                memorizing scriptures (Gnana) without internalizing the truth creates spiritual ego, not
+                                freedom.</p>
+                        </div>
                     </div>
-                    <div id="p1-tab2" class="tab-content">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The Necessity of the Doctor (Verses
-                            9–23)</h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> You cannot
-                            perform surgery on yourself. You need a <strong>Sadguru</strong> (True Teacher).</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Argument:</strong> The ego is too
-                            subtle to catch itself. A living enlightened master is required to break your delusions.</p>
+                    <div id="p1-tab2" class="tab-content space-y-4">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span
+                                class="text-4xl text-emerald-200 font-black absolute opacity-20 transform -translate-x-2 -translate-y-2 select-none">9-23</span>
+                            <h3 class="text-2xl font-bold text-emerald-800 relative z-10">Why a Guru?</h3>
+                        </div>
+                        <p class="text-stone-700 leading-relaxed text-lg">
+                            You cannot surgery on yourself. Your ego is the disease, so your ego cannot be the doctor.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                            <p class="text-stone-700"><strong>The Sadguru:</strong> A living enlightened master acts as
+                                a mirror, showing you the faults you refuse to see in yourself.</p>
+                        </div>
                     </div>
-                    <div id="p1-tab3" class="tab-content">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The "Bad Patient" - The Matarthi (Verses
-                            24–33)</h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> The
-                            <strong>Bigot</strong> or Sectarian.</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Symptoms:</strong></p>
-                        <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                            <li>Clings to "my sect" or "my beliefs" rather than the Truth.</li>
-                            <li>Defends their ignorance with logic.</li>
-                            <li>Lacks internal transformation; focuses only on external appearance.</li>
+                    <div id="p1-tab3" class="tab-content space-y-4">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span
+                                class="text-4xl text-emerald-200 font-black absolute opacity-20 transform -translate-x-2 -translate-y-2 select-none">24-33</span>
+                            <h3 class="text-2xl font-bold text-emerald-800 relative z-10">Matarthi: The False Seeker
+                            </h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Defends "my sect" instead of seeking Truth.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Uses logic to justify existing beliefs.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-red-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>External renunciation, internal attachment.</span>
+                            </li>
                         </ul>
                     </div>
-                    <div id="p1-tab4" class="tab-content">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The "Good Patient" - The Atmarthi
-                            (Verses 34–44)</h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> The <strong>True
-                                Seeker</strong>.</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Qualifications:</strong></p>
-                        <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                            <li><strong>Inner Compassion:</strong> Feels the pain of all living beings.</li>
-                            <li><strong>Detachment:</strong> Isn't obsessed with worldly gain.</li>
-                            <li><strong>Humility:</strong> Willing to give up their own opinion to follow the Truth.
+                    <div id="p1-tab4" class="tab-content space-y-4">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span
+                                class="text-4xl text-emerald-200 font-black absolute opacity-20 transform -translate-x-2 -translate-y-2 select-none">34-44</span>
+                            <h3 class="text-2xl font-bold text-emerald-800 relative z-10">Atmarthi: The True Seeker</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Compassion:</strong> Feels the suffering of all beings.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Detachment:</strong> Willing to lose everything for the Truth.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Humility:</strong> The ego is soft, ready to be molded.</span>
                             </li>
                         </ul>
                     </div>
@@ -205,169 +380,232 @@
             </div>
         </section>
 
-        <section id="phase-2" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-emerald-800 mb-3">Phase 2: The Cure</h2>
-            <p class="text-lg text-stone-700 mb-8">
-                (Verses 45–118) This is the core of the text, presented as an "intellectual surgery." Using a dialogue
-                format, the Guru leads the Disciple up the "Ladder of Logic," proving six fundamental truths. Click each
-                step to reveal the logical debate.
+        <!-- Phase 2 -->
+        <section id="phase-2" class="reveal scroll-mt-24">
+            <div class="flex items-center gap-4 mb-2">
+                <div class="h-px bg-stone-300 flex-1"></div>
+                <h2 class="text-3xl font-bold text-stone-800 text-center">Phase 2: The Cure (6 Truths)</h2>
+                <div class="h-px bg-stone-300 flex-1"></div>
+            </div>
+            <div class="text-center mb-8">
+                <a href="https://www.youtube.com/@AdhyaatmYogi" target="_blank"
+                    class="inline-block text-xs font-semibold text-stone-500 hover:text-red-600 bg-white hover:bg-red-50 px-3 py-1 rounded-full border border-stone-200 transition-colors">
+                    ▶ Covers Videos 009-022
+                </a>
+            </div>
+
+            <p class="text-lg text-stone-600 text-center max-w-3xl mx-auto mb-10 leading-relaxed">
+                (Verses 45–118) This is the core intellectual surgery. The Guru uses logic to remove the Disciple's
+                doubts one by one, establishing the 6 Fundamental Truths of the Soul.
             </p>
 
-            <div id="accordion-phase-2" class="space-y-4">
+            <div id="accordion-phase-2" class="space-y-4 max-w-4xl mx-auto">
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 1 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">1. The Soul Exists (Atma Asti)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">1</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">The Soul Exists <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Atma
+                                    Asti)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"I can't see the soul with my eyes, so it must not exist.
-                                It's just the body or the senses."</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>The Seer Argument:</strong> The eyes see the pot, but *who* sees the eyes?
-                                    The seer is distinct from the instrument.</li>
-                                <li><strong>Sword & Sheath:</strong> Just as a sword is distinct from its sheath,
-                                    consciousness is distinct from the body.</li>
-                                <li><strong>Identity:</strong> The body changes (child to adult), but the "I" feeling
-                                    remains constant.</li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"I can't see the soul. The body and senses are all
+                                    there is."</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700 mb-2"><strong>The Seer Argument:</strong> The eyes see the
+                                    object, but the eyes themselves are just lenses. <em>Who</em> sees through the eyes?
+                                    The consciousness is the 'knower' distinct from the instrument.</p>
+                                <p class="text-stone-700"><strong>Experience:</strong> The body changes (child → adult),
+                                    but the sense of "I am" remains constant.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 2 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">2. The Soul is Eternal (Atma Nitya)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">2</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">The Soul is Eternal <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Atma
+                                    Nitya)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"Okay, the soul exists, but it probably dies when the body
-                                dies."</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>Conservation of Substance:</strong> Something cannot come from nothing.
-                                    Consciousness cannot arise from dead matter.</li>
-                                <li><strong>Indestructible:</strong> Matter changes form but is never destroyed;
-                                    consciousness also changes states (births) but is never destroyed.</li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"It exists now, but it probably dies when the body
+                                    dies."</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700 mb-2"><strong>Conservation of Existence:</strong> Something
+                                    cannot come from nothing, and something cannot become nothing. Matter changes form
+                                    but is never destroyed.</p>
+                                <p class="text-stone-700">Similarly, consciousness changes states (bodies) but its
+                                    substance is eternal.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 3 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">3. The Soul is the Doer (Atma Karta)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">3</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">The Soul is the Doer <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Atma
+                                    Karta)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"I don't actually *do* anything; actions just happen by
-                                nature/God. I am not responsible."</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>Intention:</strong> Action isn't just movement; it's *intention*. The soul
-                                    generates the intention (vibration), so it is the "Doer" of Karma.</li>
-                                <li><strong>Responsibility:</strong> If you aren't the doer, you can't improve.
-                                    Accepting responsibility empowers you to change.</li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"Actions happen by nature or God. I am not the one
+                                    doing them."</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700">Action starts with <strong>Intention</strong>. The soul
+                                    creates the vibration/intention. Therefore, the soul is responsible (the Karta) for
+                                    its Karma. Taking responsibility empowers you to change.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 4 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">4. The Soul is the Enjoyer (Atma
-                            Bhokta)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">4</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">The Soul is the Enjoyer <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Atma
+                                    Bhokta)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"God gives us fruits; I don't strictly reap what I sow."</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>Cause & Effect:</strong> Poison kills you even if you didn't mean to drink
-                                    it. Karma is a natural law, not a divine judgment. You bear the consequences of your
-                                    own intent.</li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"Consequences are given by God. I don't always reap
+                                    what I sow."</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700">If you drink poison, you die—even if you prayed to live. Karma
+                                    is a <strong>Natural Law</strong> of Cause and Effect, not a judgment system. You
+                                    experience the results of your own intentions.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 5 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">5. Liberation Exists (Moksha Asti)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">5</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">Liberation Exists <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Moksha
+                                    Asti)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"Karma is infinite. We've been bound forever. There's no
-                                escape."</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>Removal of Cause:</strong> If you stop the cause (ignorance/attachment), the
-                                    effect (birth/death) must stop.</li>
-                                <li><strong>Purity:</strong> Just as dirt can be removed from water to make it pure
-                                    again, karma can be removed from the soul.</li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"Karma is infinite and has been there forever. There is
+                                    no escape."</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700">If you remove the Cause, the Effect MUST stop. The cause of
+                                    bondage is ignorance. If ignorance is removed, bondage ceases.</p>
+                                <p class="text-stone-700 mt-2">Like muddy water: the dirt is not the water. With a
+                                    filter, they can be separated, leaving pure water.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
+                <!-- Item 6 -->
+                <div class="glass-card rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                     <button
-                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer hover:bg-stone-50 focus:outline-none">
-                        <span class="text-xl font-semibold text-emerald-700">6. The Path Exists (Moksha Upaya)</span>
-                        <svg class="accordion-icon w-6 h-6 text-stone-500 transition-transform duration-300" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        class="accordion-btn w-full p-6 text-left flex justify-between items-center cursor-pointer focus:outline-none">
+                        <div class="flex items-center gap-4">
+                            <span
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">6</span>
+                            <span class="text-lg md:text-xl font-bold text-stone-800">The Path Exists <span
+                                    class="hidden sm:inline font-normal text-stone-500 text-base ml-2">(Moksha
+                                    Upaya)</span></span>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-stone-400 transition-transform duration-300 transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg>
                     </button>
-                    <div class="accordion-content px-6 pb-6">
-                        <div class="pt-4 border-t border-stone-200">
-                            <h4 class="font-semibold text-stone-800 mb-2">Disciple's Doubt:</h4>
-                            <p class="text-stone-600 mb-4">"Okay, but it's too hard. What is the actual way?"</p>
-                            <h4 class="font-semibold text-stone-800 mb-2">Guru's Answer:</h4>
-                            <ul class="list-disc list-inside text-stone-600 pl-4 space-y-1">
-                                <li><strong>Karma Yoga & Gnana Yoga:</strong> Act without attachment.</li>
-                                <li><strong>The Key:</strong> Enlightenment is simply waking up from the dream of "This
-                                    is mine."</li>
-                                <li><strong>Method:</strong> Follow the Guru's instructions implicitly to crush the ego.
-                                </li>
-                            </ul>
+                    <div class="accordion-content">
+                        <div class="px-6 pb-8 pl-[4.5rem]">
+                            <div class="p-4 bg-red-50 rounded-lg mb-4 border-l-4 border-red-300">
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide mb-1">Doubt</p>
+                                <p class="text-stone-700 italic">"It's too difficult. What is the practical method?"</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400">
+                                <p class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">Logic</p>
+                                <p class="text-stone-700 mb-2"><strong>Crush the Ego:</strong> Enlightenment is simply
+                                    waking up from the dream of "I am the body."</p>
+                                <p class="text-stone-700">The method is to follow the enlightened Guru's instructions
+                                    implicitly (Agna Bhakti) to dismantle your own ego.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -375,108 +613,97 @@
             </div>
         </section>
 
-        <section id="phase-3" class="mb-16 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-emerald-800 mb-3">Phase 3: The Transformation</h2>
-            <p class="text-lg text-stone-700 mb-8">
-                (Verses 119–142) The intellectual debate concludes, and the spiritual experience begins. The disciple,
-                now fully convinced by the Guru's logic, surrenders their ego. This phase describes that transformation
-                and the final state of liberation.
+        <!-- Phase 3 -->
+        <section id="phase-3" class="reveal scroll-mt-24">
+            <div class="flex items-center gap-4 mb-2">
+                <div class="h-px bg-stone-300 flex-1"></div>
+                <h2 class="text-3xl font-bold text-stone-800 text-center">Phase 3: Transformation</h2>
+                <div class="h-px bg-stone-300 flex-1"></div>
+            </div>
+            <div class="text-center mb-8">
+                <a href="https://www.youtube.com/@AdhyaatmYogi" target="_blank"
+                    class="inline-block text-xs font-semibold text-stone-500 hover:text-red-600 bg-white hover:bg-red-50 px-3 py-1 rounded-full border border-stone-200 transition-colors">
+                    ▶ Covers Videos 023+
+                </a>
+            </div>
+
+            <p class="text-lg text-stone-600 text-center max-w-3xl mx-auto mb-10 leading-relaxed">
+                (Verses 119–142) Logic ends, experience begins. The disciple surrenders.
             </p>
 
-            <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
-                <div class="border-b border-stone-200">
-                    <nav id="tabs-phase-3" class="flex flex-col sm:flex-row -mb-px">
+            <div class="glass-card rounded-2xl shadow-lg overflow-hidden">
+                <div class="border-b border-stone-200 bg-stone-50/50">
+                    <nav id="tabs-phase-3" class="flex flex-col sm:flex-row">
                         <button data-tab="p3-tab1"
-                            class="tab-btn active w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            1. The Disciple's Realization
+                            class="tab-btn active flex-1 py-4 px-6 font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none">
+                            1. The Realization
                         </button>
                         <button data-tab="p3-tab2"
-                            class="tab-btn w-full sm:w-auto text-stone-600 hover:text-emerald-700 hover:bg-stone-50 py-4 px-6 font-medium text-center border-b-2 border-transparent cursor-pointer focus:outline-none">
-                            2. The Final Conclusion
+                            class="tab-btn flex-1 py-4 px-6 font-semibold text-stone-600 hover:text-emerald-700 border-b-2 border-transparent focus:outline-none">
+                            2. The Conclusion
                         </button>
                     </nav>
                 </div>
-                <div id="tab-content-phase-3" class="p-6 sm:p-8">
-                    <div id="p3-tab1" class="tab-content active">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The Disciple's Realization (Verses
-                            119–127)</h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> Surrender.</p>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Action:</strong> The disciple
-                            realizes their ego was the barrier. They bow to the Guru, not as a person, but as the
-                            embodiment of Truth.</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Quote:</strong> *"I am nothing. You are
-                            everything."* (Total crushing of the 'I-ness').</p>
+                <div id="tab-content-phase-3" class="p-6 sm:p-10 min-h-[250px] flex items-center">
+                    <div id="p3-tab1" class="tab-content active w-full">
+                        <blockquote class="text-2xl font-serif italic text-emerald-800 text-center mb-6">
+                            "I am nothing. You are everything."
+                        </blockquote>
+                        <p class="text-stone-600 text-center max-w-2xl mx-auto">
+                            The disciple realizes that their own ego was the only barrier. They bow to the Guru, not as
+                            a person, but as the embodiment of Truth. This total surrender annihilates the ego.
+                        </p>
                     </div>
-                    <div id="p3-tab2" class="tab-content">
-                        <h3 class="text-xl font-semibold text-emerald-700 mb-3">The Final Conclusion (Verses 128–142)
-                        </h3>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Concept:</strong> Essence of
-                            Jainism (and all spirituality).</p>
-                        <p class="text-stone-600 mb-2"><strong class="text-stone-800">Key Warning:</strong> Do not get
-                            caught in "Dry Knowledge" (intellectualism) or "Dry Rituals" (mindless action).</p>
-                        <p class="text-stone-600"><strong class="text-stone-800">Final Goal:</strong> <strong>Sahaj Atma
-                                Swaroop</strong> (The natural, effortless state of the Soul).</p>
+                    <div id="p3-tab2" class="tab-content w-full">
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-stone-800 mb-4">Sahaj Atma Swaroop</h3>
+                            <p class="text-stone-600 max-w-2xl mx-auto mb-4">
+                                The natural, effortless state of the Soul.
+                            </p>
+                            <p class="text-stone-500 text-sm">
+                                Warning: Avoid "Dry Knowledge" (knowing words without experience) and "Dry Rituals"
+                                (acting without understanding).
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="summary" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-stone-200">
-            <h2 class="text-2xl font-bold text-emerald-800 text-center mb-6">Summary Checklist</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full min-w-max text-left">
-                    <thead class="border-b border-stone-300">
-                        <tr>
-                            <th class="p-4 text-stone-800 font-semibold">Section</th>
-                            <th class="p-4 text-stone-800 font-semibold">Verses</th>
-                            <th class="p-4 text-stone-800 font-semibold">Main Question Answered</th>
+        <!-- Summary Table -->
+        <section id="summary" class="reveal bg-white rounded-3xl shadow-xl border border-stone-100 overflow-hidden">
+            <div class="bg-emerald-900 p-6 text-white text-center">
+                <h2 class="text-2xl font-bold">Atma Siddhi at a Glance</h2>
+            </div>
+            <div class="overflow-x-auto p-2">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-stone-100 text-stone-400 text-xs uppercase tracking-wider">
+                            <th class="p-4 font-semibold">Section</th>
+                            <th class="p-4 font-semibold">Verses</th>
+                            <th class="p-4 font-semibold">Key Question</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-stone-200">
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Intro</td>
-                            <td class="p-4 text-stone-600">1-23</td>
+                    <tbody class="divide-y divide-stone-100 text-sm sm:text-base">
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="p-4 font-medium text-emerald-800">Intro</td>
+                            <td class="p-4 text-stone-500">1-23</td>
                             <td class="p-4 text-stone-600">Why am I unhappy?</td>
                         </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">False vs True</td>
-                            <td class="p-4 text-stone-600">24-44</td>
-                            <td class="p-4 text-stone-600">Am I approaching this with the right attitude?</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="p-4 font-medium text-emerald-800">False vs True</td>
+                            <td class="p-4 text-stone-500">24-44</td>
+                            <td class="p-4 text-stone-600">Am I a true seeker?</td>
                         </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 1</td>
-                            <td class="p-4 text-stone-600">45-58</td>
-                            <td class="p-4 text-stone-600">Do I exist beyond the body?</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="p-4 font-medium text-emerald-800">Truth 1-6</td>
+                            <td class="p-4 text-stone-500">45-118</td>
+                            <td class="p-4 text-stone-600">The logical proof of the soul.</td>
                         </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 2</td>
-                            <td class="p-4 text-stone-600">59-70</td>
-                            <td class="p-4 text-stone-600">Will I survive death?</td>
-                        </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 3</td>
-                            <td class="p-4 text-stone-600">71-78</td>
-                            <td class="p-4 text-stone-600">Am I responsible for my life?</td>
-                        </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 4</td>
-                            <td class="p-4 text-stone-600">79-86</td>
-                            <td class="p-4 text-stone-600">Why is this happening to me?</td>
-                        </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 5</td>
-                            <td class="p-4 text-stone-600">87-91</td>
-                            <td class="p-4 text-stone-600">Is there a way out?</td>
-                        </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Truth 6</td>
-                            <td class="p-4 text-stone-600">92-118</td>
-                            <td class="p-4 text-stone-600">How do I get out?</td>
-                        </tr>
-                        <tr class="hover:bg-stone-50">
-                            <td class="p-4 text-stone-700 font-medium">Conclusion</td>
-                            <td class="p-4 text-stone-600">119-142</td>
-                            <td class="p-4 text-stone-600">What does freedom feel like?</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="p-4 font-medium text-emerald-800">Conclusion</td>
+                            <td class="p-4 text-stone-500">119-142</td>
+                            <td class="p-4 text-stone-600">What is freedom?</td>
                         </tr>
                     </tbody>
                 </table>
@@ -485,164 +712,123 @@
 
     </main>
 
-    <footer class="mt-16 pb-16 text-center">
-        <p class="text-stone-500">An interactive guide based on the *Atma Siddhi Shastra* mental model.</p>
-        <p class="text-stone-400 text-sm mt-2">Credits: <a href="https://www.youtube.com/@AdhyaatmYogi" target="_blank"
-                class="hover:text-emerald-600 underline">Param Pujya Mahendra Sagar ji and Manish Sagar Ji Maharaj
-                Saheb</a></p>
+    <footer class="mt-24 pb-12 text-center border-t border-stone-200 pt-12 bg-white/50 backdrop-blur-sm">
+        <p class="text-stone-500 font-medium">An interactive guide based on the *Atma Siddhi Shastra* mental model.</p>
+        <p class="text-stone-400 text-sm mt-3">Credits: <a href="https://www.youtube.com/@AdhyaatmYogi" target="_blank"
+                class="text-emerald-600 hover:text-emerald-800 hover:underline transition-colors font-medium">Param
+                Pujya Mahendra Sagar ji and Manish Sagar Ji Maharaj Saheb</a></p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
+            // Chart.js Configuration
             const structureData = {
-                labels: [
-                    'Phase 1: Diagnosis (Verses 1-44)',
-                    'Phase 2: The Cure (Verses 45-118)',
-                    'Phase 3: Transformation (Verses 119-142)'
-                ],
+                labels: ['Phase 1: Diagnosis', 'Phase 2: The Cure', 'Phase 3: Transformation'],
                 datasets: [{
-                    label: 'Number of Verses',
+                    label: 'Verses',
                     data: [44, 74, 24],
-                    backgroundColor: [
-                        '#f59e0b',
-                        '#059669',
-                        '#3b82f6'
-                    ],
-                    borderColor: '#f9fafb',
-                    borderWidth: 2,
-                    hoverOffset: 4
+                    backgroundColor: ['#f59e0b', '#10b981', '#3b82f6'], // Amber, Emerald, Blue
+                    hoverOffset: 4,
+                    borderWidth: 0
                 }]
             };
 
-            const structureConfig = {
+            const ctx = document.getElementById('structureChart').getContext('2d');
+            new Chart(ctx, {
                 type: 'doughnut',
                 data: structureData,
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    cutout: '70%',
                     plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#374151',
-                                font: {
-                                    family: 'Inter',
-                                    size: 12
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed !== null) {
-                                        label += context.parsed + ' verses';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 12 } } }
                     }
                 }
-            };
+            });
 
-            const ctx = document.getElementById('structureChart').getContext('2d');
-            new Chart(ctx, structureConfig);
+            // Tabs Logic
+            function setupTabs(containerId) {
+                const container = document.getElementById(containerId);
+                const contentId = containerId.replace('tabs', 'tab-content'); // convention
+                const contentContainer = document.getElementById(contentId);
 
-            function setupTabs(tabContainerId, contentContainerId) {
-                const tabContainer = document.getElementById(tabContainerId);
-                const contentContainer = document.getElementById(contentContainerId);
-                if (!tabContainer || !contentContainer) return;
+                if (!container || !contentContainer) return;
 
-                const tabButtons = tabContainer.querySelectorAll('.tab-btn');
-                const tabContents = contentContainer.querySelectorAll('.tab-content');
+                const btns = container.querySelectorAll('.tab-btn');
+                const contents = contentContainer.querySelectorAll('.tab-content');
 
-                tabContainer.addEventListener('click', (e) => {
-                    const clickedButton = e.target.closest('.tab-btn');
-                    if (!clickedButton) return;
+                container.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.tab-btn');
+                    if (!btn) return;
 
-                    const targetTab = clickedButton.dataset.tab;
+                    // Deactivate all
+                    btns.forEach(b => b.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
 
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    clickedButton.classList.add('active');
-
-                    tabContents.forEach(content => {
-                        if (content.id === targetTab) {
-                            content.classList.add('active');
-                        } else {
-                            content.classList.remove('active');
-                        }
-                    });
+                    // Activate clicked
+                    btn.classList.add('active');
+                    const targetId = btn.dataset.tab;
+                    document.getElementById(targetId).classList.add('active');
                 });
             }
 
-            setupTabs('tabs-phase-1', 'tab-content-phase-1');
-            setupTabs('tabs-phase-3', 'tab-content-phase-3');
+            setupTabs('tabs-phase-1');
+            setupTabs('tabs-phase-3');
 
-            const accordionContainer = document.getElementById('accordion-phase-2');
-            if (accordionContainer) {
-                accordionContainer.addEventListener('click', (e) => {
-                    const clickedButton = e.target.closest('.accordion-btn');
-                    if (!clickedButton) return;
+            // Accordion Logic
+            const accordion = document.getElementById('accordion-phase-2');
+            if (accordion) {
+                accordion.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.accordion-btn');
+                    if (!btn) return;
 
-                    const content = clickedButton.nextElementSibling;
-                    const isActive = clickedButton.classList.contains('active');
+                    const content = btn.nextElementSibling;
+                    const isActive = btn.classList.contains('active');
+
+                    // Close others
+                    /* Optional: Uncomment to have only one open at a time
+                    accordion.querySelectorAll('.accordion-btn').forEach(otherBtn => {
+                        if (otherBtn !== btn && otherBtn.classList.contains('active')) {
+                            otherBtn.classList.remove('active');
+                            otherBtn.nextElementSibling.style.maxHeight = '0px';
+                        }
+                    });
+                    */
 
                     if (isActive) {
-                        clickedButton.classList.remove('active');
+                        btn.classList.remove('active');
                         content.style.maxHeight = '0px';
                     } else {
-                        clickedButton.classList.add('active');
+                        btn.classList.add('active');
                         content.style.maxHeight = content.scrollHeight + 'px';
                     }
-
-                    Array.from(accordionContainer.querySelectorAll('.accordion-btn')).forEach(btn => {
-                        if (btn !== clickedButton && btn.classList.contains('active')) {
-                            btn.classList.remove('active');
-                            btn.nextElementSibling.style.maxHeight = '0px';
-                        }
-                    });
                 });
             }
 
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            // Scroll Reveal
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Mobile Menu
+            const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                 });
-
                 mobileMenu.addEventListener('click', (e) => {
-                    if (e.target.tagName === 'A') {
-                        mobileMenu.classList.add('hidden');
-                    }
+                    if (e.target.tagName === 'A') mobileMenu.classList.add('hidden');
                 });
             }
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.hash !== "") {
-                        const targetElement = document.querySelector(this.hash);
-                        if (targetElement) {
-                            e.preventDefault();
-                            const offset = document.querySelector('header').offsetHeight;
-                            const elementPosition = targetElement.getBoundingClientRect().top;
-                            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: "smooth"
-                            });
-                        }
-                    }
-                });
-            });
         });
     </script>
 </body>
