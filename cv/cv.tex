@@ -1,0 +1,254 @@
+\documentclass{resume}
+
+\usepackage[left=2.0cm,top=2.0cm,right=2.0cm,bottom=2.0cm]{geometry} % Document margins
+\usepackage{enumitem}
+\usepackage{xspace}
+\usepackage{array, makecell}
+\usepackage{lipsum}
+
+\name{Rajeev Jain}
+
+\usepackage{fontenc}
+\usepackage{xcolor}
+\usepackage{makecell}
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+\usepackage[default,black,semibold]{sourceserifpro}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+
+\newcommand*{\makecvfooter}[2]{%
+  \fancyfoot{}
+  \fancyfoot[L]{\scriptsize {#1}}
+  \fancyfoot[R]{\scriptsize {#2}}
+}
+
+\usepackage{tabularx,stackengine}
+\newcolumntype{L}[1]{>{\minwd l{#1}}l<{\endminwd}}
+\newcolumntype{C}[1]{>{\minwd c{#1}}c<{\endminwd}}
+\newcolumntype{R}[1]{>{\minwd r{#1}}r<{\endminwd}}
+\def\minwd#1#2#3\endminwd{\stackengine{0pt}{#3}{\rule{#2}{0pt}}{O}{#1}{F}{F}{L}}
+\newcolumntype{Q}{@{}c@{}}
+
+% parametric vspace
+\newlength{\myvertspace}
+\setlength{\myvertspace}{0.5em}
+\newcommand{\vs}{ \vspace{\myvertspace} }
+
+\linespread{1.10}
+
+\usepackage{enumitem}
+\setlist{leftmargin=5mm}
+
+\definecolor{highcolor}{HTML}{18469B}
+\definecolor{oralcolor}{HTML}{900C3F}
+\definecolor{citecolor}{HTML}{0071bc}
+\hypersetup{
+    colorlinks=true,%
+    citecolor=citecolor,%
+    filecolor=citecolor,%
+    linkcolor=citecolor,%
+    urlcolor=citecolor,
+    breaklinks=true,
+}
+
+\begin{document}
+
+{\Huge Rajeev Jain}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.1cm}l@{}}
+{Email} & {\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com}} \\
+{Homepage} & {\href{https://rajeeja.github.io}{rajeeja.github.io}} \\
+{GitHub} & {\href{https://github.com/rajeeja}{github.com/rajeeja}} \\
+{LinkedIn} & {\href{https://linkedin.com/in/rajeeja}{linkedin.com/in/rajeeja}}
+\end{tabular}}
+
+\vs
+{\bf \large Summary}
+\vs
+
+Research software engineer building high-performance tools for climate science, cancer research, and exascale computing. Lead developer of UXarray (205+ GitHub stars), \textbf{2$\times$ R\&D 100 Award winner}, with 16+ years optimizing scientific workflows at Argonne National Laboratory.
+
+\vs
+{\bf \large Current Appointments}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{2009 - Present} & {\bf Argonne National Laboratory}, Principal Specialist, Research Software Engineering \\
+& {\small Division of Mathematics and Computer Science, Chicago, IL} \\
+& {\small $\bullet$ Lead developer for UXarray (205+ stars), enabling analysis of petabyte-scale unstructured climate data.} \\
+& {\small $\bullet$ Implemented async HDF5 I/O for FLASH-X, reducing checkpoint times by 40-70\% on Summit.} \\
+& {\small $\bullet$ Built hyperparameter optimization infra for cancer drug response (CANDLE), running 10k+ experiments.} \\
+\end{tabular}}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{2023 - Present} & {\bf University of Chicago}, Staff At-Large \\
+& {\small Chicago, IL} \\
+& {\small $\bullet$ Joint appointment supporting cancer pharmacogenomics and earth science research projects.} \\
+& {\small $\bullet$ Mentor graduate students and research associates on software development best practices.}
+\end{tabular}}
+
+\vs
+{\bf \large Research Interests}
+\vs
+
+High-performance scientific computing, climate modeling, cancer pharmacogenomics, computational physics, mesh generation, parallel I/O optimization, machine learning infrastructure, and reproducible workflows.
+
+\vs
+{\bf \large Open Source Software}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{\bf UXarray} & Lead Developer $\cdot$ \href{https://github.com/UXARRAY/uxarray}{GitHub} $\cdot$ \href{https://uxarray.readthedocs.io}{Docs} \\
+& Python library for unstructured grid analysis. 205+ GitHub stars. \\
+{\bf CANDLE} & Core Contributor $\cdot$ \href{https://github.com/JDACS4C-IMPROVE}{GitHub} \\
+& Hyperparameter optimization framework for cancer drug response models. \\
+{\bf FLASH-X} & I/O \& Compression Lead $\cdot$ \href{https://github.com/Flash-X/Flash-X}{GitHub} \\
+& Multiphysics simulation software for exascale computing. \\
+{\bf MeshKit} & Principal Investigator $\cdot$ \href{https://bitbucket.org/fathomteam/meshkit}{BitBucket} \\
+& Mesh generation toolkit for reactor core geometries.
+\end{tabular}}
+
+\vs
+{\bf \large Technical Skills}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{\bf Languages} & Python, C++, Fortran, R, Bash, SQL \\
+{\bf ML \& Data} & PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, Swift/T \\
+{\bf HPC \& Systems} & MPI, OpenMP, HDF5, NetCDF, MOAB, Docker, Singularity, Git, GitHub Actions \\
+{\bf Domains} & Climate modeling, cancer pharmacogenomics, computational physics, mesh generation
+\end{tabular}}
+
+\vs
+{\bf \large Education}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{2020} & {\bf University of Chicago} \\
+& M.S. in Computer Science \\
+{2009} & {\bf Arizona State University} \\
+& M.S. in Structural Engineering $\cdot$ Graduate Fellowship Recipient \\
+{2006} & {\bf Indian Institute of Technology (IIT), ISM Dhanbad} \\
+& B.Tech in Mechanical Engineering
+\end{tabular}}
+
+\vs
+{\bf \large Honors and Awards}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}p{13.1cm}@{}}
+{2023} & {\bf R\&D 100 Award} -- CANDLE (Cancer Distributed Learning Environment) \\
+& "Oscars of Innovation" for top 100 innovations of the year \\
+{2022} & {\bf R\&D 100 Award} -- FLASH-X (Multiphysics Simulation Software) \\
+& Team contribution for exascale computing software \\
+{2015} & {\bf ATPESC Scholar} -- Argonne Training Program on Extreme-Scale Computing \\
+{2010} & {\bf Best Paper Award} -- International Meshing Roundtable
+\end{tabular}}
+
+\vs
+{\bf \large Publications}
+\vs
+
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+
+{\bf Refereed Journal Articles}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{0.95cm}L{0.65cm}l@{}}
+  {2025} & J.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., {\bf Jain, R.}, et al. "Benchmarking community drug response prediction models: datasets, models, tools, and metrics". \textit{Briefings in Bioinformatics} (forthcoming).
+  \end{minipage} \\
+  {2011} & J.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} Tautges, T. J., {\bf Jain, R.} "Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach." \textit{Journal of Engineering with Computers}.
+  \end{minipage} \\
+  {2009} & J.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} Argod, Belegudu, A.D., Aziz, A., Agarwala, V., Rajan, S.D., {\bf Jain, R.} "MPI-enabled Shape Optimization of Panels Subjected to Dynamic Loading." \textit{Journal of Simulation and Multidisciplinary Design Optimization}.
+  \end{minipage}
+\end{tabular}}
+
+\vs
+{\bf Refereed Conference Proceedings}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{0.95cm}L{0.65cm}l@{}}
+  {2025} & C.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} Gwinn, J., Wozniak, J., {\bf Jain, R.}, et al. "A Workflow for Error Analysis for Drug Response Prediction via Statistical Standardization and Distribution Analysis." \textit{Works Workshop}, SC25.
+  \end{minipage} \\
+  {2024} & C.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} {\bf Jain, R.}, Tang, H., Dhruv, A., Byna, S. "Enabling Data Reduction for Flash-X Simulations." \textit{DRBSD-10 Workshop}, SC24.
+  \end{minipage} \\
+  {} & C.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} {\bf Jain, R.}, Wozniak, J.M., Partin, A., et al. "Cross-HPO: Optimizing Neural Networks for Cancer Drug Response." \textit{CAFCW24 Workshop}, SC24.
+  \end{minipage} \\
+  {2014} & C.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} {\bf Jain, R.}, Tautges, T. J. "Generating Unstructured Reactor Core Meshes in Parallel." \textit{23rd International Meshing Roundtable}.
+  \end{minipage} \\
+  {2010} & C.\stepcounter{mycounter}\themycounter & 
+  \begin{minipage}[t]{0.78\textwidth} Tautges, T. J., {\bf Jain, R.} "Creating Geometry and Mesh Models...". \textit{19th International Meshing Roundtable}. \textbf{Best Paper Award}.
+  \end{minipage}
+\end{tabular}}
+
+\vs
+{\bf \large Selected Presentations}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{2024} & {\bf SC24} $\cdot$ Tutorial: UXarray for Analysis of Unstructured Climate Data \\
+& {\bf AMS Annual Meeting} $\cdot$ UXarray: Extending Xarray with Support for Unstructured Grids \\
+{2023} & {\bf SciPy 2023} $\cdot$ UXarray for unstructured climate data \\
+& {\bf HDF User Group} $\cdot$ Data reduction for FLASH-X simulations
+\end{tabular}}
+
+\vs
+{\bf \large Funding \& Proposals}
+\vs
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{Active} & {\bf DOE SEATS} $\cdot$ Software Ecosystem for Advancing Climate Tools and Services \\
+& {\bf NSF Raijin} $\cdot$ Collaborative research in climate model analysis \\
+{Completed} & {\bf DOE ECP CANDLE} $\cdot$ Core contributor (2017--2023) \\
+& {\bf DOE NEAMS} $\cdot$ Principal Investigator for MeshKit (2009--2016)
+\end{tabular}}
+
+\vs
+{\bf \large Service \& Mentorship}
+\vs
+
+{\bf Professional Service}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{Panelist} & 5th Infraday Midwest Event ("Revolutionizing Public Infrastructure with AI") \\
+{Reviewer} & Journal of Open Research Software, NumGrid, SBIR Funding Proposals \\
+{Committee} & NumGrid 2020 Program Committee Member
+\end{tabular}}
+
+{\bf Mentorship}
+
+{\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}L{2.5cm}l@{}}
+{Rylie Weaver} & Research Aide (2022--2024) $\cdot$ IMPROVE project, HPO techniques \\
+{Aaron Zedwick} & Student (2023--2024) $\cdot$ UXarray development \\
+{Mark Bartoszek} & Systems Admin (2023) $\cdot$ Mentoring on systems administration
+\end{tabular}}
+
+\end{document}
