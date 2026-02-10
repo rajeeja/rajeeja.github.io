@@ -42,18 +42,23 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <p class="case-links"><a href="https://github.com/UXARRAY/uxarray">GitHub</a>  &middot;  <a href="https://uxarray.readthedocs.io">Documentation</a>  &middot;  <a href="https://github.com/UXARRAY/uxarray/pull/1345">Conservative zonal averaging PR</a></p>
     </article>
     <article class="case-study">
+      <h3>CANDLE/IMPROVE: hyperparameter optimization for cancer drug response models</h3>
+      <p><strong>Challenge:</strong> Cancer drug response prediction models showed poor generalization across different pharmacogenomic datasets, requiring systematic benchmarking and optimization.</p>
+      <p><strong>Contribution:</strong> Built hyperparameter optimization (HPO) infrastructure and ran 10,000+ training experiments across Summit, Theta, and Cori supercomputers. Developed GitHub Actions workflows for cross-study validation. Maintained benchmarking framework and co-authored standardization guidelines.</p>
+      <p><strong>Impact:</strong> Benchmarking framework used by 15+ researchers across the project. Results published in Briefings in Bioinformatics (2025) and presented at 20th Workflows Workshop (2025). Contributed to R&D 100 Award (2023).</p>
+      <p class="case-links">
+        <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">IMPROVE GitHub</a> &middot; 
+        <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor Paper</a> &middot; 
+        <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking Paper</a> &middot; 
+        Counterfactuals Paper (CAFCW 2021)
+      </p>
+    </article>
+    <article class="case-study">
       <h3>FLASH-X: I/O optimization for exascale multiphysics simulations</h3>
       <p><strong>Challenge:</strong> Checkpoint and restart operations were taking 30-50% of total runtime in billion-element FLASH-X simulations on leadership-class supercomputers.</p>
       <p><strong>Contribution:</strong> Implemented asynchronous HDF5 I/O with Argobots for non-blocking checkpoint operations and integrated SZ3/ZFP compression. Built verification workflow with nightly baseline testing to ensure reproducibility. Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</p>
       <p><strong>Impact:</strong> Achieved 40-70% reduction in checkpoint write times on Summit supercomputer. Compression reduced storage requirements by 50%+ with minimal accuracy loss. Published at SC24 workshop, contributed to R&D 100 Award (2022).</p>
       <p class="case-links"><a href="https://flash-x.org/">FLASH-X Project</a>  &middot;  <a href="https://arxiv.org/abs/2208.11630">FLASH-X Paper</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Compression Paper</a>  &middot;  <a href="https://github.com/Flash-X/Flash-X">GitHub</a></p>
-    </article>
-    <article class="case-study">
-      <h3>CANDLE/IMPROVE: hyperparameter optimization for cancer drug response models</h3>
-      <p><strong>Challenge:</strong> Cancer drug response prediction models showed poor generalization across different pharmacogenomic datasets, requiring systematic benchmarking and optimization.</p>
-      <p><strong>Contribution:</strong> Built hyperparameter optimization (HPO) infrastructure and ran 10,000+ training experiments across Summit, Theta, and Cori supercomputers. Developed GitHub Actions workflows for cross-study validation. Maintained benchmarking framework and co-authored standardization guidelines.</p>
-      <p><strong>Impact:</strong> Benchmarking framework used by 15+ researchers across the project. Results published in Briefings in Bioinformatics (2025) and presented at 20th Workflows Workshop (2025). Contributed to R&D 100 Award (2023).</p>
-      <p class="case-links"><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">IMPROVE GitHub</a>  &middot;  <a href="https://github.com/JDACS4C-IMPROVE/HPO/tree/master/HallOfFame">Benchmarking Results</a></p>
     </article>
   </div>
 </section>
