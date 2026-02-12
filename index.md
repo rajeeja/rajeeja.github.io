@@ -50,7 +50,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
         <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">IMPROVE GitHub</a> &middot; 
         <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor Paper</a> &middot; 
         <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking Paper</a> &middot; 
-        Counterfactuals Paper (CAFCW 2021)
+        <a href="https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf">Counterfactuals Paper (CAFCW 2021)</a>
       </p>
     </article>
     <article class="case-study">
@@ -58,7 +58,7 @@ excerpt: "Engineer with 16+ years building scientific software across climate, d
       <p><strong>Challenge:</strong> Checkpoint and restart operations were taking 30-50% of total runtime in billion-element FLASH-X simulations on leadership-class supercomputers.</p>
       <p><strong>Contribution:</strong> Implemented asynchronous HDF5 I/O with Argobots for non-blocking checkpoint operations and integrated SZ3/ZFP compression. Built verification workflow with nightly baseline testing to ensure reproducibility. Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</p>
       <p><strong>Impact:</strong> Achieved 40-70% reduction in checkpoint write times on Summit supercomputer. Compression reduced storage requirements by 50%+ with minimal accuracy loss. Published at SC24 workshop, contributed to R&D 100 Award (2022).</p>
-      <p class="case-links"><a href="https://flash-x.org/">FLASH-X Project</a>  &middot;  <a href="https://arxiv.org/abs/2208.11630">FLASH-X Paper</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Compression Paper</a>  &middot;  <a href="https://github.com/Flash-X/Flash-X">GitHub</a></p>
+      <p class="case-links"><a href="https://flash-x.org/">FLASH-X Project</a>  &middot;  <a href="https://arxiv.org/abs/2208.11630">FLASH-X Paper</a>  &middot;  <a href="https://ieeexplore.ieee.org/document/10026923">Compression Paper</a>  &middot;  <a href="https://flash-x.org/pages/source/">Source</a></p>
     </article>
   </div>
 </section>
