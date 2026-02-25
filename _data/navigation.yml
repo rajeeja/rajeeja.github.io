@@ -1,13 +1,19 @@
-# main links 
+# main links
 main:
 
-  - title: "About Me"
+  - title: "About"
     url: /#about
 
-  - title: "Work"
-    url: /#work
+  - title: "UXarray"
+    url: /#uxarray
 
-  - title: "Recognition"
+  - title: "CANDLE"
+    url: /#candle
+
+  - title: "FLASH-X"
+    url: /#flashx
+
+  - title: "Awards"
     url: /#recognition
 
   - title: "Background"
@@ -15,6 +21,3 @@ main:
 
   - title: "Resume"
     url: /files/Rajeev_Jain_Resume.pdf
-
-  - title: "Contact"
-    url: /#contact
