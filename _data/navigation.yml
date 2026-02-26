@@ -4,14 +4,14 @@ main:
   - title: "About"
     url: /#about
 
-  - title: "UXarray"
-    url: /#uxarray
+  - title: "Projects"
+    url: /#projects
 
-  - title: "CANDLE"
-    url: /#candle
+  - title: "Skills"
+    url: /#skills
 
-  - title: "FLASH-X"
-    url: /#flashx
+  - title: "Publications"
+    url: /#publications
 
   - title: "Awards"
     url: /#recognition
