@@ -4,7 +4,7 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
+excerpt: "Research software for climate, AI, and simulation systems"
 ---
 
 <div class="landing-shell">
@@ -12,8 +12,8 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
     <div class="hero-copy">
       <p class="eyebrow">Scientific software for climate, AI, and exascale computing</p>
       <h1 class="hero-title">Rajeev Jain</h1>
-      <p class="hero-role">Principal Research Software Engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a> and <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
-      <p class="hero-summary">I lead research software efforts that turn ambitious science into production systems: GPU-enabled AI models for Aurora, analysis tools for unstructured climate grids, and scalable infrastructure for million-line simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations.</p>
+      <p class="hero-role">Research software engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+      <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>
 
       <div class="hero-actions">
         <a class="button-link button-link--primary" href="mailto:rajeeja@gmail.com">Email</a>
@@ -38,12 +38,8 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
           <span class="hero-stat__label">Peer-reviewed publications</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat__value">2x</span>
-          <span class="hero-stat__label">R&amp;D 100 Award-winning projects</span>
-        </div>
-        <div class="hero-stat">
           <span class="hero-stat__value">10k+</span>
-          <span class="hero-stat__label">Large-scale model training runs</span>
+          <span class="hero-stat__label">Training runs in benchmarking and HPO studies</span>
         </div>
       </div>
     </div>
@@ -56,11 +52,6 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
         <li>UXarray for unstructured climate analysis and scientific workflows</li>
         <li>Benchmarking and optimization for distributed cancer AI pipelines</li>
       </ul>
-      <div class="badge-row">
-        <span class="info-pill">EB-1A</span>
-        <span class="info-pill">Open source</span>
-        <span class="info-pill">2x R&amp;D 100</span>
-      </div>
     </aside>
   </section>
 
@@ -70,7 +61,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
       <a href="#projects" class="section-nav__link">Projects</a>
       <a href="#skills" class="section-nav__link">Skills</a>
       <a href="#publications" class="section-nav__link">Publications</a>
-      <a href="#recognition" class="section-nav__link">Awards</a>
+      <a href="#recognition" class="section-nav__link">Recognition</a>
       <a href="#background" class="section-nav__link">Background</a>
       <a href="#contact" class="section-nav__link">Contact</a>
     </div>
@@ -79,13 +70,13 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
   <section class="content-section" id="projects">
     <div class="section-heading">
       <p class="section-kicker">Selected work</p>
-      <h2 class="section-title">Projects with measurable research impact</h2>
-      <p class="section-lead">Representative efforts spanning climate science, cancer AI, and exascale simulation.</p>
+      <h2 class="section-title">Selected projects</h2>
+      <p class="section-lead">Representative work across climate science, cancer AI, and simulation software.</p>
     </div>
 
     <div class="project-grid">
       <article class="project-card project-card--wide">
-        <p class="card-meta">Lead developer | 205+ GitHub stars | <a href="https://uxarray.readthedocs.io">Documentation</a></p>
+        <p class="card-meta">Lead developer | Open-source climate analysis | <a href="https://uxarray.readthedocs.io">Documentation</a></p>
         <h3><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h3>
         <p>Python library for unstructured climate grid analysis used by DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and other next-generation meshes.</p>
         <ul class="card-list">
@@ -100,13 +91,13 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
         <h3><a href="https://www.anl.gov/aurora">Pangu-Weather on Aurora</a></h3>
         <p>PyTorch-based reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for deployment on more than 60,000 Intel GPUs.</p>
         <ul class="card-list">
-          <li>Demonstrated that frontier AI weather models can run beyond NVIDIA-only environments.</li>
-          <li>Advanced DOE exascale capabilities for Earth system modeling and forecasting.</li>
+          <li>Ported the workflow to Intel GPUs and ran it at large scale on Aurora.</li>
+          <li>Contributed to DOE exascale work in Earth system modeling and forecasting.</li>
         </ul>
       </article>
 
       <article class="project-card">
-        <p class="card-meta">Core contributor | <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">R&amp;D 100 Award 2023</a></p>
+        <p class="card-meta">Core contributor | Cancer AI benchmarking infrastructure</p>
         <h3><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></h3>
         <p>Hyperparameter optimization and benchmarking infrastructure for cancer drug response models at supercomputer scale.</p>
         <ul class="card-list">
@@ -117,7 +108,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
       </article>
 
       <article class="project-card">
-        <p class="card-meta">I/O and compression lead | <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">R&amp;D 100 Award 2022</a></p>
+        <p class="card-meta">I/O and compression work for multiphysics simulation</p>
         <h3><a href="https://flash-x.org/">FLASH-X</a></h3>
         <p>Optimization of checkpoint and restart workflows for a million-line multiphysics simulation engine used in astrophysics, combustion, and fluid dynamics.</p>
         <ul class="card-list">
@@ -128,7 +119,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
       </article>
 
       <article class="project-card">
-        <p class="card-meta">Principal investigator | DOE NEAMS, 2009-2016</p>
+        <p class="card-meta">DOE NEAMS, 2009-2016</p>
         <h3><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></h3>
         <p>Open-source C++ toolkit for automated nuclear reactor core mesh generation and lattice hierarchy modeling.</p>
         <ul class="card-list">
@@ -143,7 +134,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
     <div class="section-heading">
       <p class="section-kicker">Technical expertise</p>
       <h2 class="section-title">Breadth across research software and systems</h2>
-      <p class="section-lead">From low-level performance work to high-level AI and data workflows, with an emphasis on maintainable, production-grade open source.</p>
+      <p class="section-lead">Tools and systems I work with most often across research software, data, and HPC.</p>
     </div>
 
     <div class="skill-grid">
@@ -260,33 +251,33 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
   <section class="content-section" id="recognition">
     <div class="section-heading">
       <p class="section-kicker">Recognition</p>
-      <h2 class="section-title">Awards, funding, and community contribution</h2>
-      <p class="section-lead">Highlights that reflect research impact, technical leadership, and sustained collaboration.</p>
+      <h2 class="section-title">Recognition and service</h2>
+      <p class="section-lead">Awards, funding, and community work related to the software and collaborations above.</p>
     </div>
 
     <div class="recognition-grid">
       <article class="detail-card">
-        <p class="card-meta">Immigration and research recognition</p>
-        <h3>EB-1A Extraordinary Ability</h3>
-        <p>Granted U.S. permanent residency under the EB-1A classification for sustained national and international scientific impact.</p>
+        <p class="card-meta">Work authorization</p>
+        <h3>U.S. Permanent Resident</h3>
+        <p>Authorized to work in the United States without sponsorship.</p>
       </article>
 
       <article class="detail-card">
         <p class="card-meta">R&amp;D 100 | 2023</p>
         <h3><a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a></h3>
-        <p>Recognized for distributed AI infrastructure supporting cancer drug response prediction at scale.</p>
+        <p>Project recognized by R&amp;D World in 2023.</p>
       </article>
 
       <article class="detail-card">
         <p class="card-meta">R&amp;D 100 | 2022</p>
         <h3><a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a></h3>
-        <p>Honored for multiphysics simulation software that advances exascale scientific computing.</p>
+        <p>Project recognized by R&amp;D World in 2022.</p>
       </article>
 
       <article class="detail-card">
         <p class="card-meta">Training and technical distinction</p>
         <h3>ATPESC Scholar</h3>
-        <p>Selected in 2015 for Argonne's intensive advanced training program on extreme-scale computing.</p>
+        <p>Selected in 2015 for Argonne's training program on extreme-scale computing.</p>
       </article>
 
       <article class="detail-card">
@@ -324,7 +315,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
     <div class="section-heading">
       <p class="section-kicker">Background</p>
       <h2 class="section-title">Roles, education, and collaboration style</h2>
-      <p class="section-lead">Long-form software stewardship across research institutions, with a bias for durable systems and measurable scientific outcomes.</p>
+      <p class="section-lead">Research roles across labs and universities, centered on long-lived software and collaborative delivery.</p>
     </div>
 
     <div class="split-grid">
@@ -335,7 +326,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
             <p class="timeline-item__range">2009-present</p>
             <div>
               <h3>Argonne National Laboratory</h3>
-              <p>Principal Specialist in Research Software Engineering, leading UXarray, FLASH-X, CANDLE/IMPROVE, MeshKit, and urban simulation software efforts.</p>
+              <p>Principal Specialist in Research Software Engineering, working across UXarray, FLASH-X, CANDLE/IMPROVE, MeshKit, and urban simulation software efforts.</p>
             </div>
           </div>
 
@@ -378,7 +369,7 @@ excerpt: "Principal Research Software Engineer | Argonne National Laboratory"
 
         <article class="contact-card" id="contact">
           <p class="section-kicker">Contact</p>
-          <h2 class="section-title">Open to collaborations that need strong research software.</h2>
+          <h2 class="section-title">Available for conversations about research software and scientific computing.</h2>
           <p class="section-lead">I am interested in work across scientific computing, AI for health, climate modeling, reproducible workflows, and long-lived open-source systems.</p>
           <div class="hero-actions">
             <a class="button-link" href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a>

@@ -2,8 +2,8 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-resume_tex="$repo_root/cv/Rajeev_Jain_Resume.tex"
-cv_tex="$repo_root/cv/Rajeev_Jain_CV.tex"
+resume_tex="$repo_root/cv/resume.tex"
+cv_tex="$repo_root/cv/cv.tex"
 texmf_var="$repo_root/files/texmf-var"
 
 mkdir -p "$texmf_var"
