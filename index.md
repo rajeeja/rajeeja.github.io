@@ -16,17 +16,10 @@ excerpt: "Research software for climate, AI, and simulation systems"
       <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>
 
       <div class="hero-actions">
-        <a class="button-link button-link--primary" href="mailto:rajeeja@gmail.com">Email</a>
-        <a class="button-link" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
+        <a class="button-link button-link--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
         <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">Full CV</a>
+        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">All papers</a>
       </div>
-
-      <p class="hero-link-row">
-        <a href="https://github.com/rajeeja">GitHub</a>
-        <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
-        <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
-      </p>
 
       <div class="hero-stat-grid">
         <div class="hero-stat">
@@ -187,13 +180,13 @@ excerpt: "Research software for climate, AI, and simulation systems"
 
         <article class="publication-card">
           <p class="card-meta">DRBSD-10 Workshop, SC24</p>
-          <h3>Enabling Data Reduction for FLASH-X Simulations</h3>
+          <h3><a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations</a></h3>
           <p><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S.</p>
         </article>
 
         <article class="publication-card">
           <p class="card-meta">CAFCW24 Workshop, SC24</p>
-          <h3>Cross-HPO: Optimizing Neural Networks for Cancer Drug Response</h3>
+          <h3><a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response</a></h3>
           <p><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al.</p>
         </article>
 
@@ -205,7 +198,7 @@ excerpt: "Research software for climate, AI, and simulation systems"
 
         <article class="publication-card">
           <p class="card-meta">Engineering with Computers | 2011</p>
-          <h3>Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries</h3>
+          <h3><a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries</a></h3>
           <p>Tautges, T.J., <strong>Jain, R.</strong></p>
         </article>
       </div>
@@ -231,11 +224,11 @@ excerpt: "Research software for climate, AI, and simulation systems"
           </li>
           <li>
             <strong>SciPy 2023</strong>
-            <span>UXarray for Unstructured Climate Data</span>
+            <span><a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for Unstructured Climate Data</a></span>
           </li>
           <li>
             <strong>HDF User Group 2023</strong>
-            <span>Data Reduction for FLASH-X Simulations</span>
+            <span><a href="https://www.youtube.com/watch?v=MuifQ7lHRR8">Data Reduction for FLASH-X Simulations</a></span>
           </li>
         </ul>
 
@@ -375,6 +368,8 @@ excerpt: "Research software for climate, AI, and simulation systems"
             <a class="button-link" href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a>
             <a class="button-link" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
             <a class="button-link" href="https://github.com/rajeeja">GitHub</a>
+            <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
+            <a class="button-link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
           </div>
         </article>
       </div>
