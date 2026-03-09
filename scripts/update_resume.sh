@@ -2,16 +2,20 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-resume_tex="$repo_root/cv/resume.tex"
-cv_tex="$repo_root/cv/cv.tex"
+cv_dir="$repo_root/cv"
+resume_tex="resume.tex"
+cv_tex="cv.tex"
 texmf_var="$repo_root/files/texmf-var"
 
 mkdir -p "$texmf_var"
 export TEXMFVAR="$texmf_var"
+export TEXINPUTS="$cv_dir//:"
 
 if [[ "${SKIP_SCHOLAR:-}" != "1" ]]; then
   python3 "$repo_root/scripts/update_publications.py"
 fi
+
+cd "$cv_dir"
 
 if command -v latexmk >/dev/null 2>&1; then
   latexmk -pdf -g -interaction=nonstopmode -halt-on-error \
