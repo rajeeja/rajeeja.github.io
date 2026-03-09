@@ -1,9 +1,52 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131916961-1"></script>
+{% assign ga_measurement_id = site.analytics.google.measurement_id | default: site.analytics.google.tracking_id %}
+{% if ga_measurement_id %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_measurement_id }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-131916961-1');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  window.gtag = window.gtag || gtag;
+  gtag("js", new Date());
+  gtag("config", "{{ ga_measurement_id }}");
+
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest && event.target.closest("a[href]");
+    if (!link) {
+      return;
+    }
+
+    var href = link.getAttribute("href");
+    if (!href) {
+      return;
+    }
+
+    var absoluteHref = link.href || href;
+    var normalizedHref = absoluteHref.toLowerCase();
+    var isPdfLink = normalizedHref.indexOf(".pdf") !== -1;
+
+    if (!isPdfLink) {
+      return;
+    }
+
+    var eventName = "pdf_link_click";
+
+    if (normalizedHref.indexOf("rajeev_jain_resume.pdf") !== -1) {
+      eventName = "resume_pdf_click";
+    } else if (normalizedHref.indexOf("rajeev_jain_cv.pdf") !== -1) {
+      eventName = "cv_pdf_click";
+    }
+
+    gtag("event", eventName, {
+      file_name: absoluteHref.split("/").pop(),
+      file_extension: "pdf",
+      link_text: (link.textContent || "").trim(),
+      link_url: absoluteHref,
+      page_location: window.location.href
+    });
+  }, true);
 </script>
+{% endif %}
