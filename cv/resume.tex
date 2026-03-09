@@ -1,46 +1,15 @@
 \documentclass[11pt,letterpaper]{article}
 
-\usepackage[margin=0.72in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage[hidelinks]{hyperref}
-\usepackage{enumitem}
-\usepackage{tabularx}
-\usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{array}
-
+\newcommand{\accenthex}{4A4A4A}
+\input{common.tex}
 \pagestyle{empty}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.25em,itemsep=2pt,topsep=3pt,parsep=0pt,partopsep=0pt}
-
-\definecolor{accent}{HTML}{0F3D63}
-\definecolor{muted}{HTML}{565656}
-\hypersetup{
-  colorlinks=true,
-  urlcolor=accent,
-  linkcolor=accent
-}
-
-\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\titlerule]
 \titlespacing*{\section}{0pt}{10pt}{5pt}
-
-\newcommand{\entryheader}[4]{%
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-    \textbf{#1} & \textbf{#2} \\
-    \textit{#3} & \textit{#4} \\
-  \end{tabular*}\vspace{-0.75em}
-}
-
-\newcommand{\skillrow}[2]{\textbf{#1}: #2\par}
 
 \begin{document}
 
 {\Huge\bfseries Rajeev Jain}\par
 \vspace{4pt}
-{\large Research Software Engineer | ML Infrastructure | Scientific Computing | Distributed Systems}\par
+{\large Research Software Engineer | ML Infrastructure | Scientific Computing}\par
 \vspace{6pt}
 Chicago, IL \hspace{10pt}
 \href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \hspace{10pt}

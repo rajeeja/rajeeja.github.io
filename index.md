@@ -4,13 +4,13 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Research software for climate, AI, and simulation systems"
+excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 ---
 
 <div class="landing-shell">
   <section class="hero-card" id="about">
     <div class="hero-copy">
-      <p class="eyebrow">Scientific software for climate, AI, and exascale computing</p>
+      <p class="eyebrow">Research Software Engineer | ML Infrastructure | Scientific Computing</p>
       <h1 class="hero-title">Rajeev Jain</h1>
       <p class="hero-role">Research software engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
       <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>

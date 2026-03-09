@@ -1,0 +1,50 @@
+\usepackage[margin=0.72in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{fancyhdr}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlist[itemize]{leftmargin=1.25em,itemsep=2pt,topsep=3pt,parsep=0pt,partopsep=0pt}
+
+\providecommand{\accenthex}{0F3D63}
+\definecolor{accent}{HTML}{\accenthex}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent
+}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\titlerule]
+
+\newcommand{\entryheader}[4]{%
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
+    \textbf{#1} & \textbf{#2} \\
+    \textit{#3} & \textit{#4} \\
+  \end{tabular*}\vspace{0.15em}
+}
+
+\newcommand{\pubentry}[2]{%
+  \begin{tabularx}{\textwidth}{@{}p{0.95cm}X@{}}
+    #1 & #2 \\
+  \end{tabularx}\vspace{0.25em}
+}
+
+\newcommand{\skillrow}[2]{\textbf{#1}: #2\par}
+
+\newcommand{\setupcvfooter}[1]{%
+  \pagestyle{fancy}
+  \fancyhf{}
+  \fancyfoot[L]{\footnotesize Rajeev Jain | CV | Last updated: #1}
+  \fancyfoot[R]{\footnotesize \thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \setlength{\footskip}{18pt}
+}
