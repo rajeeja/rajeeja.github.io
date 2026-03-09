@@ -17,8 +17,8 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 
       <div class="hero-actions">
         <a class="button-link button-link--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
-        <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">Full CV</a>
-        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">All papers</a>
+        <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">CV</a>
+        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Papers</a>
       </div>
 
       <div class="hero-stat-grid">
@@ -28,11 +28,11 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         </div>
         <div class="hero-stat">
           <span class="hero-stat__value">22+</span>
-          <span class="hero-stat__label">Peer-reviewed publications</span>
+          <span class="hero-stat__label">Peer-reviewed papers</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat__value">10k+</span>
-          <span class="hero-stat__label">Training runs in benchmarking and HPO studies</span>
+          <span class="hero-stat__label">Benchmarking and HPO runs</span>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <a href="#publications" class="section-nav__link">Publications</a>
       <a href="#recognition" class="section-nav__link">Recognition</a>
       <a href="#background" class="section-nav__link">Background</a>
-      <a href="#contact" class="section-nav__link">Contact</a>
+      <a href="#contact" class="section-nav__link">Links</a>
     </div>
   </nav>
 
@@ -361,12 +361,11 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         </article>
 
         <article class="contact-card" id="contact">
-          <p class="section-kicker">Contact</p>
-          <h2 class="section-title">Available for conversations about research software and scientific computing.</h2>
-          <p class="section-lead">I am interested in work across scientific computing, AI for health, climate modeling, reproducible workflows, and long-lived open-source systems.</p>
+          <p class="section-kicker">Links</p>
+          <h2 class="section-title">Professional profiles and research links.</h2>
+          <p class="section-lead">I keep the public site fairly minimal. LinkedIn is the best route for professional outreach.</p>
           <div class="hero-actions">
-            <a class="button-link" href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a>
-            <a class="button-link" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
+            <a class="button-link button-link--primary" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
             <a class="button-link" href="https://github.com/rajeeja">GitHub</a>
             <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
             <a class="button-link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
