@@ -26,3 +26,6 @@ cv17.txt
 .bundle/
 vendor/
 .jekyll-metadata
+.analytics-reports/
+__pycache__/
+*.pyc

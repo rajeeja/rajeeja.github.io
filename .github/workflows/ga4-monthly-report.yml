@@ -1,0 +1,71 @@
+name: Monthly GA4 email report
+
+on:
+  schedule:
+    - cron: '0 18 10 * *'  # 23:30 Asia/Kolkata on the 10th of every month
+  workflow_dispatch:
+    inputs:
+      sample_data:
+        description: Use synthetic sample data
+        required: false
+        default: false
+        type: boolean
+      skip_email:
+        description: Generate report artifacts without sending email
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_TIMEZONE: Asia/Kolkata
+      REPORT_WINDOW_DAYS: '30'
+      REPORT_SITE_NAME: Rajeev Jain website
+      GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+      GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_USE_SSL: ${{ secrets.SMTP_USE_SSL }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      GA4_REPORT_OUTPUT_DIR: .analytics-reports/monthly
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install analytics report dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/analytics_requirements.txt
+
+      - name: Generate and email analytics report
+        shell: bash
+        run: |
+          args=()
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.sample_data }}" = "true" ]; then
+            args+=("--sample-data")
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.skip_email }}" = "true" ]; then
+            args+=("--skip-email")
+          fi
+          python scripts/send_ga4_monthly_report.py "${args[@]}"
+
+      - name: Upload analytics artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ga4-monthly-report-${{ github.run_number }}
+          path: .analytics-reports/monthly
+          if-no-files-found: warn
