@@ -17,7 +17,17 @@ fi
 
 cd "$cv_dir"
 
-if command -v latexmk >/dev/null 2>&1; then
+if command -v tectonic >/dev/null 2>&1; then
+  rm -f \
+    "$repo_root/files/resume.pdf" \
+    "$repo_root/files/cv.pdf" \
+    "$repo_root/files/Rajeev_Jain_Resume.pdf" \
+    "$repo_root/files/Rajeev_Jain_CV.pdf"
+  tectonic -Z search-path="$cv_dir" --outdir "$repo_root/files" "$resume_tex"
+  mv "$repo_root/files/resume.pdf" "$repo_root/files/Rajeev_Jain_Resume.pdf"
+  tectonic -Z search-path="$cv_dir" --outdir "$repo_root/files" "$cv_tex"
+  mv "$repo_root/files/cv.pdf" "$repo_root/files/Rajeev_Jain_CV.pdf"
+elif command -v latexmk >/dev/null 2>&1; then
   latexmk -pdf -g -interaction=nonstopmode -halt-on-error \
     -outdir="$repo_root/files" -jobname=Rajeev_Jain_Resume \
     "$resume_tex"
@@ -42,7 +52,7 @@ elif command -v pdflatex >/dev/null 2>&1; then
     -output-directory="$repo_root/files" -jobname=Rajeev_Jain_CV \
     "$cv_tex"
 else
-  echo "Error: latexmk or pdflatex is required to build the resume." >&2
+  echo "Error: tectonic, latexmk, or pdflatex is required to build the resume." >&2
   exit 1
 fi
 
