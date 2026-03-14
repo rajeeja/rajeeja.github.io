@@ -18,32 +18,19 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <div class="hero-actions">
         <a class="button-link button-link--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
         <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">CV</a>
-        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Papers</a>
+        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Publications</a>
       </div>
 
-      <div class="hero-stat-grid">
-        <div class="hero-stat">
-          <span class="hero-stat__value">16+</span>
-          <span class="hero-stat__label">Years building research software</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat__value">22+</span>
-          <span class="hero-stat__label">Peer-reviewed papers</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat__value">10k+</span>
-          <span class="hero-stat__label">Benchmarking and HPO runs</span>
-        </div>
-      </div>
+      <p class="hero-meta">16+ years in research software <span>&middot;</span> 22+ peer-reviewed papers <span>&middot;</span> 10k+ benchmarking and HPO runs</p>
     </div>
 
     <aside class="hero-panel">
       <img class="hero-portrait" src="/images/bio-photo.jpg" alt="Portrait of Rajeev Jain">
-      <p class="hero-panel__eyebrow">Current focus</p>
+      <p class="hero-panel__eyebrow">Current work</p>
       <ul class="panel-list">
         <li>AI weather modeling on Aurora's Intel GPU stack</li>
         <li>UXarray for unstructured climate analysis and scientific workflows</li>
-        <li>Benchmarking and optimization for distributed cancer AI pipelines</li>
+        <li>MCP server and AI-agent workflows for natural-language dataset exploration</li>
       </ul>
     </aside>
   </section>
@@ -362,7 +349,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 
         <article class="contact-card" id="contact">
           <p class="section-kicker">Links</p>
-          <h2 class="section-title">Professional profiles and research links.</h2>
+          <h2 class="section-title">Profiles and research links.</h2>
           <p class="section-lead">I keep the public site fairly minimal. LinkedIn is the best route for professional outreach.</p>
           <div class="hero-actions">
             <a class="button-link button-link--primary" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>

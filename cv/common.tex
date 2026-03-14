@@ -1,7 +1,6 @@
 \usepackage[margin=0.72in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+\usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
 \usepackage{tabularx}
@@ -9,25 +8,28 @@
 \usepackage{titlesec}
 \usepackage{array}
 \usepackage{fancyhdr}
+\usepackage{ragged2e}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setlist[itemize]{leftmargin=1.25em,itemsep=2pt,topsep=3pt,parsep=0pt,partopsep=0pt}
+\setlength{\tabcolsep}{0pt}
+\setlist[itemize]{leftmargin=1.15em,itemsep=1pt,topsep=2pt,parsep=0pt,partopsep=0pt}
 
-\providecommand{\accenthex}{0F3D63}
+\providecommand{\accenthex}{2F2F2F}
 \definecolor{accent}{HTML}{\accenthex}
+\definecolor{linkblue}{HTML}{2F5D9A}
 \hypersetup{
   colorlinks=true,
-  urlcolor=accent,
-  linkcolor=accent
+  urlcolor=linkblue,
+  linkcolor=linkblue
 }
 
-\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\titlerule]
+\titleformat{\section}{\scshape\small\color{accent}}{}{0em}{}
 
 \newcommand{\entryheader}[4]{%
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
     \textbf{#1} & \textbf{#2} \\
-    \textit{#3} & \textit{#4} \\
+    #3 & #4 \\
   \end{tabular*}\vspace{0.15em}
 }
 
@@ -38,6 +40,17 @@
 }
 
 \newcommand{\skillrow}[2]{\textbf{#1}: #2\par}
+
+\newcommand{\makeprofileheader}[3]{%
+  {\LARGE #1}\par
+  \vspace{6pt}
+  \hrule
+  \vspace{9pt}
+  \begin{tabularx}{\textwidth}{@{}>{\scshape\small}p{0.14\textwidth}Xr@{}}
+    Contact & #2 & #3 \\
+  \end{tabularx}
+  \vspace{7pt}
+}
 
 \newcommand{\setupcvfooter}[1]{%
   \pagestyle{fancy}
