@@ -15,11 +15,11 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <p class="hero-role">Research software engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
       <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>
 
-      <div class="hero-actions">
-        <a class="button-link button-link--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
-        <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">CV</a>
-        <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Publications</a>
-      </div>
+      <p class="hero-documents">
+        <a class="hero-documents__link" href="/files/Rajeev_Jain_CV.pdf">Curriculum Vitae</a>
+        <span>&middot;</span>
+        <a class="hero-documents__link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Publications</a>
+      </p>
 
       <p class="hero-meta">16+ years in research software <span>&middot;</span> 22+ peer-reviewed papers <span>&middot;</span> 10k+ benchmarking and HPO runs</p>
     </div>

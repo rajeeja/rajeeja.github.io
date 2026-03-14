@@ -254,6 +254,31 @@ body::before {
   margin: 18px 0 0;
 }
 
+.hero-documents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 18px 0 0;
+  color: var(--ink-muted);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.9rem;
+}
+
+.hero-documents span {
+  color: rgba(38, 75, 120, 0.4);
+}
+
+.page__content .hero-documents__link {
+  color: var(--ink-soft);
+  border-bottom: none;
+  transition: color 180ms ease;
+}
+
+.page__content .hero-documents__link:hover {
+  color: var(--navy);
+}
+
 .button-link {
   display: inline-flex;
   align-items: center;
@@ -849,6 +874,11 @@ body::before {
 @media (max-width: 560px) {
   body {
     font-size: 15px;
+  }
+
+  .hero-documents {
+    gap: 6px;
+    font-size: 0.88rem;
   }
 
   .hero-actions,
