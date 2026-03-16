@@ -1,0 +1,116 @@
+\documentclass[10pt,letterpaper]{article}
+
+\newcommand{\accenthex}{4A4A4A}
+\input{common.tex}
+\pagestyle{empty}
+\titlespacing*{\section}{0pt}{9pt}{5pt}
+
+\begin{document}
+\sloppy
+
+\makeprofileheader
+  {Rajeev Jain}
+  {Website: \href{https://rajeeja.github.io}{rajeeja.github.io} \hspace{10pt} GitHub: \href{https://github.com/rajeeja}{rajeeja} \hspace{10pt} LinkedIn: \href{https://linkedin.com/in/rajeeja}{rajeeja}}
+  {\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \hspace{10pt} U.S. Permanent Resident}
+
+{\large Principal Research Software Engineer | ML Infrastructure | Scientific Computing}\par
+\vspace{5pt}
+
+\section{Summary}
+Principal research software engineer with 16+ years delivering open-source and production-grade software for exascale systems, ML infrastructure, and scientific computing. Lead experience across Python platforms, large-scale PyTorch workloads, HPC I/O optimization, reproducible experiment systems, release engineering, and multi-institution collaboration. Recent work includes scaling AI weather workflows on Aurora's Intel GPU stack, running 10,000+ benchmarking and hyperparameter optimization experiments for cancer drug response, and reducing FLASH-X checkpoint overhead by 40--70\% with more than 50\% storage savings.
+
+\section{Professional Experience}
+\entryheader
+  {Argonne National Laboratory}
+  {2009 -- Present}
+  {Principal Specialist, Research Software Engineering}
+  {Chicago, IL}
+\begin{itemize}
+  \item Led UXarray, an open-source Python platform for analysis of unstructured climate grids, designing the core API, numerical operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, CI/CD, and release workflows used by NCAR, DOE labs, and universities.
+  \item Built and ported AI weather workloads for Aurora's Intel GPU stack, including a PyTorch implementation of Pangu-Weather using the Spectral Fourier Neural Operator, and ran the workflow at large scale on an exascale system.
+  \item Optimized FLASH-X checkpoint and restart paths using asynchronous HDF5 I/O, Argobots, and SZ3 / ZFP compression, reducing checkpoint overhead by 40--70\% on Summit and cutting storage more than 50\%.
+  \item Architected benchmarking and hyperparameter optimization infrastructure for CANDLE / IMPROVE, executing 10,000+ training runs across Summit, Theta, and Cori and standardizing cross-study validation for a multi-lab collaboration.
+  \item Served as principal investigator / software lead for MeshKit within DOE NEAMS, leading reactor mesh generation tools, multi-format I/O, and parallel workflows for nuclear simulation.
+  \item Delivered release engineering, automated testing, documentation, performance debugging, and reproducible workflows across climate, AI, and simulation software used by national labs and university collaborators.
+  \item Mentored students, research aides, and staff on scientific Python, HPC workflows, systems engineering, and open-source engineering practices.
+\end{itemize}
+
+\entryheader
+  {University of Chicago}
+  {2023 -- Present}
+  {Staff At-Large}
+  {Chicago, IL}
+\begin{itemize}
+  \item Joint appointment supporting cancer pharmacogenomics and Earth science collaborations.
+  \item Mentor students and research staff on software design, experimentation workflows, reproducibility, and engineering practices for research codebases.
+\end{itemize}
+
+\entryheader
+  {Arizona State University}
+  {2007 -- 2009}
+  {Research and Teaching Assistant}
+  {Tempe, AZ}
+\begin{itemize}
+  \item Conducted FEM-based research on blast mitigation and design optimization while supporting structural engineering coursework.
+\end{itemize}
+
+\entryheader
+  {Earlier Experience}
+  {2005 -- 2007}
+  {Project Engineer, Wipro Technologies; Engineering Intern, Tata Motors}
+  {India}
+\vspace{0.3em}
+
+\section{Technical Skills}
+\skillrow{Languages}{Python, C++, Fortran, Bash, R, SQL}
+\skillrow{ML / AI}{PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn}
+\skillrow{HPC / Systems}{MPI, OpenMP, HDF5, NetCDF, MOAB, Argobots, HPC storage and I/O, exascale GPU workflows}
+\skillrow{Workflow / DevOps}{GitHub Actions, Jenkins, Docker, Singularity, Parsl, Swift/T, release automation, CI/CD}
+\skillrow{Platforms}{ML infrastructure, scientific data platforms, distributed experimentation, performance engineering, reproducible workflows}
+\skillrow{Domains}{Climate and weather modeling, cancer pharmacogenomics, computational physics, mesh generation}
+
+\section{Selected Open Source and Program Impact}
+\begin{itemize}
+  \item \textbf{UXarray.} Lead developer for open-source unstructured climate analysis tooling with documentation, testing, CI/CD, and community-facing releases; tutorials and presentations delivered at SC24, AMS, SciPy, EGU, and AGU.
+  \item \textbf{CANDLE / IMPROVE.} Core contributor to cancer AI benchmarking and hyperparameter optimization infrastructure supporting a 15+ researcher collaboration across Argonne, LLNL, and ORNL; work contributed to the 2023 R\&D 100 Award.
+  \item \textbf{FLASH-X.} I/O and compression lead for a million-line multiphysics code used in astrophysics, combustion, and fluid dynamics; work contributed to the 2022 R\&D 100 Award.
+  \item \textbf{Pangu-Weather on Aurora.} PyTorch weather-model workflow adapted for Intel GPUs on Aurora, supporting DOE exascale work in Earth system modeling and forecasting.
+\end{itemize}
+
+\section{Leadership and Service}
+\begin{itemize}
+  \item DOE SBIR / STTR proposal reviewer; reviewer for the \textit{Journal of Open Research Software} and NumGrid; program committee member for NumGrid 2020.
+  \item Panelist, ``Revolutionizing Public Infrastructure: The Impact of AI and Machine Learning,'' 5th Infraday Midwest Event.
+  \item Presented technical tutorials and talks at SC24, SciPy 2023, HDF User Group 2023, AMS, EGU, and AGU.
+\end{itemize}
+
+\section{Selected Publications}
+\begin{itemize}
+  \item Partin, A., ..., \textbf{Jain, R.}, et al. ``Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis.'' \textit{Briefings in Bioinformatics}, 2025.
+  \item \textbf{Jain, R.}, Tang, H., Dhruv, A., and Byna, S. ``Enabling Data Reduction for Flash-X Simulations.'' \textit{SC24 Workshops: DRBSD-10}, 2024.
+  \item \textbf{Jain, R.}, Wozniak, J. M., Partin, A., et al. ``Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Pharmacogenomic Datasets.'' \textit{CAFCW at SC24}, 2024.
+  \item Wozniak, J. M., \textbf{Jain, R.}, et al. ``CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.'' \textit{BMC Bioinformatics}, 2018.
+\end{itemize}
+Full publication list available on the CV and \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ\&hl=en}{Google Scholar}.
+
+\section{Awards}
+\begin{itemize}
+  \item R\&D 100 Award, CANDLE (2023).
+  \item R\&D 100 Award, FLASH-X (2022).
+  \item ATPESC Scholar, Argonne Training Program on Extreme-Scale Computing (2015).
+  \item Best Paper Award, International Meshing Roundtable (2010).
+\end{itemize}
+
+\section{Education}
+\textbf{University of Chicago} \hfill 2020 \\
+M.S. in Computer Science
+
+\vspace{4pt}
+\textbf{Arizona State University} \hfill 2009 \\
+M.S. in Structural Engineering
+
+\vspace{4pt}
+\textbf{Indian Institute of Technology (ISM) Dhanbad} \hfill 2006 \\
+B.Tech. in Mechanical Engineering
+
+\end{document}

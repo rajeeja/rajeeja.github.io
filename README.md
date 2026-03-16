@@ -30,6 +30,50 @@ See more info at https://academicpages.github.io/
 1. Run `scripts/update_resume.sh` to update `_data/citations.csv` and write `files/Rajeev_Jain_Resume.pdf` and `files/Rajeev_Jain_CV.pdf`
 1. To skip Scholar fetch (e.g., offline), run `SKIP_SCHOLAR=1 scripts/update_resume.sh`
 
+# Monthly GA4 email report
+
+The repository now includes a GitHub Actions workflow at `.github/workflows/ga4-monthly-report.yml` that runs at `23:30 Asia/Kolkata` on the `10th` of every month (`18:00 UTC`) and can also be triggered manually from the Actions tab.
+
+## What it sends
+
+- A rolling 30-day GA4 summary ending on the previous day
+- Visitor metrics such as users, sessions, page views, and average session duration
+- Location tables for countries and cities
+- Traffic acquisition details
+- Device, browser, OS, and language breakdowns
+- Resume and CV click counts from the custom GA4 events already wired into the site
+- Inline PNG charts plus HTML / text report artifacts saved in the workflow run
+
+## Required GitHub repository secrets
+
+Add these secrets in `Settings > Secrets and variables > Actions`:
+
+- `GA4_PROPERTY_ID`: your GA4 property ID
+- `GA4_SERVICE_ACCOUNT_JSON`: the full JSON key for a Google service account
+- `SMTP_HOST`: your SMTP server hostname
+- `SMTP_PORT`: SMTP port, usually `587` for STARTTLS or `465` for implicit SSL
+- `SMTP_USERNAME`: SMTP username, if your provider requires authentication
+- `SMTP_PASSWORD`: SMTP password or app password
+- `SMTP_USE_SSL`: `true` for implicit SSL (`465`), otherwise leave unset / `false`
+- `EMAIL_FROM`: sender address used in the emailed report
+- `EMAIL_TO`: comma-separated recipient list
+
+## Google Analytics setup notes
+
+1. Enable the Google Analytics Data API for the Google Cloud project that owns the service account.
+1. In GA4 Admin, grant that service account email access to the property so it can read reports.
+1. The workflow uses `scripts/send_ga4_monthly_report.py` and installs dependencies from `scripts/analytics_requirements.txt`.
+
+## Local preview
+
+You can generate a preview without calling GA4 or sending email:
+
+```bash
+python scripts/send_ga4_monthly_report.py --sample-data --skip-email
+```
+
+That writes HTML, text, JSON, and PNG artifacts under `.analytics-reports/monthly/`.
+
 # Changelog -- bugfixes and enhancements
 
 There is one logistical issue with a ready-to-fork template theme like academic pages that makes it a little tricky to get bug fixes and updates to the core theme. If you fork this repository, customize it, then pull again, you'll probably get merge conflicts. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch. 

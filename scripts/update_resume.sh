@@ -2,18 +2,34 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-resume_tex="$repo_root/cv/Rajeev_Jain_Resume.tex"
-cv_tex="$repo_root/cv/Rajeev_Jain_CV.tex"
+cv_dir="$repo_root/cv"
+resume_tex="resume.tex"
+cv_tex="cv.tex"
 texmf_var="$repo_root/files/texmf-var"
 
 mkdir -p "$texmf_var"
 export TEXMFVAR="$texmf_var"
+export TEXINPUTS="$cv_dir//:"
+export SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-1704067200}"
+export TZ=UTC
 
 if [[ "${SKIP_SCHOLAR:-}" != "1" ]]; then
   python3 "$repo_root/scripts/update_publications.py"
 fi
 
-if command -v latexmk >/dev/null 2>&1; then
+cd "$cv_dir"
+
+if command -v tectonic >/dev/null 2>&1; then
+  rm -f \
+    "$repo_root/files/resume.pdf" \
+    "$repo_root/files/cv.pdf" \
+    "$repo_root/files/Rajeev_Jain_Resume.pdf" \
+    "$repo_root/files/Rajeev_Jain_CV.pdf"
+  tectonic -Z search-path="$cv_dir" --outdir "$repo_root/files" "$resume_tex"
+  mv "$repo_root/files/resume.pdf" "$repo_root/files/Rajeev_Jain_Resume.pdf"
+  tectonic -Z search-path="$cv_dir" --outdir "$repo_root/files" "$cv_tex"
+  mv "$repo_root/files/cv.pdf" "$repo_root/files/Rajeev_Jain_CV.pdf"
+elif command -v latexmk >/dev/null 2>&1; then
   latexmk -pdf -g -interaction=nonstopmode -halt-on-error \
     -outdir="$repo_root/files" -jobname=Rajeev_Jain_Resume \
     "$resume_tex"
@@ -38,7 +54,7 @@ elif command -v pdflatex >/dev/null 2>&1; then
     -output-directory="$repo_root/files" -jobname=Rajeev_Jain_CV \
     "$cv_tex"
 else
-  echo "Error: latexmk or pdflatex is required to build the resume." >&2
+  echo "Error: tectonic, latexmk, or pdflatex is required to build the resume." >&2
   exit 1
 fi
 

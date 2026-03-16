@@ -1,9 +1,10 @@
-name: Build CV PDF
+name: Build Resume PDFs
 
 on:
   push:
     paths:
       - 'cv/**.tex'
+      - 'scripts/update_resume.sh'
       - '.github/workflows/build-cv.yml'
   workflow_dispatch:
 
@@ -16,29 +17,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install TeX Live
+      - name: Install Tectonic
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-plain-generic texlive-science latexmk
-      - name: Build PDF
-        working-directory: cv
+          curl -fsSL -o /tmp/tectonic.tar.gz https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.15.0/tectonic-0.15.0-x86_64-unknown-linux-gnu.tar.gz
+          tar -xzf /tmp/tectonic.tar.gz -C /tmp
+          echo "/tmp" >> "$GITHUB_PATH"
+      - name: Build PDFs
         run: |
-          latexmk -pdf -interaction=nonstopmode -halt-on-error cv.tex
-      - name: Move PDF to files/
-        run: |
-          mkdir -p files
-          cp cv/cv.pdf files/Rajeev_Jain_CV.pdf
-      - name: Commit PDF
+          SKIP_SCHOLAR=1 bash scripts/update_resume.sh
+      - name: Commit PDFs
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
           # Update local with remote before pushing to avoid non-fast-forward
           git fetch origin master
           git pull --rebase origin master || true
-          git add files/Rajeev_Jain_CV.pdf
+          git add files/Rajeev_Jain_CV.pdf files/Rajeev_Jain_Resume.pdf
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore(cv): update generated PDF"
+            git commit -m "chore(cv): update generated PDFs"
             git push origin HEAD:master
           fi

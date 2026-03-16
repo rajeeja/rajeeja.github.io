@@ -4,195 +4,361 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Research Software Engineer · Argonne National Laboratory"
+excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 ---
 
-<div class="hero-section" id="about">
-  <div class="hero-content">
-    <div class="hero-image">
-      <img src="/images/bio-photo.jpg" alt="Rajeev Jain">
-    </div>
-    <div class="hero-text">
+<div class="landing-shell">
+  <section class="hero-card" id="about">
+    <div class="hero-copy">
+      <p class="eyebrow">Research Software Engineer | ML Infrastructure | Scientific Computing</p>
       <h1 class="hero-title">Rajeev Jain</h1>
-      <p class="hero-position"><strong>Research Software Engineer</strong> · Argonne National Laboratory · University of Chicago</p>
-      <p class="hero-lead">I build software tools for scientific research — climate data analysis, cancer drug response prediction, and high-performance computing. 16 years at Argonne, two R&D 100 Awards, and a passion for open-source scientific software.</p>
-      <p class="hero-links">
-        <a href="mailto:rajeeja@gmail.com" class="hero-link-item"><span class="link-icon">✉</span> Email</a>
-        <a href="https://github.com/rajeeja" class="hero-link-item"><span class="link-icon">⌘</span> GitHub</a>
-        <a href="https://www.linkedin.com/in/rajeeja/" class="hero-link-item"><span class="link-icon">in</span> LinkedIn</a>
-        <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en" class="hero-link-item"><span class="link-icon">◎</span> Scholar</a>
+      <p class="hero-role">Research software engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+      <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>
+
+      <p class="hero-documents">
+        <a class="hero-documents__link" href="/files/Rajeev_Jain_CV.pdf">Curriculum Vitae</a>
+        <span>&middot;</span>
+        <a class="hero-documents__link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Publications</a>
       </p>
-      <div class="hero-actions">
-        <a class="btn btn--primary" href="/files/Rajeev_Jain_Resume.pdf">Resume</a>
-        <a class="btn btn--ghost" href="#projects">Projects ↓</a>
+
+      <p class="hero-meta">16+ years in research software <span>&middot;</span> 22+ peer-reviewed papers <span>&middot;</span> 10k+ benchmarking and HPO runs</p>
+    </div>
+
+    <aside class="hero-panel">
+      <img class="hero-portrait" src="/images/bio-photo.jpg" alt="Portrait of Rajeev Jain">
+      <p class="hero-panel__eyebrow">Current work</p>
+      <ul class="panel-list">
+        <li>AI weather modeling on Aurora's Intel GPU stack</li>
+        <li>UXarray for unstructured climate analysis and scientific workflows</li>
+        <li>MCP server and AI-agent workflows for natural-language dataset exploration</li>
+      </ul>
+    </aside>
+  </section>
+
+  <nav class="section-nav" id="section-nav">
+    <div class="section-nav__inner">
+      <a href="#about" class="section-nav__link">About</a>
+      <a href="#projects" class="section-nav__link">Projects</a>
+      <a href="#skills" class="section-nav__link">Skills</a>
+      <a href="#publications" class="section-nav__link">Publications</a>
+      <a href="#recognition" class="section-nav__link">Recognition</a>
+      <a href="#background" class="section-nav__link">Background</a>
+      <a href="#contact" class="section-nav__link">Links</a>
+    </div>
+  </nav>
+
+  <section class="content-section" id="projects">
+    <div class="section-heading">
+      <p class="section-kicker">Selected work</p>
+      <h2 class="section-title">Selected projects</h2>
+      <p class="section-lead">Representative work across climate science, cancer AI, and simulation software.</p>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card project-card--wide">
+        <p class="card-meta">Lead developer | Open-source climate analysis | <a href="https://uxarray.readthedocs.io">Documentation</a></p>
+        <h3><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h3>
+        <p>Python library for unstructured climate grid analysis used by DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and other next-generation meshes.</p>
+        <ul class="card-list">
+          <li>Built conservative analysis operators, including zonal averaging via Gauss-Legendre quadrature.</li>
+          <li>Shipped support for ESMF, MPAS, SCRIP, and HEALPix grid formats, with repeatable releases and CI.</li>
+          <li>Currently extending the project with an MCP server and AI-agent workflow for natural-language dataset exploration.</li>
+        </ul>
+      </article>
+
+      <article class="project-card">
+        <p class="card-meta">Aurora exascale system | Argonne Leadership Computing Facility</p>
+        <h3><a href="https://www.anl.gov/aurora">Pangu-Weather on Aurora</a></h3>
+        <p>PyTorch-based reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for deployment on more than 60,000 Intel GPUs.</p>
+        <ul class="card-list">
+          <li>Ported the workflow to Intel GPUs and ran it at large scale on Aurora.</li>
+          <li>Contributed to DOE exascale work in Earth system modeling and forecasting.</li>
+        </ul>
+      </article>
+
+      <article class="project-card">
+        <p class="card-meta">Core contributor | Cancer AI benchmarking infrastructure</p>
+        <h3><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></h3>
+        <p>Hyperparameter optimization and benchmarking infrastructure for cancer drug response models at supercomputer scale.</p>
+        <ul class="card-list">
+          <li>Ran more than 10,000 training experiments across Summit, Theta, and Cori.</li>
+          <li>Built GitHub Actions workflows for cross-study validation in a 15+ researcher collaboration.</li>
+          <li>Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a> in 2025.</li>
+        </ul>
+      </article>
+
+      <article class="project-card">
+        <p class="card-meta">I/O and compression work for multiphysics simulation</p>
+        <h3><a href="https://flash-x.org/">FLASH-X</a></h3>
+        <p>Optimization of checkpoint and restart workflows for a million-line multiphysics simulation engine used in astrophysics, combustion, and fluid dynamics.</p>
+        <ul class="card-list">
+          <li>Implemented asynchronous HDF5 I/O with Argobots plus SZ3 and ZFP compression.</li>
+          <li>Reduced checkpoint overhead by 40-70% on Summit and delivered 50%+ storage savings.</li>
+          <li>Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</li>
+        </ul>
+      </article>
+
+      <article class="project-card">
+        <p class="card-meta">DOE NEAMS, 2009-2016</p>
+        <h3><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></h3>
+        <p>Open-source C++ toolkit for automated nuclear reactor core mesh generation and lattice hierarchy modeling.</p>
+        <ul class="card-list">
+          <li>Led the design of parallel meshing and multi-format I/O for reactor simulation teams at Argonne.</li>
+          <li>Won Best Paper Award at the International Meshing Roundtable in 2010.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section" id="skills">
+    <div class="section-heading">
+      <p class="section-kicker">Technical expertise</p>
+      <h2 class="section-title">Breadth across research software and systems</h2>
+      <p class="section-lead">Tools and systems I work with most often across research software, data, and HPC.</p>
+    </div>
+
+    <div class="skill-grid">
+      <article class="skill-card">
+        <p class="card-meta">Languages</p>
+        <h3>Python to Fortran</h3>
+        <p>Python, C++, Fortran, R, Bash, and SQL for analysis pipelines, simulation code, build systems, and automation.</p>
+      </article>
+
+      <article class="skill-card">
+        <p class="card-meta">ML and data</p>
+        <h3>Framework and workflow depth</h3>
+        <p>PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, and Swift/T for model development and large experiment campaigns.</p>
+      </article>
+
+      <article class="skill-card">
+        <p class="card-meta">HPC and systems</p>
+        <h3>Performance and portability</h3>
+        <p>MPI, OpenMP, HDF5, NetCDF, MOAB, Docker, Singularity, GitHub Actions, and storage-aware I/O design for leadership-class machines.</p>
+      </article>
+
+      <article class="skill-card">
+        <p class="card-meta">Domains</p>
+        <h3>Science-driven software</h3>
+        <p>Climate modeling, cancer pharmacogenomics, computational physics, mesh generation, AI infrastructure, and reproducible workflows.</p>
+      </article>
+
+      <article class="skill-card">
+        <p class="card-meta">Leadership and delivery</p>
+        <h3>Software that lasts</h3>
+        <p>Release engineering, CI pipelines, open-source governance, multi-institution coordination, mentoring, and roadmap ownership.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section" id="publications">
+    <div class="section-heading">
+      <p class="section-kicker">Publications and talks</p>
+      <h2 class="section-title">Selected papers, workshops, and presentations</h2>
+      <p class="section-lead">More than 22 publications across HPC, machine learning, and computational science.</p>
+    </div>
+
+    <div class="split-grid">
+      <div class="publication-list">
+        <article class="publication-card">
+          <p class="card-meta">Briefings in Bioinformatics | 2025</p>
+          <h3><a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models</a></h3>
+          <p>Partin, A., ..., <strong>Jain, R.</strong>, et al.</p>
+        </article>
+
+        <article class="publication-card">
+          <p class="card-meta">DRBSD-10 Workshop, SC24</p>
+          <h3><a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations</a></h3>
+          <p><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S.</p>
+        </article>
+
+        <article class="publication-card">
+          <p class="card-meta">CAFCW24 Workshop, SC24</p>
+          <h3><a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response</a></h3>
+          <p><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al.</p>
+        </article>
+
+        <article class="publication-card">
+          <p class="card-meta">BMC Bioinformatics | 2018</p>
+          <h3><a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research</a></h3>
+          <p>Wozniak, J.M., ..., <strong>Jain, R.</strong>, et al.</p>
+        </article>
+
+        <article class="publication-card">
+          <p class="card-meta">Engineering with Computers | 2011</p>
+          <h3><a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries</a></h3>
+          <p>Tautges, T.J., <strong>Jain, R.</strong></p>
+        </article>
+      </div>
+
+      <aside class="side-card">
+        <p class="card-meta">Recent presentations</p>
+        <ul class="timeline-list">
+          <li>
+            <strong>SC24</strong>
+            <span>Tutorial: UXarray for Analysis of Unstructured Climate Data</span>
+          </li>
+          <li>
+            <strong>SC24</strong>
+            <span>DRBSD-10: Enabling Data Reduction for FLASH-X Simulations</span>
+          </li>
+          <li>
+            <strong>SC24</strong>
+            <span>CAFCW24: Cross-HPO for Cancer Drug Response</span>
+          </li>
+          <li>
+            <strong>AMS 2024</strong>
+            <span>UXarray: Extending Xarray with Support for Unstructured Grids</span>
+          </li>
+          <li>
+            <strong>SciPy 2023</strong>
+            <span><a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for Unstructured Climate Data</a></span>
+          </li>
+          <li>
+            <strong>HDF User Group 2023</strong>
+            <span><a href="https://www.youtube.com/watch?v=MuifQ7lHRR8">Data Reduction for FLASH-X Simulations</a></span>
+          </li>
+        </ul>
+
+        <p class="side-card__copy">For the full publication record, citations, and profile links, use the sources below.</p>
+        <div class="stacked-links">
+          <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
+          <a class="button-link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="content-section" id="recognition">
+    <div class="section-heading">
+      <p class="section-kicker">Recognition</p>
+      <h2 class="section-title">Recognition and service</h2>
+      <p class="section-lead">Awards, funding, and community work related to the software and collaborations above.</p>
+    </div>
+
+    <div class="recognition-grid">
+      <article class="detail-card">
+        <p class="card-meta">Work authorization</p>
+        <h3>U.S. Permanent Resident</h3>
+        <p>Authorized to work in the United States without sponsorship.</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="card-meta">R&amp;D 100 | 2023</p>
+        <h3><a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a></h3>
+        <p>Project recognized by R&amp;D World in 2023.</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="card-meta">R&amp;D 100 | 2022</p>
+        <h3><a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a></h3>
+        <p>Project recognized by R&amp;D World in 2022.</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="card-meta">Training and technical distinction</p>
+        <h3>ATPESC Scholar</h3>
+        <p>Selected in 2015 for Argonne's training program on extreme-scale computing.</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="card-meta">Research publication</p>
+        <h3>Best Paper Award</h3>
+        <p>International Meshing Roundtable, 2010, for automated reactor core mesh generation research.</p>
+      </article>
+    </div>
+
+    <div class="split-grid split-grid--compact">
+      <article class="detail-card">
+        <p class="card-meta">Research funding</p>
+        <ul class="clean-list">
+          <li><strong>DOE SEATS</strong> <span class="status-pill">Active</span> Software Ecosystem for Advancing Climate Tools and Services.</li>
+          <li><strong>NSF Raijin</strong> <span class="status-pill">Active</span> Collaborative research in climate model analysis.</li>
+          <li><strong>DOE ECP CANDLE</strong> Core contributor from 2017 to 2023.</li>
+          <li><strong>DOE NEAMS</strong> Principal investigator for MeshKit from 2009 to 2016.</li>
+        </ul>
+      </article>
+
+      <article class="detail-card">
+        <p class="card-meta">Service and mentorship</p>
+        <ul class="clean-list">
+          <li><strong>SBIR/STTR Proposal Reviewer</strong> U.S. Department of Energy.</li>
+          <li><strong>Panelist</strong> 5th Infraday Midwest Event on public infrastructure and AI.</li>
+          <li><strong>Reviewer</strong> Journal of Open Research Software and NumGrid.</li>
+          <li><strong>Committee Member</strong> NumGrid 2020 Program Committee.</li>
+        </ul>
+        <p>Mentored students and doctoral researchers on scientific Python, HPC techniques, and open-source development practices.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section" id="background">
+    <div class="section-heading">
+      <p class="section-kicker">Background</p>
+      <h2 class="section-title">Roles, education, and collaboration style</h2>
+      <p class="section-lead">Research roles across labs and universities, centered on long-lived software and collaborative delivery.</p>
+    </div>
+
+    <div class="split-grid">
+      <article class="detail-card">
+        <p class="card-meta">Roles</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="timeline-item__range">2009-present</p>
+            <div>
+              <h3>Argonne National Laboratory</h3>
+              <p>Principal Specialist in Research Software Engineering, working across UXarray, FLASH-X, CANDLE/IMPROVE, MeshKit, and urban simulation software efforts.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <p class="timeline-item__range">2023-present</p>
+            <div>
+              <h3>University of Chicago</h3>
+              <p>Staff At-Large with joint research activity spanning cancer pharmacogenomics and Earth system science.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <p class="timeline-item__range">2007-2009</p>
+            <div>
+              <h3>Arizona State University</h3>
+              <p>Research and teaching assistant in structural and computational mechanics, focused on blast mitigation and FEM-based design optimization.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="stacked-column">
+        <article class="detail-card">
+          <p class="card-meta">Education</p>
+          <ul class="timeline-list">
+            <li>
+              <strong>M.S. Computer Science</strong>
+              <span>University of Chicago, 2020</span>
+            </li>
+            <li>
+              <strong>M.S. Structural Engineering</strong>
+              <span>Arizona State University, 2009</span>
+            </li>
+            <li>
+              <strong>B.Tech. Mechanical Engineering</strong>
+              <span>IIT ISM Dhanbad, 2006</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="contact-card" id="contact">
+          <p class="section-kicker">Links</p>
+          <h2 class="section-title">Profiles and research links.</h2>
+          <p class="section-lead">I keep the public site fairly minimal. LinkedIn is the best route for professional outreach.</p>
+          <div class="hero-actions">
+            <a class="button-link button-link--primary" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
+            <a class="button-link" href="https://github.com/rajeeja">GitHub</a>
+            <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
+            <a class="button-link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
+          </div>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 </div>
-
-<nav class="section-nav" id="section-nav">
-  <div class="section-nav__inner">
-    <a href="#about" class="section-nav__link">About</a>
-    <span class="section-nav__dot">·</span>
-    <a href="#uxarray" class="section-nav__link">UXarray</a>
-    <span class="section-nav__dot">·</span>
-    <a href="#candle" class="section-nav__link">CANDLE</a>
-    <span class="section-nav__dot">·</span>
-    <a href="#flashx" class="section-nav__link">FLASH-X</a>
-    <span class="section-nav__dot">·</span>
-    <a href="#recognition" class="section-nav__link">Awards</a>
-    <span class="section-nav__dot">·</span>
-    <a href="#background" class="section-nav__link">Background</a>
-  </div>
-</nav>
-
-
-<section class="content-section" id="projects" style="--delay: 0.05s;">
-  <h2>Projects</h2>
-  <p class="section-subtitle">Open-source tools I lead or contribute to — each section is directly shareable.</p>
-</section>
-
-<section class="project-section" id="uxarray" style="--delay: 0.1s;">
-  <div class="project-header">
-    <div class="project-label">Project</div>
-    <h3 class="project-title">UXarray</h3>
-    <p class="project-tagline">Python library for unstructured climate grid analysis</p>
-  </div>
-  <div class="project-body">
-    <div class="project-detail">
-      <h4>Challenge</h4>
-      <p>Climate scientists working with unstructured grids (MPAS, ICON, SAM) lacked Python tools for conservative analysis that preserve integral quantities across non-uniform meshes.</p>
-    </div>
-    <div class="project-detail">
-      <h4>My Role</h4>
-      <p>Lead developer since project inception. Implemented core mathematical operators including conservative zonal averaging using Gauss-Legendre quadrature, Grid I/O readers for multiple formats (ESMF, MPAS, SCRIP, HEALPix), and testing infrastructure. Established continuous integration and regular PyPI releases.</p>
-    </div>
-    <div class="project-detail">
-      <h4>Impact</h4>
-      <p>Used by researchers at NCAR, DOE labs, and universities worldwide (205+ GitHub stars). Enables analysis of multi-petabyte climate datasets. Presented tutorials at SC24, AMS 2024, and ESDS Annual Event.</p>
-    </div>
-    <div class="project-links">
-      <a href="https://github.com/UXARRAY/uxarray" class="project-link">GitHub</a>
-      <a href="https://uxarray.readthedocs.io" class="project-link">Docs</a>
-      <a href="https://github.com/UXARRAY/uxarray/pull/1345" class="project-link">Conservative Zonal Avg PR</a>
-    </div>
-  </div>
-</section>
-
-<section class="project-section" id="candle" style="--delay: 0.15s;">
-  <div class="project-header">
-    <div class="project-label">Project · R&D 100 Award 2023</div>
-    <h3 class="project-title">CANDLE / IMPROVE</h3>
-    <p class="project-tagline">Hyperparameter optimization for cancer drug response models</p>
-  </div>
-  <div class="project-body">
-    <div class="project-detail">
-      <h4>Challenge</h4>
-      <p>Cancer drug response prediction models showed poor generalization across different pharmacogenomic datasets, requiring systematic benchmarking and optimization.</p>
-    </div>
-    <div class="project-detail">
-      <h4>My Role</h4>
-      <p>Built hyperparameter optimization (HPO) infrastructure and ran 10,000+ training experiments across Summit, Theta, and Cori supercomputers. Developed GitHub Actions workflows for cross-study validation. Maintained benchmarking framework and co-authored standardization guidelines.</p>
-    </div>
-    <div class="project-detail">
-      <h4>Impact</h4>
-      <p>Benchmarking framework used by 15+ researchers across the project. Results published in Briefings in Bioinformatics (2025) and presented at 20th Workflows Workshop (2025). Contributed to R&D 100 Award (2023).</p>
-    </div>
-    <div class="project-links">
-      <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE" class="project-link">IMPROVE GitHub</a>
-      <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4" class="project-link">CANDLE/Supervisor Paper</a>
-      <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013" class="project-link">Benchmarking Paper</a>
-      <a href="https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf" class="project-link">Counterfactuals Paper</a>
-    </div>
-  </div>
-</section>
-
-<section class="project-section" id="flashx" style="--delay: 0.2s;">
-  <div class="project-header">
-    <div class="project-label">Project · R&D 100 Award 2022</div>
-    <h3 class="project-title">FLASH-X</h3>
-    <p class="project-tagline">I/O optimization for exascale multiphysics simulations</p>
-  </div>
-  <div class="project-body">
-    <div class="project-detail">
-      <h4>Challenge</h4>
-      <p>Checkpoint and restart operations were taking 30–50% of total runtime in billion-element FLASH-X simulations on leadership-class supercomputers.</p>
-    </div>
-    <div class="project-detail">
-      <h4>My Role</h4>
-      <p>Implemented asynchronous HDF5 I/O with Argobots for non-blocking checkpoint operations and integrated SZ3/ZFP compression. Built verification workflow with nightly baseline testing to ensure reproducibility. Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</p>
-    </div>
-    <div class="project-detail">
-      <h4>Impact</h4>
-      <p>Achieved 40–70% reduction in checkpoint write times on Summit supercomputer. Compression reduced storage requirements by 50%+ with minimal accuracy loss. Published at SC24 workshop, contributed to R&D 100 Award (2022).</p>
-    </div>
-    <div class="project-links">
-      <a href="https://flash-x.org/" class="project-link">FLASH-X Project</a>
-      <a href="https://arxiv.org/abs/2208.11630" class="project-link">FLASH-X Paper</a>
-      <a href="https://ieeexplore.ieee.org/document/10026923" class="project-link">Compression Paper</a>
-      <a href="https://flash-x.org/pages/source/" class="project-link">Source</a>
-    </div>
-  </div>
-</section>
-
-<section class="content-section" id="recognition" style="--delay: 0.25s;">
-  <h2>Recognition</h2>
-  <div class="awards-grid">
-    <div class="award-card">
-      <div class="award-year">2023</div>
-      <div class="award-body">
-        <strong><a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">R&D 100 Award</a></strong>
-        <p>CANDLE — Cancer Distributed Learning Environment for drug response prediction</p>
-      </div>
-    </div>
-    <div class="award-card">
-      <div class="award-year">2022</div>
-      <div class="award-body">
-        <strong><a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">R&D 100 Award</a></strong>
-        <p>FLASH-X — Multiphysics simulation software for exascale computing</p>
-      </div>
-    </div>
-    <div class="award-card">
-      <div class="award-year">2010</div>
-      <div class="award-body">
-        <strong>Best Paper Award</strong>
-        <p>International Meshing Roundtable — Reactor core mesh generation</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="content-section" id="background" style="--delay: 0.3s;">
-  <h2>Background</h2>
-  <div class="timeline-grid">
-    <div class="timeline-item">
-      <div class="timeline-period">2009 – present</div>
-      <div class="timeline-body">
-        <strong>Argonne National Laboratory</strong> — Principal Specialist, Research Software Engineering
-        <p>Lead developer for UXarray, FLASH-X, CANDLE/IMPROVE, MeshKit, and urban simulation projects.</p>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-period">2023 – present</div>
-      <div class="timeline-body">
-        <strong>University of Chicago</strong> — Staff At-Large
-        <p>Joint appointment supporting cancer and earth science research.</p>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-period">Education</div>
-      <div class="timeline-body">
-        <p>M.S. Computer Science — University of Chicago (2020)<br>
-        M.S. Structural Engineering — Arizona State University (2009)<br>
-        B.Tech Mechanical Engineering — IIT ISM Dhanbad (2006)</p>
-      </div>
-    </div>
-  </div>
-  <p class="more-links"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en">Publications on Google Scholar</a> · <a href="/files/Rajeev_Jain_Resume.pdf">Resume PDF</a> · <a href="/files/Rajeev_Jain_CV.pdf">CV PDF</a></p>
-</section>
-
-<section class="content-section" id="contact" style="--delay: 0.35s;">
-  <h2>Contact</h2>
-  <p>Open to collaborations in scientific computing, AI for health, and open-source software.</p>
-  <p><a href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a></p>
-</section>
