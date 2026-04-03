@@ -792,6 +792,138 @@ body::before {
   }
 }
 
+.page__content div.highlighter-rouge,
+.page__content figure.highlight {
+  margin: 1.5rem 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(15, 33, 51, 0.14);
+  border-radius: 16px;
+  background: #13212d;
+  box-shadow: 0 14px 28px rgba(18, 29, 43, 0.08);
+}
+
+.page__content div.highlighter-rouge::before,
+.page__content figure.highlight::before {
+  padding: 0.7rem 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #c9d9e7;
+}
+
+.page__content .highlight {
+  margin: 0;
+  padding: 1.15rem 1.25rem;
+  background: transparent;
+  color: #edf4fb;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.page__content .highlight pre,
+.page__content pre.highlight {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.page__content pre {
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page__content p > code,
+.page__content li > code,
+.page__content td > code,
+.page__content a > code {
+  padding: 0.16rem 0.38rem;
+  border: 1px solid rgba(15, 33, 51, 0.1);
+  border-radius: 6px;
+  background: #eef3f7;
+  color: #17344d;
+  font-size: 0.9em;
+}
+
+.page__content .highlight .c,
+.page__content .highlight .cm,
+.page__content .highlight .c1,
+.page__content .highlight .cs {
+  color: #90a7bc;
+}
+
+.page__content .highlight .err,
+.page__content .highlight .gr,
+.page__content .highlight .gt {
+  color: #ff8d88;
+}
+
+.page__content .highlight .k,
+.page__content .highlight .kc,
+.page__content .highlight .kd,
+.page__content .highlight .kn,
+.page__content .highlight .kp,
+.page__content .highlight .kr,
+.page__content .highlight .ow {
+  color: #8fd3ff;
+}
+
+.page__content .highlight .kt,
+.page__content .highlight .nb,
+.page__content .highlight .bp {
+  color: #ffd07a;
+}
+
+.page__content .highlight .nf,
+.page__content .highlight .nc,
+.page__content .highlight .nd,
+.page__content .highlight .nn,
+.page__content .highlight .nt,
+.page__content .highlight .na,
+.page__content .highlight .nv,
+.page__content .highlight .vc,
+.page__content .highlight .vg,
+.page__content .highlight .vi {
+  color: #7fe0c2;
+}
+
+.page__content .highlight .s,
+.page__content .highlight .sb,
+.page__content .highlight .sc,
+.page__content .highlight .sd,
+.page__content .highlight .s1,
+.page__content .highlight .s2,
+.page__content .highlight .se,
+.page__content .highlight .sh,
+.page__content .highlight .si,
+.page__content .highlight .sx,
+.page__content .highlight .sr,
+.page__content .highlight .ss,
+.page__content .highlight .m,
+.page__content .highlight .mf,
+.page__content .highlight .mh,
+.page__content .highlight .mi,
+.page__content .highlight .mo,
+.page__content .highlight .il {
+  color: #f6b482;
+}
+
+.page__content .highlight .o,
+.page__content .highlight .p,
+.page__content .highlight .n,
+.page__content .highlight .nx,
+.page__content .highlight .py,
+.page__content .highlight .w,
+.page__content .highlight .g,
+.page__content .highlight .go,
+.page__content .highlight .gp,
+.page__content .highlight .gs,
+.page__content .highlight .ge,
+.page__content .highlight .gh,
+.page__content .highlight .gu,
+.page__content .highlight .l {
+  color: #edf4fb;
+}
+
 @media (max-width: 1080px) {
   .hero-card,
   .split-grid {
