@@ -815,7 +815,7 @@ body::before {
   padding: 1.15rem 1.25rem;
   background: transparent;
   color: #edf4fb;
-  font-size: 0.94rem;
+  font-size: 1.03rem;
   line-height: 1.65;
 }
 
@@ -841,7 +841,7 @@ body::before {
   border-radius: 6px;
   background: #eef3f7;
   color: #17344d;
-  font-size: 0.9em;
+  font-size: 0.97em;
 }
 
 .page__content .highlight .c,
@@ -1006,6 +1006,10 @@ body::before {
 @media (max-width: 560px) {
   body {
     font-size: 15px;
+  }
+
+  .page__content .highlight {
+    font-size: 0.98rem;
   }
 
   .hero-documents {
