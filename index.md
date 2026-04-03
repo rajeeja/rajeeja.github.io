@@ -28,7 +28,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <img class="hero-portrait" src="/images/bio-photo.jpg" alt="Portrait of Rajeev Jain">
       <p class="hero-panel__eyebrow">Current work</p>
       <ul class="panel-list">
-        <li>AI weather modeling on Aurora's Intel GPU stack</li>
+        <li><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora's Intel GPU stack</a></li>
         <li>UXarray for unstructured climate analysis and scientific workflows</li>
         <li>MCP server and AI-agent workflows for natural-language dataset exploration</li>
       </ul>
@@ -68,12 +68,13 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 
       <article class="project-card">
         <p class="card-meta">Aurora exascale system | Argonne Leadership Computing Facility</p>
-        <h3><a href="https://www.anl.gov/aurora">Pangu-Weather on Aurora</a></h3>
+        <h3><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></h3>
         <p>PyTorch-based reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for deployment on more than 60,000 Intel GPUs.</p>
         <ul class="card-list">
           <li>Ported the workflow to Intel GPUs and ran it at large scale on Aurora.</li>
           <li>Contributed to DOE exascale work in Earth system modeling and forecasting.</li>
         </ul>
+        <p><a href="/blog/panguweather-aurora-climate-emulator/">Technical article</a> &middot; <a href="https://github.com/rajeeja/panguweather/tree/main/docs/slides">Project slides</a></p>
       </article>
 
       <article class="project-card">
