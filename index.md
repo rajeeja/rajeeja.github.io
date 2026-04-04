@@ -30,7 +30,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <ul class="panel-list">
         <li><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora's Intel GPU stack</a></li>
         <li>UXarray for unstructured climate analysis and scientific workflows</li>
-        <li>MCP server and AI-agent workflows for natural-language dataset exploration</li>
+        <li><a href="/blog/uxarray-mcp-improv-globus-compute/">MCP server and AI-agent workflows for natural-language dataset exploration</a></li>
       </ul>
     </aside>
   </section>
@@ -62,8 +62,9 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         <ul class="card-list">
           <li>Built conservative analysis operators, including zonal averaging via Gauss-Legendre quadrature.</li>
           <li>Shipped support for ESMF, MPAS, SCRIP, and HEALPix grid formats, with repeatable releases and CI.</li>
-          <li>Currently extending the project with an MCP server and AI-agent workflow for natural-language dataset exploration.</li>
+          <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Extending the project with an MCP server and AI-agent workflow for natural-language dataset exploration across local and HPC execution.</a></li>
         </ul>
+        <p><a href="/blog/uxarray-mcp-improv-globus-compute/">Technical article</a> &middot; <a href="https://github.com/UXARRAY/uxarray-mcp-server">UXarray MCP server</a></p>
       </article>
 
       <article class="project-card">

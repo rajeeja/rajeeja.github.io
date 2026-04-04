@@ -17,6 +17,12 @@ toc: true
 toc_sticky: true
 ---
 
+<div class="article-hero">
+  <p class="eyebrow">Research note · April 2, 2026</p>
+  <h1 class="article-title">Porting a Climate Emulator to Aurora</h1>
+  <p class="article-dek">A technical note on floating-point policy, distributed launch, checkpoint restore, and queue-aware execution for an atmospheric ML workflow on Aurora.</p>
+</div>
+
 Climate emulators are often presented as a pure machine-learning success story: train a neural model on atmospheric data, obtain fast forecasts, and then compare accuracy curves. In practice, that picture is incomplete. A useful emulator for climate science must also be portable across hardware stacks, reproducible under distributed launchers, and operationally debuggable on real systems. This was the technical problem I worked on for the PanguWeather codebase on Aurora.
 
 This article expands the Aurora portability project in a form that emphasizes the systems and climate-science details rather than presentation shorthand.
