@@ -938,6 +938,126 @@ body::before {
   margin-top: 20px;
 }
 
+.page__content > .article-hero {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page__content > p,
+.page__content > ul,
+.page__content > ol,
+.page__content > h2,
+.page__content > h3,
+.page__content > h4,
+.page__content > h5,
+.page__content > h6,
+.page__content > blockquote,
+.page__content > table,
+.page__content > hr {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page__content > div.highlighter-rouge,
+.page__content > figure.highlight {
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page__content > h2,
+.page__content > h3,
+.page__content > h4 {
+  color: var(--ink);
+  font-family: "IBM Plex Sans", sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.page__content > h2 {
+  margin-top: 2.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+}
+
+.page__content > h3 {
+  margin-top: 2.2rem;
+  font-size: 1.28rem;
+}
+
+.page__content > h4 {
+  margin-top: 1.8rem;
+  font-size: 1.08rem;
+  color: var(--navy-deep);
+}
+
+.page__content > p,
+.page__content > ul,
+.page__content > ol,
+.page__content > blockquote {
+  font-size: 1.03rem;
+}
+
+.page__content > ul,
+.page__content > ol {
+  padding-left: 1.3rem;
+}
+
+.page__content > ul li,
+.page__content > ol li {
+  margin-bottom: 0.6rem;
+  color: var(--ink-soft);
+}
+
+.page__content > blockquote {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid rgba(38, 75, 120, 0.3);
+  border-radius: 0 14px 14px 0;
+  background: rgba(248, 245, 239, 0.88);
+  color: var(--ink-soft);
+}
+
+.page__content > blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.page__content > table {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-strong);
+  border-collapse: collapse;
+}
+
+.page__content > table th,
+.page__content > table td {
+  padding: 0.82rem 0.95rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.page__content > table th {
+  color: var(--ink);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.92rem;
+}
+
+.page__content > table td {
+  color: var(--ink-soft);
+}
+
+.page__content > hr {
+  height: 1px;
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
+  border: 0;
+  background: var(--line);
+}
+
 .article-hero {
   margin: 8px 0 28px;
   padding: 24px 26px;
@@ -1045,6 +1165,13 @@ body::before {
 @media (max-width: 560px) {
   body {
     font-size: 15px;
+  }
+
+  .page__content > p,
+  .page__content > ul,
+  .page__content > ol,
+  .page__content > blockquote {
+    font-size: 1rem;
   }
 
   .page__content .highlight {
