@@ -19,7 +19,7 @@ toc_sticky: true
 
 Climate emulators are often presented as a pure machine-learning success story: train a neural model on atmospheric data, obtain fast forecasts, and then compare accuracy curves. In practice, that picture is incomplete. A useful emulator for climate science must also be portable across hardware stacks, reproducible under distributed launchers, and operationally debuggable on real systems. This was the technical problem I worked on for the PanguWeather codebase on Aurora.
 
-This article expands the Aurora portability project captured in the [PanguWeather repository](https://github.com/rajeeja/panguweather) and its [slide materials](https://github.com/rajeeja/panguweather/tree/main/docs/slides), but in a form that emphasizes the systems and climate-science details rather than presentation shorthand.
+This article expands the Aurora portability project in a form that emphasizes the systems and climate-science details rather than presentation shorthand.
 
 The starting point was not a toy benchmark. The repository couples physically meaningful PlaSim climate data, nontrivial model implementations, iterative forecast logic, checkpointing, and distributed training. That matters. If the goal is to understand how an atmospheric emulator behaves on emerging GPU platforms, then the benchmark has to include the parts of the workflow that climate scientists actually depend on: data movement, mixed precision, restart behavior, and evaluation against climatology-aware metrics.
 

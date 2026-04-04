@@ -74,7 +74,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
           <li>Ported the workflow to Intel GPUs and ran it at large scale on Aurora.</li>
           <li>Contributed to DOE exascale work in Earth system modeling and forecasting.</li>
         </ul>
-        <p><a href="/blog/panguweather-aurora-climate-emulator/">Technical article</a> &middot; <a href="https://github.com/rajeeja/panguweather/tree/main/docs/slides">Project slides</a></p>
+        <p><a href="/blog/panguweather-aurora-climate-emulator/">Technical article</a></p>
       </article>
 
       <article class="project-card">
