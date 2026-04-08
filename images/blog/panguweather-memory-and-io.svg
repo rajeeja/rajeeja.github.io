@@ -14,35 +14,37 @@
   <rect x="150" y="308" width="488" height="60" rx="18" fill="#D8ECD8"/>
   <text x="185" y="347" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Gradients</text>
   <rect x="150" y="382" width="488" height="80" rx="18" fill="#D6E6F8"/>
-  <text x="185" y="430" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Optimizer state (e.g. Adam: 2× weights)</text>
+  <text x="185" y="413" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Optimizer state</text>
+  <text x="185" y="441" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">(e.g. Adam: 2× the size of model weights)</text>
   <rect x="150" y="476" width="488" height="52" rx="12" fill="#F8EAA4"/>
   <text x="185" y="508" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">Activations &amp; temporary tensors</text>
 
   <!-- Bottom legend inside left column -->
-  <text x="150" y="558" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">DDP = Distributed Data Parallel · AMP = Automatic Mixed Precision</text>
-  <text x="150" y="578" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">FSDP = Fully Sharded Data Parallel · XPU = Intel GPU accelerator</text>
-  <text x="150" y="598" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">Adam = adaptive gradient optimizer (stores momentum + variance per parameter)</text>
+  <text x="150" y="556" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">DDP = Distributed Data Parallel · AMP = Automatic Mixed Precision</text>
+  <text x="150" y="574" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">FSDP = Fully Sharded Data Parallel · XPU = Intel GPU accelerator</text>
+  <text x="150" y="592" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">Adam = adaptive optimizer storing momentum + variance per param</text>
+  <text x="150" y="608" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">(doubles memory vs. plain SGD)</text>
 
   <!-- Right column: three boxes -->
   <!-- What DDP buys you -->
-  <rect x="744" y="158" width="596" height="176" rx="22" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <rect x="744" y="158" width="596" height="180" rx="22" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
   <text x="778" y="200" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">What DDP buys you</text>
   <text x="778" y="232" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Simple rank-local semantics and familiar debugging.</text>
   <text x="778" y="256" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Straightforward checkpointing and restore behavior.</text>
   <text x="778" y="280" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Clean baseline for cross-vendor (CUDA / XPU) bring-up.</text>
-  <text x="778" y="322" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15" font-weight="600">DDP = Distributed Data Parallel</text>
+  <text x="778" y="322" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="600">DDP = Distributed Data Parallel</text>
 
   <!-- What DDP does not buy you -->
-  <rect x="744" y="354" width="596" height="160" rx="22" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
+  <rect x="744" y="354" width="596" height="172" rx="22" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
   <text x="778" y="394" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">What DDP does not buy you</text>
   <text x="778" y="424" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Parameters and optimizer state are still replicated.</text>
   <text x="778" y="448" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">If the model stops fitting per device, memory pressure</text>
   <text x="778" y="472" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">will eventually force a sharded strategy (FSDP / ZeRO).</text>
-  <text x="778" y="504" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15" font-weight="600">ZeRO = Zero Redundancy Optimizer</text>
+  <text x="778" y="508" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="600">ZeRO = Zero Redundancy Optimizer</text>
 
   <!-- Cheaper next steps -->
-  <rect x="744" y="534" width="596" height="110" rx="22" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
-  <text x="778" y="570" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">Cheaper next steps in this repo</text>
-  <text x="778" y="598" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">AMP (Automatic Mixed Precision) for fp16/bf16 savings.</text>
-  <text x="778" y="622" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Activation checkpointing before jumping to FSDP.</text>
+  <rect x="744" y="540" width="596" height="110" rx="22" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
+  <text x="778" y="576" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">Cheaper next steps in this repo</text>
+  <text x="778" y="604" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">AMP (Automatic Mixed Precision) for fp16/bf16 savings.</text>
+  <text x="778" y="628" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Activation checkpointing before jumping to FSDP.</text>
 </svg>
