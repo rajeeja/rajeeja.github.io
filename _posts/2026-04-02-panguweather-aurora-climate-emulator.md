@@ -25,11 +25,11 @@ toc_sticky: true
 
 Climate emulators are easy to oversimplify. We usually describe them as neural surrogates for expensive physical models, trained once and then used for faster forecasts or long-rollout experiments. That description is true, but it hides the actual engineering burden. A useful emulator for climate science has to survive real data movement, real restart behavior, real distributed launchers, and real memory limits on the machines where the work will actually run.
 
-That was the interesting part of the Aurora work for this codebase. The question was not only whether SFNO could run on Intel GPUs. The deeper question was: what parallel training path does the code really implement today, how portable is that path across CUDA and XPU, and what should change next if we want to scale without breaking the scientific workflow?
+That was the interesting part of the Aurora work for this codebase. The question was not only whether SFNO (Spherical Fourier Neural Operator) could run on Intel GPUs. The deeper question was: what parallel training path does the code really implement today, how portable is that path across CUDA (Nvidia GPU compute platform) and XPU (Intel GPU accelerator), and what should change next if we want to scale without breaking the scientific workflow?
 
-The answer from the code is fairly clear. The current training path is plain Distributed Data Parallel (DDP). It is not using Fully Sharded Data Parallel (FSDP), ZeRO, or tensor parallelism. That is not a weakness. For where this project stands today, it is the right thing to stabilize first.
+The answer from the code is fairly clear. The current training path is plain Distributed Data Parallel (DDP). It is not using Fully Sharded Data Parallel (FSDP), ZeRO (Zero Redundancy Optimizer), or tensor parallelism. That is not a weakness. For where this project stands today, it is the right thing to stabilize first.
 
-> The short version: this is currently a DDP-first climate-emulator codebase with AMP hooks, activation-checkpointing hooks, and checkpoint-restore support, but no committed sharded-training path yet.
+> The short version: this is currently a DDP-first climate-emulator codebase with AMP (Automatic Mixed Precision) hooks, activation-checkpointing hooks, and checkpoint-restore support, but no committed sharded-training path yet.
 
 ## Scientific basis: why this workload matters
 
@@ -40,7 +40,7 @@ That makes this an emulator in the strong sense, not just a pattern recognizer. 
 - rollout stability matters, not just one-step loss;
 - calendar and climatology logic matter, not just generic tensor throughput;
 - latitude-aware metrics matter, because the sphere is not an image plane;
-- restart behavior matters, because long-running HPC jobs are part of the workflow.
+- restart behavior matters, because long-running HPC (High-Performance Computing) jobs are part of the workflow.
 
 The repository reflects that scientific basis directly. Validation is latitude-weighted rather than naively averaged:
 
@@ -175,7 +175,7 @@ def create_grad_scaler():
     return None
 ```
 
-That is exactly the right direction. CUDA and Intel XPU should not be forced through identical assumptions. The current code keeps the fp16-style scaler path for CUDA while allowing the XPU path to behave more naturally as a bf16-oriented path. That is a much better foundation for reproducibility than pretending every accelerator stack wants the same numerical policy.
+That is exactly the right direction. CUDA and Intel XPU should not be forced through identical assumptions. The current code keeps the fp16 (16-bit floating point) scaler path for CUDA while allowing the XPU path to behave more naturally as a bf16 (bfloat16, brain floating point) oriented path. That is a much better foundation for reproducibility than pretending every accelerator stack wants the same numerical policy.
 
 So if the model runs into memory or stability pressure, the sensible order of operations is:
 
@@ -191,7 +191,7 @@ That ordering matters because not every memory problem is really a parallelism p
 
 The other reason to stabilize DDP first is that there was already substantial portability work to do without touching sharded training.
 
-Aurora does not naturally look like a `torchrun` laptop workflow. The launch stack often comes through MPI or PMIx, so the code now maps those launcher variables onto the environment names PyTorch expects:
+Aurora does not naturally look like a `torchrun` laptop workflow. The launch stack often comes through MPI (Message Passing Interface) or PMIx (Process Management Interface for Exascale), so the code now maps those launcher variables onto the environment names PyTorch expects:
 
 ```python
 def populate_dist_env_from_mpi():
@@ -225,7 +225,7 @@ That queue discipline is a real part of the engineering. Rapid turnaround is wha
 
 The chunking question is worth handling carefully because it is relevant here, but not in exactly the same way as in xarray or Zarr benchmark talks.
 
-The current training path is a multifile HDF5 workflow. The loader resolves a timestamp into a file such as `year_index.h5`, opens that file with `h5py`, and reads the variable subset needed for the current sample:
+The current training path is a multifile HDF5 (Hierarchical Data Format 5) workflow. The loader resolves a timestamp into a file such as `year_index.h5`, opens that file with `h5py`, and reads the variable subset needed for the current sample:
 
 ```python
 def get_data_given_path(path, variables):

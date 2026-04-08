@@ -25,9 +25,9 @@ toc_sticky: true
 
 Scientific tooling often looks deceptively simple from the outside. A user sees a tool like `inspect_mesh`, points it at a file, and expects a result. But once the same tool is supposed to work through an MCP client, reason about dataset structure, expose only relevant operations, and optionally run on a remote cluster, the problem changes shape. It is no longer just a function call. It becomes a systems problem: tool design, provenance, execution routing, endpoint health, path conventions, and recoverability when remote infrastructure fails.
 
-That is the work I just finished for the UXarray MCP server and the Improv execution path.
+That is the work I just finished for the UXarray MCP server and the [Improv](https://www.lcrc.anl.gov/systems/improv) execution path.
 
-The immediate goal was practical: make a mesh-aware MCP server useful for natural-language dataset exploration, first on a laptop and then on an HPC system through Globus Compute. The broader point is more interesting. This is an early example of what AI-native scientific tooling can look like when the interface is not just "chat over a file," but a structured tool surface that understands topology, variable locations, execution venue, and scientific failure modes.
+The immediate goal was practical: make a mesh-aware MCP (Model Context Protocol) server useful for natural-language dataset exploration, first on a laptop and then on an HPC (High-Performance Computing) system through Globus Compute. The broader point is more interesting. This is an early example of what AI-native scientific tooling can look like when the interface is not just "chat over a file," but a structured tool surface that understands topology, variable locations, execution venue, and scientific failure modes.
 
 ## Why this is more than a flat tool shelf
 
@@ -144,7 +144,7 @@ This is where the MCP approach starts to matter. The agent is not just calling `
 
 ## Worked example 2: capability discovery instead of tool guessing
 
-One of the common weaknesses of LLM tool use is that the model has to guess what tools are relevant before it has enough structural context. For scientific datasets, that is a recipe for bad calls. A grid without a data file should not invite zonal-mean analysis. A dataset with node-centered variables should not be treated like face-centered data.
+One of the common weaknesses of LLM (Large Language Model) tool use is that the model has to guess what tools are relevant before it has enough structural context. For scientific datasets, that is a recipe for bad calls. A grid without a data file should not invite zonal-mean analysis. A dataset with node-centered variables should not be treated like face-centered data.
 
 That is why `get_capabilities()` is one of the most important pieces of the UXarray MCP design:
 
@@ -189,11 +189,11 @@ uv run python -c "from uxarray_mcp.tools.execution_control import get_execution_
 }
 ```
 
-That may sound mundane, but it is exactly the kind of state exposure that makes a tool usable in an interactive client. The user and the agent can both ask, "Where will this run?" before a heavy computation starts. That is much better than burying the answer in a YAML file.
+That may sound mundane, but it is exactly the kind of state exposure that makes a tool usable in an interactive client. The user and the agent can both ask, "Where will this run?" before a heavy computation starts. That is much better than burying the answer in a YAML (configuration file format) file.
 
 ## Why provenance matters for scientific AI workflows
 
-Every tool result carries a `_provenance` block. That is not just bookkeeping. It is how the system stays scientifically accountable when an LLM is part of the loop.
+Every tool result carries a `_provenance` block. That is not just bookkeeping. It is how the system stays scientifically accountable when an LLM (Large Language Model) is part of the loop.
 
 The provenance attachment is explicit in the code:
 
@@ -235,16 +235,16 @@ hpc:
 But the debugging work underneath that small interface was not trivial. On Improv, the first important lesson was that an endpoint can look `online` while real scientific work still fails. Once the remote path was decomposed into smaller checks, the real failure modes became visible:
 
 - missing local Globus authentication
-- endpoint child processes without `qsub` in path
+- endpoint child processes without `qsub` (the PBS job-submission command) in path
 - remote workers missing `uxarray`
-- path mismatches between interactive `/home/...` habits and canonical GPFS paths
+- path mismatches between interactive `/home/...` habits and canonical GPFS (General Parallel File System) paths
 - stale PID files and login-node drift
 
-The most useful operational change was to stop debugging PBS and UXarray at the same time. The successful bring-up path became:
+The most useful operational change was to stop debugging PBS (Portable Batch System scheduler) and UXarray at the same time. The successful bring-up path became:
 
 1. prove a tiny remote no-op runs,
 2. prove the remote worker can open the exact file path,
-3. prove a generic NetCDF read succeeds,
+3. prove a generic NetCDF (Network Common Data Form) read succeeds,
 4. only then run UXarray-specific tools,
 5. only after that move back to the scheduler-backed endpoint path.
 
