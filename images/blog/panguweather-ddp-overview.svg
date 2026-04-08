@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
   <title id="title">PanguWeather DDP overview</title>
   <desc id="desc">Diagram showing DistributedSampler sharding batches across four ranks, each with a full model replica, followed by gradient all-reduce synchronization.</desc>
   <rect width="1400" height="760" rx="28" fill="#F8F5EF"/>
