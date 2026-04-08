@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">PanguWeather chunking and access path</title>
+  <desc id="desc">Diagram showing multiple ranks reading time-indexed HDF5 files and why storage layout should align with access patterns to avoid read amplification.</desc>
+  <rect width="1400" height="760" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="704" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="102" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="42" font-weight="700">Where Chunking and I/O Start to Matter</text>
+  <text x="72" y="142" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22">Training already has a concrete access pattern: each rank resolves a timestamp, opens a file, reads selected variables, and steps forward in time.</text>
+
+  <text x="82" y="220" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Current multifile training access</text>
+  <rect x="82" y="256" width="260" height="72" rx="18" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="117" y="301" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="28">12_0000.h5</text>
+  <rect x="82" y="348" width="260" height="72" rx="18" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="117" y="393" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="28">12_0001.h5</text>
+  <rect x="82" y="440" width="260" height="72" rx="18" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="117" y="485" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="28">12_0002.h5</text>
+  <rect x="82" y="532" width="260" height="72" rx="18" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="117" y="577" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="28">12_0003.h5</text>
+
+  <g stroke="#8BA4BC" stroke-width="4" stroke-linecap="round">
+    <path d="M342 292H470"/>
+    <path d="M342 384H470"/>
+    <path d="M342 476H470"/>
+    <path d="M342 568H470"/>
+  </g>
+
+  <g>
+    <rect x="470" y="238" width="210" height="116" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="506" y="280" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="25" font-weight="700">Rank 0</text>
+    <text x="506" y="314" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">read input at t</text>
+    <text x="506" y="338" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">read target at t + dt</text>
+  </g>
+  <g>
+    <rect x="470" y="374" width="210" height="116" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="506" y="416" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="25" font-weight="700">Rank 1</text>
+    <text x="506" y="450" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">read input at t</text>
+    <text x="506" y="474" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">read target at t + dt</text>
+  </g>
+  <g>
+    <rect x="470" y="510" width="210" height="116" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="506" y="552" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="25" font-weight="700">Rank 2+</text>
+    <text x="506" y="586" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">same pattern, more readers</text>
+  </g>
+
+  <rect x="748" y="208" width="564" height="206" rx="24" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
+  <text x="784" y="256" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">Poor storage match</text>
+  <text x="784" y="298" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21">Chunks or file layout force each rank to read more data than needed for the current time step and variable subset.</text>
+  <g transform="translate(988 242)">
+    <rect x="0" y="0" width="250" height="130" rx="18" fill="#FFFDF7" stroke="#D7CCB6" stroke-width="2"/>
+    <path d="M30 25H220M30 50H220M30 75H220M30 100H220" stroke="#D0C5AF" stroke-width="2"/>
+    <path d="M65 15V115M110 15V115M155 15V115M200 15V115" stroke="#D0C5AF" stroke-width="2"/>
+    <rect x="22" y="17" width="200" height="22" fill="#EAB0B0" fill-opacity="0.6"/>
+    <rect x="22" y="42" width="200" height="22" fill="#EAB0B0" fill-opacity="0.6"/>
+    <text x="22" y="126" fill="#7D5D63" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">many extra cells touched</text>
+  </g>
+
+  <rect x="748" y="446" width="564" height="212" rx="24" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
+  <text x="784" y="494" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">Better access-aligned layout</text>
+  <text x="784" y="536" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21">Store along the same axes the workflow actually touches: time step, ensemble member, level, or variable groups used together.</text>
+  <g transform="translate(988 480)">
+    <rect x="0" y="0" width="250" height="130" rx="18" fill="#F7FCF7" stroke="#BED2C0" stroke-width="2"/>
+    <path d="M30 25H220M30 50H220M30 75H220M30 100H220" stroke="#C8DCC9" stroke-width="2"/>
+    <path d="M65 15V115M110 15V115M155 15V115M200 15V115" stroke="#C8DCC9" stroke-width="2"/>
+    <rect x="68" y="17" width="42" height="97" fill="#A7D2B0" fill-opacity="0.85"/>
+    <text x="22" y="126" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">much less read amplification</text>
+  </g>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">PanguWeather DDP overview</title>
+  <desc id="desc">Diagram showing DistributedSampler sharding batches across four ranks, each with a full model replica, followed by gradient all-reduce synchronization.</desc>
+  <rect width="1400" height="760" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="704" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="102" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="42" font-weight="700">Current Training Path: Plain Distributed Data Parallel</text>
+  <text x="72" y="142" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22">The repo shards samples across ranks, keeps a full model replica on every device, and synchronizes gradients explicitly.</text>
+
+  <rect x="72" y="208" width="232" height="280" rx="20" fill="#EEF3F7" stroke="#BFC9D4" stroke-width="2"/>
+  <text x="102" y="252" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">DistributedSampler</text>
+  <text x="102" y="290" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">Global dataset</text>
+  <rect x="102" y="316" width="172" height="36" rx="12" fill="#DCE7F2"/>
+  <text x="121" y="340" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="18">batch shard 0</text>
+  <rect x="102" y="366" width="172" height="36" rx="12" fill="#DCE7F2"/>
+  <text x="121" y="390" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="18">batch shard 1</text>
+  <rect x="102" y="416" width="172" height="36" rx="12" fill="#DCE7F2"/>
+  <text x="121" y="440" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="18">batch shard 2</text>
+  <rect x="102" y="466" width="172" height="36" rx="12" fill="#DCE7F2"/>
+  <text x="121" y="490" fill="#17344D" font-family="IBM Plex Mono, monospace" font-size="18">batch shard 3</text>
+
+  <g stroke="#7C8A98" stroke-width="4" stroke-linecap="round">
+    <path d="M304 334H374"/>
+    <path d="M304 384H374"/>
+    <path d="M304 434H374"/>
+    <path d="M304 484H374"/>
+  </g>
+
+  <g>
+    <rect x="374" y="244" width="220" height="196" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="406" y="282" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Rank 0</text>
+    <rect x="406" y="308" width="156" height="34" rx="10" fill="#F6E8C7"/>
+    <text x="429" y="331" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">local mini-batch</text>
+    <rect x="406" y="356" width="156" height="40" rx="10" fill="#E6F0FB"/>
+    <text x="431" y="381" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">full model replica</text>
+    <rect x="406" y="410" width="156" height="30" rx="10" fill="#EAF5EC"/>
+    <text x="450" y="430" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">backward</text>
+  </g>
+
+  <g>
+    <rect x="624" y="244" width="220" height="196" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="656" y="282" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Rank 1</text>
+    <rect x="656" y="308" width="156" height="34" rx="10" fill="#F6E8C7"/>
+    <text x="679" y="331" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">local mini-batch</text>
+    <rect x="656" y="356" width="156" height="40" rx="10" fill="#E6F0FB"/>
+    <text x="681" y="381" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">full model replica</text>
+    <rect x="656" y="410" width="156" height="30" rx="10" fill="#EAF5EC"/>
+    <text x="700" y="430" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">backward</text>
+  </g>
+
+  <g>
+    <rect x="874" y="244" width="220" height="196" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="906" y="282" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Rank 2</text>
+    <rect x="906" y="308" width="156" height="34" rx="10" fill="#F6E8C7"/>
+    <text x="929" y="331" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">local mini-batch</text>
+    <rect x="906" y="356" width="156" height="40" rx="10" fill="#E6F0FB"/>
+    <text x="931" y="381" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">full model replica</text>
+    <rect x="906" y="410" width="156" height="30" rx="10" fill="#EAF5EC"/>
+    <text x="950" y="430" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">backward</text>
+  </g>
+
+  <g>
+    <rect x="1124" y="244" width="220" height="196" rx="18" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+    <text x="1156" y="282" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Rank 3</text>
+    <rect x="1156" y="308" width="156" height="34" rx="10" fill="#F6E8C7"/>
+    <text x="1179" y="331" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">local mini-batch</text>
+    <rect x="1156" y="356" width="156" height="40" rx="10" fill="#E6F0FB"/>
+    <text x="1181" y="381" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">full model replica</text>
+    <rect x="1156" y="410" width="156" height="30" rx="10" fill="#EAF5EC"/>
+    <text x="1200" y="430" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">backward</text>
+  </g>
+
+  <g stroke="#8BA4BC" stroke-width="4" stroke-linecap="round">
+    <path d="M484 440V510"/>
+    <path d="M734 440V510"/>
+    <path d="M984 440V510"/>
+    <path d="M1234 440V510"/>
+  </g>
+
+  <rect x="374" y="528" width="970" height="118" rx="20" fill="#EEF2F5" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="409" y="578" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">Gradient All-Reduce</text>
+  <text x="409" y="616" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21">Ranks synchronize gradients after backward. Parameters stay replicated, which keeps the implementation simple but does not reduce per-device model state.</text>
+
+  <rect x="72" y="546" width="232" height="104" rx="18" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
+  <text x="101" y="585" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">What is missing here</text>
+  <text x="101" y="616" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">No FSDP</text>
+  <text x="198" y="616" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">No ZeRO</text>
+  <text x="101" y="640" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">No tensor parallel</text>
+</svg>

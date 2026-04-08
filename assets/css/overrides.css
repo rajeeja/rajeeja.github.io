@@ -1083,6 +1083,32 @@ body::before {
   font-size: 1.02rem;
 }
 
+.article-figure {
+  max-width: 860px;
+  margin: 2rem auto;
+}
+
+.article-figure--wide {
+  max-width: 920px;
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.article-figure figcaption {
+  margin-top: 0.85rem;
+  color: var(--ink-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
 @media (max-width: 1080px) {
   .hero-card,
   .split-grid {

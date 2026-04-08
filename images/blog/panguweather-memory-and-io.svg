@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">PanguWeather DDP memory view</title>
+  <desc id="desc">Diagram showing one device under DDP containing replicated parameters, gradients, optimizer state, and activations, with notes about AMP and activation checkpointing.</desc>
+  <rect width="1400" height="760" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="704" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="102" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="42" font-weight="700">Per-Rank Memory Pressure Under DDP</text>
+  <text x="72" y="142" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22">Every device carries a full training replica. The first memory wins usually come from precision and activation management, not from exotic parallelism.</text>
+
+  <rect x="104" y="210" width="580" height="426" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <text x="140" y="260" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">One GPU or XPU rank</text>
+  <rect x="150" y="300" width="488" height="74" rx="18" fill="#F1D8DB"/>
+  <text x="185" y="346" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Model parameters</text>
+  <rect x="150" y="392" width="488" height="66" rx="18" fill="#D8ECD8"/>
+  <text x="185" y="434" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Gradients</text>
+  <rect x="150" y="476" width="488" height="88" rx="18" fill="#D6E6F8"/>
+  <text x="185" y="530" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Optimizer state</text>
+  <rect x="150" y="582" width="488" height="36" rx="12" fill="#F8EAA4"/>
+  <text x="185" y="607" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Activations and temporary tensors</text>
+
+  <rect x="744" y="208" width="568" height="164" rx="22" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="780" y="256" fill="#1C395B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">What DDP buys you</text>
+  <text x="780" y="300" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21">Simple rank-local semantics, well-understood debugging, straightforward checkpointing, and a clean baseline for cross-vendor runtime bring-up.</text>
+
+  <rect x="744" y="394" width="568" height="150" rx="22" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
+  <text x="780" y="442" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="700">What DDP does not buy you</text>
+  <text x="780" y="486" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="21">Parameters and optimizer state are still replicated. If the model stops fitting comfortably per device, memory pressure will eventually force a sharded strategy.</text>
+
+  <rect x="744" y="564" width="568" height="94" rx="22" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
+  <text x="780" y="605" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Cheaper next steps already exist in this repo</text>
+  <text x="780" y="637" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19">AMP for precision control, activation checkpointing in model blocks, and better profiling before a jump to FSDP.</text>
+</svg>
