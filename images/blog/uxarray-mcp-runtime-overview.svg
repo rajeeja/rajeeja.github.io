@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">UXarray MCP runtime overview</title>
+  <desc id="desc">Diagram showing the UXarray MCP scientific runtime flow from dataset discovery and capability filtering to sessions, workflows, plotting, exports, and local or Improv execution.</desc>
+  <rect width="1400" height="860" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="804" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+
+  <text x="72" y="96" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="40" font-weight="700">UXarray MCP Server as a Scientific Runtime</text>
+  <text x="72" y="134" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22">The newer server helps a user move from discovery to analysis to persisted results, with local and remote execution treated as part of the same workflow.</text>
+
+  <rect x="74" y="200" width="266" height="134" rx="20" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="106" y="246" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="29" font-weight="700">1. Discovery</text>
+  <text x="106" y="286" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">`list_datasets`</text>
+  <text x="106" y="314" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">group files, suggest next calls</text>
+
+  <rect x="404" y="200" width="266" height="134" rx="20" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="436" y="246" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="29" font-weight="700">2. Capability Gate</text>
+  <text x="436" y="286" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">`get_capabilities`</text>
+  <text x="436" y="314" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">filter by topology, variable type, data shape</text>
+
+  <rect x="734" y="200" width="266" height="134" rx="20" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="766" y="246" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="29" font-weight="700">3. Session State</text>
+  <text x="766" y="286" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">`create_session`</text>
+  <text x="766" y="314" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">dataset handles and persisted references</text>
+
+  <rect x="1064" y="200" width="266" height="134" rx="20" fill="#EEF3F7" stroke="#C7D0D8" stroke-width="2"/>
+  <text x="1096" y="246" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="29" font-weight="700">4. Workflow</text>
+  <text x="1096" y="286" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">`run_workflow`</text>
+  <text x="1096" y="314" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">validate, inspect, analyze, persist</text>
+
+  <g stroke="#8BA4BC" stroke-width="4" stroke-linecap="round">
+    <path d="M340 267H404"/>
+    <path d="M670 267H734"/>
+    <path d="M1000 267H1064"/>
+    <path d="M867 334V420"/>
+  </g>
+
+  <rect x="536" y="420" width="662" height="178" rx="24" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
+  <text x="570" y="468" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="31" font-weight="700">Execution and analysis surface</text>
+  <text x="570" y="510" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">Inspection, subsetting, comparison, remapping, plotting, export</text>
+  <rect x="570" y="534" width="180" height="36" rx="12" fill="#FFFFFF" stroke="#D6C5A7"/>
+  <text x="598" y="558" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">inspect_* / validate</text>
+  <rect x="770" y="534" width="158" height="36" rx="12" fill="#FFFFFF" stroke="#D6C5A7"/>
+  <text x="804" y="558" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">plot_* tools</text>
+  <rect x="948" y="534" width="216" height="36" rx="12" fill="#FFFFFF" stroke="#D6C5A7"/>
+  <text x="976" y="558" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">subset / compare / regrid</text>
+
+  <rect x="74" y="420" width="388" height="178" rx="24" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
+  <text x="108" y="468" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="31" font-weight="700">Execution venue control</text>
+  <text x="108" y="510" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">`get_execution_mode`, `validate_hpc_setup`, `probe_path_access`</text>
+  <text x="108" y="546" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Local and Improv live behind one interface, but readiness is checked explicitly.</text>
+
+  <g stroke="#8BA4BC" stroke-width="4" stroke-linecap="round">
+    <path d="M268 598V690"/>
+    <path d="M867 598V690"/>
+  </g>
+
+  <rect x="74" y="690" width="388" height="104" rx="24" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+  <text x="108" y="732" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Improv or local run</text>
+  <text x="108" y="766" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19">Remote wrappers, health checks, and fallback logic keep the operational story explicit.</text>
+
+  <rect x="536" y="690" width="662" height="104" rx="24" fill="#FFFFFF" stroke="#CFD8E3" stroke-width="2"/>
+  <text x="570" y="732" fill="#264B78" font-family="IBM Plex Sans, Arial, sans-serif" font-size="28" font-weight="700">Artifacts and handles</text>
+  <text x="570" y="766" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19">Inline PNG, JSON provenance, result handles, operation history, and exported NetCDF or CSV artifacts.</text>
+</svg>
