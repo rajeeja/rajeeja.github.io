@@ -816,13 +816,13 @@ body::before {
   background: transparent;
   color: #edf4fb;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 1.15rem !important;
+  font-size: 1rem !important;
   line-height: 1.72;
 }
 
 .page__content div.highlighter-rouge .highlight,
 .page__content figure.highlight .highlight {
-  font-size: 1.15rem !important;
+  font-size: 1rem !important;
 }
 
 .page__content .highlight pre,

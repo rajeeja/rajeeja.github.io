@@ -212,14 +212,14 @@ provenance = {
 
 That means a downstream consumer can see not just the answer, but what tool ran, where it ran, what version of UXarray was used, and whether warnings were raised. In scientific work, that is the difference between a useful result and an unverifiable anecdote.
 
-## The Improv path: where remote execution became real
+## The [Improv](https://www.lcrc.anl.gov/systems/improv) path: where remote execution became real
 
-The local UXarray MCP story is already useful, but the more ambitious goal was remote execution on Improv through Globus Compute. At a high level, the path is:
+The local UXarray MCP story is already useful, but the more ambitious goal was remote execution on [Improv](https://www.lcrc.anl.gov/systems/improv) — Argonne's 825-node AMD EPYC cluster managed by LCRC — through Globus Compute. At a high level, the path is:
 
 1. a local MCP client calls a tool,
 2. the local server decides whether to run locally or remotely,
 3. Globus Compute submits the serialized computation,
-4. an endpoint on Improv receives it,
+4. an endpoint on [Improv](https://www.lcrc.anl.gov/systems/improv) receives it,
 5. a remote worker executes the scientific function and returns the result.
 
 The configuration surface is intentionally small:
@@ -232,7 +232,7 @@ hpc:
   timeout_seconds: 300
 ```
 
-But the debugging work underneath that small interface was not trivial. On Improv, the first important lesson was that an endpoint can look `online` while real scientific work still fails. Once the remote path was decomposed into smaller checks, the real failure modes became visible:
+But the debugging work underneath that small interface was not trivial. On [Improv](https://www.lcrc.anl.gov/systems/improv), the first important lesson was that an endpoint can look `online` while real scientific work still fails. Once the remote path was decomposed into smaller checks, the real failure modes became visible:
 
 - missing local Globus authentication
 - endpoint child processes without `qsub` (the PBS job-submission command) in path
@@ -250,7 +250,7 @@ The most useful operational change was to stop debugging PBS (Portable Batch Sys
 
 That turned remote execution from a black box into a layered system that could actually be diagnosed.
 
-One representative Improv issue looked like a data problem at first:
+One representative [Improv](https://www.lcrc.anl.gov/systems/improv) issue looked like a data problem at first:
 
 ```text
 /home/jain/2case2_wrf_eplus/met_em.d01.2017-03-16_00:00:00.nc
@@ -297,4 +297,4 @@ But this is still early-stage work. The next steps are the interesting ones:
 - broader dataset-aware planning, not just mesh-aware planning,
 - and more cross-domain use cases where the same agentic pattern applies outside climate analysis.
 
-That is the larger point of this project. The value is not only that UXarray now has an MCP server, or that the server can reach Improv. The value is that scientific software can be exposed in a way that is both AI-friendly and scientifically disciplined. This work shows one path toward that, and it feels much more like a beginning than an endpoint.
+That is the larger point of this project. The value is not only that UXarray now has an MCP server, or that the server can reach [Improv](https://www.lcrc.anl.gov/systems/improv). The value is that scientific software can be exposed in a way that is both AI-friendly and scientifically disciplined. This work shows one path toward that, and it feels much more like a beginning than an endpoint.
