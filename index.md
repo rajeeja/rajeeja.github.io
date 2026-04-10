@@ -12,40 +12,72 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
     <div class="hero-copy">
       <p class="eyebrow">Research Software Engineer | ML Infrastructure | Scientific Computing</p>
       <h1 class="hero-title">Rajeev Jain</h1>
-      <p class="hero-role">Research software engineer at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
-      <p class="hero-summary">I work on research software for climate analysis, AI workflows, and large simulation codes. Over 16 years I have built software across national labs, universities, and multi-institutional collaborations, with an emphasis on reliable tools that other researchers can use and extend.</p>
+      <p class="hero-role">I build research software for climate analysis, AI workflows, and large simulation codes at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+      <p class="hero-summary">My work sits where scientific computing meets usable engineering: climate and mesh analysis, machine-learning infrastructure, high-performance I/O, and tools that researchers can actually extend. I care most about software that survives beyond a single project cycle.</p>
+
+      <div class="hero-actions">
+        <a class="button-link button-link--primary" href="#projects">View work</a>
+        <a class="button-link" href="/blog/">Read technical notes</a>
+        <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">Curriculum Vitae</a>
+      </div>
 
       <p class="hero-documents">
-        <a class="hero-documents__link" href="/files/Rajeev_Jain_CV.pdf">Curriculum Vitae</a>
+        <a class="hero-documents__link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
         <span>&middot;</span>
-        <a class="hero-documents__link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Publications</a>
+        <a class="hero-documents__link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
       </p>
 
-      <p class="hero-meta">16+ years in research software <span>&middot;</span> 22+ peer-reviewed papers <span>&middot;</span> 10k+ benchmarking and HPO runs</p>
+      <p class="hero-meta">Argonne National Laboratory <span>&middot;</span> University of Chicago <span>&middot;</span> Climate, HPC, and AI systems</p>
     </div>
 
     <aside class="hero-panel">
       <img class="hero-portrait" src="/images/bio-photo.jpg" alt="Portrait of Rajeev Jain">
-      <p class="hero-panel__eyebrow">Current work</p>
+      <p class="hero-panel__eyebrow">Current focus</p>
       <ul class="panel-list">
-        <li><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora's Intel GPU stack</a></li>
-        <li>UXarray for unstructured climate analysis and scientific workflows</li>
-        <li><a href="/blog/uxarray-mcp-improv-globus-compute/">MCP server and AI-agent workflows for natural-language dataset exploration</a></li>
+        <li><a href="/blog/panguweather-aurora-climate-emulator/">Running AI weather models on Aurora's Intel GPU stack</a></li>
+        <li><a href="https://github.com/UXARRAY/uxarray">Building UXarray for unstructured climate analysis</a></li>
+        <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Designing MCP workflows for scientific dataset exploration</a></li>
       </ul>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <strong>16+</strong>
+          <span>years in research software</span>
+        </div>
+        <div class="mini-stat">
+          <strong>22+</strong>
+          <span>peer-reviewed papers</span>
+        </div>
+        <div class="mini-stat">
+          <strong>10k+</strong>
+          <span>benchmark and HPO runs</span>
+        </div>
+      </div>
     </aside>
   </section>
 
-  <nav class="section-nav" id="section-nav">
-    <div class="section-nav__inner">
-      <a href="#about" class="section-nav__link">About</a>
-      <a href="#projects" class="section-nav__link">Projects</a>
-      <a href="#skills" class="section-nav__link">Skills</a>
-      <a href="#publications" class="section-nav__link">Publications</a>
-      <a href="#recognition" class="section-nav__link">Recognition</a>
-      <a href="#background" class="section-nav__link">Background</a>
-      <a href="#contact" class="section-nav__link">Links</a>
-    </div>
-  </nav>
+  <section class="focus-strip" aria-label="Current featured work">
+    <article class="focus-card">
+      <p class="card-meta">Featured systems work</p>
+      <h2><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora</a></h2>
+      <p>Porting and stabilizing large weather-model training workflows on Intel GPUs, with attention to portability, runtime behavior, and scientific throughput.</p>
+      <p class="focus-card__links"><a href="/blog/panguweather-aurora-climate-emulator/">Read note</a></p>
+    </article>
+
+    <article class="focus-card">
+      <p class="card-meta">Open-source climate tooling</p>
+      <h2><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h2>
+      <p>Mesh-aware analysis for next-generation climate grids, built so scientific users can inspect, subset, and reason about unstructured datasets without bespoke code for each mesh.</p>
+      <p class="focus-card__links"><a href="https://uxarray.readthedocs.io">Documentation</a> &middot; <a href="https://github.com/UXARRAY/uxarray">Repository</a></p>
+    </article>
+
+    <article class="focus-card">
+      <p class="card-meta">AI-agent workflows</p>
+      <h2><a href="/blog/uxarray-mcp-improv-globus-compute/">Scientific MCP workflows</a></h2>
+      <p>Natural-language dataset discovery, plotting, workflows, and remote execution for scientific analysis across local machines and HPC systems.</p>
+      <p class="focus-card__links"><a href="/blog/uxarray-mcp-improv-globus-compute/">Read note</a></p>
+    </article>
+  </section>
 
   <section class="content-section" id="projects">
     <div class="section-heading">
@@ -115,39 +147,45 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
   <section class="content-section" id="skills">
     <div class="section-heading">
       <p class="section-kicker">Technical expertise</p>
-      <h2 class="section-title">Breadth across research software and systems</h2>
-      <p class="section-lead">Tools and systems I work with most often across research software, data, and HPC.</p>
+      <h2 class="section-title">Capabilities across scientific software and systems</h2>
+      <p class="section-lead">A compact view of the engineering areas I work in most often, from ML and analysis pipelines to HPC runtime and open-source delivery.</p>
     </div>
 
-    <div class="skill-grid">
-      <article class="skill-card">
-        <p class="card-meta">Languages</p>
-        <h3>Python to Fortran</h3>
-        <p>Python, C++, Fortran, R, Bash, and SQL for analysis pipelines, simulation code, build systems, and automation.</p>
+    <div class="capability-grid">
+      <article class="skill-card capability-card">
+        <p class="card-meta">Scientific Python and ML</p>
+        <h3>Data, models, and analysis workflows</h3>
+        <ul class="card-list">
+          <li>PyTorch, TensorFlow, NumPy, Pandas, Xarray, and Scikit-learn for model development and scientific analysis.</li>
+          <li>Parsl and Swift/T for large experiment campaigns and repeatable workflow execution.</li>
+        </ul>
       </article>
 
-      <article class="skill-card">
-        <p class="card-meta">ML and data</p>
-        <h3>Framework and workflow depth</h3>
-        <p>PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn, Parsl, and Swift/T for model development and large experiment campaigns.</p>
+      <article class="skill-card capability-card">
+        <p class="card-meta">HPC systems and storage</p>
+        <h3>Performance, portability, and I/O</h3>
+        <ul class="card-list">
+          <li>MPI, OpenMP, HDF5, NetCDF, MOAB, and storage-aware design for leadership-class machines.</li>
+          <li>Intel GPUs, CUDA portability, asynchronous checkpoint workflows, and runtime debugging on shared systems.</li>
+        </ul>
       </article>
 
-      <article class="skill-card">
-        <p class="card-meta">HPC and systems</p>
-        <h3>Performance and portability</h3>
-        <p>MPI, OpenMP, HDF5, NetCDF, MOAB, Docker, Singularity, GitHub Actions, and storage-aware I/O design for leadership-class machines.</p>
+      <article class="skill-card capability-card">
+        <p class="card-meta">Open-source delivery</p>
+        <h3>Software other researchers can extend</h3>
+        <ul class="card-list">
+          <li>Release engineering, CI pipelines, testing, and packaging for long-lived scientific projects.</li>
+          <li>Roadmap ownership, collaboration across labs and universities, and mentoring around sustainable engineering practice.</li>
+        </ul>
       </article>
 
-      <article class="skill-card">
-        <p class="card-meta">Domains</p>
-        <h3>Science-driven software</h3>
-        <p>Climate modeling, cancer pharmacogenomics, computational physics, mesh generation, AI infrastructure, and reproducible workflows.</p>
-      </article>
-
-      <article class="skill-card">
-        <p class="card-meta">Leadership and delivery</p>
-        <h3>Software that lasts</h3>
-        <p>Release engineering, CI pipelines, open-source governance, multi-institution coordination, mentoring, and roadmap ownership.</p>
+      <article class="skill-card capability-card">
+        <p class="card-meta">Scientific domains</p>
+        <h3>Problem-driven engineering</h3>
+        <ul class="card-list">
+          <li>Climate modeling, unstructured mesh analysis, cancer pharmacogenomics, computational physics, and simulation software.</li>
+          <li>AI infrastructure and reproducible workflows built around domain constraints rather than generic demos.</li>
+        </ul>
       </article>
     </div>
   </section>

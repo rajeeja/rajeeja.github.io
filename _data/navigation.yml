@@ -4,20 +4,11 @@ main:
   - title: "About"
     url: /#about
 
-  - title: "Projects"
+  - title: "Work"
     url: /#projects
-
-  - title: "Skills"
-    url: /#skills
 
   - title: "Publications"
     url: /#publications
-
-  - title: "Awards"
-    url: /#recognition
-
-  - title: "Background"
-    url: /#background
 
   - title: "Blog"
     url: /blog/
