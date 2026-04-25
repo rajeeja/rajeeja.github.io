@@ -45,30 +45,40 @@
   <!-- Poor storage match -->
   <rect x="732" y="170" width="598" height="222" rx="24" fill="#FFF6E8" stroke="#D6C5A7" stroke-width="2"/>
   <text x="768" y="212" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Poor storage match</text>
-  <text x="768" y="244" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Chunks or file layout force each rank to read</text>
-  <text x="768" y="266" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">more data than needed for the current time</text>
-  <text x="768" y="288" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">step and variable subset → read amplification.</text>
-  <g transform="translate(988 196)">
-    <rect x="0" y="0" width="310" height="168" rx="18" fill="#FFFDF7" stroke="#D7CCB6" stroke-width="2"/>
-    <path d="M30 30H280M30 60H280M30 90H280M30 120H280M30 150H280" stroke="#D0C5AF" stroke-width="2"/>
-    <path d="M80 18V162M130 18V162M180 18V162M230 18V162M280 18V162" stroke="#D0C5AF" stroke-width="2"/>
-    <rect x="18" y="20" width="274" height="28" fill="#EAB0B0" fill-opacity="0.65"/>
-    <rect x="18" y="50" width="274" height="28" fill="#EAB0B0" fill-opacity="0.65"/>
-    <text x="18" y="158" fill="#7D5D63" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">many extra cells touched per read</text>
+  <text x="768" y="244" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Chunks or file layout force</text>
+  <text x="768" y="266" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">each rank to read more data</text>
+  <text x="768" y="288" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">than needed for the current</text>
+  <text x="768" y="310" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">time step and variable subset.</text>
+  <text x="768" y="332" fill="#6F5A42" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Result: read amplification.</text>
+  <g transform="translate(1072 190)">
+    <rect x="0" y="0" width="226" height="176" rx="18" fill="#FFFDF7" stroke="#D7CCB6" stroke-width="2"/>
+    <path d="M20 30H206M20 60H206M20 90H206M20 120H206" stroke="#D0C5AF" stroke-width="2"/>
+    <path d="M56 18V130M92 18V130M128 18V130M164 18V130M200 18V130" stroke="#D0C5AF" stroke-width="2"/>
+    <rect x="18" y="20" width="190" height="28" fill="#EAB0B0" fill-opacity="0.65"/>
+    <rect x="18" y="50" width="190" height="28" fill="#EAB0B0" fill-opacity="0.65"/>
+    <rect x="12" y="128" width="202" height="40" rx="10" fill="#FFF7F0"/>
+    <text x="22" y="147" fill="#7D5D63" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">extra cells touched</text>
+    <text x="22" y="161" fill="#7D5D63" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">on every read</text>
   </g>
 
   <!-- Better access-aligned layout -->
   <rect x="732" y="412" width="598" height="226" rx="24" fill="#E8F1EA" stroke="#C0D4C3" stroke-width="2"/>
-  <text x="768" y="452" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Better: access-aligned layout</text>
-  <text x="768" y="482" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Store along axes the workflow actually touches:</text>
-  <text x="768" y="504" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">time step, ensemble member, level, variable group.</text>
-  <text x="768" y="528" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Chunk shape matches read pattern → far less I/O waste.</text>
-  <g transform="translate(988 428)">
-    <rect x="0" y="0" width="310" height="168" rx="18" fill="#F7FCF7" stroke="#BED2C0" stroke-width="2"/>
-    <path d="M30 30H280M30 60H280M30 90H280M30 120H280M30 150H280" stroke="#C8DCC9" stroke-width="2"/>
-    <path d="M80 18V162M130 18V162M180 18V162M230 18V162M280 18V162" stroke="#C8DCC9" stroke-width="2"/>
-    <rect x="82" y="18" width="48" height="126" fill="#A7D2B0" fill-opacity="0.85"/>
-    <text x="18" y="158" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">reads only the needed column</text>
+  <text x="768" y="452" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">Better: access-aligned</text>
+  <text x="768" y="478" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">chunks</text>
+  <text x="768" y="512" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Store along the axes the</text>
+  <text x="768" y="534" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">workflow actually touches:</text>
+  <text x="768" y="556" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">time step, ensemble member,</text>
+  <text x="768" y="578" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">level, variable group.</text>
+  <text x="768" y="600" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">Chunk shape matches reads,</text>
+  <text x="768" y="622" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">so I/O waste drops.</text>
+  <g transform="translate(1086 422)">
+    <rect x="0" y="0" width="212" height="176" rx="18" fill="#F7FCF7" stroke="#BED2C0" stroke-width="2"/>
+    <path d="M20 30H192M20 60H192M20 90H192M20 120H192" stroke="#C8DCC9" stroke-width="2"/>
+    <path d="M52 18V130M84 18V130M116 18V130M148 18V130M180 18V130" stroke="#C8DCC9" stroke-width="2"/>
+    <rect x="52" y="18" width="32" height="126" fill="#A7D2B0" fill-opacity="0.85"/>
+    <rect x="12" y="128" width="188" height="40" rx="10" fill="#F1FAF2"/>
+    <text x="20" y="147" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">reads only the</text>
+    <text x="20" y="161" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">needed column block</text>
   </g>
 
   <!-- Bottom legend -->
