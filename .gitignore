@@ -29,3 +29,17 @@ vendor/
 .analytics-reports/
 __pycache__/
 *.pyc
+
+# Private job-search automation artifacts
+.claude/
+applications/
+job applications/
+node_modules/
+package-lock.json
+package.json
+scripts/apply-browser.mjs
+scripts/dashboard.mjs
+scripts/daily-refresh.sh
+scripts/fill-ashby.mjs
+scripts/gmail-*.mjs
+scripts/jobs-discover.mjs
