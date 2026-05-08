@@ -114,6 +114,4 @@ The system composes three layers:
 
 Full campaign results, timing tables, failure triage details, and discussion of the artifact economics and the path toward fully autonomous scientific campaigns are in our companion paper submitted to SciFM 2026. We will post the link here when it is publicly available.
 
-The MCP server source is at [github.com/UXARRAY/uxarray-mcp-server](https://github.com/UXARRAY/uxarray-mcp-server).
-
 *Supported by the U.S. National Science Foundation under Grant No. 2126458 (EarthCube) and the U.S. Department of Energy Office of Science SEATS project.*
