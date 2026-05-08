@@ -140,6 +140,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
           <li>Led the design of parallel meshing and multi-format I/O for reactor simulation teams at Argonne.</li>
           <li>Won Best Paper Award at the International Meshing Roundtable in 2010.</li>
         </ul>
+        <p><a href="/blog/rgg-meshkit-moose-reactor-module/">RGG / MeshKit retrospective</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></p>
       </article>
     </div>
   </section>
@@ -235,19 +236,19 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         <ul class="timeline-list">
           <li>
             <strong>SC24</strong>
-            <span>Tutorial: UXarray for Analysis of Unstructured Climate Data</span>
+            <span><a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></span>
           </li>
           <li>
             <strong>SC24</strong>
-            <span>DRBSD-10: Enabling Data Reduction for FLASH-X Simulations</span>
+            <span><a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X Simulations</a></span>
           </li>
           <li>
             <strong>SC24</strong>
-            <span>CAFCW24: Cross-HPO for Cancer Drug Response</span>
+            <span><a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></span>
           </li>
           <li>
             <strong>AMS 2024</strong>
-            <span>UXarray: Extending Xarray with Support for Unstructured Grids</span>
+            <span><a href="https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/434638">UXarray: Extending Xarray with Support for Unstructured Grids</a></span>
           </li>
           <li>
             <strong>SciPy 2023</strong>
