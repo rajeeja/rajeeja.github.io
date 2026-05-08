@@ -1164,6 +1164,13 @@ body::before {
   box-shadow: var(--shadow-soft);
 }
 
+/* global overflow fix for long strings */
+.page__content,
+.article-banner {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 /* dark banner hero — used as an alternative to the white card */
 .article-banner {
   position: relative;
