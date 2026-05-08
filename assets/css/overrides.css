@@ -1111,6 +1111,23 @@ body::before {
   border-collapse: collapse;
 }
 
+/* scrollable wrapper for wide tables */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-strong);
+}
+.table-scroll table {
+  min-width: 560px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .page__content > table th,
 .page__content > table td {
   padding: 0.82rem 0.95rem;
@@ -1136,6 +1153,8 @@ body::before {
   background: var(--line);
 }
 
+/* ── blog post hero variants ─────────────────────────────────── */
+
 .article-hero {
   margin: 8px 0 28px;
   padding: 24px 26px;
@@ -1143,6 +1162,83 @@ body::before {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.82);
   box-shadow: var(--shadow-soft);
+}
+
+/* dark banner hero — used as an alternative to the white card */
+.article-banner {
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 36px;
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b2d47 60%, #0d2035 100%);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.22);
+}
+
+.article-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.article-banner--warm {
+  background: linear-gradient(135deg, #0f0a1e 0%, #1a1238 60%, #0d1420 100%);
+}
+
+.article-banner--warm::before {
+  background-image:
+    linear-gradient(rgba(245, 158, 11, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 158, 11, 0.055) 1px, transparent 1px);
+}
+
+.article-banner .eyebrow {
+  position: relative;
+  margin: 0 0 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #22d3ee;
+}
+
+.article-banner--warm .eyebrow {
+  color: #f59e0b;
+}
+
+.article-banner .article-title {
+  position: relative;
+  margin: 0 0 1.1rem;
+  color: #f0f9ff;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+}
+
+.article-banner--warm .article-title {
+  color: #faf5ff;
+}
+
+.article-banner .article-dek {
+  position: relative;
+  margin: 0;
+  max-width: 580px;
+  color: #8ab2cc;
+  font-size: 1.03rem;
+  line-height: 1.65;
+}
+
+.article-banner--warm .article-dek {
+  color: #a09aba;
+}
+
+@media (max-width: 560px) {
+  .article-banner {
+    padding: 2rem 1.5rem;
+    border-radius: 14px;
+  }
 }
 
 .article-title {

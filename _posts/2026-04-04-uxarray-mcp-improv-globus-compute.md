@@ -17,8 +17,8 @@ toc: true
 toc_sticky: true
 ---
 
-<div class="article-hero">
-  <p class="eyebrow">Research note · April 2026 · SciFM 2026 companion paper</p>
+<div class="article-banner">
+  <p class="eyebrow">Research note &middot; April 2026 &middot; SciFM 2026 companion paper</p>
   <h1 class="article-title">UXarray MCP on Argonne Improv</h1>
   <p class="article-dek">A Model Context Protocol server for unstructured Earth-system meshes: production campaign results, agentic regional exploration, and provenance as scientific infrastructure.</p>
 </div>
@@ -67,7 +67,7 @@ The key design property: HPC workers need only UXarray and its scientific depend
 
 ## Experiments on Argonne Improv
 
-All experiments run against production Earth-system meshes staged on Improv's GPFS filesystem at `/gpfs/fs1/home/jain/uxarray/mcp-demo-big-meshes`, accessed through a PBS-backed Globus Compute endpoint on `ilogin1.lcrc.anl.gov`. The scientist never opens an SSH session or downloads a file.
+All experiments run against production Earth-system meshes staged on Improv's GPFS filesystem, accessed through a PBS-backed Globus Compute endpoint on `ilogin1.lcrc.anl.gov`. The scientist never opens an SSH session or downloads a file.
 
 ### Mesh families
 
@@ -80,14 +80,14 @@ The campaign covers the complete MPAS-Ocean production resolution hierarchy, one
 
 | Label | Format | Size | Scientific role |
 |---|---|---|---|
-| **oQU120** | MPAS-O | 0.10 GB | Quasi-uniform 120 km global ocean baseline. Standard low-resolution reference in E3SM ocean campaigns. |
-| **oEC60to30** | MPAS-O | 0.62 GB | Variable-resolution 60–30 km mesh for eddy-closure studies. Refines eddy-active open-ocean regions to 30 km. |
-| **WC14to60** | MPAS-O | 1.12 GB | Western-Atlantic/coastal refinement mesh, 14–60 km. Designed for storm surge, coastal sea-level, and river-plume studies. |
-| **oRRS18to6** | MPAS-O | 10.82 GB | Fine-scale 18–6 km coastal-refined mesh; the largest MPAS-O file in the campaign. |
+| **oQU120** | MPAS-O | 0.10 GB | Quasi-uniform 120 km global ocean baseline. Standard low-resolution E3SM reference. |
+| **oEC60to30** | MPAS-O | 0.62 GB | Variable-resolution 60–30 km mesh for eddy-closure studies. |
+| **WC14to60** | MPAS-O | 1.12 GB | Western-Atlantic coastal refinement, 14–60 km. Storm surge, sea-level, river-plume studies. |
+| **oRRS18to6** | MPAS-O | 10.82 GB | Fine-scale 18–6 km coastal-refined mesh; largest MPAS-O file in the campaign. |
 | **CONUS-MPAS-A** | MPAS-A | 5.61 GB | Regional MPAS atmosphere mesh over the continental United States (637K faces). |
 | **PAMIP-ne30x8** | SCRIP | 0.06 GB | Global atmosphere grid from the Polar Amplification Model Intercomparison Project. |
-| **ESMF-mesh** | ESMF | 1.03 GB | ESMF-format mesh with 24.9M faces --- the largest by face count. |
-| *STOFS-2D-glo* | --- | 11.43 GB | *Deliberate failure: CF violation on dim nvel.* |
+| **ESMF-mesh** | ESMF | 1.03 GB | ESMF-format mesh with 24.9M faces --- largest by face count. |
+| *STOFS-2D-glo* | --- | 11.43 GB | *Deliberate failure: CF violation on dim `nvel`.* |
 | *ne512np4-latlon* | --- | 0.54 GB | *Deliberate failure: unrecognized latlon-hybrid layout.* |
 | *E3SM-CAM-h1 + ne256np4* | --- | --- | *Deliberate failure: grid/data topology mismatch.* |
 
@@ -115,106 +115,139 @@ The agent submits `probe_path_access` for each file in the manifest. All nine fi
 
 For each of the seven production meshes, the agent calls `inspect_mesh` and `calculate_area` through the MCP server.
 
-| Label | Size (GB) | Faces | Mean area (sr) | Coverage | Inspect (s) | Area (s) |
-|---|---|---|---|---|---|---|
-| oQU120 | 0.10 | 28,571 | 3.07×10⁻⁴ | 0.699 | 20.4 | 20.5 |
-| oEC60to30 | 0.62 | 235,160 | 3.77×10⁻⁵ | 0.706 | 20.0 | 20.0 |
-| WC14to60 | 1.12 | 407,420 | 2.18×10⁻⁵ | 0.707 | 20.0 | 20.0 |
-| oRRS18to6 | 10.82 | 3,693,225 | 2.41×10⁻⁶ | 0.707 | 20.0 | 20.0 |
-| CONUS-MPAS-A | 5.61 | 637,604 | 7.39×10⁻⁷ | 0.037 | 20.0 | 20.0 |
-| PAMIP-ne30x8 | 0.06 | 325,190 | 3.87×10⁻⁵ | 1.001 | 20.0 | 20.0 |
-| ESMF-mesh | 1.03 | 24,875,336 | 3.59×10⁻⁷ | 0.711 | 120.0 | 60.0 |
+<div class="table-scroll">
+<table>
+<thead><tr>
+  <th>Label</th><th>Size (GB)</th><th>Faces</th><th>Mean area (sr)</th><th>Coverage</th><th>Inspect (s)</th><th>Area (s)</th>
+</tr></thead>
+<tbody>
+<tr><td>oQU120</td><td>0.10</td><td>28,571</td><td>3.07×10⁻⁴</td><td>0.699</td><td>20.4</td><td>20.5</td></tr>
+<tr><td>oEC60to30</td><td>0.62</td><td>235,160</td><td>3.77×10⁻⁵</td><td>0.706</td><td>20.0</td><td>20.0</td></tr>
+<tr><td>WC14to60</td><td>1.12</td><td>407,420</td><td>2.18×10⁻⁵</td><td>0.707</td><td>20.0</td><td>20.0</td></tr>
+<tr><td>oRRS18to6</td><td>10.82</td><td>3,693,225</td><td>2.41×10⁻⁶</td><td>0.707</td><td>20.0</td><td>20.0</td></tr>
+<tr><td>CONUS-MPAS-A</td><td>5.61</td><td>637,604</td><td>7.39×10⁻⁷</td><td>0.037</td><td>20.0</td><td>20.0</td></tr>
+<tr><td>PAMIP-ne30x8</td><td>0.06</td><td>325,190</td><td>3.87×10⁻⁵</td><td>1.001</td><td>20.0</td><td>20.0</td></tr>
+<tr><td>ESMF-mesh</td><td>1.03</td><td>24,875,336</td><td>3.59×10⁻⁷</td><td>0.711</td><td>120.0</td><td>60.0</td></tr>
+</tbody>
+</table>
+</div>
 
-**Resolution hierarchy.** The four MPAS-O ocean meshes form a coherent hierarchy across four orders of magnitude in face count: oQU120 (28K faces, 120 km) through oRRS18to6 (3.7M faces, 6–18 km), with mean face area decreasing by a factor of ~128. Coverage holds within 0.001 of 0.707 across all four ocean meshes, confirming topological consistency of UXarray's area integration across the full resolution hierarchy.
+**Resolution hierarchy.** The four MPAS-O ocean meshes form a coherent hierarchy across four orders of magnitude in face count: oQU120 (28K faces, 120 km) through oRRS18to6 (3.7M faces, 6–18 km), with mean face area decreasing by a factor of ~128. Coverage holds within 0.001 of 0.707 across all four ocean meshes, confirming topological consistency across the full resolution hierarchy.
 
 **Cross-format.** CONUS-MPAS-A returns coverage ~0.037, matching the fraction of Earth's surface occupied by the continental United States. PAMIP-ne30x8 returns ~1.001 (global atmosphere). All three formats --- MPAS, SCRIP, ESMF --- produce scientifically interpretable geometry with the same tool call.
 
-**Timing.** For six of the seven meshes (0.06–10.82 GB, 28K to 3.7M faces), both `inspect_mesh` and `calculate_area` cost ~20 s each --- the PBS compute-node dispatch floor. UXarray computation is sub-second at these scales; the observable cost is Globus scheduling overhead, not science. For ESMF-mesh (24.9M faces), computation dominates: 120 s for inspection and 60 s for area. The crossover from scheduling-dominated to compute-dominated cost lies between 3.7M and 24.9M faces for this PBS configuration.
+**Timing.** For six of the seven meshes (0.06–10.82 GB, 28K to 3.7M faces), both `inspect_mesh` and `calculate_area` cost ~20 s each --- the PBS compute-node dispatch floor. UXarray computation is sub-second at these scales; the observable cost is Globus scheduling overhead, not science. For ESMF-mesh (24.9M faces), computation dominates: 120 s for inspection and 60 s for area.
 
 <figure class="article-figure article-figure--wide">
   <img src="/images/blog/uxarray-mcp-convergence-panel.png" alt="Convergence panel showing MPAS-O resolution hierarchy diagnostics." />
-  <figcaption>Resolution hierarchy diagnostics from the local convergence-aware agent demo: mean face area, sphere coverage, and timing across the MPAS-O hierarchy. Coverage ~0.699–0.707 across all four ocean meshes is physically expected (the ocean fraction of Earth's surface).</figcaption>
+  <figcaption>Resolution hierarchy diagnostics from the convergence-aware agent demo: mean face area, sphere coverage, and timing across the MPAS-O hierarchy. Coverage ~0.699–0.707 is physically expected for all MPAS-O ocean meshes (the ocean fraction of Earth's surface), confirming topological consistency across the full resolution hierarchy.</figcaption>
 </figure>
 
 ### Experiment 3: Structured failure recovery
 
-**Question:** Can the agent classify realistic failure modes in ways that reduce wasted facility cycles by surfacing actionable error records before reruns?
+**Question:** Can the agent classify realistic failure modes in ways that reduce wasted facility cycles?
 
 Rather than surfacing a raw Python traceback, the server applies a rule-based classifier to each exception, producing a structured triage record with an error class, a severity tier (SKIP, PATCH, QUARANTINE, BLOCK), an optional automatic remediation, and a suggested human action.
 
-| Case | Operation | Error class | Severity | Suggested action |
-|---|---|---|---|---|
-| **STOFS-2D-glo** | `inspect_mesh` | `cf-violation` | PATCH | Rename scalar `nvel` to avoid the dimension collision, then retry. |
-| **ne512np4-latlon** | `inspect_mesh` | `unrecognized-format` | QUARANTINE | Confirm grid vs. data; locate matching grid by `ncol`. |
-| **E3SM-CAM-h1 + ne256np4** | `validate_dataset` | `topology-mismatch` | QUARANTINE | Locate the matching grid (ncol=325,190 does not match grid_n_face=3,538,946). |
+<div class="table-scroll">
+<table>
+<thead><tr>
+  <th>Case</th><th>Operation</th><th>Error class</th><th>Severity</th><th>Suggested action</th>
+</tr></thead>
+<tbody>
+<tr>
+  <td><strong>STOFS-2D-glo</strong></td>
+  <td><code>inspect_mesh</code></td>
+  <td><code>cf-violation</code></td>
+  <td>PATCH</td>
+  <td>Rename scalar <code>nvel</code> to avoid the dimension collision, then retry.</td>
+</tr>
+<tr>
+  <td><strong>ne512np4-latlon</strong></td>
+  <td><code>inspect_mesh</code></td>
+  <td><code>unrecognized-format</code></td>
+  <td>QUARANTINE</td>
+  <td>Confirm grid vs. data; locate matching grid by <code>ncol</code>.</td>
+</tr>
+<tr>
+  <td><strong>E3SM-CAM-h1 + ne256np4</strong></td>
+  <td><code>validate_dataset</code></td>
+  <td><code>topology-mismatch</code></td>
+  <td>QUARANTINE</td>
+  <td>Locate the matching grid (ncol=325,190 does not match grid_n_face=3,538,946).</td>
+</tr>
+</tbody>
+</table>
+</div>
 
-All three failures are representative of real workflows. CF-convention violations are common in operational forecast output. Topology mismatches occur whenever a scientist pairs a data file with a grid from a different resolution or campaign. Unrecognized formats surface when model output changes conventions between versions. In each case the triage record gives the scientist a precise next action, not a stack trace.
+All three failures are representative of real workflows. CF-convention violations are common in operational forecast output. Topology mismatches occur whenever a scientist pairs a data file with a grid from a different resolution or campaign. In each case the triage record gives the scientist a precise next action, not a stack trace.
 
 <figure class="article-figure article-figure--wide">
   <img src="/images/blog/uxarray-mcp-failure-recovery.png" alt="Failure recovery panel showing triage classification results." />
-  <figcaption>The failure recovery panel from the convergence-aware agent demo. Three distinct UXarray failure classes, each triaged to a one-line classification and suggested action: cf-violation (patchable), unrecognized-format (quarantine), topology-mismatch (quarantine before rerun).</figcaption>
+  <figcaption>Failure recovery results from the convergence-aware agent demo. Each bar represents one candidate mesh; colors indicate outcome (ok, failed-triaged). Items labeled <em>flagged for review</em> are human-checkpoint decisions --- points where the agentic loop paused and routed the outcome (PATCH, QUARANTINE, or continue) to a scientist before resuming. The panel shows that all three deliberate failures were caught, triaged, and resolved without re-running the full campaign.</figcaption>
 </figure>
 
 ### Experiment 4: Artifact economics
 
 **Question:** What does the scientist pay in time, and what do they receive?
 
-| Mesh | File size | Inspect (s) | Area (s) | Artifact | Data ratio |
+| Mesh | File size | Inspect (s) | Area (s) | Artifact | Compression |
 |---|---|---|---|---|---|
-| oQU120 | 0.10 GB | 20.4 | 20.5 | <1 KB JSON | ~10⁵:1 |
-| WC14to60 | 1.12 GB | 20.0 | 20.0 | <1 KB JSON + 40 KB PNG | ~10⁶:1 |
-| oRRS18to6 | 10.82 GB | 20.0 | 20.0 | <1 KB JSON | ~10⁷:1 |
+| oQU120 | 0.10 GB | 20.4 | 20.5 | &lt;1 KB JSON | ~10⁵× |
+| WC14to60 | 1.12 GB | 20.0 | 20.0 | &lt;1 KB JSON + 40 KB PNG | ~10⁶× |
+| oRRS18to6 | 10.82 GB | 20.0 | 20.0 | &lt;1 KB JSON | ~10⁷× |
 
-The 20 s overhead is real and should not be minimized. What it buys is: no data movement, no SSH, no code authorship, no manual bookkeeping, and a machine-readable provenance record. On a 10 Mbps VPN connection, downloading WC14to60 takes ~15 minutes; the MCP endpoint call returns targeted scientific content in 20 s. For oRRS18to6 at 10.82 GB, download is not a realistic option; the endpoint is the most practical path available in this deployment.
+The 20 s overhead is real. What it buys: no data movement, no SSH, no code authorship, no manual bookkeeping, and a machine-readable provenance record. On a 10 Mbps VPN connection, downloading WC14to60 takes ~15 minutes; the MCP call returns targeted scientific content in 20 s. For oRRS18to6 at 10.82 GB, download is not a realistic option --- the endpoint is the only demonstrated practical path in this deployment.
 
 ## Agentic regional mesh explorer
 
-**Setup.** A two-stage agentic pipeline: (1) Claude API converts a free-text region description into a lat/lon bounding box; (2) a self-contained Globus Compute function is submitted directly to the Improv endpoint, subsets the WC14to60 mesh, renders a wireframe PNG on the worker, and returns mesh statistics plus the image. The scientist provides no coordinates, no SSH credentials, and no analysis code.
+**Setup.** A two-stage agentic pipeline: (1) Claude API converts a free-text region description into a lat/lon bounding box; (2) a self-contained Globus Compute function subsets the WC14to60 mesh, renders a wireframe PNG on the Improv worker, and returns mesh statistics plus the image. The scientist provides no coordinates, no SSH credentials, and no analysis code.
 
 **The pipeline in one sentence.** The user types "Florida coast". Claude API returns `{"lon_bounds": [-88.0, -79.0], "lat_bounds": [24.0, 31.5]}`. The bounding box is forwarded to Improv via Globus Compute. Three thousand hexagonal mesh cells are subsetted from the 407K-face WC14to60 file. A wireframe PNG is rendered on the worker. The image arrives on the laptop in 10 s. No data left Improv GPFS.
 
 ### Results
 
-| Region (natural language) | LLM bounding box | Faces | Res. ratio | Time (s) |
-|---|---|---|---|---|
-| Continental United States | lon[−125, −66], lat[24, 49.5] | 23,331 | 4.36× | 52.6 |
-| Florida coast | lon[−88, −79], lat[24, 31.5] | 3,081 | 5.24× | 10.0 |
-| New York City coast | lon[−75, −72.5], lat[39.5, 42] | 104 | 5.18× | 10.0 |
-| San Francisco Bay coast | lon[−123.5, −121], lat[36.5, 38.7] | 104 | 5.20× | 10.0 |
+<div class="table-scroll">
+<table>
+<thead><tr>
+  <th>Region (natural language)</th><th>LLM bounding box</th><th>Faces</th><th>Res. ratio</th><th>Time (s)</th>
+</tr></thead>
+<tbody>
+<tr><td>Continental United States</td><td>lon[−125, −66], lat[24, 49.5]</td><td>23,331</td><td>4.36×</td><td>52.6</td></tr>
+<tr><td>Florida coast</td><td>lon[−88, −79], lat[24, 31.5]</td><td>3,081</td><td>5.24×</td><td>10.0</td></tr>
+<tr><td>New York City coast</td><td>lon[−75, −72.5], lat[39.5, 42]</td><td>104</td><td>5.18×</td><td>10.0</td></tr>
+<tr><td>San Francisco Bay coast</td><td>lon[−123.5, −121], lat[36.5, 38.7]</td><td>104</td><td>5.20×</td><td>10.0</td></tr>
+</tbody>
+</table>
+</div>
 
-The first call (Continental US, 52.6 s) reflects PBS cold-start overhead; the three subsequent calls on the warm worker each cost ~10 s. The resolution ratio ~5.2× across all three coastal sites (Florida, NYC, SFO) confirms that WC14to60 achieves its design goal: cells in these regions are ~5× smaller than the global mean, corresponding to ~14 km vs. the ~60 km open-ocean average. The consistent ratio across three independently queried regions --- extracted by the LLM from natural language with no scientist-provided coordinates --- is consistent with the mesh's coastal-refinement design goal.
+The first call (Continental US, 52.6 s) reflects PBS cold-start overhead; warm-worker calls cost ~10 s each. The **resolution ratio ~5.2×** across all three coastal sites confirms WC14to60 achieves its design goal: cells in these regions are ~5× smaller than the global mean, corresponding to ~14 km vs. the ~60 km open-ocean average. This ratio was extracted by the LLM from natural language with no scientist-provided coordinates, and the consistency across three independent sites is consistent with the mesh's design specification.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/regional-conus.png" alt="WC14to60 mesh subset: Continental United States." />
-  <figcaption>Continental United States subset of WC14to60: 23,331 faces, resolution ratio 4.36×. First call in the cold-start sequence; PBS dispatch took 52.6 s. Visible coastal refinement concentrated along the East Coast and Gulf of Mexico.</figcaption>
+  <img src="/images/blog/regional-florida.png" alt="WC14to60 mesh subset: Florida coast." />
+  <figcaption>Florida coast subset of WC14to60 (1.12 GB facility file on Improv GPFS). 3,081 faces selected from 407K total; resolution ratio 5.24× confirms the mesh's 14 km coastal refinement. The LLM extracted this bounding box from the phrase "Florida coast" with no scientist-provided coordinates. Rendered on the Improv worker and returned to the laptop in 10 s. No data left the facility.</figcaption>
 </figure>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
-  <figure class="article-figure" style="margin: 0;">
-    <img src="/images/blog/regional-florida.png" alt="WC14to60 mesh subset: Florida coast." style="width: 100%;" />
-    <figcaption><strong>Florida coast.</strong> 3,081 faces · res. ratio 5.24× · 10.0 s. Bounding box extracted by Claude API from "Florida coast".</figcaption>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin:1.5rem 0;">
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/regional-conus.png" alt="Continental US subset of WC14to60." style="width:100%;" />
+    <figcaption><strong>Continental US.</strong> 23,331 faces · res. ratio 4.36× · 52.6 s (cold start). Coastal refinement visible along East Coast and Gulf of Mexico.</figcaption>
   </figure>
-  <figure class="article-figure" style="margin: 0;">
-    <img src="/images/blog/regional-nyc.png" alt="WC14to60 mesh subset: New York City coast." style="width: 100%;" />
-    <figcaption><strong>New York City coast.</strong> 104 faces · res. ratio 5.18× · 10.0 s. LLM-derived bbox; warm worker call.</figcaption>
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/regional-nyc.png" alt="New York City coast subset." style="width:100%;" />
+    <figcaption><strong>New York City coast.</strong> 104 faces · res. ratio 5.18× · 10.0 s (warm worker).</figcaption>
   </figure>
-  <figure class="article-figure" style="margin: 0;">
-    <img src="/images/blog/regional-sfbay.png" alt="WC14to60 mesh subset: San Francisco Bay coast." style="width: 100%;" />
-    <figcaption><strong>San Francisco Bay coast.</strong> 104 faces · res. ratio 5.20× · 10.0 s. Sub-second UXarray computation; cost is dispatch floor.</figcaption>
-  </figure>
-  <figure class="article-figure" style="margin: 0;">
-    <img src="/images/blog/uxarray-mcp-convergence-panel.png" alt="MPAS-O convergence diagnostics panel." style="width: 100%;" />
-    <figcaption><strong>MPAS-O hierarchy convergence.</strong> Consistent coverage and area scaling across four orders of magnitude in face count.</figcaption>
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/regional-sfbay.png" alt="San Francisco Bay coast subset." style="width:100%;" />
+    <figcaption><strong>San Francisco Bay coast.</strong> 104 faces · res. ratio 5.20× · 10.0 s (warm worker).</figcaption>
   </figure>
 </div>
 
-The pipeline combines three capabilities that each exist independently (LLM API, typed tool calls, Globus Compute) but have not previously been composed in this way for unstructured mesh analysis. A scientist at a laptop can describe a geographic region in plain English and receive a topologically correct mesh visualization from a multi-gigabyte file on a leadership-class cluster --- without an SSH session, without code, in the time it takes to make coffee.
-
-A 12-region survey would cost approximately 52 + 11 × 10 = 162 s if the warm-worker pattern holds, dominated by the single cold start.
+The pipeline combines three capabilities that each exist independently (LLM API, typed tool calls, Globus Compute) but have not previously been composed in this way for unstructured mesh analysis. A 12-region survey would cost approximately 52 + 11 × 10 = 162 s if the warm-worker pattern holds, dominated by a single cold start.
 
 ## Provenance as scientific infrastructure
 
-Every call to `remote_subset_bbox_plot` returns a structured record containing all information required to reproduce or modify the result:
+Every call returns a structured record containing all information required to reproduce or modify the result:
 
 ```json
 {
@@ -222,18 +255,8 @@ Every call to `remote_subset_bbox_plot` returns a structured record containing a
   "timestamp": "2026-05-04T19:29:58Z",
   "grid_path": "/gpfs/.../WC14to60E2r5.230313.nc",
   "region_name_input": "Florida coast",
-  "bbox_from_llm": {
-    "lon_bounds": [-88.0, -79.0],
-    "lat_bounds": [24.0, 31.5]
-  },
-  "plot_params": {
-    "edgecolor": "steelblue",
-    "facecolor": "lightcyan",
-    "linewidth": 0.3,
-    "width_px": 900,
-    "height_px": 500,
-    "dpi": 100
-  },
+  "bbox_from_llm": { "lon_bounds": [-88.0, -79.0], "lat_bounds": [24.0, 31.5] },
+  "plot_params": { "edgecolor": "steelblue", "facecolor": "lightcyan", "linewidth": 0.3 },
   "n_face_total": 407420,
   "n_face_subset": 3081,
   "fraction_of_mesh": 0.0076,
@@ -244,33 +267,29 @@ Every call to `remote_subset_bbox_plot` returns a structured record containing a
 }
 ```
 
-This record is a complete specification of the computation: every field corresponds to a parameter of the analysis, and every field can be changed to produce a modified result. Six months after the initial analysis, the scientist loads the JSON record and resubmits with the same parameters. The scientist wants to change the colormap for a publication? Change `"edgecolor": "steelblue"` to `"edgecolor": "darkred"` and resubmit --- the analysis does not re-run, only the rendering changes.
+This record is a complete specification of the computation: every field corresponds to a parameter, and every field can be changed to produce a modified result. Six months later, the scientist loads the JSON and resubmits with the same parameters. To change the colormap for a publication: edit `"edgecolor"` and resubmit --- the analysis does not re-run, only the rendering changes.
 
-Without the MCP layer, a scientist analyzing the same data would: (1) SSH into Improv; (2) find or reconstruct the Python analysis script; (3) remember or re-derive the bounding box coordinates; (4) hardcode plot parameters in the script; (5) submit the job; (6) download the output. The plot parameters live in the script, not in any durable record. Six months later, the scientist cannot determine what parameters produced a specific figure without git-blaming every commit that touched the script. MCP turns this implicit knowledge into a first-class result field.
+Without MCP, the same analysis requires: SSH into Improv, find or reconstruct the Python analysis script, remember or re-derive the bounding box, hardcode plot parameters in the script, submit the job, download the output. Plot parameters live in the script, not in any durable record. MCP turns implicit knowledge into a first-class result field.
 
 ## The three-tier model
 
-The experiments in this paper instantiate a specific three-tier composition that we think is a general pattern for tiered automation of scientific workflows.
+The experiments instantiate a three-tier composition that generalizes to scientific workflows broadly.
 
-**Tier 1 --- Natural Language (LLM).** The agent converts unstructured human intent into structured tool calls. Its strength is understanding; its weakness is hallucination and lack of execution authority. In our system, Claude API extracts bounding boxes from prose --- a task where hallucination is immediately detectable and where no computation occurs.
+**Tier 1 --- Natural Language (LLM).** The agent converts unstructured human intent into structured tool calls. In our system, Claude API extracts bounding boxes from prose --- a task where hallucination is immediately detectable (wrong box → wrong face count or no faces) and where no computation occurs.
 
-**Tier 2 --- Typed Tool Surface (MCP Server).** The MCP server is the trust boundary. It validates every tool call against a Pydantic schema, rejects ill-formed inputs before they reach any compute resource, attaches provenance, and presents a stable interface that does not change when the backend changes. This tier substantially reduces the hallucinated-API failure mode: the agent cannot call a function absent from the catalog, and schema-invalid arguments are rejected before any computation occurs.
+**Tier 2 --- Typed Tool Surface (MCP Server).** The MCP server is the trust boundary. It validates every tool call against a Pydantic schema, rejects ill-formed inputs before they reach any compute resource, and attaches provenance. This tier substantially reduces the hallucinated-API failure mode: the agent cannot call a function absent from the catalog, and schema-invalid arguments are rejected before computation.
 
-**Tier 3 --- Execution Backend (HPC / Globus Compute).** The backend runs the actual computation on data-local hardware --- a PBS-backed Globus Compute endpoint on Improv with direct access to GPFS. The backend has no knowledge of MCP, no LLM dependency, and no network access to the client: it receives a serialized Python callable, executes it, and returns a result. Raw mesh files never leave facility storage.
+**Tier 3 --- Execution Backend (HPC / Globus Compute).** The backend runs actual computation on data-local hardware --- a PBS-backed Globus Compute endpoint on Improv with direct GPFS access. Raw mesh files never leave facility storage. The ~20 s scheduling overhead is Tier 3's dispatch floor, not MCP or LLM latency (which together add less than 2 s).
 
-This decomposition has a clean information-theoretic reading: each tier compresses its input. Tier 1 compresses natural language to a structured call; Tier 2 validates and routes; Tier 3 compresses a multi-gigabyte file to a kilobyte artifact. The ~20 s overhead is the cost of Tier 3's scheduling barrier --- not of the MCP or LLM tiers, which together add less than 2 s.
-
-Zhou et al. benchmark six contemporary LLMs on E3SM land-surface hydrology diagnostics and find that unconstrained code generation succeeds in only ~5% of attempts, and that self-debugging *increases* the silent-failure rate from ~16% to ~40%. Their module-grounded ESFlow framework --- which restricts the LLM to composing validated tools executed by a deterministic engine --- achieves >80% success. This is independent corroboration of the typed-tool principle: constraining the LLM to compose from a vetted catalog, whether via YAML or MCP schema, markedly improves reliability over free-form code generation.
+Zhou et al. benchmark six LLMs on E3SM hydrology diagnostics and find that unconstrained code generation succeeds in only ~5% of attempts, and self-debugging *increases* the silent-failure rate from ~16% to ~40%. Their module-grounded ESFlow framework achieves >80% success by restricting the LLM to composing validated, schema-described tools. This is independent corroboration: constraining the LLM to compose from a vetted catalog, whether via YAML or MCP schema, markedly improves reliability over free-form code generation.
 
 ## What this demonstrates
 
-The UXarray MCP server is best understood as an early scientific runtime for AI clients, not as a thin wrapper around a numerical library.
-
-In the PBS-backed campaign on Argonne Improv, the server discovers and classifies all files on facility GPFS without SSH, completes topology diagnostics for every mesh, triages three realistic failure modes into actionable records, and returns compact artifacts from files up to 10.82 GB --- all in ~20 s per call, dominated by Globus scheduling overhead rather than UXarray computation across four orders of magnitude in mesh size.
+In the PBS-backed campaign on Argonne Improv, the server discovers and classifies all files on facility GPFS without SSH, completes topology diagnostics for every mesh, triages three realistic failure modes into actionable records, and returns compact artifacts from files up to 10.82 GB --- all in ~20 s per call, dominated by Globus scheduling overhead, not UXarray computation, across four orders of magnitude in mesh size.
 
 In the agentic extension, Claude API converts natural-language region descriptions into lat/lon bounding boxes, and the same MCP server returns precise coastal mesh visualizations from a 1.1 GB facility file in ~10 s per region with no code authorship and no data movement.
 
-The result is a practical template for adding agent control surfaces to unstructured-mesh or simulation-output libraries without re-architecting the underlying scientific code. The hard part is not adding a hundred loosely connected functions. The hard part is making discovery, applicability, state, provenance, and remote execution line up in a way that scientists can actually trust. That is what this server is starting to do.
+The result is a practical template for adding agent control surfaces to unstructured-mesh or simulation-output libraries without re-architecting the underlying scientific code.
 
 **Reproducibility.** The MCP server source, tool definitions, and Globus Compute functions are available at [github.com/UXARRAY/uxarray-mcp-server](https://github.com/UXARRAY/uxarray-mcp-server). Campaign scripts and raw outputs (PNGs, provenance JSON) are in the `outputs/` directory of the repository.
 

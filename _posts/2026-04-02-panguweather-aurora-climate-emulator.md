@@ -17,8 +17,8 @@ toc: true
 toc_sticky: true
 ---
 
-<div class="article-hero">
-  <p class="eyebrow">Research note · April 2, 2026</p>
+<div class="article-banner article-banner--warm">
+  <p class="eyebrow">Research note &middot; April 2, 2026</p>
   <h1 class="article-title">Porting a Climate Emulator to Aurora</h1>
   <p class="article-dek">A technical note on the current DDP-based Aurora path for a PlaSim and SFNO climate emulator, with attention to memory pressure, floating-point policy, launcher portability, and the next systems steps beyond one-node training.</p>
 </div>
