@@ -204,7 +204,7 @@ body {
 }
 
 .cv-bio {
-  margin: 0 0 14px;
+  margin: 0 0 12px !important;
   color: var(--ink-2);
   font-size: 0.9rem;
   line-height: 1.7;
@@ -212,18 +212,31 @@ body {
 }
 
 .cv-links {
-  margin: 0;
-  font-size: 0.82rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 !important;
 }
 
 .cv-links a {
-  color: var(--ink-3) !important;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid rgba(29, 78, 216, 0.2);
+  border-radius: 4px;
+  background: rgba(29, 78, 216, 0.04);
+  color: var(--link) !important;
+  font-size: 0.78rem;
+  font-weight: 500;
   text-decoration: none !important;
   border-bottom: none !important;
+  transition: background 120ms ease, border-color 120ms ease;
 }
 
 .cv-links a:hover {
-  color: var(--link) !important;
+  background: rgba(29, 78, 216, 0.1);
+  border-color: rgba(29, 78, 216, 0.3);
+  color: var(--link-h) !important;
   text-decoration: none !important;
 }
 

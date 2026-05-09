@@ -15,9 +15,9 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
     <p class="cv-tagline">Principal Software Engineer &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
     <p class="cv-bio">I design and engineer production software systems at the intersection of scientific computing, ML infrastructure, and high-performance computing at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>. My focus is the gap between prototype and production: parallel training on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at scale, Python platforms that teams can actually maintain.</p>
     <p class="cv-links">
-      <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &nbsp;&middot;&nbsp;
-      <a href="https://github.com/rajeeja">GitHub</a> &nbsp;&middot;&nbsp;
-      <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> &nbsp;&middot;&nbsp;
+      <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
+      <a href="https://github.com/rajeeja">GitHub</a>
+      <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
       <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
     </p>
   </div>
