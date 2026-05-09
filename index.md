@@ -13,7 +13,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
     <p class="cv-tagline">Principal Software Engineer &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">I design and engineer production software systems at the intersection of scientific computing, ML infrastructure, and high-performance computing at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>. My focus is the gap between prototype and production: parallel training on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at scale, Python platforms that teams can actually maintain.</p>
+    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms that research teams can actually maintain across institutions and years. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
@@ -147,11 +147,8 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 </section>
 
 <footer class="cv-footer" id="contact">
-  <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot;
-  <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> &middot;
-  <a href="https://github.com/rajeeja">GitHub</a> &middot;
-  <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot;
-  <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
+  <p class="cv-connect">Happy to connect &mdash; <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot; <a href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a></p>
+  <p class="cv-links-secondary"><a href="https://github.com/rajeeja">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot; <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a></p>
   <p class="cv-footnote">U.S. permanent resident &middot; EB-1A (extraordinary ability)</p>
 </footer>
 

@@ -409,6 +409,19 @@ body {
   color: var(--link);
 }
 
+.cv-connect {
+  margin: 0 0 6px;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.cv-links-secondary {
+  margin: 0 0 4px;
+  color: var(--ink-4);
+  font-size: 0.82rem;
+}
+
 .cv-footnote {
   margin: 10px 0 0;
   color: var(--ink-4);
