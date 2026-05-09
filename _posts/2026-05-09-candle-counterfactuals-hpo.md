@@ -23,6 +23,29 @@ toc_sticky: true
   <p class="article-dek">How CANDLE/Supervisor orchestrated tens of thousands of HPO experiments across Summit, Theta, and Cori — and what noise injection and counterfactual analysis revealed about cancer model trust.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--blue">machine learning</span>
+  <span class="post-tag post-tag--violet">hyperparameter optimization</span>
+  <span class="post-tag post-tag--red">cancer research</span>
+  <span class="post-tag post-tag--amber">HPC</span>
+  <span class="post-tag post-tag--teal">Swift/T</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">10,000+</span>
+    <span class="stat-card__label">training experiments across Summit, Theta, and Cori</span>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <span class="stat-card__value">3</span>
+    <span class="stat-card__label">HPO algorithms: mlrMBO, DEAP, Hyperopt/TPE</span>
+  </div>
+  <div class="stat-card stat-card--violet">
+    <span class="stat-card__value">PLOD2</span>
+    <span class="stat-card__label">top gene identified by counterfactual analysis</span>
+  </div>
+</div>
+
 The CANDLE project (Cancer Distributed Learning Environment) was a DOE Exascale Computing Project effort to apply large-scale ML infrastructure to cancer drug response prediction. I was a core contributor from 2017 through 2023, working on the CANDLE/Supervisor workflow infrastructure and later on the cross-study analysis methodology that became the IMPROVE benchmark program.
 
 This post covers two interconnected ideas: how we ran hyperparameter optimization at supercomputer scale using Supervisor, and what we learned when we probed cancer models with noise injection and counterfactual analysis to understand where they break down.
@@ -49,6 +72,11 @@ Hyperparameters cannot be learned by gradient descent because they control the t
 - **Evolutionary/genetic algorithms**: maintain a population of configurations, evaluate them, and evolve better ones through mutation and crossover — mimicking natural selection on the hyperparameter space.
 
 The right choice depends on the evaluation budget (how many configurations you can afford to train), the dimension of the search space, and whether the objective function is noisy.
+
+<figure class="article-figure article-figure--wide">
+  <img src="/images/blog/candle-hpo-pipeline.svg" alt="CANDLE/Supervisor HPO pipeline: algorithm → Swift/T runtime → analysis" />
+  <figcaption>The CANDLE/Supervisor HPO loop. The algorithm proposes configurations; Swift/T launches them in parallel across thousands of GPUs; metrics flow back to update the surrogate model for the next batch.</figcaption>
+</figure>
 
 ## CANDLE/Supervisor: HPO as a workflow problem
 

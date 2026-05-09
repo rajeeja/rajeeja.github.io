@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" font-family="IBM Plex Sans, system-ui, sans-serif">
+  <!-- Background -->
+  <rect width="760" height="220" fill="#f9fafb" rx="6"/>
+
+  <!-- Layer 1: WRF/HRRR -->
+  <rect x="24" y="40" width="188" height="140" rx="6" fill="#1b2d47" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="118" y="68" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="600" letter-spacing="0.08em" font-family="IBM Plex Mono, monospace">LAYER 1</text>
+  <text x="118" y="90" text-anchor="middle" fill="#f0f9ff" font-size="14" font-weight="700">WRF / HRRR</text>
+  <text x="118" y="108" text-anchor="middle" fill="#8ab2cc" font-size="10">Mesoscale weather</text>
+  <text x="118" y="126" text-anchor="middle" fill="#8ab2cc" font-size="10">3 km resolution</text>
+  <text x="118" y="144" text-anchor="middle" fill="#8ab2cc" font-size="10">Wind · Temp · Humidity</text>
+  <text x="118" y="162" text-anchor="middle" fill="#8ab2cc" font-size="10">profiles over Chicago</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="212" y1="110" x2="268" y2="110" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="240" y="102" text-anchor="middle" fill="#6b7280" font-size="9">boundary</text>
+  <text x="240" y="113" text-anchor="middle" fill="#6b7280" font-size="9">conditions</text>
+
+  <!-- Layer 2: EnergyPlus -->
+  <rect x="268" y="40" width="188" height="140" rx="6" fill="#1a1238" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="362" y="68" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="600" letter-spacing="0.08em" font-family="IBM Plex Mono, monospace">LAYER 2</text>
+  <text x="362" y="90" text-anchor="middle" fill="#faf5ff" font-size="14" font-weight="700">EnergyPlus</text>
+  <text x="362" y="108" text-anchor="middle" fill="#a09aba" font-size="10">Building energy sim</text>
+  <text x="362" y="126" text-anchor="middle" fill="#a09aba" font-size="10">Heat flux · HVAC</text>
+  <text x="362" y="144" text-anchor="middle" fill="#a09aba" font-size="10">Dynamic weather BCs</text>
+  <text x="362" y="162" text-anchor="middle" fill="#a09aba" font-size="10">replacing airport data</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="456" y1="110" x2="512" y2="110" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="484" y="102" text-anchor="middle" fill="#6b7280" font-size="9">inlet BCs</text>
+  <text x="484" y="113" text-anchor="middle" fill="#6b7280" font-size="9">+ geometry</text>
+
+  <!-- Layer 3: Nek5000 -->
+  <rect x="512" y="40" width="220" height="140" rx="6" fill="#0d1420" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="622" y="68" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="600" letter-spacing="0.08em" font-family="IBM Plex Mono, monospace">LAYER 3</text>
+  <text x="622" y="90" text-anchor="middle" fill="#faf5ff" font-size="14" font-weight="700">Nek5000 LES</text>
+  <text x="622" y="108" text-anchor="middle" fill="#c4b5fd" font-size="10">Street-level CFD</text>
+  <text x="622" y="126" text-anchor="middle" fill="#c4b5fd" font-size="10">Wall-resolved turbulence</text>
+  <text x="622" y="144" text-anchor="middle" fill="#c4b5fd" font-size="10">Lake Point Tower geometry</text>
+  <text x="622" y="162" text-anchor="middle" fill="#c4b5fd" font-size="10">Block-scale wind · heat</text>
+
+  <!-- Bottom label: AoT -->
+  <text x="380" y="205" text-anchor="middle" fill="#6b7280" font-size="10">Validation: Array of Things IoT sensor network across Chicago neighborhoods</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

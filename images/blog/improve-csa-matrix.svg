@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" font-family="IBM Plex Sans, system-ui, sans-serif">
+  <rect width="760" height="280" fill="#f9fafb" rx="6"/>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" fill="#111827" font-size="13" font-weight="700">Cross-Study Analysis (CSA) — Train on one dataset, evaluate on another</text>
+
+  <!-- Column headers (test datasets) -->
+  <text x="280" y="60" text-anchor="middle" fill="#6b7280" font-size="10" font-weight="600">TEST: GDSC2</text>
+  <text x="400" y="60" text-anchor="middle" fill="#6b7280" font-size="10" font-weight="600">TEST: CCLE</text>
+  <text x="520" y="60" text-anchor="middle" fill="#6b7280" font-size="10" font-weight="600">TEST: CTRPv2</text>
+  <text x="640" y="60" text-anchor="middle" fill="#6b7280" font-size="10" font-weight="600">TEST: gCSI</text>
+
+  <!-- Row headers (train datasets) -->
+  <text x="148" y="100" text-anchor="end" fill="#6b7280" font-size="10" font-weight="600">TRAIN: GDSC2</text>
+  <text x="148" y="140" text-anchor="end" fill="#6b7280" font-size="10" font-weight="600">TRAIN: CCLE</text>
+  <text x="148" y="180" text-anchor="end" fill="#6b7280" font-size="10" font-weight="600">TRAIN: CTRPv2</text>
+  <text x="148" y="220" text-anchor="end" fill="#6b7280" font-size="10" font-weight="600">TRAIN: gCSI</text>
+
+  <!-- Diagonal cells (within-dataset) — strong blue -->
+  <rect x="240" y="76" width="80" height="36" rx="4" fill="#1d4ed8" opacity="0.85"/>
+  <text x="280" y="99" text-anchor="middle" fill="white" font-size="11" font-weight="600">within</text>
+
+  <rect x="360" y="116" width="80" height="36" rx="4" fill="#1d4ed8" opacity="0.85"/>
+  <text x="400" y="139" text-anchor="middle" fill="white" font-size="11" font-weight="600">within</text>
+
+  <rect x="480" y="156" width="80" height="36" rx="4" fill="#1d4ed8" opacity="0.85"/>
+  <text x="520" y="179" text-anchor="middle" fill="white" font-size="11" font-weight="600">within</text>
+
+  <rect x="600" y="196" width="80" height="36" rx="4" fill="#1d4ed8" opacity="0.85"/>
+  <text x="640" y="219" text-anchor="middle" fill="white" font-size="11" font-weight="600">within</text>
+
+  <!-- Off-diagonal (cross-study) — muted -->
+  <!-- Row 1 off-diag -->
+  <rect x="360" y="76" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="400" y="99" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="480" y="76" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="520" y="99" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="600" y="76" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="640" y="99" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+
+  <!-- Row 2 off-diag -->
+  <rect x="240" y="116" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="280" y="139" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="480" y="116" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="520" y="139" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="600" y="116" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="640" y="139" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+
+  <!-- Row 3 off-diag -->
+  <rect x="240" y="156" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="280" y="179" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="360" y="156" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="400" y="179" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="600" y="156" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="640" y="179" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+
+  <!-- Row 4 off-diag -->
+  <rect x="240" y="196" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="280" y="219" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="360" y="196" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="400" y="219" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+  <rect x="480" y="196" width="80" height="36" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="520" y="219" text-anchor="middle" fill="#1d4ed8" font-size="10">cross</text>
+
+  <!-- Legend -->
+  <rect x="160" y="248" width="18" height="12" rx="2" fill="#1d4ed8" opacity="0.85"/>
+  <text x="184" y="259" fill="#374151" font-size="10">Within-dataset (easier — shared noise/protocol)</text>
+  <rect x="430" y="248" width="18" height="12" rx="2" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="454" y="259" fill="#374151" font-size="10">Cross-study (harder — tests generalisation)</text>
+</svg>

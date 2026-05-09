@@ -23,6 +23,29 @@ toc_sticky: true
   <p class="article-dek">A technical note on the current DDP-based Aurora path for a PlaSim and SFNO climate emulator, with attention to memory pressure, floating-point policy, launcher portability, and the next systems steps beyond one-node training.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--blue">deep learning</span>
+  <span class="post-tag post-tag--teal">climate</span>
+  <span class="post-tag post-tag--amber">HPC</span>
+  <span class="post-tag post-tag--violet">Intel XPU</span>
+  <span class="post-tag">Aurora</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">60,000+</span>
+    <span class="stat-card__label">Intel GPUs on the Argonne Aurora exascale system</span>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <span class="stat-card__value">SFNO</span>
+    <span class="stat-card__label">Spherical Fourier Neural Operator — the model architecture</span>
+  </div>
+  <div class="stat-card stat-card--violet">
+    <span class="stat-card__value">DDP</span>
+    <span class="stat-card__label">Distributed Data Parallel — first stable training baseline on Aurora</span>
+  </div>
+</div>
+
 Climate emulators are easy to oversimplify. We usually describe them as neural surrogates for expensive physical models, trained once and then used for faster forecasts or long-rollout experiments. That description is true, but it hides the actual engineering burden. A useful emulator for climate science has to survive real data movement, real restart behavior, real distributed launchers, and real memory limits on the machines where the work will actually run.
 
 That was the interesting part of the Aurora work for this codebase. The question was not only whether SFNO (Spherical Fourier Neural Operator) could run on Intel GPUs. The deeper question was: what parallel training path does the code really implement today, how portable is that path across CUDA (Nvidia GPU compute platform) and XPU (Intel GPU accelerator), and what should change next if we want to scale without breaking the scientific workflow?

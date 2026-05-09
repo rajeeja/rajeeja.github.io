@@ -23,6 +23,29 @@ toc_sticky: true
   <p class="article-dek">How my RGG and MeshKit work on parallel reactor core meshing shaped my view of open, reusable meshing workflows for nuclear simulation.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--blue">mesh generation</span>
+  <span class="post-tag post-tag--amber">nuclear engineering</span>
+  <span class="post-tag post-tag--violet">HPC</span>
+  <span class="post-tag post-tag--green">open source</span>
+  <span class="post-tag">C++</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">712</span>
+    <span class="stat-card__label">processors for the parallel MONJU reactor core mesh</span>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <span class="stat-card__value">101M</span>
+    <span class="stat-card__label">hexahedral elements in the full-core mesh</span>
+  </div>
+  <div class="stat-card stat-card--green">
+    <span class="stat-card__value">&lt;7 min</span>
+    <span class="stat-card__label">wall time — a job the serial path couldn't run at all</span>
+  </div>
+</div>
+
 The 2023 paper ["MOOSE Reactor Module: An Open-Source Capability for Meshing Nuclear Reactor Geometries"](https://www.osti.gov/pages/biblio/2323542) caught my attention because it represents a direction I have cared about for a long time: making reactor geometry and mesh generation accessible, repeatable, and close to the physics workflow. The closer reference for the work described here is the RGG and MeshKit line from DOE NEAMS, especially ["RGG: Reactor Geometry (and Mesh) Generator"](https://www.mcs.anl.gov/papers/P2005-0612.pdf) and ["Generating Unstructured Nuclear Reactor Core Meshes in Parallel"](https://doi.org/10.1016/j.proeng.2014.10.396).
 
 The paper describes an open-source MOOSE Reactor module for common reactor geometries: hexagonal pins, assemblies, and cores; Cartesian geometry support; control drums; core periphery triangulation; automatic tagging of physics regions; and Exodus II export for finite element workflows. The emphasis is not only on meshing as a geometry exercise. It is on lowering the barrier for reactor analysts and removing fragile handoffs between geometry construction, mesh generation, and multiphysics simulation.

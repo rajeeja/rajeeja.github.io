@@ -23,6 +23,29 @@ toc_sticky: true
   <p class="article-dek">After CANDLE: building the IMPROVE benchmark framework, improvelib, the UNO model, and the CI/CD infrastructure that made cross-study drug response evaluation reproducible across 15+ researchers at Argonne, LLNL, and ORNL.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--blue">benchmarking</span>
+  <span class="post-tag post-tag--red">cancer research</span>
+  <span class="post-tag post-tag--green">open source</span>
+  <span class="post-tag post-tag--violet">neural networks</span>
+  <span class="post-tag post-tag--amber">CI/CD</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">4</span>
+    <span class="stat-card__label">public drug response datasets in cross-study analysis</span>
+  </div>
+  <div class="stat-card stat-card--green">
+    <span class="stat-card__value">15+</span>
+    <span class="stat-card__label">researchers across Argonne, LLNL, and ORNL</span>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <span class="stat-card__value">3</span>
+    <span class="stat-card__label">GitHub Actions CI/CD workflows (unit, end-to-end, CSA)</span>
+  </div>
+</div>
+
 The CANDLE project demonstrated that large-scale hyperparameter optimization on supercomputers could systematically improve cancer drug response models. But it exposed a deeper problem: different research groups, using different model architectures and different training splits of overlapping datasets, were reporting results that could not be directly compared. Was model A better than model B, or was it just trained on more favorable data splits?
 
 IMPROVE — the [Innovative Methods and Metrics for Prediction and Evaluation of Cancer Drug Response](https://github.com/JDACS4C-IMPROVE/IMPROVE) effort within the JDACS4C (Joint Design of Advanced Computing Solutions for Cancer) collaboration — was built to solve that. I led the software engineering side: the `improvelib` Python package, the CI/CD infrastructure, the GitHub Actions workflows, and the [UNO model](https://github.com/JDACS4C-IMPROVE/UNO).
@@ -36,6 +59,11 @@ A drug response dataset contains rows of the form: (cell line, drug, response). 
 A *drug* is characterized by its molecular structure — often encoded as a SMILES string (a text representation of the chemical graph) and converted to numerical fingerprints or graph features. The *response* is measured experimentally: expose the cell line to a range of drug concentrations and fit a dose-response curve. IC50 is the concentration that kills 50% of cells. AUC (area under the dose-response curve) captures the shape of the entire curve and is often more stable than IC50.
 
 The major public datasets — GDSC (Genomics of Drug Sensitivity in Cancer), CCLE (Cancer Cell Line Encyclopedia), CTRPv2 (Cancer Therapeutics Response Portal), NCI60, gCSI — all contain this structure. They share some drugs and some cell lines, but they were collected by different labs using different assay protocols, different growth conditions, and different drug concentrations. The same cell line measured in GDSC and CCLE will not have identical response values, because the experimental conditions differ.
+
+<figure class="article-figure article-figure--wide">
+  <img src="/images/blog/improve-csa-matrix.svg" alt="Cross-Study Analysis matrix: train on one dataset, test on another" />
+  <figcaption>The CSA evaluation matrix. Diagonal cells are within-dataset evaluations; off-diagonal cells are the cross-study tests that reveal whether a model generalizes across labs and protocols.</figcaption>
+</figure>
 
 ## The benchmark comparison problem
 

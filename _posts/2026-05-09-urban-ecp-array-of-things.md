@@ -23,6 +23,29 @@ toc_sticky: true
   <p class="article-dek">How a seed-funded urban exascale project connected Chicago's IoT sensor network, mesoscale weather models, building energy simulation, and high-fidelity CFD into one coherent research program.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--amber">urban computing</span>
+  <span class="post-tag post-tag--blue">CFD</span>
+  <span class="post-tag post-tag--green">IoT / sensors</span>
+  <span class="post-tag post-tag--violet">HPC</span>
+  <span class="post-tag post-tag--teal">climate</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">3</span>
+    <span class="stat-card__label">coupled simulation scales: WRF → EnergyPlus → Nek5000</span>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <span class="stat-card__value">2–5°C</span>
+    <span class="stat-card__label">urban heat island effect in dense city cores</span>
+  </div>
+  <div class="stat-card stat-card--green">
+    <span class="stat-card__value">100s</span>
+    <span class="stat-card__label">Array of Things sensor nodes across Chicago</span>
+  </div>
+</div>
+
 From 2016 to 2019 I led a seed-funded urban computing effort at Argonne in collaboration with Charlie Catlett, who at the time was directing the Array of Things project and Argonne's urban science program. The goal was to bring exascale-level computation to city-scale environmental science: couple real sensor observations with mesoscale weather models and high-fidelity computational fluid dynamics to understand how urban geometry, buildings, and local climate interact at the street level.
 
 The work produced a peer-reviewed journal paper, several AGU and International Conference on Urban Climate presentations, and a multi-code computational workflow connecting tools that operate at very different spatial and temporal scales.
@@ -42,6 +65,11 @@ The Array of Things (AoT) project, led by Charlie Catlett at Argonne and the Uni
 Each node, mounted on streetlight poles throughout the city, continuously measured temperature, humidity, pressure, air quality (ozone, particulates, SO₂, NO₂), light intensity, pedestrian and vehicle counts, and sound levels. With hundreds of nodes active across Chicago, the network turned the city itself into a distributed environmental measurement instrument — capturing spatial variability in temperature and air quality that a sparse station network simply cannot see.
 
 For modeling purposes, this matters in two ways. First, AoT data provides validation ground truth: if your simulation predicts a temperature gradient between the Loop and Lincoln Park, you can check it against actual sensor readings. Second, spatially dense observations support data-driven analysis directly — mapping heat vulnerability, identifying neighborhoods where mitigation interventions would have the largest effect, and detecting anomalies that models might miss.
+
+<figure class="article-figure article-figure--wide">
+  <img src="/images/blog/urban-ecp-workflow.svg" alt="Three-layer urban simulation workflow: WRF/HRRR → EnergyPlus → Nek5000 LES" />
+  <figcaption>The three nested simulation scales. Each layer provides boundary conditions for the one below it — and AoT sensor data provides ground-truth validation at street level.</figcaption>
+</figure>
 
 ## Three modeling layers: from regional weather to building walls
 

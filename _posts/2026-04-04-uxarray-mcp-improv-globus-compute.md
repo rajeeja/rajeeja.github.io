@@ -23,6 +23,30 @@ toc_sticky: true
   <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer. Full results in our SciFM 2026 paper.</p>
 </div>
 
+<div class="post-tags">
+  <span class="post-tag post-tag--blue">HPC</span>
+  <span class="post-tag post-tag--teal">climate</span>
+  <span class="post-tag post-tag--violet">AI agents</span>
+  <span class="post-tag post-tag--green">UXarray</span>
+  <span class="post-tag post-tag--amber">Globus Compute</span>
+  <span class="post-tag">MCP</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card">
+    <span class="stat-card__value">20+</span>
+    <span class="stat-card__label">typed MCP tools covering the full mesh analysis workflow</span>
+  </div>
+  <div class="stat-card stat-card--green">
+    <span class="stat-card__value">0</span>
+    <span class="stat-card__label">bytes of raw mesh data transferred over the network</span>
+  </div>
+  <div class="stat-card stat-card--violet">
+    <span class="stat-card__value">Improv</span>
+    <span class="stat-card__label">Argonne HPC cluster used for PBS-backed validation campaign</span>
+  </div>
+</div>
+
 Getting a topology summary from a production Earth-system mesh today requires an SSH session, a conda environment, hand-written analysis scripts, a batch job, and a download step. When a colleague asks "what is the resolution near Florida?" the answer is a project, not a question.
 
 We have been building toward a better answer: an MCP server for [UXarray](https://uxarray.readthedocs.io/) that exposes mesh inspection, area diagnostics, subsetting, and plotting as typed, provenance-producing tools. A Globus Compute backend routes computation to leadership-class hardware so multi-gigabyte files never leave facility storage.
@@ -53,6 +77,21 @@ Every tool call produces a structured provenance record containing the inputs, p
 
 The HPC path is handled by Globus Compute. The MCP tool interface does not change when the backend moves from a laptop to an HPC cluster. Raw mesh files never transit the network — only compact JSON summaries or PNG images cross back to the client.
 
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin:1.5rem 0;">
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/uxarray-mcp-global.png" alt="Global companion mesh" style="width:100%;" />
+    <figcaption><strong>Global companion mesh.</strong> MPAS atmosphere grid — one of the production datasets in the campaign.</figcaption>
+  </figure>
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/uxarray-mcp-seats-preview.png" alt="EESMPI SEATS dataset preview" style="width:100%;" />
+    <figcaption><strong>EESMPI / SEATS dataset.</strong> NSF Raijin and DOE SEATS unstructured grids used in end-to-end agent workflow tests.</figcaption>
+  </figure>
+  <figure class="article-figure" style="margin:0;">
+    <img src="/images/blog/uxarray-mcp-florida-hero.png" alt="Florida Gulf coastal refinement mesh" style="width:100%;" />
+    <figcaption><strong>Florida Gulf coast mesh.</strong> High-resolution coastal refinement region — the anchor example for the regional mesh explorer.</figcaption>
+  </figure>
+</div>
+
 ## The campaign
 
 We ran a PBS-backed validation campaign on Argonne Improv, using production Earth-system meshes staged on the facility GPFS filesystem. The meshes span a wide range of formats, resolutions, and file sizes — from a compact global atmosphere grid to a large coastal-refined ocean mesh.
@@ -65,6 +104,11 @@ The campaign tested four things:
 4. **Artifact economics** — what does the scientist receive in exchange for the overhead of a remote call?
 
 Full results — tables, timing, coverage values, and discussion — are in the companion paper.
+
+<figure class="article-figure article-figure--wide">
+  <img src="/images/blog/uxarray-mcp-agent-loop.png" alt="Agent loop diagram — reasoning steps in the UXarray MCP campaign" />
+  <figcaption>The agent reasoning loop: Analyze → Plan → Execute → Verify. Each iteration proposes tool calls, executes them via Globus Compute, and decides whether the result closes the question or requires another pass.</figcaption>
+</figure>
 
 ## The regional mesh explorer
 

@@ -55,27 +55,6 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   </ul>
 </section>
 
-<section class="cv-section" id="publications">
-  <h2 class="cv-label">Selected papers</h2>
-  <ul class="cv-items">
-    <li>Partin, A., ..., <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2025.</li>
-    <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 Workshop, SC24, 2024.</li>
-    <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW24, SC24, 2024.</li>
-    <li>Wozniak, J.M., ..., <strong>Jain, R.</strong>, et al. <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.</a> <em>BMC Bioinformatics</em>, 2018.</li>
-    <li>Tautges, T.J., <strong>Jain, R.</strong> <a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries.</a> <em>Engineering with Computers</em>, 2011.</li>
-  </ul>
-  <p class="cv-more"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full list on Google Scholar</a> &middot; 22+ publications</p>
-
-  <h2 class="cv-label cv-label--sub">Recent talks</h2>
-  <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
-    <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
-    <li><span class="item-venue">SC24</span> <a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&amp;sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></li>
-    <li><span class="item-venue">AMS 2024</span> <a href="https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/434638">UXarray: Extending Xarray with Support for Unstructured Grids</a></li>
-    <li><span class="item-venue">SciPy 2023</span> <a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for Unstructured Climate Data</a></li>
-  </ul>
-</section>
-
 <section class="cv-section" id="writing">
   <h2 class="cv-label">Writing</h2>
   <ul class="cv-items cv-items--compact">
@@ -109,6 +88,27 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
       <a href="/blog/rgg-meshkit-moose-reactor-module/">From RGG and MeshKit to the MOOSE Reactor Module</a>
       <span class="item-dek">Parallel CoreGen generated a 101M-element MONJU reactor mesh on 712 processors in under 7 minutes — a job the serial path couldn't run at all.</span>
     </li>
+  </ul>
+</section>
+
+<section class="cv-section" id="publications">
+  <h2 class="cv-label">Selected papers</h2>
+  <ul class="cv-items">
+    <li>Partin, A., ..., <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2025.</li>
+    <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 Workshop, SC24, 2024.</li>
+    <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW24, SC24, 2024.</li>
+    <li>Wozniak, J.M., ..., <strong>Jain, R.</strong>, et al. <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.</a> <em>BMC Bioinformatics</em>, 2018.</li>
+    <li>Tautges, T.J., <strong>Jain, R.</strong> <a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries.</a> <em>Engineering with Computers</em>, 2011.</li>
+  </ul>
+  <p class="cv-more"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full list on Google Scholar</a> &middot; 22+ publications</p>
+
+  <h2 class="cv-label cv-label--sub">Recent talks</h2>
+  <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
+    <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
+    <li><span class="item-venue">SC24</span> <a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&amp;sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></li>
+    <li><span class="item-venue">AMS 2024</span> <a href="https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/434638">UXarray: Extending Xarray with Support for Unstructured Grids</a></li>
+    <li><span class="item-venue">SciPy 2023</span> <a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for Unstructured Climate Data</a></li>
   </ul>
 </section>
 
@@ -147,6 +147,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 </section>
 
 <footer class="cv-footer" id="contact">
+  <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot;
   <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> &middot;
   <a href="https://github.com/rajeeja">GitHub</a> &middot;
   <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot;
