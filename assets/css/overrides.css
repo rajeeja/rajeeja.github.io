@@ -288,6 +288,18 @@ body {
   gap: 10px;
 }
 
+.cv-items--compact li {
+  position: relative;
+  padding-left: 112px;
+}
+
+.cv-items--compact .item-venue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 0;
+}
+
 .cv-items li {
   font-size: 0.9rem;
   line-height: 1.65;
@@ -783,9 +795,13 @@ body {
     font-size: 1.45rem !important;
   }
 
-  .item-venue {
+  .cv-items--compact li {
+    padding-left: 0;
+  }
+
+  .cv-items--compact .item-venue {
+    position: static;
     display: block;
-    min-width: 0;
     margin-bottom: 2px;
   }
 
