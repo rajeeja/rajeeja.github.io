@@ -11,7 +11,7 @@ tags:
   - nuclear-engineering
   - moose
   - scientific-computing
-excerpt: "A retrospective on my first-author RGG and MeshKit work in DOE NEAMS, including parallel CoreGen, the MONJU reactor mesh, and how those ideas connect to later MOOSE Reactor Module meshing work."
+excerpt: "A retrospective on the RGG and MeshKit work in DOE NEAMS, including parallel CoreGen, the MONJU reactor mesh, and how those ideas connect to later MOOSE Reactor Module meshing work."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -23,7 +23,7 @@ toc_sticky: true
   <p class="article-dek">How my RGG and MeshKit work on parallel reactor core meshing shaped my view of open, reusable meshing workflows for nuclear simulation.</p>
 </div>
 
-The 2023 paper ["MOOSE Reactor Module: An Open-Source Capability for Meshing Nuclear Reactor Geometries"](https://www.osti.gov/pages/biblio/2323542) caught my attention because it represents a direction I have cared about for a long time: making reactor geometry and mesh generation accessible, repeatable, and close to the physics workflow. But the stronger technical reference point for my own work is my first-author RGG and MeshKit line, especially ["RGG: Reactor Geometry (and Mesh) Generator"](https://www.mcs.anl.gov/papers/P2005-0612.pdf) and ["Generating Unstructured Nuclear Reactor Core Meshes in Parallel"](https://doi.org/10.1016/j.proeng.2014.10.396).
+The 2023 paper ["MOOSE Reactor Module: An Open-Source Capability for Meshing Nuclear Reactor Geometries"](https://www.osti.gov/pages/biblio/2323542) caught my attention because it represents a direction I have cared about for a long time: making reactor geometry and mesh generation accessible, repeatable, and close to the physics workflow. The closer reference for the work described here is the RGG and MeshKit line from DOE NEAMS, especially ["RGG: Reactor Geometry (and Mesh) Generator"](https://www.mcs.anl.gov/papers/P2005-0612.pdf) and ["Generating Unstructured Nuclear Reactor Core Meshes in Parallel"](https://doi.org/10.1016/j.proeng.2014.10.396).
 
 The paper describes an open-source MOOSE Reactor module for common reactor geometries: hexagonal pins, assemblies, and cores; Cartesian geometry support; control drums; core periphery triangulation; automatic tagging of physics regions; and Exodus II export for finite element workflows. The emphasis is not only on meshing as a geometry exercise. It is on lowering the barrier for reactor analysts and removing fragile handoffs between geometry construction, mesh generation, and multiphysics simulation.
 
@@ -49,7 +49,7 @@ The key idea behind RGG was to encode the reactor lattice hierarchy directly. In
 
 ## What RGG contributed
 
-RGG, the Reactor Geometry and Mesh Generator, was built around the idea that reactor core meshing should start from the structure of the reactor. My first-author ICAPP paper, ["RGG: Reactor Geometry (and Mesh) Generator"](https://www.mcs.anl.gov/papers/P2005-0612.pdf), presented the AssyGen and CoreGen workflow: generate assembly geometry, mesh the assembly models, then copy, move, merge, and tag assemblies into a full reactor core model.
+RGG, the Reactor Geometry and Mesh Generator, was built around the idea that reactor core meshing should start from the structure of the reactor. The ICAPP paper ["RGG: Reactor Geometry (and Mesh) Generator"](https://www.mcs.anl.gov/papers/P2005-0612.pdf) presented the AssyGen and CoreGen workflow: generate assembly geometry, mesh the assembly models, then copy, move, merge, and tag assemblies into a full reactor core model.
 
 The earlier lattice-hierarchy paper that led into RGG won the 2010 International Meshing Roundtable Best Paper Award, but the more important contribution was practical: it showed that reactor-specific structure could be used to automate meshing workflows that would otherwise require substantial manual effort.
 
@@ -61,7 +61,7 @@ In practice, RGG helped with:
 - making model generation repeatable when users changed design parameters;
 - reducing the amount of solver-specific handwork required to get from design to analysis.
 
-That line of work was later pushed further in my first-author paper, ["Generating Unstructured Nuclear Reactor Core Meshes in Parallel"](https://doi.org/10.1016/j.proeng.2014.10.396). The parallel version of CoreGen exploited coarse-grained parallelism during reactor assembly and core mesh generation: processors were assigned copy/move work, shared interfaces were merged in parallel, metadata was propagated, and the final mesh was saved using MOAB's parallel I/O path.
+That line of work was pushed further in ["Generating Unstructured Nuclear Reactor Core Meshes in Parallel"](https://doi.org/10.1016/j.proeng.2014.10.396). The parallel version of CoreGen exploited coarse-grained parallelism during reactor assembly and core mesh generation: processors were assigned copy/move work, shared interfaces were merged in parallel, metadata was propagated, and the final mesh was saved using MOAB's parallel I/O path.
 
 The MONJU example is the one I like most because it shows why this mattered. In that paper, the full-core MONJU reactor model used 8 assembly types and 715 assemblies. CoreGen ran on 712 processors and produced a 101 million hexahedral element mesh from scratch in about 7 minutes, with the CoreGen stage itself taking about 90 seconds. The mesh file was about 14 GB, and the serial version could not run because the problem did not fit in memory. That is the practical value of parallel meshing: it changes what reactor models are feasible to build.
 
@@ -84,7 +84,7 @@ That experience shaped how I think about scientific software. The hard part is r
 
 ## Publications and reports from the RGG / MeshKit arc
 
-The work from 2009 to 2016 produced a set of papers, reports, manuals, and release artifacts. The first-author RGG papers are the strongest references for my direct technical contribution because they describe the actual reactor geometry generator and the parallel core assembly algorithm.
+The work from 2009 to 2016 produced a set of papers, reports, manuals, and release artifacts. The RGG papers are the primary references for the reactor geometry generator and the parallel core assembly algorithm.
 
 <div class="table-scroll">
 <table>

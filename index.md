@@ -56,29 +56,6 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
     </aside>
   </section>
 
-  <section class="focus-strip" aria-label="Current featured work">
-    <article class="focus-card">
-      <p class="card-meta">Exascale ML systems work</p>
-      <h2><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora</a></h2>
-      <p>Stable DDP-based training on 60,000+ Intel GPUs — portable PyTorch climate workflow across CUDA and Intel XPU, with checkpoint/restart contracts and queue-aware smoke tests.</p>
-      <p class="focus-card__links"><a href="/blog/panguweather-aurora-climate-emulator/">Read note</a></p>
-    </article>
-
-    <article class="focus-card">
-      <p class="card-meta">Open-source climate tooling</p>
-      <h2><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h2>
-      <p>The standard Python library for DOE unstructured climate grid analysis — adopted by Argonne, NCAR, and universities. Conservative operators, multi-format I/O, full CI/release pipeline.</p>
-      <p class="focus-card__links"><a href="https://uxarray.readthedocs.io">Documentation</a> &middot; <a href="https://github.com/UXARRAY/uxarray">Repository</a></p>
-    </article>
-
-    <article class="focus-card">
-      <p class="card-meta">AI-agent HPC workflows</p>
-      <h2><a href="/blog/uxarray-mcp-improv-globus-compute/">Scientific MCP server</a></h2>
-      <p>Natural-language mesh discovery, subsetting, and visualization across laptop and HPC — production meshes stay on facility storage, only compact JSON and PNGs return.</p>
-      <p class="focus-card__links"><a href="/blog/uxarray-mcp-improv-globus-compute/">Read note</a></p>
-    </article>
-  </section>
-
   <section class="content-section" id="projects">
     <div class="section-heading">
       <p class="section-kicker">Selected work</p>
@@ -103,8 +80,8 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
         <h3><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></h3>
         <p>PyTorch reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for DOE exascale Earth system modeling.</p>
         <ul class="card-list">
-          <li>Established the first stable portable DDP baseline on Aurora — PMIX/PALS environment mapping, XPU/CUDA device branching, and checkpoint/restart as a hard contract.</li>
-          <li>Identified the concrete next steps before any sharded-training complexity is warranted.</li>
+          <li>Established the first stable portable DDP baseline on Aurora — PMIX/PALS environment mapping, XPU/CUDA device branching, and checkpoint/restart as a hard contract rather than an afterthought.</li>
+          <li>Device-aware mixed precision: gradient scaling on CUDA, bf16 path on Intel XPU — the right foundation before sharded training complexity is warranted.</li>
         </ul>
         <p><a href="/blog/panguweather-aurora-climate-emulator/">Technical article</a></p>
       </article>
@@ -137,52 +114,6 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
           <li>Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in under 7 minutes — a job the serial path couldn't run at all.</li>
         </ul>
         <p><a href="/blog/rgg-meshkit-moose-reactor-module/">RGG / MeshKit retrospective</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></p>
-      </article>
-    </div>
-  </section>
-
-  <section class="content-section" id="skills">
-    <div class="section-heading">
-      <p class="section-kicker">Technical depth</p>
-      <h2 class="section-title">What I deliver</h2>
-      <p class="section-lead">Full-stack technical depth from ML training to HPC I/O, with a track record of shipping software that teams adopt and extend.</p>
-    </div>
-
-    <div class="capability-grid">
-      <article class="skill-card capability-card">
-        <p class="card-meta">ML infrastructure</p>
-        <h3>Training pipelines that reach production</h3>
-        <ul class="card-list">
-          <li>Distributed training across CUDA and Intel XPU — DDP baseline, launcher portability (MPI/PMIx/PALS/torchrun), mixed-precision policy, activation checkpointing.</li>
-          <li>10,000+ HPO runs coordinated across Summit, Theta, and Cori through Parsl and Swift/T — reproducible experiment infrastructure, not ad-hoc scripts.</li>
-        </ul>
-      </article>
-
-      <article class="skill-card capability-card">
-        <p class="card-meta">HPC systems and I/O</p>
-        <h3>Performance engineering on leadership machines</h3>
-        <ul class="card-list">
-          <li>Async HDF5 with Argobots, MPI-IO tuning, SZ3/ZFP compression, storage layout optimization — 40–70% checkpoint overhead reduction on Summit.</li>
-          <li>Cross-checkpoint restart across solver stacks, runtime debugging on Argonne/ORNL/NERSC systems, Globus Compute for remote-execution workflows.</li>
-        </ul>
-      </article>
-
-      <article class="skill-card capability-card">
-        <p class="card-meta">Platform ownership</p>
-        <h3>Open-source software that outlives the grant</h3>
-        <ul class="card-list">
-          <li>API design, grid I/O, conservative numerical operators, release engineering, CI, and packaging — led UXarray from initial design to adoption by DOE labs, NCAR, and universities.</li>
-          <li>PI on DOE NEAMS MeshKit: full lifecycle from architecture through public release and community onboarding.</li>
-        </ul>
-      </article>
-
-      <article class="skill-card capability-card">
-        <p class="card-meta">Multi-institution delivery</p>
-        <h3>Technical lead across labs and programs</h3>
-        <ul class="card-list">
-          <li>Led 15+ researcher cross-lab collaborations at Argonne, LLNL, and ORNL — architecture decisions, roadmap ownership, and delivery on DOE program timelines.</li>
-          <li>Domains: climate and Earth system modeling, cancer pharmacogenomics AI, computational physics, exascale simulation, unstructured mesh analysis.</li>
-        </ul>
       </article>
     </div>
   </section>
@@ -274,12 +205,6 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 
     <div class="recognition-grid">
       <article class="detail-card">
-        <p class="card-meta">Work authorization</p>
-        <h3>U.S. Permanent Resident</h3>
-        <p>Authorized to work in the United States without sponsorship.</p>
-      </article>
-
-      <article class="detail-card">
         <p class="card-meta">R&amp;D 100 | 2023</p>
         <h3><a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a></h3>
         <p>R&amp;D 100 Award for cancer AI infrastructure spanning Argonne, LLNL, and ORNL.</p>
@@ -331,7 +256,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   <section class="content-section" id="background">
     <div class="section-heading">
       <p class="section-kicker">Background</p>
-      <h2 class="section-title">Roles, education, and collaboration style</h2>
+      <h2 class="section-title">Roles and education</h2>
       <p class="section-lead">Research roles across labs and universities, centered on long-lived software and technical delivery in multi-institution programs.</p>
     </div>
 
@@ -387,13 +312,14 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
         <article class="contact-card" id="contact">
           <p class="section-kicker">Links</p>
           <h2 class="section-title">Profiles and research links.</h2>
-          <p class="section-lead">I keep the public site fairly minimal. LinkedIn is the best route for professional outreach.</p>
+          <p class="section-lead">Open to research collaboration and technical discussions. LinkedIn is the fastest route for professional outreach.</p>
           <div class="hero-actions">
             <a class="button-link button-link--primary" href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
             <a class="button-link" href="https://github.com/rajeeja">GitHub</a>
             <a class="button-link" href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
             <a class="button-link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
           </div>
+          <p class="hero-meta" style="margin-top: 18px;">U.S. permanent resident &middot; EB-1A (extraordinary ability) &middot; no sponsorship required</p>
         </article>
       </div>
     </div>
