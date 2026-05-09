@@ -4,20 +4,20 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
+excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Computing"
 ---
 
 <div class="landing-shell">
   <section class="hero-card" id="about">
     <div class="hero-copy">
-      <p class="eyebrow">Research Software Engineer | ML Infrastructure | Scientific Computing</p>
+      <p class="eyebrow">Principal Software Engineer &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
       <h1 class="hero-title">Rajeev Jain</h1>
-      <p class="hero-role">I build research software for climate analysis, AI workflows, and large simulation codes at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
-      <p class="hero-summary">My work sits where scientific computing meets usable engineering: climate and mesh analysis, machine-learning infrastructure, high-performance I/O, and tools that researchers can actually extend. I care most about software that survives beyond a single project cycle.</p>
+      <p class="hero-role">I build and ship production software at the intersection of scientific computing, ML infrastructure, and high-performance systems at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+      <p class="hero-summary">I focus on the gap between prototype and production: getting parallel training stable on new accelerator hardware, designing I/O that doesn't bottleneck at scale, building Python platforms that teams can actually extend and maintain. I've led multi-institution software efforts from architecture through delivery and stay in the picture until the system works.</p>
 
       <div class="hero-actions">
         <a class="button-link button-link--primary" href="#projects">View work</a>
-        <a class="button-link" href="/blog/">Read technical notes</a>
+        <a class="button-link" href="/blog/">Technical notes</a>
         <a class="button-link" href="/files/Rajeev_Jain_CV.pdf">Curriculum Vitae</a>
       </div>
 
@@ -27,7 +27,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         <a class="hero-documents__link" href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
       </p>
 
-      <p class="hero-meta">Argonne National Laboratory <span>&middot;</span> University of Chicago <span>&middot;</span> Climate, HPC, and AI systems</p>
+      <p class="hero-meta">Argonne National Laboratory <span>&middot;</span> University of Chicago <span>&middot;</span> Climate &middot; HPC &middot; AI systems</p>
     </div>
 
     <aside class="hero-panel">
@@ -35,8 +35,8 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <p class="hero-panel__eyebrow">Current focus</p>
       <ul class="panel-list">
         <li><a href="/blog/panguweather-aurora-climate-emulator/">Running AI weather models on Aurora's Intel GPU stack</a></li>
-        <li><a href="https://github.com/UXARRAY/uxarray">Building UXarray for unstructured climate analysis</a></li>
-        <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Designing MCP workflows for scientific dataset exploration</a></li>
+        <li><a href="https://github.com/UXARRAY/uxarray">Lead developer of UXarray for unstructured climate analysis</a></li>
+        <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Designing MCP/AI-agent workflows for HPC scientific datasets</a></li>
       </ul>
 
       <div class="mini-stats">
@@ -45,12 +45,12 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
           <span>years in research software</span>
         </div>
         <div class="mini-stat">
-          <strong>22+</strong>
-          <span>peer-reviewed papers</span>
+          <strong>2&times;</strong>
+          <span>R&amp;D 100 Award winner</span>
         </div>
         <div class="mini-stat">
           <strong>10k+</strong>
-          <span>benchmark and HPO runs</span>
+          <span>ML training runs coordinated</span>
         </div>
       </div>
     </aside>
@@ -58,23 +58,23 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 
   <section class="focus-strip" aria-label="Current featured work">
     <article class="focus-card">
-      <p class="card-meta">Featured systems work</p>
+      <p class="card-meta">Exascale ML systems work</p>
       <h2><a href="/blog/panguweather-aurora-climate-emulator/">AI weather modeling on Aurora</a></h2>
-      <p>Porting and stabilizing large weather-model training workflows on Intel GPUs, with attention to portability, runtime behavior, and scientific throughput.</p>
+      <p>Stable DDP-based training on 60,000+ Intel GPUs — portable PyTorch climate workflow across CUDA and Intel XPU, with checkpoint/restart contracts and queue-aware smoke tests.</p>
       <p class="focus-card__links"><a href="/blog/panguweather-aurora-climate-emulator/">Read note</a></p>
     </article>
 
     <article class="focus-card">
       <p class="card-meta">Open-source climate tooling</p>
       <h2><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h2>
-      <p>Mesh-aware analysis for next-generation climate grids, built so scientific users can inspect, subset, and reason about unstructured datasets without bespoke code for each mesh.</p>
+      <p>The standard Python library for DOE unstructured climate grid analysis — adopted by Argonne, NCAR, and universities. Conservative operators, multi-format I/O, full CI/release pipeline.</p>
       <p class="focus-card__links"><a href="https://uxarray.readthedocs.io">Documentation</a> &middot; <a href="https://github.com/UXARRAY/uxarray">Repository</a></p>
     </article>
 
     <article class="focus-card">
-      <p class="card-meta">AI-agent workflows</p>
-      <h2><a href="/blog/uxarray-mcp-improv-globus-compute/">Scientific MCP workflows</a></h2>
-      <p>Natural-language dataset discovery, plotting, workflows, and remote execution for scientific analysis across local machines and HPC systems.</p>
+      <p class="card-meta">AI-agent HPC workflows</p>
+      <h2><a href="/blog/uxarray-mcp-improv-globus-compute/">Scientific MCP server</a></h2>
+      <p>Natural-language mesh discovery, subsetting, and visualization across laptop and HPC — production meshes stay on facility storage, only compact JSON and PNGs return.</p>
       <p class="focus-card__links"><a href="/blog/uxarray-mcp-improv-globus-compute/">Read note</a></p>
     </article>
   </section>
@@ -82,63 +82,59 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
   <section class="content-section" id="projects">
     <div class="section-heading">
       <p class="section-kicker">Selected work</p>
-      <h2 class="section-title">Selected projects</h2>
-      <p class="section-lead">Representative work across climate science, cancer AI, and simulation software.</p>
+      <h2 class="section-title">Systems I've shipped</h2>
+      <p class="section-lead">Production software across exascale ML, climate analysis, cancer AI, and simulation infrastructure — with a clear problem, technical approach, and measurable outcome in each case.</p>
     </div>
 
     <div class="project-grid">
       <article class="project-card project-card--wide">
         <p class="card-meta">Lead developer | Open-source climate analysis | <a href="https://uxarray.readthedocs.io">Documentation</a></p>
         <h3><a href="https://github.com/UXARRAY/uxarray">UXarray</a></h3>
-        <p>Python library for unstructured climate grid analysis used by DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and other next-generation meshes.</p>
+        <p>Python library for unstructured climate grid analysis — the standard tool for DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes.</p>
         <ul class="card-list">
-          <li>Built conservative analysis operators, including zonal averaging via Gauss-Legendre quadrature.</li>
-          <li>Shipped support for ESMF, MPAS, SCRIP, and HEALPix grid formats, with repeatable releases and CI.</li>
-          <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Extending the project with an MCP server and AI-agent workflow for natural-language dataset exploration across local and HPC execution.</a></li>
+          <li>Designed and shipped conservative analysis operators including zonal averaging via Gauss-Legendre quadrature — numerics that determine whether results are scientifically correct.</li>
+          <li>Built grid I/O for ESMF, MPAS, SCRIP, and HEALPix formats, with repeatable releases and CI across multiple national labs.</li>
+          <li><a href="/blog/uxarray-mcp-improv-globus-compute/">Extended with an MCP server and AI-agent workflow for natural-language dataset exploration across local and HPC execution.</a></li>
         </ul>
-        <p><a href="/blog/uxarray-mcp-improv-globus-compute/">Technical article</a> &middot; <a href="https://github.com/UXARRAY/uxarray-mcp-server">UXarray MCP server</a></p>
       </article>
 
       <article class="project-card">
-        <p class="card-meta">Aurora exascale system | Argonne Leadership Computing Facility</p>
+        <p class="card-meta">Aurora exascale system | 60,000+ Intel GPUs | Argonne Leadership Computing Facility</p>
         <h3><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></h3>
-        <p>PyTorch-based reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for deployment on more than 60,000 Intel GPUs.</p>
+        <p>PyTorch reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for DOE exascale Earth system modeling.</p>
         <ul class="card-list">
-          <li>Ported the workflow to Intel GPUs and ran it at large scale on Aurora.</li>
-          <li>Contributed to DOE exascale work in Earth system modeling and forecasting.</li>
+          <li>Established the first stable portable DDP baseline on Aurora — PMIX/PALS environment mapping, XPU/CUDA device branching, and checkpoint/restart as a hard contract.</li>
+          <li>Identified the concrete next steps before any sharded-training complexity is warranted.</li>
         </ul>
         <p><a href="/blog/panguweather-aurora-climate-emulator/">Technical article</a></p>
       </article>
 
       <article class="project-card">
-        <p class="card-meta">Core contributor | Cancer AI benchmarking infrastructure</p>
+        <p class="card-meta">Core contributor | R&amp;D 100 Award 2023 | Cancer AI benchmarking</p>
         <h3><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></h3>
-        <p>Hyperparameter optimization and benchmarking infrastructure for cancer drug response models at supercomputer scale.</p>
+        <p>HPO and benchmarking infrastructure for cancer drug response models — 15+ researcher collaboration across Argonne, LLNL, and ORNL.</p>
         <ul class="card-list">
-          <li>Ran more than 10,000 training experiments across Summit, Theta, and Cori.</li>
-          <li>Built GitHub Actions workflows for cross-study validation in a 15+ researcher collaboration.</li>
-          <li>Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a> in 2025.</li>
+          <li>Coordinated 10,000+ training experiments across Summit, Theta, and Cori using Parsl and Swift/T.</li>
+          <li>Built GitHub Actions workflows for automated cross-study validation. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a> 2025.</li>
         </ul>
       </article>
 
       <article class="project-card">
-        <p class="card-meta">I/O and compression work for multiphysics simulation</p>
+        <p class="card-meta">I/O and compression lead | R&amp;D 100 Award 2022 | Multiphysics simulation</p>
         <h3><a href="https://flash-x.org/">FLASH-X</a></h3>
-        <p>Optimization of checkpoint and restart workflows for a million-line multiphysics simulation engine used in astrophysics, combustion, and fluid dynamics.</p>
+        <p>Checkpoint and restart redesign for a million-line multiphysics engine used in astrophysics, combustion, and fluid dynamics.</p>
         <ul class="card-list">
-          <li>Implemented asynchronous HDF5 I/O with Argobots plus SZ3 and ZFP compression.</li>
-          <li>Reduced checkpoint overhead by 40-70% on Summit and delivered 50%+ storage savings.</li>
-          <li>Enabled cross-checkpoint restart between AMReX and Paramesh solvers.</li>
+          <li>Async HDF5 with Argobots plus SZ3/ZFP compression: 40–70% checkpoint overhead reduction and 50%+ storage savings on Summit.</li>
+          <li>Enabled cross-checkpoint restart between AMReX and Paramesh — removing a hard constraint that forced full restarts when switching solvers.</li>
         </ul>
       </article>
 
       <article class="project-card">
-        <p class="card-meta">DOE NEAMS, 2009-2016</p>
+        <p class="card-meta">PI and software lead | DOE NEAMS | Best Paper, IMR 2010</p>
         <h3><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></h3>
-        <p>Open-source C++ toolkit for automated nuclear reactor core mesh generation and lattice hierarchy modeling.</p>
+        <p>Open-source C++ toolkit for automated nuclear reactor core mesh generation — designed, led, and delivered through DOE NEAMS from 2009 to 2016.</p>
         <ul class="card-list">
-          <li>Led the design of parallel meshing and multi-format I/O for reactor simulation teams at Argonne.</li>
-          <li>Won Best Paper Award at the International Meshing Roundtable in 2010.</li>
+          <li>Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in under 7 minutes — a job the serial path couldn't run at all.</li>
         </ul>
         <p><a href="/blog/rgg-meshkit-moose-reactor-module/">RGG / MeshKit retrospective</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></p>
       </article>
@@ -147,45 +143,45 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
 
   <section class="content-section" id="skills">
     <div class="section-heading">
-      <p class="section-kicker">Technical expertise</p>
-      <h2 class="section-title">Capabilities across scientific software and systems</h2>
-      <p class="section-lead">A compact view of the engineering areas I work in most often, from ML and analysis pipelines to HPC runtime and open-source delivery.</p>
+      <p class="section-kicker">Technical depth</p>
+      <h2 class="section-title">What I deliver</h2>
+      <p class="section-lead">Full-stack technical depth from ML training to HPC I/O, with a track record of shipping software that teams adopt and extend.</p>
     </div>
 
     <div class="capability-grid">
       <article class="skill-card capability-card">
-        <p class="card-meta">Scientific Python and ML</p>
-        <h3>Data, models, and analysis workflows</h3>
+        <p class="card-meta">ML infrastructure</p>
+        <h3>Training pipelines that reach production</h3>
         <ul class="card-list">
-          <li>PyTorch, TensorFlow, NumPy, Pandas, Xarray, and Scikit-learn for model development and scientific analysis.</li>
-          <li>Parsl and Swift/T for large experiment campaigns and repeatable workflow execution.</li>
+          <li>Distributed training across CUDA and Intel XPU — DDP baseline, launcher portability (MPI/PMIx/PALS/torchrun), mixed-precision policy, activation checkpointing.</li>
+          <li>10,000+ HPO runs coordinated across Summit, Theta, and Cori through Parsl and Swift/T — reproducible experiment infrastructure, not ad-hoc scripts.</li>
         </ul>
       </article>
 
       <article class="skill-card capability-card">
-        <p class="card-meta">HPC systems and storage</p>
-        <h3>Performance, portability, and I/O</h3>
+        <p class="card-meta">HPC systems and I/O</p>
+        <h3>Performance engineering on leadership machines</h3>
         <ul class="card-list">
-          <li>MPI, OpenMP, HDF5, NetCDF, MOAB, and storage-aware design for leadership-class machines.</li>
-          <li>Intel GPUs, CUDA portability, asynchronous checkpoint workflows, and runtime debugging on shared systems.</li>
+          <li>Async HDF5 with Argobots, MPI-IO tuning, SZ3/ZFP compression, storage layout optimization — 40–70% checkpoint overhead reduction on Summit.</li>
+          <li>Cross-checkpoint restart across solver stacks, runtime debugging on Argonne/ORNL/NERSC systems, Globus Compute for remote-execution workflows.</li>
         </ul>
       </article>
 
       <article class="skill-card capability-card">
-        <p class="card-meta">Open-source delivery</p>
-        <h3>Software other researchers can extend</h3>
+        <p class="card-meta">Platform ownership</p>
+        <h3>Open-source software that outlives the grant</h3>
         <ul class="card-list">
-          <li>Release engineering, CI pipelines, testing, and packaging for long-lived scientific projects.</li>
-          <li>Roadmap ownership, collaboration across labs and universities, and mentoring around sustainable engineering practice.</li>
+          <li>API design, grid I/O, conservative numerical operators, release engineering, CI, and packaging — led UXarray from initial design to adoption by DOE labs, NCAR, and universities.</li>
+          <li>PI on DOE NEAMS MeshKit: full lifecycle from architecture through public release and community onboarding.</li>
         </ul>
       </article>
 
       <article class="skill-card capability-card">
-        <p class="card-meta">Scientific domains</p>
-        <h3>Problem-driven engineering</h3>
+        <p class="card-meta">Multi-institution delivery</p>
+        <h3>Technical lead across labs and programs</h3>
         <ul class="card-list">
-          <li>Climate modeling, unstructured mesh analysis, cancer pharmacogenomics, computational physics, and simulation software.</li>
-          <li>AI infrastructure and reproducible workflows built around domain constraints rather than generic demos.</li>
+          <li>Led 15+ researcher cross-lab collaborations at Argonne, LLNL, and ORNL — architecture decisions, roadmap ownership, and delivery on DOE program timelines.</li>
+          <li>Domains: climate and Earth system modeling, cancer pharmacogenomics AI, computational physics, exascale simulation, unstructured mesh analysis.</li>
         </ul>
       </article>
     </div>
@@ -286,25 +282,25 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
       <article class="detail-card">
         <p class="card-meta">R&amp;D 100 | 2023</p>
         <h3><a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a></h3>
-        <p>Project recognized by R&amp;D World in 2023.</p>
+        <p>R&amp;D 100 Award for cancer AI infrastructure spanning Argonne, LLNL, and ORNL.</p>
       </article>
 
       <article class="detail-card">
         <p class="card-meta">R&amp;D 100 | 2022</p>
         <h3><a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a></h3>
-        <p>Project recognized by R&amp;D World in 2022.</p>
+        <p>R&amp;D 100 Award for the multiphysics simulation engine used in astrophysics and combustion research.</p>
       </article>
 
       <article class="detail-card">
         <p class="card-meta">Training and technical distinction</p>
         <h3>ATPESC Scholar</h3>
-        <p>Selected in 2015 for Argonne's training program on extreme-scale computing.</p>
+        <p>Selected in 2015 for Argonne's training program on extreme-scale computing methods.</p>
       </article>
 
       <article class="detail-card">
-        <p class="card-meta">Research publication</p>
-        <h3>Best Paper Award</h3>
-        <p>International Meshing Roundtable, 2010, for automated reactor core mesh generation research.</p>
+        <p class="card-meta">Best Paper | IMR 2010</p>
+        <h3>International Meshing Roundtable</h3>
+        <p>First-author paper on automated reactor core mesh generation with lattice hierarchy encoding.</p>
       </article>
     </div>
 
@@ -323,7 +319,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
         <p class="card-meta">Service and mentorship</p>
         <ul class="clean-list">
           <li><strong>SBIR/STTR Proposal Reviewer</strong> U.S. Department of Energy.</li>
-          <li><strong>Panelist</strong> 5th Infraday Midwest Event on public infrastructure and AI.</li>
+          <li><strong>Panelist</strong> Infraday Midwest on public infrastructure and AI.</li>
           <li><strong>Reviewer</strong> Journal of Open Research Software and NumGrid.</li>
           <li><strong>Committee Member</strong> NumGrid 2020 Program Committee.</li>
         </ul>
@@ -336,7 +332,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
     <div class="section-heading">
       <p class="section-kicker">Background</p>
       <h2 class="section-title">Roles, education, and collaboration style</h2>
-      <p class="section-lead">Research roles across labs and universities, centered on long-lived software and collaborative delivery.</p>
+      <p class="section-lead">Research roles across labs and universities, centered on long-lived software and technical delivery in multi-institution programs.</p>
     </div>
 
     <div class="split-grid">
@@ -347,7 +343,7 @@ excerpt: "Research Software Engineer | ML Infrastructure | Scientific Computing"
             <p class="timeline-item__range">2009-present</p>
             <div>
               <h3>Argonne National Laboratory</h3>
-              <p>Principal Specialist in Research Software Engineering, working across UXarray, FLASH-X, CANDLE/IMPROVE, MeshKit, and urban simulation software efforts.</p>
+              <p>Principal Specialist in Research Software Engineering — technical lead across UXarray, FLASH-X, CANDLE/IMPROVE, Pangu-Weather on Aurora, MeshKit, and urban simulation software programs.</p>
             </div>
           </div>
 

@@ -784,6 +784,17 @@ body::before {
   color: var(--navy) !important;
 }
 
+.contact-card a.button-link--primary {
+  background: rgba(38, 75, 120, 0.06);
+  border-color: rgba(38, 75, 120, 0.18);
+  color: var(--navy) !important;
+}
+
+.contact-card a.button-link--primary:hover {
+  background: rgba(38, 75, 120, 0.1);
+  color: var(--navy) !important;
+}
+
 .page__footer {
   margin-top: 88px;
   background: rgba(247, 244, 238, 0.94) !important;
