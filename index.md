@@ -13,9 +13,8 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
     <p class="cv-tagline">Principal Software Engineer &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">I build and ship production software at the intersection of scientific computing, ML infrastructure, and high-performance systems at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>. My focus is the gap between prototype and production: parallel training on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at scale, Python platforms that teams can actually maintain.</p>
+    <p class="cv-bio">I design and engineer production software systems at the intersection of scientific computing, ML infrastructure, and high-performance computing at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>. My focus is the gap between prototype and production: parallel training on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at scale, Python platforms that teams can actually maintain.</p>
     <p class="cv-links">
-      <a href="/files/Rajeev_Jain_CV.pdf">CV</a> &nbsp;&middot;&nbsp;
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &nbsp;&middot;&nbsp;
       <a href="https://github.com/rajeeja">GitHub</a> &nbsp;&middot;&nbsp;
       <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> &nbsp;&middot;&nbsp;
@@ -40,16 +39,17 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
     </li>
     <li>
       <div class="item-head"><strong><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></strong><span class="item-role">Core contributor &middot; R&amp;D 100 Award 2023</span></div>
-      HPO and benchmarking infrastructure for cancer drug response models &mdash; 15+ researcher collaboration across Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Parsl and Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
+      HPO and benchmarking infrastructure for cancer drug response models &mdash; 15+ researchers across Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Parsl and Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
     </li>
     <li>
       <div class="item-head"><strong><a href="https://flash-x.org/">FLASH-X</a></strong><span class="item-role">I/O and compression lead &middot; R&amp;D 100 Award 2022</span></div>
       Checkpoint and restart redesign for a million-line multiphysics engine. Async HDF5 with Argobots plus SZ3/ZFP compression: 40&ndash;70% checkpoint overhead reduction and 50%+ storage savings on Summit. Cross-checkpoint restart between AMReX and Paramesh &mdash; removing a hard constraint that forced full restarts when switching solvers.
+      <span class="item-links"><a href="https://doi.org/10.1109/SCW63240.2024.00043">SC24 paper</a></span>
     </li>
     <li>
       <div class="item-head"><strong><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></strong><span class="item-role">PI and software lead &middot; DOE NEAMS &middot; 2009&ndash;2016</span></div>
       Open-source C++ toolkit for automated nuclear reactor core mesh generation. Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in under 7 minutes &mdash; a job the serial path couldn&rsquo;t run at all.
-      <span class="item-links"><a href="/blog/rgg-meshkit-moose-reactor-module/">Retrospective</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></span>
+      <span class="item-links"><a href="/blog/rgg-meshkit-moose-reactor-module/">Blog post</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></span>
     </li>
   </ul>
 </section>
@@ -98,7 +98,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   <ul class="cv-items cv-items--compact">
     <li><span class="item-venue">2009&ndash;present</span> <strong>Argonne National Laboratory</strong> &mdash; Principal Specialist in Research Software Engineering</li>
     <li><span class="item-venue">2023&ndash;present</span> <strong>University of Chicago</strong> &mdash; Staff At-Large, cancer pharmacogenomics and Earth system science</li>
-    <li><span class="item-venue">2007&ndash;2009</span> <strong>Arizona State University</strong> &mdash; Research assistant, structural and computational mechanics</li>
+    <li><span class="item-venue">2007&ndash;2009</span> <strong>Arizona State University</strong> &mdash; Research and teaching assistant, structural and computational mechanics</li>
   </ul>
 
   <h2 class="cv-label cv-label--sub">Education</h2>
@@ -113,9 +113,8 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a> &middot;
   <a href="https://github.com/rajeeja">GitHub</a> &middot;
   <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot;
-  <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a> &middot;
-  <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
-  <p class="cv-footnote">U.S. permanent resident &middot; EB-1A (extraordinary ability) &middot; no sponsorship required</p>
+  <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
+  <p class="cv-footnote">U.S. permanent resident &middot; EB-1A (extraordinary ability)</p>
 </footer>
 
 </div>
