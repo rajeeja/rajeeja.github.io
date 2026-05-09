@@ -64,27 +64,49 @@ Supervisor supported three main HPO algorithms:
 
 **DEAP** (Distributed Evolutionary Algorithms in Python) provides genetic algorithm and evolutionary strategy implementations. The GA approach maintains a *population* of hyperparameter configurations, evaluates them in parallel, then selects the best performers and generates the next generation through mutation (randomly changing one or more values) and crossover (combining values from two parent configurations). Genetic algorithms are less sample-efficient than Bayesian methods but naturally parallel — an entire generation evaluates simultaneously — and robust to noisy objectives.
 
+**Hyperopt** provided Tree-of-Parzen-Estimators (TPE)-based optimization — a Bayesian method that builds separate density models for promising and poor configurations and proposes new configurations from their ratio. It is effective when only a small number of hyperparameters dominate performance.
+
 **Random search** served as a baseline. It has no memory of past evaluations and proposes configurations uniformly at random. For high-dimensional spaces where few hyperparameters matter, random search is competitive with more sophisticated methods because the sophisticated methods waste sample budget on irrelevant dimensions.
 
 On Summit (IBM AC922 nodes, 6 V100 GPUs per node, 4,608 nodes total), a well-structured Supervisor run could launch thousands of concurrent training jobs, with the HPO algorithm running on a head node and Swift/T managing the parallel execution. A 500-iteration mlrMBO run with 20 configurations per iteration is 10,000 training jobs — feasible as a single multi-day allocation on a leadership-class machine.
 
-## Probing decision boundaries: why aggregate accuracy is not enough
+## Probing decision boundaries: the NT3 benchmark
 
-The counterfactuals paper — "Probing Decision Boundaries in Cancer Data Using Noise Injection and Counterfactual Analysis" (Jain et al., CAFCW at SC21, 2021) — came from a question that aggregate metrics do not answer: *how confident should you be in a specific prediction?*
+The counterfactuals paper — "Probing Decision Boundaries in Cancer Data Using Noise Injection and Counterfactual Analysis" ([Jain, Shah, Mohd-Yusof, Wozniak, Brettin, Xia, Stevens, CAFCW at SC21, 2021](https://sc21.supercomputing.org/proceedings/workshops/workshop_pages/ws_cafcw125.html)) — used the CANDLE **NT3 benchmark** as its test case. NT3 is a classification problem: given RNA expression data from a tissue sample, predict whether it is normal or tumor tissue. The input is a high-dimensional gene expression vector; the output is a binary label.
 
-A model that achieves 0.85 Pearson correlation between predicted and measured drug response across a held-out test set sounds good. But within that test set, some predictions are near the model's decision boundary — the surface in input space where the model changes its output from "sensitive" to "resistant" — and some are far from it. A prediction near the boundary is not the same as a prediction far from it, even if both happen to be correct on the test label.
+This is a deliberately clean setup. Unlike drug response regression, where the output is continuous and the ground truth is noisy, NT3 has clear ground truth labels. That makes it ideal for studying what happens when you *corrupt* the data — injecting noise — and measuring how the model degrades.
 
-Two techniques let us probe where those boundaries are.
+### Label noise and feature noise
 
-**Noise injection** adds controlled random perturbations to the input features and measures how the model's prediction changes. If you take a cell line's gene expression profile and add small Gaussian noise to each value — noise within the range of typical measurement uncertainty — does the model's prediction stay stable? For a robust model, small perturbations produce small changes in the output. For a fragile model, small perturbations near the decision boundary flip the prediction entirely.
+The paper tested two kinds of corruption:
 
-The practical significance: if a model predicts that Drug A will work for Tumor X, but a 5% perturbation to the gene expression values flips that prediction, the model is not providing a reliable clinical signal. It has learned a decision boundary that passes very close to the query point, and that boundary may not reflect true biology — it may reflect the way the training data was sampled or normalized.
+**Label noise**: flip a fraction of the training labels — mark some tumor samples as normal and vice versa. This simulates mislabeled training data, which happens in real clinical datasets due to biopsy error, pathology disagreement, or sample handling mistakes. As the fraction of flipped labels increases, the model gets trained on contradictory signal.
 
-**Counterfactual analysis** is the inverse problem. Instead of asking "what happens when I perturb this input randomly?", you ask: "what is the *smallest change* to this input that would flip the model's prediction?" This is a constrained optimization problem — find the point in input space nearest to the original that the model classifies differently.
+**Feature noise**: add random perturbations to gene expression values. This simulates measurement noise in RNA-seq assays, batch effects between sequencing runs, or biological variability between samples from the same tissue type.
 
-Counterfactuals expose what the model has actually learned to distinguish. If the counterfactual for a cell line is found by changing the expression of three specific genes, those three genes are load-bearing for the model's prediction on that sample. Whether those genes are biologically meaningful — known to be relevant to drug response — or are statistical artifacts of the training data is the scientific question.
+The baseline NT3 model is a deep neural network trained by standard supervised learning. Under heavy label noise, its validation accuracy degrades substantially — it cannot tell which labels to trust, so it fits the corrupted training signal.
 
-The findings from this work were practically significant. Models trained on drug response data could sometimes be moved across their decision boundaries with perturbations well within the measurement uncertainty of the underlying assay. Aggregate test-set metrics looked comparable across architectures; the noise injection analysis revealed which models were stable at the individual-sample level and which were not. This kind of per-sample robustness analysis is not standard in the field, but it is exactly what would matter for clinical deployment.
+### The abstaining classifier
+
+The key comparison in the paper is against an **abstaining classifier** — a model variant that learns not just to predict a label, but to predict *when the input is too uncertain to classify reliably*. Instead of forcing a binary output on every sample, the abstaining classifier can output "I don't know" when the evidence is ambiguous.
+
+At high noise levels, the abstaining classifier significantly outperforms the standard model on the samples it does classify — because it has learned to withhold predictions on the corrupted or ambiguous cases rather than making overconfident wrong ones. For clinical applications, this matters: a model that says "I'm uncertain, refer for additional testing" is more useful than one that confidently gives the wrong answer.
+
+### Counterfactual analysis as a tool for gene discovery
+
+The second contribution of the paper uses counterfactual examples as an **explainability tool** — not just to probe model robustness but to identify which genes the model is actually using to distinguish normal from tumor tissue.
+
+A counterfactual for a given sample is the smallest change to that sample's gene expression vector that would flip the model's prediction. To find it, you solve a constrained optimization problem: minimize the distance from the original point while crossing the decision boundary. The genes that change most in the counterfactual are the ones the model is most sensitive to — the features that are "load-bearing" for that classification.
+
+We computed counterfactual perturbation vectors for a set of samples and clustered them to find genes that consistently appear in the perturbation direction. The top gene the analysis identified was **PLOD2** (Procollagen-Lysine, 2-Oxoglutarate 5-Dioxygenase 2), which has been described in the literature as associated with cancer cell migration and metastasis. Other genes the analysis flagged — **LRTM1**, **RGS5**, **TP53I13**, **MAN1B1**, **TRRAP** — have documented connections to urothelial, lung, renal, bladder, ovarian, and bone cancers.
+
+The significance: the model learned to distinguish normal from tumor tissue using signal in these genes, and the counterfactual analysis surfaced that signal in an interpretable form. Rather than just knowing the model achieves 90% accuracy, you now know *which biological features* it is using — and whether those features make biological sense.
+
+A further experiment confirmed the specificity of this result: injecting noise specifically into the genes identified by counterfactual analysis caused steeper accuracy degradation than injecting the same amount of noise into randomly selected genes. The model is genuinely more sensitive near the counterfactual direction, confirming that those genes are load-bearing features rather than artifacts of the analysis method.
+
+### Why aggregate accuracy is not enough
+
+The broader point the paper makes is that aggregate test-set accuracy is an incomplete description of a model. Two models can achieve identical accuracy while having very different decision boundaries — one might be stable and biologically grounded, the other fragile and fitting statistical artifacts. Noise injection and counterfactual analysis provide tools to probe that difference. For cancer AI to be clinically useful, understanding where and why models are uncertain is as important as knowing their aggregate performance.
 
 ## What this enables
 
