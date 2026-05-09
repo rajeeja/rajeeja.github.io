@@ -1,5 +1,5 @@
 ---
-title: "Porting a Climate Emulator to Aurora: PanguWeather, SFNO, and the Real Work of Runtime Portability"
+title: "Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs"
 date: 2026-04-02
 permalink: /blog/panguweather-aurora-climate-emulator/
 categories:
@@ -11,16 +11,16 @@ tags:
   - pytorch
   - sfno
   - machine-learning
-excerpt: "A technical note on why the current Aurora path is plain DDP, how memory and I/O show up in practice, and where sharded training or chunk-aware storage would matter next for a climate emulator."
+excerpt: "How we ported Pangu-Weather to 60,000 Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP."
 author_profile: false
 toc: true
 toc_sticky: true
 ---
 
 <div class="article-banner article-banner--warm">
-  <p class="eyebrow">Research note &middot; April 2, 2026</p>
-  <h1 class="article-title">Porting a Climate Emulator to Aurora</h1>
-  <p class="article-dek">A technical note on the current DDP-based Aurora path for a PlaSim and SFNO climate emulator, with attention to memory pressure, floating-point policy, launcher portability, and the next systems steps beyond one-node training.</p>
+  <p class="eyebrow">Engineering note &middot; Aurora &middot; 2026</p>
+  <h1 class="article-title">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</h1>
+  <p class="article-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU — building a stable, portable training baseline on Argonne's exascale system.</p>
 </div>
 
 <div class="post-tags">

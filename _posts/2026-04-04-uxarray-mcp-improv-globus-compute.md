@@ -1,5 +1,5 @@
 ---
-title: "UXarray MCP: Agentic Analysis of Earth-System Meshes at Facility Scale"
+title: "UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute"
 date: 2026-04-04
 permalink: /blog/uxarray-mcp-improv-globus-compute/
 categories:
@@ -19,7 +19,7 @@ toc_sticky: true
 
 <div class="article-banner">
   <p class="eyebrow">Teaser &middot; SciFM 2026 companion paper</p>
-  <h1 class="article-title">UXarray MCP: Agentic Mesh Analysis at HPC Scale</h1>
+  <h1 class="article-title">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</h1>
   <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer. Full results in our SciFM 2026 paper.</p>
 </div>
 

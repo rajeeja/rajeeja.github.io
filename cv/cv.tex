@@ -5,7 +5,7 @@
 
 \begin{document}
 \sloppy
-\setupcvfooter{March 2026}
+\setupcvfooter{May 2026}
 
 \makeprofileheader
   {Rajeev Jain}
@@ -88,13 +88,13 @@ B.Tech. in Mechanical Engineering
   {Software Engineer}
   {AI weather modeling on exascale Intel GPUs}
 \begin{itemize}
-  \item Reimplemented the Pangu-Weather framework in PyTorch using the Spectral Fourier Neural Operator for Aurora.
-  \item Adapted the workflow to Intel GPUs and ran it at large scale on Aurora.
+  \item Ported the Pangu-Weather / SFNO climate emulator to Intel XPU on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, device-aware AMP (gradient scaling on CUDA, bf16 on XPU), and first stable DDP baseline on Aurora.
+  \item Established smoke-test and queue-aware bring-up scripts; separated launcher, backend, and device-placement failure modes from sharding bugs.
 \end{itemize}
 
 \entryheader
   {CANDLE / IMPROVE}
-  {2020 -- 2025}
+  {2017 -- 2025}
   {Core Contributor}
   {Cancer AI infrastructure and benchmarking}
 \begin{itemize}
@@ -131,8 +131,9 @@ B.Tech. in Mechanical Engineering
   {Software Lead}
   {DOE urban microclimate and CFD workflows}
 \begin{itemize}
-  \item Coordinated software work across multiple national labs for urban microclimate and CFD workflows, including proposal development and shared workflows.
-  \item Developed integrations linking mesoscale weather (WRF) and high-fidelity CFD (Nek5000) for downtown Chicago urban boundary layer modeling.
+  \item Led seed-funded urban exascale proposal with Charlie Catlett (Argonne / University of Chicago); developed a three-layer coupled simulation workflow: WRF/HRRR mesoscale weather \textrightarrow{} EnergyPlus building energy \textrightarrow{} Nek5000 wall-resolved LES for downtown Chicago.
+  \item Built the full 3D urban geometry model for the CFD domain, including architecturally complex structures such as Lake Point Tower.
+  \item Published in \textit{Journal of Building Performance Simulation} (2020); presented at AGU 2018/2019 and International Conference on Urban Climate 2018.
 \end{itemize}
 
 \section{Funding and Research Programs}
@@ -141,7 +142,7 @@ B.Tech. in Mechanical Engineering
   \item \textbf{NSF Raijin} (active): collaborative research in climate model analysis.
   \item \textbf{DOE ECP CANDLE} (2017 -- 2023): core contributor on cancer AI infrastructure.
   \item \textbf{DOE NEAMS} (2009 -- 2016): principal investigator for MeshKit and reactor mesh generation workflows.
-  \item \textbf{Urban ECP}: software lead and coordinator for urban microclimate and CFD workflows across multiple labs.
+  \item \textbf{Urban ECP} (2016 -- 2019): software lead and coordinator for urban microclimate and CFD workflows across multiple labs.
 \end{itemize}
 
 \section{Awards \& Recognition}

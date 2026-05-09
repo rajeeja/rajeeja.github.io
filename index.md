@@ -40,7 +40,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
     </li>
     <li>
       <div class="item-head"><strong><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></strong><span class="item-role">Core contributor &middot; R&amp;D 100 Award 2023</span></div>
-      HPO and benchmarking infrastructure for cancer drug response models &mdash; 15+ researchers across Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Parsl and Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
+      HPO and benchmarking infrastructure for cancer drug response models &mdash; 15+ researchers across Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
     </li>
     <li>
       <div class="item-head"><strong><a href="https://flash-x.org/">FLASH-X</a></strong><span class="item-role">I/O and compression lead &middot; R&amp;D 100 Award 2022</span></div>
