@@ -232,7 +232,7 @@ body {
 .hero-summary {
   max-width: 43rem;
   margin: 14px 0 0;
-  color: var(--ink-soft);
+  color: var(--ink);
   font-size: 0.97rem;
 }
 
@@ -347,7 +347,7 @@ body {
   position: relative;
   margin-bottom: 12px;
   padding-left: 16px;
-  color: var(--ink-soft);
+  color: var(--ink);
   font-size: 0.92rem;
   line-height: 1.55;
 }
@@ -475,7 +475,7 @@ body {
 
 .section-lead {
   margin: 12px 0 0;
-  color: var(--ink-muted);
+  color: var(--ink-soft);
   font-size: 0.94rem;
 }
 
@@ -564,7 +564,7 @@ body {
 .side-card p,
 .contact-card p {
   margin: 12px 0 0;
-  color: var(--ink-soft);
+  color: var(--ink);
   font-size: 0.94rem;
 }
 
@@ -615,7 +615,16 @@ body {
 
 .publication-list {
   display: grid;
-  gap: 12px;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.publication-list .publication-card {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 18px 0;
 }
 
 .publication-card strong {
@@ -723,6 +732,40 @@ body {
 .stacked-column {
   display: grid;
   gap: 16px;
+}
+
+/* ── Recognition and roles open treatment ───────────────────── */
+
+.recognition-grid > .detail-card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  padding: 18px 0;
+}
+
+.recognition-grid > .detail-card:hover {
+  border-color: var(--line);
+}
+
+.split-grid > .detail-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.split-grid--compact .detail-card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  padding: 18px 0;
+}
+
+.split-grid--compact .detail-card:first-child {
+  border-top: none;
+  padding-top: 0;
 }
 
 /* ── Contact card ───────────────────────────────────────────── */
