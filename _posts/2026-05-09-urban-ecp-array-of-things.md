@@ -18,7 +18,7 @@ toc_sticky: true
 ---
 
 <div class="article-banner article-banner--warm">
-  <p class="eyebrow">Research retrospective &middot; May 2026</p>
+  <p class="eyebrow">Urban computing &middot; 2020</p>
   <h1 class="article-title">Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago</h1>
   <p class="article-dek">How a seed-funded urban exascale project connected Chicago's IoT sensor network, mesoscale weather models, building energy simulation, and high-fidelity CFD into one coherent research program.</p>
 </div>

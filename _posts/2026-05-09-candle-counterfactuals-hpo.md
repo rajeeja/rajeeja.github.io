@@ -1,5 +1,5 @@
 ---
-title: "Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO on Supercomputers"
+title: "CANDLE/Supervisor: Running Cancer AI Research at Scale on DOE Supercomputers"
 date: 2026-05-09
 permalink: /blog/candle-counterfactuals-hpo/
 categories:
@@ -18,9 +18,9 @@ toc_sticky: true
 ---
 
 <div class="article-banner">
-  <p class="eyebrow">Research retrospective &middot; May 2026</p>
-  <h1 class="article-title">Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO on Supercomputers</h1>
-  <p class="article-dek">How CANDLE/Supervisor ran tens of thousands of HPO experiments on Summit and Theta — and what noise injection and counterfactual analysis revealed about where cancer drug response models break down.</p>
+  <p class="eyebrow">Cancer AI infrastructure &middot; 2024</p>
+  <h1 class="article-title">CANDLE/Supervisor: Running Cancer AI Research at Scale on DOE Supercomputers</h1>
+  <p class="article-dek">How CANDLE/Supervisor orchestrated tens of thousands of HPO experiments across Summit, Theta, and Cori — and what noise injection and counterfactual analysis revealed about cancer model trust.</p>
 </div>
 
 The CANDLE project (Cancer Distributed Learning Environment) was a DOE Exascale Computing Project effort to apply large-scale ML infrastructure to cancer drug response prediction. I was a core contributor from 2017 through 2023, working on the CANDLE/Supervisor workflow infrastructure and later on the cross-study analysis methodology that became the IMPROVE benchmark program.

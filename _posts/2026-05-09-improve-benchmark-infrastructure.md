@@ -18,7 +18,7 @@ toc_sticky: true
 ---
 
 <div class="article-banner">
-  <p class="eyebrow">Software retrospective &middot; May 2026</p>
+  <p class="eyebrow">Benchmarking infrastructure &middot; 2025</p>
   <h1 class="article-title">IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction</h1>
   <p class="article-dek">After CANDLE: building the IMPROVE benchmark framework, improvelib, the UNO model, and the CI/CD infrastructure that made cross-study drug response evaluation reproducible across 15+ researchers at Argonne, LLNL, and ORNL.</p>
 </div>

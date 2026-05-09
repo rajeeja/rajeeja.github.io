@@ -96,7 +96,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
     </li>
     <li>
       <span class="item-venue">2026</span>
-      <a href="/blog/candle-counterfactuals-hpo/">Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO</a>
+      <a href="/blog/candle-counterfactuals-hpo/">CANDLE/Supervisor: Running Cancer AI Research at Scale on DOE Supercomputers</a>
       <span class="item-dek">mlrMBO, DEAP, Hyperopt, and Swift/T ran 10,000+ experiments on Summit; noise injection and counterfactuals revealed which genes drive tumor classification.</span>
     </li>
     <li>
