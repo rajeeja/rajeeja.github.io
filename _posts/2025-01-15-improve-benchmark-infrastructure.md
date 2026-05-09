@@ -1,6 +1,6 @@
 ---
 title: "IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction"
-date: 2026-05-09
+date: 2025-01-15
 permalink: /blog/improve-benchmark-infrastructure/
 categories:
   - blog

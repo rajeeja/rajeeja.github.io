@@ -1,6 +1,6 @@
 ---
 title: "Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago"
-date: 2026-05-09
+date: 2020-07-01
 permalink: /blog/urban-ecp-array-of-things/
 categories:
   - blog

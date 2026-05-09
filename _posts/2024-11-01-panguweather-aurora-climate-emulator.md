@@ -1,6 +1,6 @@
 ---
 title: "Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs"
-date: 2026-04-02
+date: 2024-11-01
 permalink: /blog/panguweather-aurora-climate-emulator/
 categories:
   - blog

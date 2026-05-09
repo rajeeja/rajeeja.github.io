@@ -1,6 +1,6 @@
 ---
 title: "From RGG and MeshKit to the MOOSE Reactor Module"
-date: 2022-05-08
+date: 2023-09-01
 permalink: /blog/rgg-meshkit-moose-reactor-module/
 categories:
   - blog
