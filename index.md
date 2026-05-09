@@ -76,6 +76,18 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
   </ul>
 </section>
 
+<section class="cv-section" id="writing">
+  <h2 class="cv-label">Writing</h2>
+  <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">2026</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</a></li>
+    <li><span class="item-venue">2026</span> <a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</a></li>
+    <li><span class="item-venue">2026</span> <a href="/blog/improve-benchmark-infrastructure/">IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction</a></li>
+    <li><span class="item-venue">2026</span> <a href="/blog/candle-counterfactuals-hpo/">Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO</a></li>
+    <li><span class="item-venue">2026</span> <a href="/blog/urban-ecp-array-of-things/">Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago</a></li>
+    <li><span class="item-venue">2022</span> <a href="/blog/rgg-meshkit-moose-reactor-module/">From RGG and MeshKit to the MOOSE Reactor Module</a></li>
+  </ul>
+</section>
+
 <section class="cv-section" id="recognition">
   <h2 class="cv-label">Recognition</h2>
   <ul class="cv-items cv-items--compact">
