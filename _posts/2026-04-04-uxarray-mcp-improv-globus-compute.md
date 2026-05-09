@@ -19,7 +19,7 @@ toc_sticky: true
 
 <div class="article-banner">
   <p class="eyebrow">Teaser &middot; SciFM 2026 companion paper</p>
-  <h1 class="article-title">UXarray MCP on Argonne Improv</h1>
+  <h1 class="article-title">UXarray MCP: Agentic Mesh Analysis at HPC Scale</h1>
   <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer. Full results in our SciFM 2026 paper.</p>
 </div>
 
@@ -42,8 +42,8 @@ toc_sticky: true
     <span class="stat-card__label">bytes of raw mesh data transferred over the network</span>
   </div>
   <div class="stat-card stat-card--violet">
-    <span class="stat-card__value">Improv</span>
-    <span class="stat-card__label">Argonne HPC cluster used for PBS-backed validation campaign</span>
+    <span class="stat-card__value">HPC</span>
+    <span class="stat-card__label">Validated on Argonne Improv and UCAR Derecho via Globus Compute</span>
   </div>
 </div>
 
@@ -94,7 +94,7 @@ The HPC path is handled by Globus Compute. The MCP tool interface does not chang
 
 ## The campaign
 
-We ran a PBS-backed validation campaign on Argonne Improv, using production Earth-system meshes staged on the facility GPFS filesystem. The meshes span a wide range of formats, resolutions, and file sizes — from a compact global atmosphere grid to a large coastal-refined ocean mesh.
+We ran validation campaigns on two HPC systems — Argonne Improv and the UCAR Derecho cluster — using production Earth-system meshes staged on facility filesystems. The meshes span a wide range of formats, resolutions, and file sizes — from a compact global atmosphere grid to a large coastal-refined ocean mesh. The same MCP server and Globus Compute backend ran on both without code changes.
 
 The campaign tested four things:
 
@@ -112,13 +112,13 @@ Full results — tables, timing, coverage values, and discussion — are in the 
 
 ## The regional mesh explorer
 
-The most visually direct piece of the work is an agentic pipeline we built on top of the server. A scientist types a region name in plain English. The Claude API converts it to a lat/lon bounding box. That bounding box is forwarded to Improv via Globus Compute, which subsets the mesh, renders a wireframe plot on the worker, and returns the image to the laptop.
+The most visually direct piece of the work is an agentic pipeline we built on top of the server. A scientist types a region name in plain English. The Claude API converts it to a lat/lon bounding box. That bounding box is forwarded to the HPC endpoint — Argonne Improv or UCAR Derecho — via Globus Compute, which subsets the mesh, renders a wireframe plot on the worker, and returns the image to the laptop.
 
 No coordinates entered by hand. No SSH. No code written.
 
 <figure class="article-figure article-figure--wide">
   <img src="/images/blog/regional-florida.png" alt="WC14to60 mesh subset: Florida coast, rendered on Improv." />
-  <figcaption>Florida coast subset of a Western-Atlantic coastal refinement mesh, rendered on an Argonne Improv worker via Globus Compute and returned to the laptop as a PNG. The agent extracted this bounding box from the phrase "Florida coast" with no scientist-provided coordinates.</figcaption>
+  <figcaption>Florida coast subset of a Western-Atlantic coastal refinement mesh, rendered on an HPC worker via Globus Compute and returned to the laptop as a PNG. The agent extracted this bounding box from the phrase "Florida coast" with no scientist-provided coordinates.</figcaption>
 </figure>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin:1.5rem 0;">
