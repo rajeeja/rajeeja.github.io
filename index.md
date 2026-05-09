@@ -79,12 +79,36 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 <section class="cv-section" id="writing">
   <h2 class="cv-label">Writing</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">2026</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</a></li>
-    <li><span class="item-venue">2026</span> <a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</a></li>
-    <li><span class="item-venue">2026</span> <a href="/blog/improve-benchmark-infrastructure/">IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction</a></li>
-    <li><span class="item-venue">2026</span> <a href="/blog/candle-counterfactuals-hpo/">Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO</a></li>
-    <li><span class="item-venue">2026</span> <a href="/blog/urban-ecp-array-of-things/">Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago</a></li>
-    <li><span class="item-venue">2022</span> <a href="/blog/rgg-meshkit-moose-reactor-module/">From RGG and MeshKit to the MOOSE Reactor Module</a></li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</a>
+      <span class="item-dek">How the UXarray MCP server lets AI agents explore, analyze, and visualize unstructured climate grids — locally and on HPC via Globus Compute.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</a>
+      <span class="item-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU to get a stable training baseline on Aurora.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/improve-benchmark-infrastructure/">IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction</a>
+      <span class="item-dek">The improvelib package, cross-study analysis framework, GitHub Actions CI/CD, and the UNO dual-branch neural network for drug response prediction.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/candle-counterfactuals-hpo/">Probing Cancer Model Decision Boundaries: Counterfactual Analysis and Large-Scale HPO</a>
+      <span class="item-dek">mlrMBO, DEAP, Hyperopt, and Swift/T ran 10,000+ experiments on Summit; noise injection and counterfactuals revealed which genes drive tumor classification.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/urban-ecp-array-of-things/">Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago</a>
+      <span class="item-dek">Coupling Chicago's IoT sensor network, WRF mesoscale weather, EnergyPlus building simulation, and Nek5000 wall-resolved LES into a city-scale workflow.</span>
+    </li>
+    <li>
+      <span class="item-venue">2022</span>
+      <a href="/blog/rgg-meshkit-moose-reactor-module/">From RGG and MeshKit to the MOOSE Reactor Module</a>
+      <span class="item-dek">Parallel CoreGen generated a 101M-element MONJU reactor mesh on 712 processors in under 7 minutes — a job the serial path couldn't run at all.</span>
+    </li>
   </ul>
 </section>
 
