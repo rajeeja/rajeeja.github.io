@@ -100,7 +100,7 @@ On Summit (IBM AC922 nodes, 6 V100 GPUs per node, 4,608 nodes total), a well-str
 
 ## Probing decision boundaries: the NT3 benchmark
 
-The counterfactuals paper — "Probing Decision Boundaries in Cancer Data Using Noise Injection and Counterfactual Analysis" (Jain, Shah, Mohd-Yusof, Wozniak, Brettin, Xia, Stevens, CAFCW at SC21, 2021) — used the CANDLE **NT3 benchmark** as its test case. NT3 is a classification problem: given RNA expression data from a tissue sample, predict whether it is normal or tumor tissue. The input is a high-dimensional gene expression vector; the output is a binary label.
+The counterfactuals paper — "Probing Decision Boundaries in Cancer Data Using Noise Injection and Counterfactual Analysis" ([Jain, Shah, Mohd-Yusof, Wozniak, Brettin, Xia, Stevens, CAFCW at SC21, 2021](https://web.cels.anl.gov/~woz/papers/Counterfactuals_2021.pdf)) — used the CANDLE **NT3 benchmark** as its test case. NT3 is a classification problem: given RNA expression data from a tissue sample, predict whether it is normal or tumor tissue. The input is a high-dimensional gene expression vector; the output is a binary label.
 
 This is a deliberately clean setup. Unlike drug response regression, where the output is continuous and the ground truth is noisy, NT3 has clear ground truth labels. That makes it ideal for studying what happens when you *corrupt* the data — injecting noise — and measuring how the model degrades.
 
