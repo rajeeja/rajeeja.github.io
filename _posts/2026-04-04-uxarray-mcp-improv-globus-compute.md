@@ -4,7 +4,7 @@ date: 2026-04-04
 permalink: /blog/uxarray-mcp-improv-globus-compute/
 categories:
   - blog
-excerpt: "A teaser for our SciFM 2026 companion paper: an MCP server for UXarray that lets AI agents inspect, visualize, and reason about production Earth-system meshes on HPC clusters — from a laptop, without SSH, without writing code."
+excerpt: "A note on the UXarray MCP work presented at SciFM26: an MCP server for UXarray that lets AI agents inspect, visualize, and reason about production Earth-system meshes on HPC clusters — from a laptop, without SSH, without writing code."
 tags:
   - hpc
   - climate
@@ -18,9 +18,9 @@ toc_sticky: true
 ---
 
 <div class="article-banner">
-  <p class="eyebrow">Teaser &middot; SciFM 2026 companion paper</p>
+  <p class="eyebrow">Presented at SciFM26</p>
   <h1 class="article-title">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</h1>
-  <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer. Full results in our SciFM 2026 paper.</p>
+  <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer.</p>
 </div>
 
 <div class="post-tags">
@@ -51,7 +51,7 @@ Getting a topology summary from a production Earth-system mesh today requires an
 
 We have been building toward a better answer: an MCP server for [UXarray](https://uxarray.readthedocs.io/) that exposes mesh inspection, area diagnostics, subsetting, and plotting as typed, provenance-producing tools. A Globus Compute backend routes computation to leadership-class hardware so multi-gigabyte files never leave facility storage.
 
-This is a teaser. The full campaign results are in our companion paper submitted to SciFM 2026. We will link it here when it is publicly available.
+I presented this UXarray MCP work at SciFoundationModels 2026 (SciFM26).
 
 ## The problem
 
@@ -103,7 +103,7 @@ The campaign tested four things:
 3. **Structured failure recovery** — can the server classify realistic failure modes (CF violations, format mismatches, topology errors) into actionable triage records rather than raw tracebacks?
 4. **Artifact economics** — what does the scientist receive in exchange for the overhead of a remote call?
 
-Full results — tables, timing, coverage values, and discussion — are in the companion paper.
+The presentation covered the campaign results, timing behavior, topology checks, failure triage, and artifact economics.
 
 <figure class="article-figure article-figure--wide">
   <img src="/images/blog/uxarray-mcp-agent-loop.png" alt="Agent loop diagram — reasoning steps in the UXarray MCP campaign" />
@@ -154,8 +154,8 @@ The system composes three layers:
 
 **Execution backend (HPC / Globus Compute)** runs actual computation on data-local hardware. Raw mesh files never leave facility storage. Only compact artifacts cross the network. The backend has no knowledge of MCP or the LLM; it receives a serialized Python callable and returns a result.
 
-## What is coming
+## Why it matters
 
-Full campaign results, timing tables, failure triage details, and discussion of the artifact economics and the path toward fully autonomous scientific campaigns are in our companion paper submitted to SciFM 2026. We will post the link here when it is publicly available.
+I presented this work at SciFoundationModels 2026 (SciFM26), with the broader goal of making scientific mesh analysis more reproducible and easier to run where the data already lives.
 
 *Supported by the U.S. National Science Foundation under Grant No. 2126458 (EarthCube) and the U.S. Department of Energy Office of Science SEATS project.*

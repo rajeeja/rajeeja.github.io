@@ -104,6 +104,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 
   <h2 class="cv-label cv-label--sub">Recent talks</h2>
   <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">SciFM26</span> Presented UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</li>
     <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
     <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
     <li><span class="item-venue">SC24</span> <a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&amp;sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></li>

@@ -76,9 +76,9 @@ B.Tech. in Mechanical Engineering
   {Open-source climate analysis platform}
 \begin{itemize}
   \item Lead developer for a Python library enabling analysis of native unstructured climate and weather grids, used by NCAR, DOE labs, and universities.
-  \item Designed the core API, conservative zonal averaging via Gauss-Legendre quadrature, geometry operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, automated tests, CI/CD, and release workflows.
-  \item Built the UXarray MCP server: 20+ typed tools allowing AI agents to inspect, subset, visualize, and analyze production Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance on every operation. Validated in PBS-backed campaigns on facility filesystems; companion paper submitted to SciFM 2026.
-  \item Tutorials and presentations at SC24, AMS 2024/2025, SciPy 2023, EGU, AGU, and ESDS.
+  \item Designed the core API, conservative zonal averaging via exact spherical polygon intersection with error-free transformation arithmetic, vector calculus operators (gradient, divergence, curl), YAC remapping backend, multi-grid support, geometry operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, automated tests, CI/CD, and release workflows.
+  \item Built the UXarray MCP server: 20+ typed tools allowing AI agents to inspect, subset, visualize, and analyze production Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance on every operation. Presented at SciFoundationModels 2026 (SciFM26).
+  \item Tutorials and presentations at SC24, AMS 2024/2025/2026, SciPy 2023, EGU 2024/2025/2026, AGU, and ESDS.
 \end{itemize}
 
 \entryheader
@@ -100,7 +100,7 @@ B.Tech. in Mechanical Engineering
   \item Built the CANDLE/Supervisor HPO workflow using Swift/T, mlrMBO (Bayesian/GP), DEAP (genetic algorithms), and Hyperopt/TPE; ran 10,000+ model training experiments across Summit, Theta, and Cori at up to 1,000 concurrent jobs.
   \item Applied noise injection and counterfactual analysis to the NT3 tumor classification benchmark; identified PLOD2, RGS5, TP53I13, and related genes as decision-boundary drivers — confirming the model used biologically meaningful signal.
   \item Led the IMPROVE benchmark framework: \texttt{improvelib} Python package with standardized loaders, canonical train/test splits, and evaluation metrics; GitHub Actions CI/CD covering unit tests, end-to-end Docker pipelines, and parallel cross-study analysis (CSA) via Parsl.
-  \item Designed and implemented UNO, a dual-branch neural network (separate drug and cell-line embeddings) that participates in the IMPROVE CSA benchmark; results published in \textit{Briefings in Bioinformatics} (2025).
+  \item Designed and implemented UNO, a dual-branch neural network (separate drug and cell-line embeddings) that participates in the IMPROVE CSA benchmark; results published in \textit{Briefings in Bioinformatics} (2026).
   \item Supported a 15+ researcher multi-lab collaboration. R\&D 100 Award, 2023.
 \end{itemize}
 
@@ -157,7 +157,8 @@ B.Tech. in Mechanical Engineering
 \end{itemize}
 
 \section{Peer-Reviewed Journal Articles}
-\pubentry{2025}{Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., \textbf{Jain, R.}, Overbeek, J. C., Fernando, G. D., Sanchez-Villalobos, C., Garcia-Cardona, C., Mohd-Yusof, J., Chia, N., Wozniak, J. M., Ghosh, S., Pal, R., Brettin, T. S., Weil, M. R., and Stevens, R. L. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis}.'' \textit{Briefings in Bioinformatics}.}
+\pubentry{2026}{Chen, H., Ullrich, P. A., Panetta, J., Marsico, D., Hanke, M., \textbf{Jain, R.}, Zhang, C., et al. ``Accurate and Robust Geometric Algorithms for Regridding on the Sphere.'' \textit{EGUsphere} (preprint).}
+\pubentry{2026}{Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., \textbf{Jain, R.}, Overbeek, J. C., Fernando, G. D., Sanchez-Villalobos, C., Garcia-Cardona, C., Mohd-Yusof, J., Chia, N., Wozniak, J. M., Ghosh, S., Pal, R., Brettin, T. S., Weil, M. R., and Stevens, R. L. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis}.'' \textit{Briefings in Bioinformatics} 27(1), bbaf667.}
 \pubentry{2022}{Dubey, A., Weide, K., O'Neal, J., Dhruv, A., Couch, S., Harris, J. A., Klosterman, T., \textbf{Jain, R.}, Rudi, J., Messer, B., Pajkos, M., Carlson, J., Chu, R., Wahib, M., Chawdhary, S., Ricker, P. M., Lee, D., Antypas, K., Riley, K. M., Daley, C., Ganapathy, M., Timmes, F. X., Townsley, D. M., Vanella, M., Bachan, J., Rich, P. M., Kumar, S., Endeve, E., Hix, W. R., Mezzacappa, A., and Papatheodore, T. ``Flash-X: A multiphysics simulation software instrument.'' \textit{SoftwareX}.}
 \pubentry{2022}{Harris, J. A., Chu, R., Couch, S. M., Dubey, A., Endeve, E., Georgiadou, A., \textbf{Jain, R.}, Kasen, D., Laiu, M. P., Messer, O. E. B., O'Neal, J., Sandoval, M. A., and Weide, K. ``Exascale models of stellar explosions: quintessential multi-physics simulation.'' \textit{International Journal of High Performance Computing Applications}.}
 \pubentry{2020}{\textbf{Jain, R.}, Luo, X., Sever, G., Hong, T., and Catlett, C. ``Representation and evolution of urban weather boundary conditions in downtown Chicago.'' \textit{Journal of Building Performance Simulation}.}
@@ -184,6 +185,9 @@ B.Tech. in Mechanical Engineering
 \pubentry{2010}{Tautges, T. J. and \textbf{Jain, R.} ``Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries Using a Lattice Hierarchy-Based Approach.'' \textit{19th International Meshing Roundtable}. Best Paper Award.}
 
 \section{Conference Abstracts, Tutorials, and Presentations}
+\pubentry{2026}{\textbf{Jain, R.}, Abdulla, D., Jacob, R., Clyne, J., Eroglu, O., Medeiros, B., Chen, H., and Ullrich, P. ``A Model Context Protocol Server for Agentic Analysis of Unstructured Earth-System Meshes.'' Presented at \textit{SciFoundationModels 2026 (SciFM26)}.}
+\pubentry{2026}{Eroglu, O., Chen, H., Chmielowiec, P., Clyne, J., Hannay, C., Jacob, R. L., \textbf{Jain, R.}, Medeiros, B., Ullrich, P., and Zarzycki, C. M. ``Latest Developments in UXarray: A Python Package Supporting Kilometer-Scale Model Outputs in Native Unstructured Grids.'' \textit{106th AMS Annual Meeting}.}
+\pubentry{2026}{Clyne, J., Eroglu, O., Jacob, R., \textbf{Jain, R.}, Medeiros, B., Ullrich, P., and Zarzycki, C. ``UXarray: A Python Package for the Analysis of Kilometer-Scale Atmosphere and Ocean Model Outputs.'' \textit{EGU General Assembly (EGU26)}.}
 \pubentry{2025}{Eroglu, O., Chen, H., Chmielowiec, P., Hannay, C., Jacob, R. L., \textbf{Jain, R.}, Medeiros, B., Ullrich, P., and Zarzycki, C. M. ``UXarray: Extending Xarray to Support the Analysis of Native, Kilometer-Scale Unstructured Grids in Python.'' \textit{105th AMS Annual Meeting}.}
 \pubentry{2025}{Clyne, J., Chen, H., Chmielowiec, P., Eroglu, O., Hannay, C., Jacob, R., \textbf{Jain, R.}, Medeiros, B., Ullrich, P., and Zarzycki, C. ``UXarray: Extending Xarray for Enhanced Support of Unstructured Grids.'' \textit{EGU General Assembly}.}
 \pubentry{2024}{\textbf{Jain, R.} ``Tutorial: UXarray for Analysis of Unstructured Climate Data.'' \textit{SC24}.}
@@ -220,7 +224,7 @@ B.Tech. in Mechanical Engineering
 \section{Software and Open Source}
 \begin{tabularx}{\textwidth}{@{}p{2.2cm}X@{}}
 \textbf{UXarray} & Lead developer; Python library for unstructured climate grid analysis used by NCAR and DOE labs. \href{https://github.com/UXARRAY/uxarray}{GitHub} · \href{https://uxarray.readthedocs.io}{Docs}. \\[4pt]
-\textbf{UXarray MCP} & MCP server exposing UXarray as typed AI-agent tools with Globus Compute HPC backend; structured provenance on every call. SciFM 2026 companion paper. \\[4pt]
+\textbf{UXarray MCP} & MCP server exposing UXarray as typed AI-agent tools with Globus Compute HPC backend; structured provenance on every call. Presented at SciFM26. \\[4pt]
 \textbf{FLASH-X} & I/O and compression lead for a million-line multiphysics simulation engine (astrophysics, combustion, fluid dynamics). R\&D 100 Award, 2022. \\[4pt]
 \textbf{CANDLE / IMPROVE} & HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt) and \texttt{improvelib} benchmark framework for cancer drug response; GitHub Actions CI/CD and UNO dual-branch model. R\&D 100 Award, 2023. \\[4pt]
 \textbf{Pangu-Weather} & PyTorch / SFNO climate emulator ported to 60,000+ Intel XPUs on Aurora: PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline. \\[4pt]
