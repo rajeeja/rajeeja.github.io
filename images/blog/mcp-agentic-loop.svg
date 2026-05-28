@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Segoe UI', system-ui, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="560" fill="#f8f9fc" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">The MCP Agentic Loop</text>
+  <text x="450" y="58" text-anchor="middle" font-size="11.5" fill="#555">Ask · Retrieve · Analyze · Plan · Measure · Update · Verify — governed through typed MCP tools at every step</text>
+
+  <!-- ── Three-layer band labels (left) ── -->
+  <!-- Scientist layer -->
+  <rect x="18" y="80" width="104" height="68" rx="6" fill="#e8f0fe" stroke="#4a90d9" stroke-width="1"/>
+  <text x="70" y="100" text-anchor="middle" font-size="10" font-weight="700" fill="#1a4a8a">SCIENTIST</text>
+  <text x="70" y="114" text-anchor="middle" font-size="9" fill="#1a4a8a">Natural language</text>
+  <text x="70" y="126" text-anchor="middle" font-size="9" fill="#1a4a8a">intent &amp; review</text>
+  <text x="70" y="140" text-anchor="middle" font-size="9" fill="#1a4a8a">Ask / Verify</text>
+
+  <!-- Agent layer -->
+  <rect x="18" y="162" width="104" height="80" rx="6" fill="#fef3e2" stroke="#e6a817" stroke-width="1"/>
+  <text x="70" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#7a4a00">AI AGENT</text>
+  <text x="70" y="196" text-anchor="middle" font-size="9" fill="#7a4a00">Structured calls</text>
+  <text x="70" y="208" text-anchor="middle" font-size="9" fill="#7a4a00">Plan / Analyze</text>
+  <text x="70" y="222" text-anchor="middle" font-size="9" fill="#7a4a00">Measure / Update</text>
+  <text x="70" y="236" text-anchor="middle" font-size="9" fill="#7a4a00">via MCP tools</text>
+
+  <!-- MCP Server layer -->
+  <rect x="18" y="256" width="104" height="68" rx="6" fill="#e8f8f0" stroke="#2a9d5c" stroke-width="1"/>
+  <text x="70" y="276" text-anchor="middle" font-size="10" font-weight="700" fill="#145c35">MCP SERVER</text>
+  <text x="70" y="290" text-anchor="middle" font-size="9" fill="#145c35">Schema validation</text>
+  <text x="70" y="304" text-anchor="middle" font-size="9" fill="#145c35">Provenance · Route</text>
+  <text x="70" y="318" text-anchor="middle" font-size="9" fill="#145c35">Retrieve step</text>
+
+  <!-- HPC layer -->
+  <rect x="18" y="338" width="104" height="56" rx="6" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="70" y="358" text-anchor="middle" font-size="10" font-weight="700" fill="#4c1d95">HPC / DATA</text>
+  <text x="70" y="372" text-anchor="middle" font-size="9" fill="#4c1d95">Globus Compute</text>
+  <text x="70" y="386" text-anchor="middle" font-size="9" fill="#4c1d95">Facility storage</text>
+
+  <!-- ── Step nodes ── -->
+  <!-- Node style: circle + label below -->
+  <!-- x positions for 7 steps: 185 270 355 450 545 630 715 -->
+
+  <!-- Step colours -->
+  <!-- ASK: blue, RETRIEVE: teal, ANALYZE: orange, PLAN: gold,
+       MEASURE: red-orange, UPDATE: green, VERIFY: violet -->
+
+  <!-- Connector arrows (drawn before nodes so nodes sit on top) -->
+  <!-- ASK -> RETRIEVE -->
+  <line x1="213" y1="165" x2="247" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- RETRIEVE -> ANALYZE -->
+  <line x1="298" y1="165" x2="332" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- ANALYZE -> PLAN -->
+  <line x1="383" y1="165" x2="417" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- PLAN -> MEASURE -->
+  <line x1="478" y1="165" x2="512" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- MEASURE -> UPDATE -->
+  <line x1="563" y1="165" x2="597" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- UPDATE -> VERIFY -->
+  <line x1="648" y1="165" x2="682" y2="165" stroke="#aaa" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- VERIFY -> loop back arc -->
+  <path d="M 733 148 Q 733 100 450 100 Q 190 100 190 148" fill="none" stroke="#8b5cf6" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrV)"/>
+  <text x="450" y="94" text-anchor="middle" font-size="9.5" fill="#8b5cf6" font-style="italic">iterate if not verified</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#aaa"/>
+    </marker>
+    <marker id="arrV" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+
+  <!-- 1. ASK -->
+  <circle cx="191" cy="165" r="28" fill="#4a90d9" opacity="0.92"/>
+  <text x="191" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">ASK</text>
+  <text x="191" y="173" text-anchor="middle" font-size="8.5" fill="white">intent</text>
+  <!-- MCP badge -->
+  <rect x="161" y="198" width="60" height="14" rx="3" fill="#d0e4f7"/>
+  <text x="191" y="208" text-anchor="middle" font-size="7.5" fill="#1a4a8a">natural language</text>
+  <!-- Vertical connector down to MCP layer indicator -->
+  <line x1="191" y1="193" x2="191" y2="250" stroke="#4a90d9" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="191" y="263" text-anchor="middle" font-size="7" fill="#4a90d9">scientist</text>
+
+  <!-- 2. RETRIEVE -->
+  <circle cx="276" cy="165" r="28" fill="#2a9d5c" opacity="0.92"/>
+  <text x="276" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">RETRIEVE</text>
+  <text x="276" y="173" text-anchor="middle" font-size="8.5" fill="white">data</text>
+  <rect x="243" y="198" width="66" height="14" rx="3" fill="#c8eedd"/>
+  <text x="276" y="208" text-anchor="middle" font-size="7.5" fill="#145c35">list_datasets · inspect</text>
+  <line x1="276" y1="193" x2="276" y2="250" stroke="#2a9d5c" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="276" y="263" text-anchor="middle" font-size="7" fill="#2a9d5c">MCP server</text>
+  <line x1="276" y1="270" x2="276" y2="310" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3,2" opacity="0.4"/>
+  <text x="276" y="323" text-anchor="middle" font-size="7" fill="#8b5cf6">HPC / facility</text>
+
+  <!-- 3. ANALYZE -->
+  <circle cx="361" cy="165" r="28" fill="#e67e22" opacity="0.92"/>
+  <text x="361" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">ANALYZE</text>
+  <text x="361" y="173" text-anchor="middle" font-size="8.5" fill="white">results</text>
+  <rect x="327" y="198" width="68" height="14" rx="3" fill="#fde8cc"/>
+  <text x="361" y="208" text-anchor="middle" font-size="7.5" fill="#7a3800">zonal_mean · area</text>
+  <line x1="361" y1="193" x2="361" y2="250" stroke="#e67e22" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="361" y="263" text-anchor="middle" font-size="7" fill="#e67e22">agent + MCP</text>
+
+  <!-- 4. PLAN -->
+  <circle cx="450" cy="165" r="28" fill="#d4a017" opacity="0.92"/>
+  <text x="450" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">PLAN</text>
+  <text x="450" y="173" text-anchor="middle" font-size="8.5" fill="white">next steps</text>
+  <rect x="416" y="198" width="68" height="14" rx="3" fill="#fef3cc"/>
+  <text x="450" y="208" text-anchor="middle" font-size="7.5" fill="#7a5a00">recommended_next</text>
+  <line x1="450" y1="193" x2="450" y2="250" stroke="#d4a017" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="450" y="263" text-anchor="middle" font-size="7" fill="#d4a017">agent reasoning</text>
+
+  <!-- 5. MEASURE -->
+  <circle cx="539" cy="165" r="28" fill="#c0392b" opacity="0.92"/>
+  <text x="539" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">MEASURE</text>
+  <text x="539" y="173" text-anchor="middle" font-size="8.5" fill="white">quality</text>
+  <rect x="504" y="198" width="70" height="14" rx="3" fill="#fcd9d6"/>
+  <text x="539" y="208" text-anchor="middle" font-size="7.5" fill="#6a1a14">bias · rmse · corr</text>
+  <line x1="539" y1="193" x2="539" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="539" y="263" text-anchor="middle" font-size="7" fill="#c0392b">MCP tools</text>
+
+  <!-- 6. UPDATE -->
+  <circle cx="624" cy="165" r="28" fill="#27ae60" opacity="0.92"/>
+  <text x="624" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">UPDATE</text>
+  <text x="624" y="173" text-anchor="middle" font-size="8.5" fill="white">state</text>
+  <rect x="591" y="198" width="66" height="14" rx="3" fill="#c8f0d8"/>
+  <text x="624" y="208" text-anchor="middle" font-size="7.5" fill="#145c35">session · export</text>
+  <line x1="624" y1="193" x2="624" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="624" y="263" text-anchor="middle" font-size="7" fill="#27ae60">MCP session</text>
+
+  <!-- 7. VERIFY -->
+  <circle cx="713" cy="165" r="28" fill="#8b5cf6" opacity="0.92"/>
+  <text x="713" y="161" text-anchor="middle" font-size="10" font-weight="700" fill="white">VERIFY</text>
+  <text x="713" y="173" text-anchor="middle" font-size="8.5" fill="white">science</text>
+  <rect x="679" y="198" width="68" height="14" rx="3" fill="#ede0ff"/>
+  <text x="713" y="208" text-anchor="middle" font-size="7.5" fill="#4c1d95">validate_dataset</text>
+  <line x1="713" y1="193" x2="713" y2="250" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+  <text x="713" y="263" text-anchor="middle" font-size="7" fill="#8b5cf6">scientist + MCP</text>
+
+  <!-- ── MCP Protocol band (bottom) ── -->
+  <rect x="148" y="340" width="612" height="50" rx="8" fill="#1e2a3a" opacity="0.88"/>
+  <text x="454" y="359" text-anchor="middle" font-size="11" font-weight="700" fill="white">MCP Protocol Layer</text>
+  <text x="454" y="376" text-anchor="middle" font-size="9" fill="#a0c4e8">Typed schemas · SEP-2322 multi-round-trip · SEP-2567 state handles · SEP-414 OTel traces · SEP-2704 audit context</text>
+
+  <!-- Connector from step nodes to protocol band -->
+  <line x1="276" y1="330" x2="276" y2="340" stroke="#2a9d5c" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="361" y1="275" x2="361" y2="340" stroke="#e67e22" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="450" y1="275" x2="450" y2="340" stroke="#d4a017" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="539" y1="275" x2="539" y2="340" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+  <line x1="624" y1="275" x2="624" y2="340" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+
+  <!-- ── Legend for SEPs ── -->
+  <rect x="148" y="404" width="612" height="90" rx="8" fill="white" stroke="#dde" stroke-width="1"/>
+  <text x="168" y="422" font-size="10" font-weight="700" fill="#333">Key SEPs enabling this loop</text>
+
+  <rect x="168" y="430" width="8" height="8" rx="1" fill="#8b5cf6"/>
+  <text x="182" y="438" font-size="9" fill="#333"><tspan font-weight="600">SEP-2322</tspan> Multi round-trip — server sends progress events; agent loops without polling</text>
+
+  <rect x="168" y="445" width="8" height="8" rx="1" fill="#2a9d5c"/>
+  <text x="182" y="453" font-size="9" fill="#333"><tspan font-weight="600">SEP-2567</tspan> State handles — sessionless tool composition; state carried by client not server</text>
+
+  <rect x="168" y="460" width="8" height="8" rx="1" fill="#4a90d9"/>
+  <text x="182" y="468" font-size="9" fill="#333"><tspan font-weight="600">SEP-414  </tspan> OTel trace propagation — one distributed trace from Ask through HPC execution</text>
+
+  <rect x="168" y="475" width="8" height="8" rx="1" fill="#d4a017"/>
+  <text x="182" y="483" font-size="9" fill="#333"><tspan font-weight="600">SEP-2704</tspan> Audit context — every AI-initiated tool call carries model, session, and policy metadata</text>
+
+  <rect x="168" y="490" width="8" height="8" rx="1" fill="#c0392b"/>
+  <text x="182" y="498" font-size="9" fill="#333"><tspan font-weight="600">SEP-2575</tspan> Stateless mode — servers declare statelessness; clients compose tools without session mgmt</text>
+
+  <!-- Source credit -->
+  <text x="450" y="548" text-anchor="middle" font-size="8.5" fill="#999">rajeeja.github.io · UXarray MCP Server · SciFM26 May 2026</text>
+</svg>

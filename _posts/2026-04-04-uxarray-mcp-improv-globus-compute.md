@@ -154,6 +154,19 @@ The system composes three layers:
 
 **Execution backend (HPC / Globus Compute)** runs actual computation on data-local hardware. Raw mesh files never leave facility storage. Only compact artifacts cross the network. The backend has no knowledge of MCP or the LLM; it receives a serialized Python callable and returns a result.
 
+## Future work: MCP SEPs we are watching
+
+This project also gives us a practical lens on the MCP standards work now moving through SEPs. Scientific workflows stress parts of the protocol that are easy to ignore in short local demos: authentication, long-running operations, progress reporting, artifact handling, and pre-execution review.
+
+For UXarray MCP, the most important pieces are:
+
+- **Authentication and delegation** — remote mesh analysis often runs against facility filesystems and HPC endpoints, so the client/server boundary needs a clean way to represent user identity, delegated access, and revocation without baking site-specific credentials into every tool.
+- **Long-running tasks and progress** — a 20-second mesh inspection, a queued PBS job, and a multi-step regional workflow should not all look like the same blocking function call. We are watching the task/progress proposals because scientific users need stage-level status, cancellation, retry, and resumability.
+- **Artifacts and provenance** — plots, JSON summaries, logs, and derived mesh subsets need first-class metadata. The useful return value is not only a PNG or table; it is the artifact plus where it came from, which file was used, which endpoint ran it, and how to reproduce it.
+- **Pre-execution hooks and policy checks** — before an agent launches an HPC job or reads a restricted path, the user or site policy may need a checkpoint. Interceptor-style SEPs matter here because scientific agents need controlled execution, not just tool access.
+
+The broader point is that UXarray MCP is not only waiting for more tools. It is waiting for the protocol surface to mature around the realities of scientific work: authenticated data, expensive runs, durable artifacts, and human checkpoints at the right places.
+
 ## Why it matters
 
 I presented this work at SciFoundationModels 2026 (SciFM26), with the broader goal of making scientific mesh analysis more reproducible and easier to run where the data already lives.
