@@ -75,11 +75,11 @@ The fix is not to cut licenses. It's to define the interface.
 
 ## What a typed, governed AI interface looks like in practice
 
-The system I have been building — the [UXarray MCP server](https://rajeeja.github.io/blog/uxarray-mcp-improv-globus-compute/) — is a concrete example of what disciplined AI looks like in a non-coding domain. It is not a chatbot. It is a typed tool catalog that an AI agent can call, with explicit schemas for every operation, structured return values, and a provenance record attached to every result.
+A concrete example from scientific computing: we built an MCP server for analyzing production Earth-system meshes on HPC clusters. It is not a chatbot. It is a typed tool catalog that an AI agent can call, with explicit schemas for every operation, structured return values, and a provenance record attached to every result.
 
 The tool catalog covers a coherent workflow: discover data, inspect topology, compute area diagnostics, validate quality, subset by region, visualize, export. Every tool has an input schema the agent must satisfy. Every call returns structured data the agent can reason about. No tool is "send this question to a general-purpose model and see what it says."
 
-The result: a scientist types "show me the mesh resolution near Florida." The agent converts that to a bounding box, calls `subset_bbox` on a 1.1 GB mesh file on Argonne's HPC cluster via Globus Compute, renders a wireframe plot on the cluster, and returns a PNG — in about ten seconds, from a laptop, with no SSH session and no handwritten code. The scientist gets a reproducible result with a full provenance record. The HPC cluster does the computation on data that never leaves facility storage.
+The result: a scientist types "show me the mesh resolution near Florida." The agent converts that to a bounding box, runs the subset against a 1.1 GB mesh file on an HPC cluster, renders a wireframe plot on the cluster, and returns a PNG — in about ten seconds, from a laptop, with no SSH session and no handwritten code. The scientist gets a reproducible result with a full provenance record. The cluster does the computation on data that never leaves facility storage.
 
 <figure class="article-figure article-figure--wide">
   <img src="/images/blog/regional-florida.png" alt="Florida coast mesh subset rendered on Improv via Globus Compute" />
@@ -87,6 +87,8 @@ The result: a scientist types "show me the mesh resolution near Florida." The ag
 </figure>
 
 That is AI delivering real value. The scientist who used to spend an hour on this problem now spends ten seconds. The result is documented. The computation ran where the data lives. The agent could not, even in principle, "check the weather" because the tool catalog contains no weather-checking tool.
+
+This is not a scientific curiosity. It is a template. The same pattern — typed tool surface, schema validation, provenance record, compute-to-data — applies to any domain where the cost of getting it wrong is real.
 
 **That's the point.** The interface defines what's possible. If you define the interface well, the agent is useful and auditable. If you don't define the interface, you get tokenmaxxing.
 
@@ -100,7 +102,7 @@ The enterprise AI reckoning keeps surfacing the same four blockers. Each one has
 
 *Most people default to automating tasks they dislike rather than tasks most valuable to the company.*
 
-The fix is not telling people to automate better things. The fix is giving them access only to tools that touch high-value workflows. In the UXarray system, the tool catalog is the strategy document made executable. The tools cover mesh diagnostics, regional analysis, quality validation, and ensemble comparison — exactly the operations that take expert time and block science. An employee cannot accidentally spend tokens on low-value work because low-value work is not in the catalog.
+The fix is not telling people to automate better things. The fix is giving them access only to tools that touch high-value workflows. In a well-designed MCP deployment, the tool catalog is the strategy document made executable. The tools cover the operations that take expert time and block real work. An employee cannot accidentally spend tokens on low-value work because low-value work is not in the catalog.
 
 Designing the tool catalog is the hard, domain-specific work that AI deployment actually requires. Most enterprises skip it.
 
@@ -118,7 +120,7 @@ This is not a novel idea. APIs have had rate limits and input validation for dec
 
 The bottleneck is not human capability. It's the absence of a feedback loop. When an agent has no schema contract, no validation, and no provenance, there's no signal for what's working. You can't improve what you can't observe.
 
-In the UXarray system, every tool call produces a structured provenance record: the grid path, variable, operation parameters, endpoint, library version, wall time. That record is machine-readable and human-auditable. Six months later, when a scientist wants to regenerate a figure or compare it to a new mesh version, the provenance record is the full specification. No reconstruction needed.
+In a governed MCP deployment, every tool call produces a structured provenance record: inputs, parameters, endpoint, library version, wall time. That record is machine-readable and human-auditable. Six months later, when a scientist wants to regenerate a figure or an analyst wants to replay a decision, the provenance record is the full specification. No reconstruction needed.
 
 Provenance is not a nice-to-have for scientific reproducibility. It's the observability layer that makes an AI system improvable over time. Enterprises that want ROI from AI need to build this into every agent deployment, not treat outputs as ephemeral chat.
 
@@ -128,7 +130,7 @@ Provenance is not a nice-to-have for scientific reproducibility. It's the observ
 
 This is the right diagnosis with the wrong conclusion. Most enterprise AI rollbacks imply organizations need to loosen access controls. The actual fix is a better access model — one where the agent can use data without the data leaving a governed perimeter.
 
-The UXarray MCP server's HPC backend is the scientific version of this. Production Earth-system mesh files — some over 10 GB — live on facility filesystems. They never move. The Globus Compute backend runs computation on the cluster where the data lives, and only compact results (a JSON summary, a PNG) cross the network back to the agent. The agent gets what it needs without the data being exposed.
+In the scientific computing system described above, production mesh files — some over 10 GB — live on facility filesystems and never move. Computation runs on the cluster where the data lives; only compact results (a JSON summary, a PNG) cross the network back to the agent. The agent gets what it needs without the data being exposed.
 
 The enterprise equivalent is running agent computation in a governed compute environment rather than sending proprietary documents to an external API. The technical infrastructure for this — Globus Compute for HPC, VPCs for enterprise, trusted execution environments for regulated industries — exists. The issue is that most enterprises haven't built the access model; they've oscillated between "full access" (governance concern) and "no access" (ROI concern), missing the middle path.
 
@@ -148,10 +150,7 @@ The five SEPs that merged in the past three months — multi-round-trip requests
 
 The enterprise AI ROI problem will not be solved by cutting licenses or by vague injunctions to "use AI for high-value work." It will be solved by organizations that build — or buy — the interface layer that makes AI behavior typed, governed, auditable, and connected to data where it lives. The measure of success is not seat count or token spend — it's intelligence per token: useful, verifiable work produced per dollar of compute.
 
-That's what the UXarray MCP work is. It's not a scientific curiosity. It's a proof of concept for what disciplined AI deployment looks like in a domain where the cost of getting it wrong — wrong science, reproducibility failures, unauthorized data movement — is real. Every result is auditable. Every tool call is schema-validated. The data never moves. Scientists trust it because the system earns that trust at every layer.
+The scientific computing example above is one proof point. Every result is auditable. Every tool call is schema-validated. The data never moves. Scientists trust it because the system earns that trust at every layer — not because they were told to trust an AI.
 
 The correction the enterprise is going through is healthy. The question is whether it produces discipline or just retrenchment. The organizations that come out ahead will be the ones that use the correction to build the trust architecture they skipped the first time: typed interfaces, governed data access, and a provenance record that makes every AI action legible to the humans who have to stake their reputation on the results.
 
----
-
-*I presented the UXarray MCP work this week at [SciFoundationModels 2026 (SciFM26)](https://scifm.ai) in Chicago. The server is open source at [github.com/UXARRAY/uxarray-mcp-server](https://github.com/UXARRAY/uxarray-mcp-server). Supported by NSF EarthCube Grant No. 2126458 and the U.S. DOE Office of Science SEATS project.*
