@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Rajeev Jain"
 title_separator          : "-"
 name                     : &name "Rajeev Jain"
-description              : &description "Principal software engineer with 16+ years in scientific computing, ML infrastructure, and HPC systems"
+description              : &description "Principal Specialist in Research Software Engineering at Argonne with 16+ years in scientific computing, ML infrastructure, and HPC systems"
 url                      : https://rajeeja.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "rajeeja/rajeeja.github.io"
@@ -62,27 +62,32 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  # Open Graph/Twitter default site image
+og_image                 : "og-card.png" # Open Graph/Twitter default site image (1200x630)
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
-  type                   : # Person or Organization (defaults to Person)
-  name                   : # If the user or organization name differs from the site's name
+  type                   : "Person" # Person or Organization (defaults to Person)
+  name                   : "Rajeev Jain" # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
+    - "https://github.com/rajeeja"
+    - "https://www.linkedin.com/in/rajeeja/"
+    - "https://scholar.google.com/citations?user=bC77n9MAAAAJ&hl=en"
+    - "https://orcid.org/0000-0002-1235-918X"
+    - "https://www.researchgate.net/profile/Rajeev-Jain-7"
 
 
 # Analytics
 analytics:
   provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
   google:
-    measurement_id       : "G-3ZVH8WXDBW"
+    measurement_id       : "G-VHR4H2S5F3"
 
 
 # Site Author
 author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
-  bio		   : "Principal Software Engineer at Argonne. 16+ years in ML infrastructure, HPC systems, and scientific computing."
+  bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years in ML infrastructure, HPC systems, and scientific computing."
   cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :
@@ -137,6 +142,7 @@ exclude:
   - README
   - tmp
   - vendor
+  - images/blog/originals
 keep_files:
   - .git
   - .svn

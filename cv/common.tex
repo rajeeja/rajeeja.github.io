@@ -1,5 +1,6 @@
-\usepackage[margin=0.72in]{geometry}
+\usepackage[margin=0.7in]{geometry}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
@@ -9,55 +10,87 @@
 \usepackage{array}
 \usepackage{fancyhdr}
 \usepackage{ragged2e}
+\usepackage{fontawesome5}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\tabcolsep}{0pt}
-\setlist[itemize]{leftmargin=1.15em,itemsep=1pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1.5pt,topsep=2pt,parsep=0pt,partopsep=0pt}
 
-\providecommand{\accenthex}{2F2F2F}
+% --- Palette -------------------------------------------------------------
+% accent  : section labels / name
+% rulegray: hairline rules
+% linkblue: hyperlinks
+\providecommand{\accenthex}{1A3D5C}   % deep slate blue
 \definecolor{accent}{HTML}{\accenthex}
+\definecolor{rulegray}{HTML}{C8CDD4}
+\definecolor{mutedgray}{HTML}{55606B}
 \definecolor{linkblue}{HTML}{2F5D9A}
 \hypersetup{
   colorlinks=true,
   urlcolor=linkblue,
-  linkcolor=linkblue
+  linkcolor=linkblue,
+  pdfborderstyle={/S/U/W 0}
 }
 
-\titleformat{\section}{\scshape\small\color{accent}}{}{0em}{}
+% --- Section headers: small-caps label with a full-width hairline rule ----
+\titleformat{\section}
+  {\normalfont\scshape\small\bfseries\color{accent}}
+  {}{0em}{}[\vspace{2pt}{\color{rulegray}\titlerule[0.6pt]}]
+\titlespacing*{\section}{0pt}{9pt}{4pt}
 
+% --- Experience / project entry: bold title + right-aligned date ----------
 \newcommand{\entryheader}[4]{%
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lr}
-    \textbf{#1} & \textbf{#2} \\
-    #3 & #4 \\
-  \end{tabular*}\vspace{0.15em}
+    \textbf{#1} & \textbf{\color{mutedgray}#2} \\
+    {\color{mutedgray}\itshape #3} & {\color{mutedgray}\itshape #4} \\
+  \end{tabular*}\vspace{0.18em}
 }
 
+% --- Publication entry: year column + reference -----------------------------
 \newcommand{\pubentry}[2]{%
-  \begin{tabularx}{\textwidth}{@{}p{0.95cm}X@{}}
+  \begin{tabularx}{\textwidth}{@{}>{\color{mutedgray}}p{0.95cm}X@{}}
     #1 & #2 \\
-  \end{tabularx}\vspace{0.25em}
+  \end{tabularx}\vspace{0.22em}
 }
 
-\newcommand{\skillrow}[2]{\textbf{#1}: #2\par}
+% --- Skills row -----------------------------------------------------------
+\newcommand{\skillrow}[2]{\textbf{\color{accent}#1:}~~#2\par\vspace{1pt}}
 
+% --- Highlights / metrics strip (boxed key facts) -------------------------
+% Usage: \highlightstrip{item a \highlightsep item b \highlightsep ...}
+\newcommand{\highlightsep}{\quad\textcolor{rulegray}{\textbar}\quad}
+\newcommand{\highlightstrip}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{7pt}%
+  \noindent\colorbox{accent!6}{%
+    \parbox{\dimexpr\textwidth-2\fboxsep\relax}{%
+      \footnotesize\color{mutedgray}#1%
+    }%
+  }\par\vspace{8pt}%
+  \endgroup
+}
+
+% --- Header: name, tagline, contact line ----------------------------------
+% #1 = name, #2 = first contact line, #3 = second contact line
 \newcommand{\makeprofileheader}[3]{%
-  {\LARGE #1}\par
-  \vspace{6pt}
-  \hrule
-  \vspace{9pt}
-  \begin{tabularx}{\textwidth}{@{}>{\scshape\small}p{0.14\textwidth}X@{}}
-    Contact & #2 \\[2pt]
-            & #3 \\
-  \end{tabularx}
+  {\fontsize{22}{24}\selectfont\bfseries\color{accent}#1}\par
+  \vspace{5pt}
+  {\color{rulegray}\hrule height 1pt}
   \vspace{7pt}
+  {\footnotesize\color{mutedgray}#2\par}
+  \vspace{2pt}
+  {\footnotesize\color{mutedgray}#3\par}
+  \vspace{6pt}
 }
 
+% --- Footer ---------------------------------------------------------------
 \newcommand{\setupcvfooter}[1]{%
   \pagestyle{fancy}
   \fancyhf{}
-  \fancyfoot[L]{\footnotesize Rajeev Jain | CV | Last updated: #1}
-  \fancyfoot[R]{\footnotesize \thepage}
+  \fancyfoot[L]{\footnotesize\color{mutedgray} Rajeev Jain \textbullet{} CV \textbullet{} Updated #1}
+  \fancyfoot[C]{}
+  \fancyfoot[R]{\footnotesize\color{mutedgray}\thepage}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
   \setlength{\footskip}{18pt}

@@ -67,7 +67,7 @@ Each node, mounted on streetlight poles throughout the city, continuously measur
 For modeling purposes, this matters in two ways. First, AoT data provides validation ground truth: if your simulation predicts a temperature gradient between the Loop and Lincoln Park, you can check it against actual sensor readings. Second, spatially dense observations support data-driven analysis directly — mapping heat vulnerability, identifying neighborhoods where mitigation interventions would have the largest effect, and detecting anomalies that models might miss.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/urban-ecp-workflow.svg" alt="Three-layer urban simulation workflow: WRF/HRRR → EnergyPlus → Nek5000 LES" />
+  <img loading="lazy" decoding="async" src="/images/blog/urban-ecp-workflow.svg" alt="Three-layer urban simulation workflow: WRF/HRRR → EnergyPlus → Nek5000 LES" />
   <figcaption>The three nested simulation scales. Each layer provides boundary conditions for the one below it — and AoT sensor data provides ground-truth validation at street level.</figcaption>
 </figure>
 

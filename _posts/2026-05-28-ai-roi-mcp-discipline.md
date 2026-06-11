@@ -82,7 +82,7 @@ The tool catalog covers a coherent workflow: discover data, inspect topology, co
 The result: a scientist types "show me the mesh resolution near Florida." The agent converts that to a bounding box, runs the subset against a 1.1 GB mesh file on an HPC cluster, renders a wireframe plot on the cluster, and returns a PNG — in about ten seconds, from a laptop, with no SSH session and no handwritten code. The scientist gets a reproducible result with a full provenance record. The cluster does the computation on data that never leaves facility storage.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/regional-florida.png" alt="Florida coast mesh subset rendered on Improv via Globus Compute" />
+  <img loading="lazy" decoding="async" src="/images/blog/regional-florida.png" alt="Florida coast mesh subset rendered on Improv via Globus Compute" />
   <figcaption>Florida coast subset of a high-resolution coastal mesh, rendered on Argonne Improv via Globus Compute and returned to a laptop in ~10 seconds. The agent extracted the bounding box from the phrase "Florida coast" — no coordinates entered by hand.</figcaption>
 </figure>
 

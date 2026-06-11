@@ -5,8 +5,8 @@
   --bg-off:   #f9fafb;
   --ink:      #111827;
   --ink-2:    #374151;
-  --ink-3:    #6b7280;
-  --ink-4:    #9ca3af;
+  --ink-3:    #5b6471;
+  --ink-4:    #6b7280;
   --link:     #1d4ed8;
   --link-h:   #1e40af;
   --line:     #e5e7eb;
@@ -953,4 +953,82 @@ body {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ── Accessibility: visible keyboard focus ───────────────────── */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip-to-content link (paired with #main-content target) */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -48px;
+  z-index: 1000;
+  padding: 8px 14px;
+  background: var(--link);
+  color: #fff;
+  border-radius: 0 0 6px 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0;
+  color: #fff;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #0d1117;
+    --bg-off:   #161b22;
+    --ink:      #e6edf3;
+    --ink-2:    #c9d1d9;
+    --ink-3:    #aab4c0;
+    --ink-4:    #8b949e;
+    --link:     #6ea8ff;
+    --link-h:   #95c0ff;
+    --line:     #2a313c;
+    --line-2:   #21262d;
+  }
+
+  html, body { background: var(--bg); color: var(--ink); }
+
+  .masthead {
+    background: rgba(13, 17, 23, 0.92) !important;
+    border-bottom: 1px solid var(--line) !important;
+  }
+
+  img { opacity: 0.94; }
+
+  ::selection { background: rgba(110, 168, 255, 0.22); color: var(--ink); }
+
+  /* Stat cards */
+  .stat-card { background: var(--bg-off); border-color: var(--line); }
+  .stat-card--amber  { background: #2a210f; }
+  .stat-card--violet { background: #1e1733; }
+  .stat-card--green  { background: #0f261a; }
+  .stat-card__value { color: var(--ink); }
+  .stat-card--amber  .stat-card__value { color: #f3c969; }
+  .stat-card--violet .stat-card__value { color: #c4b5fd; }
+  .stat-card--green  .stat-card__value { color: #6ee7b7; }
+
+  /* Inline code / tags */
+  .post-tag { background: var(--bg-off); color: var(--ink-2); border-color: var(--line); }
+
+  /* Code blocks */
+  .page__content .highlight,
+  .page__content pre,
+  .page__content code { background: #161b22; color: #e6edf3; }
+  .page__content .highlight .err { color: #ffa198; background: #3c1618; }
 }

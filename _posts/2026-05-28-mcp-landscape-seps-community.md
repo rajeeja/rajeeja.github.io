@@ -41,7 +41,7 @@ This post is the landscape view I wish I had had when I started: the timeline fr
 Before the timeline, the frame. The pattern that makes MCP useful for serious scientific work is not just "tool calling." It is a closed reasoning loop:
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/mcp-agentic-loop.svg" alt="The MCP Agentic Loop: Ask · Retrieve · Analyze · Plan · Measure · Update · Verify" style="width:100%;max-width:900px;" />
+  <img loading="lazy" decoding="async" src="/images/blog/mcp-agentic-loop.svg" alt="The MCP Agentic Loop: Ask · Retrieve · Analyze · Plan · Measure · Update · Verify" style="width:100%;max-width:900px;" />
   <figcaption>The seven-step agentic loop and its MCP substrate. Each step maps to one or more typed MCP tools; the protocol layer — governed by five recently merged SEPs — enforces schemas, carries state, propagates traces, and attaches audit context across the entire loop.</figcaption>
 </figure>
 
@@ -72,7 +72,7 @@ This loop is why MCP matters more for science than for simple chat plugins. The 
 **March–April 2025 — Google confirms.** Sundar Pichai signaled Google's alignment publicly:
 
 <figure class="article-figure">
-  <img src="/images/blog/mcp-google-sundar.png" alt="Sundar Pichai confirms Google will support MCP, April 2025" style="max-width:520px;" />
+  <img loading="lazy" decoding="async" src="/images/blog/mcp-google-sundar.png" alt="Sundar Pichai confirms Google will support MCP, April 2025" style="max-width:520px;" />
   <figcaption>Sundar Pichai publicly committing Google to MCP on April 9, 2025 — a signal that the protocol would not remain an Anthropic-only standard.</figcaption>
 </figure>
 
@@ -81,7 +81,7 @@ That public endorsement, combined with OpenAI adopting the protocol for its own 
 **December 9, 2025 — Linux Foundation handoff.** Anthropic donated MCP to the Linux Foundation and simultaneously announced the Agentic AI Foundation — a directed fund with OpenAI, AWS, Blocks, Bloomberg, Cloudflare, Google, and Microsoft as co-founding members.
 
 <figure class="article-figure">
-  <img src="/images/blog/mcp-linux-foundation-announcement.png" alt="Mike Krieger announcement of MCP donation to Linux Foundation, December 2025" style="max-width:520px;" />
+  <img loading="lazy" decoding="async" src="/images/blog/mcp-linux-foundation-announcement.png" alt="Mike Krieger announcement of MCP donation to Linux Foundation, December 2025" style="max-width:520px;" />
   <figcaption>Mike Krieger's announcement, December 9, 2025. MCP moved from internal Anthropic project to Linux Foundation stewardship in one year.</figcaption>
 </figure>
 

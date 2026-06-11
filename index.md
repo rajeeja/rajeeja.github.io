@@ -4,7 +4,7 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Computing"
+excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructure | HPC | Scientific Computing"
 ---
 
 <div class="cv" id="about">
@@ -12,7 +12,7 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 <header class="cv-head">
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
-    <p class="cv-tagline">Principal Software Engineer &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
+    <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
     <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms that research teams can actually maintain across institutions and years. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
@@ -58,6 +58,16 @@ excerpt: "Principal Software Engineer | ML Infrastructure | HPC | Scientific Com
 <section class="cv-section" id="writing">
   <h2 class="cv-label">Writing</h2>
   <ul class="cv-items cv-items--compact">
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/mcp-landscape-seps-community-2026/">MCP in 2026: From Anthropic Side Project to Industry Infrastructure</a>
+      <span class="item-dek">MCP's move to the Linux Foundation, its SEP-driven governance, and the five spec changes reshaping what agents can do — timeline, governance, and active proposals.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/ai-roi-mcp-discipline/">The AI ROI Problem Is Real. The Fix Isn't Cutting Licenses.</a>
+      <span class="item-dek">Why most enterprise AI fails to deliver returns, and the architecture — shared by the UXarray MCP work — that the projects creating real value actually use.</span>
+    </li>
     <li>
       <span class="item-venue">2026</span>
       <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</a>

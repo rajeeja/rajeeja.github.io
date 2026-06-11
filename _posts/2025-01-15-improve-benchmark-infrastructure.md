@@ -61,7 +61,7 @@ A *drug* is characterized by its molecular structure — often encoded as a SMIL
 The major public datasets — GDSC (Genomics of Drug Sensitivity in Cancer), CCLE (Cancer Cell Line Encyclopedia), CTRPv2 (Cancer Therapeutics Response Portal), NCI60, gCSI — all contain this structure. They share some drugs and some cell lines, but they were collected by different labs using different assay protocols, different growth conditions, and different drug concentrations. The same cell line measured in GDSC and CCLE will not have identical response values, because the experimental conditions differ.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/improve-csa-matrix.svg" alt="Cross-Study Analysis matrix: train on one dataset, test on another" />
+  <img loading="lazy" decoding="async" src="/images/blog/improve-csa-matrix.svg" alt="Cross-Study Analysis matrix: train on one dataset, test on another" />
   <figcaption>The CSA evaluation matrix. Diagonal cells are within-dataset evaluations; off-diagonal cells are the cross-study tests that reveal whether a model generalizes across labs and protocols.</figcaption>
 </figure>
 

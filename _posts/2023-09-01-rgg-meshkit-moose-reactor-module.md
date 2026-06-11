@@ -53,7 +53,7 @@ The paper describes an open-source MOOSE Reactor module for common reactor geome
 That is exactly the problem space that motivated my work on RGG and MeshKit in the DOE NEAMS program from 2009 to 2016. I led the MeshKit project during that period and worked on RGG, the Reactor Geometry and Mesh Generator, to automate the construction of reactor core geometry and meshes for simulation teams. The important distinction is that RGG did not stop at convenient input generation. We pushed the reactor core assembly step into parallel execution so large full-core meshes could be generated on machines where serial meshing would fail or take far too long.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/rgg-meshkit-moose-lineage.svg" alt="Timeline connecting RGG, MeshKit, and the MOOSE Reactor Module." />
+  <img loading="lazy" decoding="async" src="/images/blog/rgg-meshkit-moose-lineage.svg" alt="Timeline connecting RGG, MeshKit, and the MOOSE Reactor Module." />
   <figcaption>RGG and MeshKit focused on making reactor geometry explicit, reusable, and scalable. The MOOSE Reactor Module brings related workflow goals directly into the MOOSE ecosystem.</figcaption>
 </figure>
 

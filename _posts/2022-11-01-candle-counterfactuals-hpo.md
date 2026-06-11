@@ -74,7 +74,7 @@ Hyperparameters cannot be learned by gradient descent because they control the t
 The right choice depends on the evaluation budget (how many configurations you can afford to train), the dimension of the search space, and whether the objective function is noisy.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/candle-hpo-pipeline.svg" alt="CANDLE/Supervisor HPO pipeline: algorithm → Swift/T runtime → analysis" />
+  <img loading="lazy" decoding="async" src="/images/blog/candle-hpo-pipeline.svg" alt="CANDLE/Supervisor HPO pipeline: algorithm → Swift/T runtime → analysis" />
   <figcaption>The CANDLE/Supervisor HPO loop. The algorithm proposes configurations; Swift/T launches them in parallel across thousands of GPUs; metrics flow back to update the surrogate model for the next batch.</figcaption>
 </figure>
 

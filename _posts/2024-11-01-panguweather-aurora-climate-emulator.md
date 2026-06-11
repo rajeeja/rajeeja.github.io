@@ -123,7 +123,7 @@ if dist.is_initialized():
 What is not present is just as important. There is no committed FSDP wrapper, no ZeRO-style optimizer sharding, and no tensor-parallel decomposition of the model. So relative to the usual menu of large-model strategies, this codebase sits squarely in the DDP bucket today.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/panguweather-ddp-overview.svg" alt="Diagram showing the current parallel training strategy: DistributedSampler shards batches across ranks, each rank holds a full model replica, and gradients are synchronized with all-reduce." />
+  <img loading="lazy" decoding="async" src="/images/blog/panguweather-ddp-overview.svg" alt="Diagram showing the current parallel training strategy: DistributedSampler shards batches across ranks, each rank holds a full model replica, and gradients are synchronized with all-reduce." />
   <figcaption>The current Aurora path is conventional DDP: each rank gets a shard of the batch, holds a full model replica, and synchronizes gradients. That keeps the semantics simple while the runtime path is still being hardened across CUDA and Intel XPU.</figcaption>
 </figure>
 
@@ -153,7 +153,7 @@ DDP is straightforward, but it pays for that simplicity by replicating model sta
 That is why memory pressure becomes central long before tensor parallelism makes sense.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/panguweather-memory-and-io.svg" alt="Diagram showing per-rank GPU memory with replicated model parameters, gradients, optimizer state, and activations, alongside a note that activations and optimizer state often dominate memory pressure in DDP." />
+  <img loading="lazy" decoding="async" src="/images/blog/panguweather-memory-and-io.svg" alt="Diagram showing per-rank GPU memory with replicated model parameters, gradients, optimizer state, and activations, alongside a note that activations and optimizer state often dominate memory pressure in DDP." />
   <figcaption>Under DDP, every device carries the full training state. If memory becomes the limiter, the first question is not “should we jump to tensor parallelism?” but “which of parameters, gradients, optimizer state, or activations is actually dominating?”</figcaption>
 </figure>
 
@@ -285,7 +285,7 @@ dataset.to_netcdf(os.path.join(savedir, filename))
 That is a small but important clue about where this codebase can go next. The current training work is mostly about runtime portability. The next layer of systems work, especially if multi-node scale becomes important, is to make data layout match the access pattern more deliberately.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/panguweather-chunking-path.svg" alt="Diagram showing ranks reading time-step HDF5 files and a comparison between poorly aligned versus access-aligned chunk layouts for climate data." />
+  <img loading="lazy" decoding="async" src="/images/blog/panguweather-chunking-path.svg" alt="Diagram showing ranks reading time-step HDF5 files and a comparison between poorly aligned versus access-aligned chunk layouts for climate data." />
   <figcaption>Chunking is not the main training abstraction in this repo today, but it still matters. DDP increases concurrent readers, so storage layout and access pattern start to matter well before a model demands tensor parallelism.</figcaption>
 </figure>
 

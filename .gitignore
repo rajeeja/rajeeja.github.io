@@ -16,6 +16,11 @@ files/texmf-var/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+cv/cv.pdf
+cv/resume.pdf
+
+# Image optimization backups (originals before WebP conversion)
+images/blog/originals/
 
 # Local reference files (SOA documents)
 soa-*.txt

@@ -79,15 +79,24 @@ The HPC path is handled by Globus Compute. The MCP tool interface does not chang
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin:1.5rem 0;">
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/uxarray-mcp-global.png" alt="Global companion mesh" style="width:100%;" />
+    <picture>
+      <source srcset="/images/blog/uxarray-mcp-global.webp" type="image/webp" />
+      <img src="/images/blog/uxarray-mcp-global.png" alt="Global companion mesh" style="width:100%;" loading="lazy" decoding="async" />
+    </picture>
     <figcaption><strong>Global companion mesh.</strong> MPAS atmosphere grid — one of the production datasets in the campaign.</figcaption>
   </figure>
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/uxarray-mcp-seats-preview.png" alt="EESMPI SEATS dataset preview" style="width:100%;" />
+    <picture>
+      <source srcset="/images/blog/uxarray-mcp-seats-preview.webp" type="image/webp" />
+      <img src="/images/blog/uxarray-mcp-seats-preview.png" alt="EESMPI SEATS dataset preview" style="width:100%;" loading="lazy" decoding="async" />
+    </picture>
     <figcaption><strong>EESMPI / SEATS dataset.</strong> NSF Raijin and DOE SEATS unstructured grids used in end-to-end agent workflow tests.</figcaption>
   </figure>
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/uxarray-mcp-florida-hero.png" alt="Florida Gulf coastal refinement mesh" style="width:100%;" />
+    <picture>
+      <source srcset="/images/blog/uxarray-mcp-florida-hero.webp" type="image/webp" />
+      <img src="/images/blog/uxarray-mcp-florida-hero.png" alt="Florida Gulf coastal refinement mesh" style="width:100%;" loading="lazy" decoding="async" />
+    </picture>
     <figcaption><strong>Florida Gulf coast mesh.</strong> High-resolution coastal refinement region — the anchor example for the regional mesh explorer.</figcaption>
   </figure>
 </div>
@@ -106,7 +115,7 @@ The campaign tested four things:
 The presentation covered the campaign results, timing behavior, topology checks, failure triage, and artifact economics.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/uxarray-mcp-agent-loop.png" alt="Agent loop diagram — reasoning steps in the UXarray MCP campaign" />
+  <img loading="lazy" decoding="async" src="/images/blog/uxarray-mcp-agent-loop.png" alt="Agent loop diagram — reasoning steps in the UXarray MCP campaign" />
   <figcaption>The agent reasoning loop: Analyze → Plan → Execute → Verify. Each iteration proposes tool calls, executes them via Globus Compute, and decides whether the result closes the question or requires another pass.</figcaption>
 </figure>
 
@@ -117,21 +126,21 @@ The most visually direct piece of the work is an agentic pipeline we built on to
 No coordinates entered by hand. No SSH. No code written.
 
 <figure class="article-figure article-figure--wide">
-  <img src="/images/blog/regional-florida.png" alt="WC14to60 mesh subset: Florida coast, rendered on Improv." />
+  <img loading="lazy" decoding="async" src="/images/blog/regional-florida.png" alt="WC14to60 mesh subset: Florida coast, rendered on Improv." />
   <figcaption>Florida coast subset of a Western-Atlantic coastal refinement mesh, rendered on an HPC worker via Globus Compute and returned to the laptop as a PNG. The agent extracted this bounding box from the phrase "Florida coast" with no scientist-provided coordinates.</figcaption>
 </figure>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin:1.5rem 0;">
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/regional-conus.png" alt="Continental US mesh subset." style="width:100%;" />
+    <img loading="lazy" decoding="async" src="/images/blog/regional-conus.png" alt="Continental US mesh subset." style="width:100%;" />
     <figcaption><strong>Continental United States.</strong> Full CONUS bounding box. Coastal refinement visible along the East Coast and Gulf of Mexico.</figcaption>
   </figure>
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/regional-nyc.png" alt="New York City coast mesh subset." style="width:100%;" />
+    <img loading="lazy" decoding="async" src="/images/blog/regional-nyc.png" alt="New York City coast mesh subset." style="width:100%;" />
     <figcaption><strong>New York City coast.</strong> Tight coastal region. LLM-extracted bounding box; warm Globus Compute worker.</figcaption>
   </figure>
   <figure class="article-figure" style="margin:0;">
-    <img src="/images/blog/regional-sfbay.png" alt="San Francisco Bay coast mesh subset." style="width:100%;" />
+    <img loading="lazy" decoding="async" src="/images/blog/regional-sfbay.png" alt="San Francisco Bay coast mesh subset." style="width:100%;" />
     <figcaption><strong>San Francisco Bay coast.</strong> West-coast fine cells. Same pipeline, different region description.</figcaption>
   </figure>
 </div>
