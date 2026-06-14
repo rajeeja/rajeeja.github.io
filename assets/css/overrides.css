@@ -30,6 +30,16 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Keep all headings on the same sans family as body text.
+   (The base theme defaults headings to the system font stack, which
+   made the name/title render in a different typeface than the body.) */
+h1, h2, h3, h4, h5, h6,
+.page__content h1, .page__content h2, .page__content h3,
+.page__content h4, .page__content h5, .page__content h6,
+.cv-name, .item-head, .item-head strong, .article-title {
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+}
+
 ::selection {
   background: rgba(29, 78, 216, 0.12);
   color: var(--ink);
@@ -190,6 +200,7 @@ body {
 
 .cv-name {
   margin: 0 !important;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif !important;
   font-size: 1.75rem !important;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -984,51 +995,4 @@ textarea:focus-visible,
 .skip-link:focus {
   top: 0;
   color: #fff;
-}
-
-/* ── Dark mode ───────────────────────────────────────────────── */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:       #0d1117;
-    --bg-off:   #161b22;
-    --ink:      #e6edf3;
-    --ink-2:    #c9d1d9;
-    --ink-3:    #aab4c0;
-    --ink-4:    #8b949e;
-    --link:     #6ea8ff;
-    --link-h:   #95c0ff;
-    --line:     #2a313c;
-    --line-2:   #21262d;
-  }
-
-  html, body { background: var(--bg); color: var(--ink); }
-
-  .masthead {
-    background: rgba(13, 17, 23, 0.92) !important;
-    border-bottom: 1px solid var(--line) !important;
-  }
-
-  img { opacity: 0.94; }
-
-  ::selection { background: rgba(110, 168, 255, 0.22); color: var(--ink); }
-
-  /* Stat cards */
-  .stat-card { background: var(--bg-off); border-color: var(--line); }
-  .stat-card--amber  { background: #2a210f; }
-  .stat-card--violet { background: #1e1733; }
-  .stat-card--green  { background: #0f261a; }
-  .stat-card__value { color: var(--ink); }
-  .stat-card--amber  .stat-card__value { color: #f3c969; }
-  .stat-card--violet .stat-card__value { color: #c4b5fd; }
-  .stat-card--green  .stat-card__value { color: #6ee7b7; }
-
-  /* Inline code / tags */
-  .post-tag { background: var(--bg-off); color: var(--ink-2); border-color: var(--line); }
-
-  /* Code blocks */
-  .page__content .highlight,
-  .page__content pre,
-  .page__content code { background: #161b22; color: #e6edf3; }
-  .page__content .highlight .err { color: #ffa198; background: #3c1618; }
 }
