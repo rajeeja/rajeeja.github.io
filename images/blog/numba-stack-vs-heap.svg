@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 780" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Registers and stack versus the heap</title>
+  <desc id="desc">A comparison of where scalar values live (CPU registers and the stack, effectively free) versus where NumPy arrays live (the heap, requiring allocation, indirection, and garbage collection).</desc>
+  <rect width="1400" height="780" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="724" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="94" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="36" font-weight="700">Where a value lives decides what it costs</text>
+  <text x="72" y="132" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19">A 3-element vector can be three registers (near-free) or a heap object (allocation + indirection + GC). Same numbers, very different price.</text>
+
+  <!-- Left: CPU registers / stack -->
+  <rect x="104" y="176" width="560" height="512" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <text x="140" y="222" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">CPU registers &amp; stack</text>
+  <text x="140" y="250" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">scalars: px, py, nx, ny</text>
+
+  <!-- CPU die with register slots -->
+  <rect x="140" y="278" width="488" height="196" rx="18" fill="#D8ECD8"/>
+  <text x="168" y="314" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19" font-weight="700">Inside the CPU core</text>
+  <rect x="168" y="330" width="104" height="52" rx="10" fill="#FFFFFF" stroke="#8FB88F" stroke-width="2"/>
+  <text x="220" y="363" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700">px</text>
+  <rect x="284" y="330" width="104" height="52" rx="10" fill="#FFFFFF" stroke="#8FB88F" stroke-width="2"/>
+  <text x="336" y="363" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700">py</text>
+  <rect x="400" y="330" width="104" height="52" rx="10" fill="#FFFFFF" stroke="#8FB88F" stroke-width="2"/>
+  <text x="452" y="363" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700">nx</text>
+  <rect x="516" y="330" width="96" height="52" rx="10" fill="#FFFFFF" stroke="#8FB88F" stroke-width="2"/>
+  <text x="564" y="363" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="700">ny</text>
+  <text x="168" y="424" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">~16 named slots · zero memory traffic</text>
+  <text x="168" y="448" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">allocate = adjust a pointer · free = return automatically</text>
+
+  <rect x="140" y="494" width="488" height="160" rx="18" fill="#EEF6EE"/>
+  <text x="168" y="530" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19" font-weight="700">Cost profile</text>
+  <text x="168" y="562" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• No allocator call, no free-list search</text>
+  <text x="168" y="590" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• No pointer indirection, cache-friendly</text>
+  <text x="168" y="618" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• No garbage collection pressure</text>
+  <text x="168" y="646" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17" font-weight="700">≈ 0 ns of overhead</text>
+
+  <!-- Right: heap -->
+  <rect x="736" y="176" width="560" height="512" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <text x="772" y="222" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">The heap</text>
+  <text x="772" y="250" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">np.empty(3) → a NumPy ndarray object</text>
+
+  <rect x="772" y="278" width="488" height="196" rx="18" fill="#F1D8DB"/>
+  <text x="800" y="314" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19" font-weight="700">A separate object in main memory</text>
+  <!-- header box -->
+  <rect x="800" y="330" width="180" height="120" rx="10" fill="#FFFFFF" stroke="#D2A0A8" stroke-width="2"/>
+  <text x="890" y="358" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15" font-weight="700">ndarray header</text>
+  <text x="890" y="382" fill="#8A6068" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="13">shape, strides,</text>
+  <text x="890" y="400" fill="#8A6068" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="13">dtype, refcount,</text>
+  <text x="890" y="418" fill="#8A6068" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="13">data pointer ──▶</text>
+  <!-- data buffer box -->
+  <rect x="1020" y="356" width="216" height="68" rx="10" fill="#FFFFFF" stroke="#D2A0A8" stroke-width="2"/>
+  <text x="1128" y="384" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">data buffer</text>
+  <text x="1128" y="408" fill="#8A6068" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">[x, y, z]</text>
+  <!-- arrow header->buffer -->
+  <path d="M980 400 L1020 390" stroke="#B87680" stroke-width="2.5" marker-end="url(#ah)"/>
+
+  <rect x="772" y="494" width="488" height="160" rx="18" fill="#FBEEF0"/>
+  <text x="800" y="530" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19" font-weight="700">Cost profile (per call)</text>
+  <text x="800" y="562" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• Allocator finds/marks a free block</text>
+  <text x="800" y="590" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• Every read goes through the data pointer</text>
+  <text x="800" y="618" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17">• Reference counting / GC must free it later</text>
+  <text x="800" y="646" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17" font-weight="700">≈ 20–30 ns each — ruinous in a hot loop</text>
+
+  <text x="72" y="726" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">GC = garbage collector · ndarray = NumPy's N-dimensional array object · "hot loop" = code run millions of times, where per-call overhead dominates</text>
+
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#B87680"/>
+    </marker>
+  </defs>
+</svg>

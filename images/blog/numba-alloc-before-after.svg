@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Five heap allocations per call versus one</title>
+  <desc id="desc">The original three-layer design allocated five NumPy arrays per intersection call. The scalarized rewrite keeps intermediates in registers and allocates only the single array required by the public API, for a net five-to-one reduction.</desc>
+  <rect width="1400" height="820" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="764" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="94" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="36" font-weight="700">Same math, five allocations → one</text>
+  <text x="72" y="132" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="19">Each layer used to return a NumPy array. Passing the components as scalars removes four of the five per-call heap allocations.</text>
+
+  <!-- BEFORE column -->
+  <rect x="104" y="176" width="560" height="576" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <text x="140" y="222" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">Before — array at every layer</text>
+
+  <!-- L1 -->
+  <rect x="140" y="248" width="488" height="118" rx="16" fill="#FBEEF0" stroke="#E4C4CA" stroke-width="1.5"/>
+  <text x="164" y="282" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="700">L1  _accux_constlat()</text>
+  <rect x="164" y="298" width="200" height="44" rx="9" fill="#F1D8DB"/>
+  <text x="264" y="326" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">np.empty(3) pos</text>
+  <rect x="380" y="298" width="200" height="44" rx="9" fill="#F1D8DB"/>
+  <text x="480" y="326" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">np.empty(3) neg</text>
+
+  <path d="M384 372 L384 388" stroke="#B0BAC4" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- L2 -->
+  <rect x="140" y="392" width="488" height="96" rx="16" fill="#FBEEF0" stroke="#E4C4CA" stroke-width="1.5"/>
+  <text x="164" y="424" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="700">L2  _try_...intersection()</text>
+  <rect x="164" y="438" width="220" height="40" rx="9" fill="#F1D8DB"/>
+  <text x="274" y="464" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">np.empty(3) point</text>
+
+  <path d="M384 494 L384 510" stroke="#B0BAC4" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- L3 -->
+  <rect x="140" y="514" width="488" height="118" rx="16" fill="#FBEEF0" stroke="#E4C4CA" stroke-width="1.5"/>
+  <text x="164" y="548" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="700">L3  gca_const_lat_intersection()</text>
+  <rect x="164" y="564" width="200" height="44" rx="9" fill="#F1D8DB"/>
+  <text x="264" y="592" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14">np.empty((2,3)) res</text>
+  <rect x="380" y="564" width="200" height="44" rx="9" fill="#F1D8DB"/>
+  <text x="480" y="592" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">snap out(3)</text>
+
+  <rect x="140" y="656" width="488" height="72" rx="16" fill="#F1D8DB"/>
+  <text x="384" y="688" fill="#6C4650" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">5 heap allocations / call</text>
+  <text x="384" y="714" fill="#8A6068" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">~232 ns per call · ~97% is plumbing, not math</text>
+
+  <!-- AFTER column -->
+  <rect x="736" y="176" width="560" height="576" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <text x="772" y="222" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="700">After — scalars in registers</text>
+
+  <rect x="772" y="248" width="488" height="118" rx="16" fill="#EEF6EE" stroke="#BFD9BF" stroke-width="1.5"/>
+  <text x="796" y="282" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700">_accux_constlat_scalar()</text>
+  <rect x="796" y="298" width="440" height="44" rx="9" fill="#D8ECD8"/>
+  <text x="1016" y="326" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">return px, py, nx, ny  (no array)</text>
+
+  <path d="M1016 372 L1016 388" stroke="#B0BAC4" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <rect x="772" y="392" width="488" height="96" rx="16" fill="#EEF6EE" stroke="#BFD9BF" stroke-width="1.5"/>
+  <text x="796" y="424" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700">_on_minor_arc_xyz() + snap_xy()</text>
+  <rect x="796" y="438" width="440" height="40" rx="9" fill="#D8ECD8"/>
+  <text x="1016" y="464" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="15">masks &amp; validity on scalars</text>
+
+  <path d="M1016 494 L1016 510" stroke="#B0BAC4" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <rect x="772" y="514" width="488" height="118" rx="16" fill="#EEF6EE" stroke="#BFD9BF" stroke-width="1.5"/>
+  <text x="796" y="548" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="16" font-weight="700">gca_const_lat_intersection()</text>
+  <rect x="796" y="564" width="440" height="44" rx="9" fill="#D8ECD8"/>
+  <text x="1016" y="592" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14">np.empty((2,3)) res  ← required output</text>
+
+  <rect x="772" y="656" width="488" height="72" rx="16" fill="#D8ECD8"/>
+  <text x="1016" y="688" fill="#355E3B" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">1 heap allocation / call</text>
+  <text x="1016" y="714" fill="#4E7A54" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16">~139 ns per call · 1.67× faster · byte-identical output</text>
+
+  <defs>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="4" refY="5" orient="auto">
+      <path d="M0,0 L8,5 L0,10 Z" fill="#9AA5B0"/>
+    </marker>
+  </defs>
+</svg>

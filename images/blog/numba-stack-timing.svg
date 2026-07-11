@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 620" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">The tools involved and the measured speedup</title>
+  <desc id="desc">The stack: Python for expressiveness, NumPy for array semantics, Numba for JIT compilation to machine code, benchmarked against a C++ reference. A bar chart shows the constant-latitude intersection dispatcher dropping from 232 nanoseconds to 139 nanoseconds per call.</desc>
+  <rect width="1400" height="620" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="564" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="94" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34" font-weight="700">A Python stack, tuned to C++ assumptions</text>
+  <text x="72" y="130" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">High-level code, compiled hot paths, checked against a reference implementation.</text>
+
+  <!-- Badges row -->
+  <!-- Python -->
+  <g>
+    <rect x="88" y="164" width="288" height="132" rx="18" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+    <!-- two interlocking snakes, stylized -->
+    <path d="M150 200 h26 a14 14 0 0 1 14 14 v14 h-40 a14 14 0 0 0 -14 14 v14 a14 14 0 0 0 14 14 h14" fill="none" stroke="#3C6E9E" stroke-width="12" stroke-linecap="round"/>
+    <path d="M178 262 h-26 a14 14 0 0 1 -14 -14 v-14 h40 a14 14 0 0 0 14 -14 v-14 a14 14 0 0 0 -14 -14 h-14" fill="none" stroke="#F4C33F" stroke-width="12" stroke-linecap="round"/>
+    <text x="212" y="222" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Python</text>
+    <text x="212" y="252" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">readable, expressive</text>
+    <text x="212" y="274" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">scientific glue</text>
+  </g>
+
+  <!-- NumPy -->
+  <g>
+    <rect x="392" y="164" width="288" height="132" rx="18" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+    <!-- stylized nd-array grid mark -->
+    <rect x="426" y="206" width="20" height="20" rx="4" fill="#4D77CF"/>
+    <rect x="452" y="206" width="20" height="20" rx="4" fill="#4DABCF"/>
+    <rect x="426" y="232" width="20" height="20" rx="4" fill="#4DABCF"/>
+    <rect x="452" y="232" width="20" height="20" rx="4" fill="#4D77CF"/>
+    <rect x="439" y="219" width="20" height="20" rx="4" fill="#F5C14E" opacity="0.9"/>
+    <text x="500" y="222" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">NumPy</text>
+    <text x="500" y="252" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">ndarray semantics</text>
+    <text x="500" y="274" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">(heap-backed buffers)</text>
+  </g>
+
+  <!-- Numba -->
+  <g>
+    <rect x="696" y="164" width="288" height="132" rx="18" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+    <!-- stylized bolt = JIT -->
+    <path d="M742 200 L726 240 h16 l-8 32 30 -44 h-18 l12 -20 z" fill="#00A3A3" stroke="#00807F" stroke-width="1.5"/>
+    <text x="792" y="222" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="24" font-weight="700">Numba</text>
+    <text x="792" y="252" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">@njit → machine code</text>
+    <text x="792" y="274" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">LLVM JIT compiler</text>
+  </g>
+
+  <!-- C++ -->
+  <g>
+    <rect x="1000" y="164" width="284" height="132" rx="18" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+    <circle cx="1046" cy="230" r="30" fill="#004482"/>
+    <text x="1046" y="240" fill="#FFFFFF" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">C++</text>
+    <text x="1094" y="222" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">Reference</text>
+    <text x="1094" y="252" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">std::array = stack</text>
+    <text x="1094" y="274" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">no-heap by default</text>
+  </g>
+
+  <!-- Timing chart -->
+  <text x="88" y="356" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22" font-weight="700">GCA / constant-latitude dispatcher — nanoseconds per call</text>
+
+  <!-- axis baseline -->
+  <line x1="300" y1="404" x2="300" y2="536" stroke="#C9D0D8" stroke-width="2"/>
+
+  <!-- Before bar (232 -> full width scale: 232 => 900px) -->
+  <rect x="300" y="410" width="900" height="46" rx="10" fill="#E9C4CB"/>
+  <rect x="300" y="410" width="900" height="46" rx="10" fill="none" stroke="#D2A0A8" stroke-width="1.5"/>
+  <text x="286" y="440" fill="#6C4650" text-anchor="end" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17" font-weight="700">Before</text>
+  <text x="1216" y="440" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18" font-weight="700">232 ns</text>
+
+  <!-- After bar (139 => 900*139/232 = 539px) -->
+  <rect x="300" y="484" width="539" height="46" rx="10" fill="#CDE7CD"/>
+  <rect x="300" y="484" width="539" height="46" rx="10" fill="none" stroke="#A9CFA9" stroke-width="1.5"/>
+  <text x="286" y="514" fill="#355E3B" text-anchor="end" font-family="IBM Plex Sans, Arial, sans-serif" font-size="17" font-weight="700">After</text>
+  <text x="855" y="514" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18" font-weight="700">139 ns  ·  1.67× faster</text>
+
+  <text x="88" y="574" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">Measured with a batched in-kernel benchmark (200k points, best of 7). Output verified byte-identical across 502 cases including snap and dual-intersection branches.</text>
+
+  <text x="88" y="132" opacity="0"> </text>
+</svg>
