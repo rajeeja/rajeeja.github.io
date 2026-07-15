@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">One loop iteration: C++ versus a naive Python port</title>
+  <desc id="desc">Side-by-side of the same face-area loop body. In C++ every operation — register loop counter, stack-allocated Node struct, native quadrature call — is near-free. In the naive Python port each becomes costly: interpreter dispatch, heap-allocated NumPy array per triangle, quadrature table rebuilt per face, string comparison per point. The loop multiplies each cost by the number of faces.</desc>
+  <rect width="1400" height="800" rx="28" fill="#F8F5EF"/>
+  <rect x="28" y="28" width="1344" height="744" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>
+  <text x="72" y="94" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="34" font-weight="700">The same loop body, two execution models</text>
+  <text x="72" y="130" fill="#546170" font-family="IBM Plex Sans, Arial, sans-serif" font-size="18">Each operation is free in C++ and costly in the naive Python port. The loop multiplies every price by the number of faces.</text>
+
+  <!-- C++ column -->
+  <rect x="104" y="168" width="560" height="520" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <circle cx="150" cy="214" r="22" fill="#004482"/>
+  <text x="150" y="222" fill="#FFFFFF" text-anchor="middle" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16" font-weight="700">C++</text>
+  <text x="188" y="221" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="23" font-weight="700">compiled — near-free</text>
+
+  <rect x="140" y="250" width="488" height="88" rx="16" fill="#EEF6EE"/>
+  <text x="164" y="282" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">for (i…) loop counter</text>
+  <text x="164" y="308" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">register + predicted branch</text>
+  <text x="164" y="328" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">≈ 0 ns / iteration</text>
+
+  <rect x="140" y="350" width="488" height="88" rx="16" fill="#EEF6EE"/>
+  <text x="164" y="382" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">Node node1 = nodes[…]</text>
+  <text x="164" y="408" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">24-byte struct on the stack</text>
+  <text x="164" y="428" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">≈ 0 ns (pointer bump)</text>
+
+  <rect x="140" y="450" width="488" height="88" rx="16" fill="#EEF6EE"/>
+  <text x="164" y="482" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">GaussQuadrature::GetPoints</text>
+  <text x="164" y="508" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">per-face, but cheap native fill</text>
+  <text x="164" y="528" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">negligible</text>
+
+  <rect x="140" y="550" width="488" height="88" rx="16" fill="#EEF6EE"/>
+  <text x="164" y="582" fill="#355E3B" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">serial for over faces</text>
+  <text x="164" y="608" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">high native throughput; OpenMP optional</text>
+  <text x="164" y="628" fill="#355E3B" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">fine</text>
+
+  <text x="140" y="668" fill="#4E7A54" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16" font-weight="700">clean AND fast — no reason to optimize</text>
+
+  <!-- Python column -->
+  <rect x="736" y="168" width="560" height="520" rx="26" fill="#FFFFFF" stroke="#CBD4DE" stroke-width="2"/>
+  <!-- python mark -->
+  <path d="M782 196 h20 a12 12 0 0 1 12 12 v10 h-32 a12 12 0 0 0 -12 12 v10 a12 12 0 0 0 12 12 h10" fill="none" stroke="#3C6E9E" stroke-width="9" stroke-linecap="round"/>
+  <path d="M804 250 h-20 a12 12 0 0 1 -12 -12 v-10 h32 a12 12 0 0 0 12 -12 v-10 a12 12 0 0 0 -12 -12 h-10" fill="none" stroke="#F4C33F" stroke-width="9" stroke-linecap="round"/>
+  <text x="828" y="221" fill="#1C2430" font-family="IBM Plex Sans, Arial, sans-serif" font-size="23" font-weight="700">naive port — costly</text>
+
+  <rect x="772" y="250" width="488" height="88" rx="16" fill="#FBEEF0"/>
+  <text x="796" y="282" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">for j in range(...)</text>
+  <text x="796" y="308" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">JIT helps, but dispatch/setup per call</text>
+  <text x="796" y="328" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">real per-iteration cost</text>
+
+  <rect x="772" y="350" width="488" height="88" rx="16" fill="#FBEEF0"/>
+  <text x="796" y="382" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">np.array([x,y,z]) / triangle</text>
+  <text x="796" y="408" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">HEAP object + GC, not a stack struct</text>
+  <text x="796" y="428" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">~20–30 ns each, ×triangles ×faces</text>
+
+  <rect x="772" y="450" width="488" height="88" rx="16" fill="#FBEEF0"/>
+  <text x="796" y="482" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">get_*_quadrature(order) / face</text>
+  <text x="796" y="508" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">loop-invariant, rebuilt every face</text>
+  <text x="796" y="528" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">n_face redundant builds</text>
+
+  <rect x="772" y="550" width="488" height="88" rx="16" fill="#FBEEF0"/>
+  <text x="796" y="582" fill="#6C4650" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="700">if rule == "gaussian" / point</text>
+  <text x="796" y="608" fill="#46515F" font-family="IBM Plex Sans, Arial, sans-serif" font-size="15">string compare in the hottest loop</text>
+  <text x="796" y="628" fill="#6C4650" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14" font-weight="700">avoidable work, multiplied</text>
+
+  <text x="772" y="668" fill="#B06A54" font-family="IBM Plex Sans, Arial, sans-serif" font-size="16" font-weight="700">faithful to C++ — and that was the bug</text>
+
+  <text x="72" y="730" fill="#7A8A9A" font-family="IBM Plex Sans, Arial, sans-serif" font-size="14">Fix: hoist loop-invariants, keep small vectors as scalars, dispatch on a bool, and prange the independent face loop → 6.3× faster, identical math.</text>
+</svg>
