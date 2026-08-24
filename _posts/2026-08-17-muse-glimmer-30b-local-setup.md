@@ -1,5 +1,5 @@
 ---
-title: "Running Meta Muse Glimmer 30B Locally on M1 Max: Setup, Bug Hunt, and the Fix"
+title: "Running Meta Muse Glimmer 30B Locally on M1 Max: Setup, the Metal Crash, and the Fix"
 date: 2026-08-17
 permalink: /blog/muse-glimmer-30b-local-setup/
 categories:
@@ -12,7 +12,7 @@ tags:
   - muse-glimmer
   - metal
   - agentic-ai
-excerpt: "A complete guide to running Meta's newest open-weights agentic model locally on an M1 Max MacBook Pro — hardware fit analysis, the Apple Silicon Metal crash, applying an upstream patch to fix it, real timing benchmarks vs. Argo Claude Sonnet 5, and opencode + UXarray MCP integration."
+excerpt: "Running Meta's open-weights agentic model on a 64 GB M1 Max — quantization choice, the Gated Delta Net Metal crash and the upstream patch that fixes it, measured throughput against a remote frontier model, and opencode wiring."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -21,7 +21,7 @@ toc_sticky: true
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Engineering note &middot; Local LLM &middot; August 2026</p>
   <h1 class="article-title">Running Meta Muse Glimmer 30B Locally on M1 Max</h1>
-  <p class="article-dek">Hardware fit, the Metal crash, applying the upstream fix, benchmarks against Argo Claude Sonnet&nbsp;5, and wiring it into opencode and the UXarray MCP server — everything documented as it actually happened.</p>
+  <p class="article-dek">Quantization fit on 64 GB, the Gated Delta Net Metal crash and the upstream patch that fixes it, measured throughput, and opencode integration.</p>
 </div>
 
 <div class="post-tags">
@@ -33,12 +33,18 @@ toc_sticky: true
 
 ---
 
+## Scope and provenance
+
+Everything below was run on one machine on 17 August 2026. Numbers are what that machine produced; where a figure comes from Meta's model card or from hardware I do not have, it is labelled as such. Upstream PR states were re-checked on 24 August 2026.
+
+---
+
 ## Machine Specifications
 
 <div class="stat-row">
   <div class="stat-card">
     <span class="stat-card__value">Apple M1 Max</span>
-    <span class="stat-card__label">10-core CPU (8P+2E) &middot; Metal 4 GPU</span>
+    <span class="stat-card__label">10-core CPU (8P+2E) &middot; Metal GPU</span>
   </div>
   <div class="stat-card stat-card--amber">
     <span class="stat-card__value">64 GB</span>
@@ -46,45 +52,46 @@ toc_sticky: true
   </div>
   <div class="stat-card stat-card--violet">
     <span class="stat-card__value">400 GB/s</span>
-    <span class="stat-card__label">Memory bandwidth &mdash; the real LLM bottleneck</span>
+    <span class="stat-card__label">Memory bandwidth &mdash; the binding constraint</span>
   </div>
 </div>
 
 | Property | Value |
 |---|---|
-| **Chip** | Apple M1 Max |
-| **CPU** | 10 cores (8P + 2E) |
-| **GPU** | Apple Metal 4 (integrated) |
-| **Unified Memory** | 64 GB |
-| **Memory bandwidth** | ~400 GB/s |
-| **Storage free** | ~206 GB |
-| **OS** | macOS 26.6.1 (Tahoe, build 25G76) |
+| Chip | Apple M1 Max |
+| CPU | 10 cores (8P + 2E) |
+| GPU | Integrated, Metal |
+| Unified memory | 64 GB |
+| Memory bandwidth | ~400 GB/s |
+| Storage free at test time | ~206 GB |
+| OS | macOS 26.6.1 (build 25G76) |
 
 ---
 
-## What is Muse Glimmer?
+## Model
 
-Released **August 9, 2026** by Meta's Superintelligence Lab under **Apache 2.0** — fully open, commercial use allowed.
+Released 9 August 2026 by Meta's Superintelligence Lab under Apache 2.0.
 
 | Property | Value |
 |---|---|
-| **Parameters** | 29.6B (dense — not MoE) |
-| **Architecture** | Dense Causal Transformer + 1.8B ViT-G/14 Perception Encoder |
-| **Novel layers** | Gated Delta Net (GDN) + Lightning Indexer — hybrid SSM/attention |
-| **Context window** | 131,072 tokens |
-| **Modalities** | Text + Image **input** → Text **output** |
-| **Image generation?** | ❌ No — vision understanding only |
-| **Reasoning** | Built-in chain-of-thought (exposed in `reasoning_content` field) |
-| **Speculative decoding** | DFlash block-diffusion drafter (16-token blocks), ships alongside |
-| **Distilled from** | Muse Spark (Meta's larger flagship) |
-| **Knowledge cutoff** | January 4, 2026 |
-| **License** | Apache 2.0 ✅ |
+| Parameters | 29.6B, dense (not MoE) |
+| Architecture | Dense causal transformer + 1.8B ViT-G/14 perception encoder |
+| Novel layers | Gated Delta Net (GDN) + Lightning Indexer — hybrid SSM/attention |
+| Context window | 131,072 tokens |
+| Modalities | Text + image **input**, text **output** — no image generation |
+| Reasoning | Always on; exposed in the `reasoning_content` field |
+| Speculative decoding | DFlash block-diffusion drafter (16-token blocks), shipped alongside |
+| Distilled from | Muse Spark |
+| Knowledge cutoff | 4 January 2026 |
+| License | Apache 2.0 |
 
-### Why it matters for agentic work
+Vision is understanding only. The `--mmproj` encoder lets the model read screenshots, charts, and figures; it cannot produce images. That needs a separate diffusion model.
 
-Benchmarked against same-size peers:
+### Reported benchmarks
 
-| Benchmark | **Muse Glimmer 30B** | Gemma4-31B | Qwen3.6-27B |
+From the model card, against same-size peers. Not independently reproduced here.
+
+| Benchmark | Muse Glimmer 30B | Gemma4-31B | Qwen3.6-27B |
 |---|:---:|:---:|:---:|
 | MCP Atlas | **75.5** | 54.2 | 62.5 |
 | SWE-Bench Pro | **51.2** | 36.9 | 50.2 |
@@ -92,30 +99,28 @@ Benchmarked against same-size peers:
 | DeepSearch QA | **74.6** | 61.7 | 71.1 |
 | Charxiv Reasoning | **78.8** | 77.7 | 78.4 |
 
-The MCP Atlas and SWE-Bench Pro leads are the interesting ones for opencode users.
+The MCP Atlas and SWE-Bench Pro margins are the ones that matter for tool-driven agent work.
 
 ---
 
-## Hardware Fit Analysis — 64 GB M1 Max
+## Quantization Choice on 64 GB
 
-The official GGUF repo (`meta-models/Muse-Glimmer-30B-GGUF`) ships two text builds plus two companion files:
+`meta-models/Muse-Glimmer-30B-GGUF` is ungated and ships two text builds plus two companions.
 
-| File | Disk | Weights + KV in RAM | Quality vs full precision |
+| File | Disk | Resident (weights + KV) | Quality vs full precision |
 |---|---|---|---|
 | `KQuant-17GB-Q4_K_M.gguf` | 16.8 GB | ~17 GB | −1.0% |
 | **`KQuant-Dynamic-Q4_K_XL.gguf`** | **19.7 GB** | **~20 GB** | **−0.2%** |
 | `mmproj-...Q4_K_M.gguf` (vision) | 1.4 GB | +1.4 GB | — |
-| `dflash-...Q4_K_M.gguf` (speculative) | 1.6 GB | +1.6 GB | — |
+| `dflash-...Q4_K_M.gguf` (drafter) | 1.6 GB | +1.6 GB | — |
 
-**All-in — Dynamic + vision + DFlash: ~23 GB.** Your 64 GB machine uses 36% of its RAM and has 41 GB free for everything else.
-
-Meta validated the −0.2% degradation across 15 benchmarks. The Dynamic build is the right choice here — there is no reason to use the 17GB variant on a 64 GB machine.
+Dynamic + vision + DFlash is ~23 GB resident: 36% of 64 GB, leaving ~41 GB. The degradation figures are Meta's, measured across 15 benchmarks. On a 64 GB machine there is no reason to take the 17 GB build.
 
 ---
 
-## Step-by-Step Setup
+## Setup
 
-### Step 1 — Install llama.cpp
+### 1. Install llama.cpp
 
 ```bash
 brew install llama.cpp
@@ -123,28 +128,26 @@ llama-server --version
 # version: 0.1.0-dev (build 10450, commit ece963f41)
 ```
 
-The minimum required build is **b10353**, when `muse_glimmer` architecture support merged via [PR #26841](https://github.com/ggml-org/llama.cpp/pull/26841) on 10 Aug 2026. Homebrew delivers b10450. ✅
+`muse_glimmer` architecture support merged in [PR #26841](https://github.com/ggml-org/llama.cpp/pull/26841) on 10 August 2026, so the minimum build is b10353. Homebrew delivers b10450.
 
-> **Stop here and read the Metal crash section before launching anything.** The Homebrew binary will crash on M1 Max without the patch described below.
+The Homebrew binary is not sufficient on M1 Max — it loads the model and then dies on inference. See the Metal crash section before launching anything.
 
-### Step 2 — Download weights
-
-The official GGUF repo is ungated — no HuggingFace account required.
+### 2. Download weights
 
 ```bash
-pip install huggingface_hub hf_xet   # hf_xet activates the fast xet download protocol
+pip install huggingface_hub hf_xet   # hf_xet enables the fast xet transfer protocol
 mkdir -p ~/Models/Muse-Glimmer-30B-GGUF
 
 python3 << 'EOF'
-import hf_xet  # activates fast xet protocol
+import hf_xet  # noqa: F401  — importing activates the xet protocol
 from huggingface_hub import hf_hub_download
 import os
 
 dest = os.path.expanduser("~/Models/Muse-Glimmer-30B-GGUF")
 for fname in [
     "Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf",   # 19.7 GB
-    "mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",             #  1.4 GB
-    "dflash-Muse-Glimmer-30B-Q4_K_M.gguf",             #  1.6 GB
+    "mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",            #  1.4 GB
+    "dflash-Muse-Glimmer-30B-Q4_K_M.gguf",            #  1.6 GB
 ]:
     print(f"Downloading {fname}...")
     hf_hub_download(repo_id="meta-models/Muse-Glimmer-30B-GGUF",
@@ -153,34 +156,25 @@ print("Done.")
 EOF
 ```
 
-Real-world speed with hf_xet: **~150 MB/s** — the 19.7 GB model took about 2 minutes.
+Observed throughput with `hf_xet`: ~150 MB/s, so the 19.7 GB file landed in about two minutes.
 
 ---
 
-## The Apple Silicon Metal Crash — Root Cause and Fix
+## The Metal Crash
 
-This is the most important section. **Every M1/M2 user will hit this.** Skip it and you will spend hours debugging.
+### Symptom
 
-### What happens
-
-You start `llama-server`, the model loads, you fire a request — and the server process silently dies before returning a response. No crash report. No macOS Crash Reporter entry. The process just disappears.
+`llama-server` starts, loads the model, accepts a request, and the process exits before returning a response. No crash report, no Crash Reporter entry. It reproduces on every inference, not intermittently.
 
 ```
 0.17.667.784  I slot print_timing: eval time = 12501.11 ms / 50 tokens (3.92 t/s)
 0.17.667.829  I slot release: id 0 | task 0 | stop processing: n_tokens = 106
-# <process exits silently here>
+# process exits here
 ```
 
-It happens on **every single inference** — not intermittently.
+### Cause
 
-### Root cause — the GDN Metal kernel
-
-Muse Glimmer introduces two novel layer types not present in any previous model:
-
-- **Gated Delta Net (GDN)** — a linear-attention recurrent state layer
-- **Lightning Indexer** — a sparse retrieval layer
-
-You can see them being registered at server startup:
+Muse Glimmer introduces two layer types with no precedent in earlier models — Gated Delta Net (a linear-attention recurrent state layer) and Lightning Indexer (sparse retrieval). Both register at startup:
 
 ```
 I resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
@@ -188,64 +182,74 @@ I resolve_fused_ops: fused Gated Delta Net (chunked) enabled
 I resolve_fused_ops: Lightning Indexer enabled
 ```
 
-The Metal kernels for these layers were still being developed when the model shipped. The relevant open pull request is [**ggml-org/llama.cpp #25788**](https://github.com/ggml-org/llama.cpp/pull/25788): *"metal: gated_delta_net cache fusion"* — open as of August 2026.
+Their Metal kernels were still in flight when the model shipped. When a fused GDN op writes output directly into the KV cache it elides an intermediate destination, but the unpatched encode loop still registers that destination's memory range with the concurrency tracker. The spurious barrier that follows aborts on M1 Max's older Metal GPU architecture.
 
-The crash occurs because the GDN Metal kernel incorrectly handles the concurrency tracker during command buffer cleanup. Specifically, when a fused op writes its output directly to the KV cache, it elides an intermediate destination — but without the fix, the encode loop still adds that destination's memory range to the concurrency tracker, causing a spurious barrier and an abort on M1 Max's older Metal GPU architecture.
+The fix is [ggml-org/llama.cpp #25788](https://github.com/ggml-org/llama.cpp/pull/25788), *"metal: gated_delta_net cache fusion"* by @angt — opened 16 July 2026, **still open as of 24 August 2026**.
 
-> The bug does not affect M3/M4/M5 Max. Meta's own macOS benchmarks were done on M4 Max and M5 Max — which is why the issue was not caught before release.
+Meta's macOS benchmarks were run on M4 Max and M5 Max, which do not exhibit this, which is a plausible reason it was not caught pre-release.
 
-### Things that do NOT fix it
+### Workarounds that do not help
 
-We systematically tested every obvious workaround. None solved the core problem:
-
-| Workaround | Result |
+| Attempt | Result |
 |---|---|
-| `-fa off` (disable Flash Attention) | Still crashes |
-| `--no-op-offload` | Allowed one inference, then crash |
-| `-ngl 0` (CPU only) | Still crashes (GDN is in the compute graph) |
-| `-ngl 26` (partial GPU) | Still crashes |
-| `METAL_DEBUG_ERROR_MODE=0` | Still crashes |
-| `GGML_METAL_N_CB=1` | Still crashes |
-| Removing `-md` (no DFlash drafter) | Still crashes |
+| `-fa off` (disable flash attention) | still crashes |
+| `--no-op-offload` | one inference succeeds, then crash |
+| `-ngl 0` (CPU only) | still crashes — GDN is in the compute graph either way |
+| `-ngl 26` (partial offload) | still crashes |
+| `METAL_DEBUG_ERROR_MODE=0` | still crashes |
+| `GGML_METAL_N_CB=1` | still crashes |
+| drop `-md` (no drafter) | still crashes |
 
-### The actual fix — apply PR #25788 and rebuild
+### Applying the patch
 
-The PR adds three things: a `state_out_stride` field to the GDN kernel args struct, a `fuse_elide_dst` method that marks consumed nodes as elided so the concurrency tracker skips their memory ranges, and corrects the Metal shader to use this stride. Once applied, the crash is gone.
+PR #25788 adds a `state_out_stride` field to the GDN kernel args struct, adds a `fuse_elide_dst` method that marks consumed nodes elided so the concurrency tracker skips their ranges, and corrects the Metal shader to use the stride.
+
+Build somewhere persistent. My original build lived in `/tmp` and was gone the next time the machine cleared it; `~/src` costs nothing and survives.
 
 ```bash
-# 1. Clone with enough depth to have all the Metal fixes
-git clone --depth 200 https://github.com/ggml-org/llama.cpp /tmp/llamacpp-head
+# 1. Shallow clone, deep enough to carry the recent Metal work
+git clone --depth 200 https://github.com/ggml-org/llama.cpp ~/src/llamacpp-head
 
-# 2. Download and apply PR #25788
+# 2. Apply PR #25788
 curl -sL https://github.com/ggml-org/llama.cpp/pull/25788.diff -o /tmp/pr25788.diff
-cd /tmp/llamacpp-head
+cd ~/src/llamacpp-head
 git apply /tmp/pr25788.diff
 
-# 3. Build (Metal enabled by default on macOS)
+# 3. Build — Metal is on by default on macOS
 cmake -B build -DGGML_METAL=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release \
       -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF .
 cmake --build build --config Release -j8 --target llama-server
 
 # 4. Confirm
-/tmp/llamacpp-head/build/bin/llama-server --version
+~/src/llamacpp-head/build/bin/llama-server --version
 # version: 0.1.1-dev (build 1, commit 087f94d+)
 ```
 
-Build time on M1 Max: **~90 seconds**.
+Build time on M1 Max: about 90 seconds. After this, inference is stable across repeated requests.
 
-### Launch the server
+---
+
+## Launching the Server
+
+This is the configuration that was actually used for the timings below — text only, all layers on the GPU:
 
 ```bash
-/tmp/llamacpp-head/build/bin/llama-server \
-    -m       ~/Models/Muse-Glimmer-30B-GGUF/Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf \
-    --mmproj ~/Models/Muse-Glimmer-30B-GGUF/mmproj-Muse-Glimmer-30B-Q4_K_M.gguf \
-    -md      ~/Models/Muse-Glimmer-30B-GGUF/dflash-Muse-Glimmer-30B-Q4_K_M.gguf \
-    -a muse-glimmer-30B \
-    -ngl 99 -ngld 99 \
-    -c 8192 -np 1 \
+~/src/llamacpp-head/build/bin/llama-server \
+    -m     ~/Models/Muse-Glimmer-30B-GGUF/Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf \
+    -a     muse-glimmer-30B \
+    -ngl   99 \
+    -c     8192 -np 1 \
     --host 127.0.0.1 --port 8080 \
     --jinja --temp 1.0 --top-p 0.95 --top-k 64 \
     --no-warmup
+```
+
+Vision and speculative decoding are opt-in additions. Neither was active during the benchmark, so treat their cost and benefit on M1 Max as unmeasured:
+
+```bash
+    --mmproj ~/Models/Muse-Glimmer-30B-GGUF/mmproj-Muse-Glimmer-30B-Q4_K_M.gguf \
+    -md      ~/Models/Muse-Glimmer-30B-GGUF/dflash-Muse-Glimmer-30B-Q4_K_M.gguf \
+    -ngld 99
 ```
 
 Verify:
@@ -261,104 +265,117 @@ print(m['id'], '|', m['meta']['ftype'], '|', 'ctx:', m['meta']['n_ctx'])
 # muse-glimmer-30B | Q4_K - Medium | ctx: 8192
 ```
 
----
+### Flags that matter
 
-## Key Launch Flags Explained
-
-| Flag | Recommended value | What it does |
+| Flag | Value | Effect |
 |---|---|---|
-| `-m` | path to `.gguf` | Main text model |
-| `--mmproj` | path | Perception encoder — needed for image input, +1.4 GB |
-| `-md` | path | DFlash speculative drafter — +1.6 GB, boosts speed ~1.5× |
-| `-ngl 99` | 99 | Offload all layers to Metal GPU |
-| `-ngld 99` | 99 | Offload all draft model layers to Metal |
-| `-c 8192` | 8192–32768 | Context window. Divided across `-np` slots |
-| `-np 1` | 1 | Parallel request slots. Each slot gets `-c / -np` tokens |
-| `--jinja` | (flag) | **Mandatory.** Activates the embedded chat template. Without it: immediate abort |
-| `--no-warmup` | (flag) | **Required on M1 Max** with patched build — skip startup inference |
-| `--temp 1.0` | 1.0 | Meta's recommended sampling temperature |
-| `--top-p 0.95` | 0.95 | Meta's recommended nucleus sampling |
-| `--top-k 64` | 64 | Meta's recommended top-k filter |
-
-### Controlling reasoning depth
-
-Muse Glimmer always reasons — you cannot disable it, only tune the depth:
-
-```bash
-# Server-wide: low/medium/high/xhigh (default: high)
---chat-template-kwargs '{"reasoning_strength":"low"}'
-
-# Per-request: in the system prompt
-{"role":"system","content":"Reasoning strength: low"}
-
-# Hard token cap on thinking
---reasoning-budget 512
-```
-
-Reasoning tokens appear in `reasoning_content`. Your answer appears in `content`. If `content` is empty and `finish_reason` is `"length"`, you need more `max_tokens` — the reasoning consumed all of them.
-
-### Stop tokens
-
-Only stop on `<|end_of_text|>` (200001) and `<|eot|>` (200008). **Never stop on `<|eom|>`** — it marks end-of-message, not end-of-turn. Stopping on it collapses parallel tool calls.
+| `-m` | path | main text model |
+| `-ngl` | 99 | offload all layers to the Metal GPU |
+| `-c` | 8192–32768 | context, divided across `-np` slots |
+| `-np` | 1 | parallel request slots |
+| `--jinja` | flag | **mandatory** — activates the embedded chat template; without it the server aborts immediately |
+| `--no-warmup` | flag | skips the startup inference; needed on M1 Max, since on an unpatched binary that warmup is itself a crash |
+| `--temp` / `--top-p` / `--top-k` | 1.0 / 0.95 / 64 | Meta's recommended sampling |
+| `--mmproj` | path | perception encoder for image input, +1.4 GB |
+| `-md` / `-ngld` | path / 99 | DFlash drafter, +1.6 GB — Meta reports a speedup on M4/M5 Max; unmeasured here |
 
 ### Context per slot
 
-`-c` is divided across `-np` slots. With `-c 8192 -np 4`, each slot gets 2048 tokens — not enough for a reasoning model. Either use `-np 1`, or scale `-c`:
+`-c` is divided across `-np`. With `-c 8192 -np 4` each slot gets 2048 tokens, which is not enough for a model that reasons before answering. Either keep `-np 1` or scale `-c` to match:
 
 ```bash
-# Four slots, 8K each:
--c 32768 -np 4
+-c 32768 -np 4   # four slots, 8K each
 ```
+
+### Reasoning depth
+
+Reasoning cannot be disabled, only tuned.
+
+```bash
+# server-wide: low / medium / high / xhigh (default high)
+--chat-template-kwargs '{"reasoning_strength":"low"}'
+
+# hard cap on thinking tokens
+--reasoning-budget 512
+```
+
+Per request, put `{"role":"system","content":"Reasoning strength: low"}` in the messages.
+
+Reasoning goes to `reasoning_content`, the answer to `content`. An empty `content` with `finish_reason: "length"` means reasoning consumed the whole budget — raise `max_tokens`.
+
+### Stop tokens
+
+Stop only on `<|end_of_text|>` (200001) and `<|eot|>` (200008). Do not stop on `<|eom|>` — it marks end of message, not end of turn, and stopping there collapses parallel tool calls.
 
 ---
 
-## Timing Benchmarks: Local vs. Remote
+## Measured Throughput
 
-Both tests used the same prompt: a detailed explanation of gradient descent — intuition, math, learning rate, momentum, and practical tips.
+Same prompt in both cases: an explanation of gradient descent covering intuition, the math, learning rate, momentum, and practical guidance.
 
-### Local — Muse Glimmer 30B on M1 Max (patched build, Metal GPU, Q4_K_XL)
-
-From `timings` in the API response:
+**Local — Muse Glimmer 30B, patched build, Metal, Q4_K_XL, text only.** From the `timings` block in the API response:
 
 | Metric | Value |
 |---|---|
-| **Prompt ingestion** | **48.4 tok/s** |
-| **Token generation** | **5.2 tok/s** |
-| **Time-to-first-token** | ~0.58 s |
-| **Total generation time** | ~150 s for 781 tokens |
-| **Quantization degradation** | 0.2% vs. full precision |
+| Prompt ingestion | 48.4 tok/s |
+| Token generation | 5.2 tok/s |
+| Time to first token | ~0.58 s |
+| Total generation | ~150 s for 781 tokens |
 
-### Remote — Argo Claude Sonnet 5 (via Argo proxy at localhost:44445)
-
-Measured via wall time (Argo proxy does not expose per-token timings):
+**Remote — Claude Sonnet 5 via Argo proxy on `localhost:44445`.** Wall-clock only; the proxy does not expose per-token timings, so this is an effective rate over the whole response and is not directly comparable to a `timings`-derived figure.
 
 | Metric | Value |
 |---|---|
-| **Output tokens** | 1,200 |
-| **Total wall time** | 11.5 s |
-| **Effective output speed** | **~104 tok/s** |
-
-### Side by side
+| Output tokens | 1,200 |
+| Wall time | 11.5 s |
+| Effective output rate | ~104 tok/s |
 
 | | Local Muse Glimmer 30B | Remote Claude Sonnet 5 |
 |---|---|---|
-| **Generation speed** | 5 tok/s | ~104 tok/s |
-| **Speed ratio** | 1× | ~20× faster |
-| **Latency (TTFT)** | ~0.6 s | <0.5 s |
-| **Privacy** | ✅ 100% on-device | ☁️ data leaves machine |
-| **Cost** | $0/token after hardware | Metered API |
-| **Context** | 8K (server limit) | 200K |
-| **Offline** | ✅ Yes | ❌ No |
-| **Image input** | ✅ Yes (mmproj) | ✅ Yes |
-| **Reasoning** | ✅ Built-in | ✅ Extended thinking |
+| Generation | 5 tok/s | ~104 tok/s |
+| Ratio | 1× | ~20× |
+| TTFT | ~0.6 s | <0.5 s |
+| Data location | on device | leaves the machine |
+| Marginal cost | none | metered |
+| Context | 8K as configured (131K model max) | 200K |
+| Works offline | yes | no |
 
-The speed gap is real. Remote frontier models are ~20× faster at generation. Local wins on privacy, offline availability, zero marginal cost, and data sovereignty. For long agentic sessions processing sensitive code or scientific data, local is the right choice. For interactive chat, remote wins.
+---
+
+## 5 tok/s Is Not Interactive
+
+At 5 tok/s a 500-word answer takes roughly two and a half minutes. A twenty-exchange coding session is thirty to sixty minutes of pure generation wait. That is not a tuning problem; it rules out interactive use on this hardware.
+
+### Why this machine is far off Meta's numbers
+
+| Hardware | Baseline tok/s | With DFlash | Bandwidth |
+|---|---|---|---|
+| M1 Max (measured here) | ~5 | not measured | 400 GB/s |
+| M4 Max (Meta) | 23.7 | 37.8 | ~546 GB/s |
+| M5 Max (Meta) | 26.6 | 50.2 | ~600 GB/s |
+
+Two effects compound. Decode on Apple Silicon is bandwidth-bound, and M4/M5 Max have 1.4–1.5× the bandwidth. Separately, Meta's figures come from the ExecuTorch Metal backend, which runs a pre-compiled graph with MLX-native kernels, not llama.cpp's runtime-interpreted path. The bandwidth ratio alone does not account for a 5× gap, so most of the remainder is backend.
+
+### Where local still wins
+
+- Code or data that must not leave the machine.
+- Genuinely offline work — travel, air-gapped sites.
+- Batch jobs. Fifty file summaries queued overnight do not care about 5 tok/s.
+- Very high sustained volume, where marginal token cost dominates hardware cost.
+
+For interactive sessions on M1 Max, a remote frontier model remains the right call.
+
+### Paths to usable local speed
+
+- **Short term.** [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788) merges and reaches Homebrew. Stability, not speed — still ~5 tok/s, but no patched build to maintain, and `--no-warmup` becomes unnecessary.
+- **Medium term.** ExecuTorch Metal. `meta-models/Muse-Glimmer-30B-ExecuTorch-PTE` is a pre-exported artifact with Metal and MLX kernels compiled from PyTorch via `torch.export`. If the M1 Max gap is mostly backend rather than bandwidth, this is where the multiple comes from — but no M1 Max figure has been published, so the size of that gain is an open question.
+- **Long term.** Newer hardware. 37.8–50 tok/s with DFlash on M4/M5 Max is interactive.
 
 ---
 
 ## opencode Integration
 
-opencode uses the `@ai-sdk/openai-compatible` provider, which speaks directly to `llama-server`'s OpenAI-compatible API. Add this to `~/.config/opencode/opencode.json`:
+opencode's `@ai-sdk/openai-compatible` provider talks to `llama-server`'s OpenAI-compatible endpoint directly. In `~/.config/opencode/opencode.json`:
 
 ```json
 {
@@ -382,236 +399,46 @@ opencode uses the `@ai-sdk/openai-compatible` provider, which speaks directly to
 }
 ```
 
-Switch models in-session with `/model` → `Local llama.cpp (Muse Glimmer)` → `Muse Glimmer 30B (local, M1 Max)`, or set as the default:
+Switch per session with `/model`, or set the default with `{ "model": "local-llamacpp/muse-glimmer-30B" }`.
 
-```json
-{ "model": "local-llamacpp/muse-glimmer-30B" }
-```
-
-**One important tuning:** always send `max_tokens` of 800 or more. The model reasons internally before answering, and if the token budget runs out during the reasoning phase, `content` will be empty. Add a low-reasoning system prompt for faster interactive sessions:
-
-```json
-{"role":"system","content":"Reasoning strength: low"}
-```
+One tuning note: send `max_tokens` of 800 or more. The model reasons before answering, and a budget that runs out mid-reasoning returns an empty `content`. For interactive use, pair that with a `Reasoning strength: low` system message.
 
 ---
 
-## UXarray MCP Server Integration
+## Optional: UXarray MCP Alongside It
 
-The `uxarray-mcp-server` at `~/uxarray-mcp-server` is an MCP server that exposes **31 tools** for climate mesh analysis — `inspect_mesh`, `calculate_area`, `calculate_zonal_mean`, `run_analysis` (vorticity, divergence, gradient, remap), `analyze_dataset` (full pipeline in one call), `plot_dataset`, and more.
+Not required to run Muse Glimmer — the two are independent. It is worth pairing only if you do climate mesh work, and the reason is cost structure.
 
-### Why it is disabled by default in opencode
-
-```json
-// ~/.config/opencode/opencode.json
-"mcp": {
-  "uxarray": {
-    "enabled": false,   // <-- off by default
-    "_comment": "31 tools = ~10.6k tokens of schema on EVERY request"
-  }
-}
-```
-
-31 tools adds ~10,600 tokens of schema to every request context. On a remote metered model, that is real money on every turn, even when you are not doing mesh work.
-
-### Enabling for a local-model session
-
-When using Muse Glimmer locally, there is no per-token cost, so enabling the full schema is essentially free:
+`uxarray-mcp-server` exposes 31 tools for mesh analysis (`inspect_mesh`, `calculate_area`, `calculate_zonal_mean`, `run_analysis` for vorticity/divergence/gradient/remap, `plot_dataset`, and others). Enabling it injects roughly 10,600 tokens of tool schema into every request, whether or not the turn touches a mesh. On a metered remote model that is a standing per-turn cost, which is why it stays off:
 
 ```json
 "mcp": {
   "uxarray": {
     "type": "local",
-    "command": [
-      "uv", "--directory", "/Users/mbook/uxarray-mcp-server",
-      "run", "uxarray-mcp", "serve"
-    ],
-    "enabled": true    // change false -> true
+    "command": ["uv", "--directory", "/Users/mbook/uxarray-mcp-server",
+                "run", "uxarray-mcp", "serve"],
+    "enabled": false
   }
 }
 ```
 
-### What you can do with both enabled together
+`"enabled": false` means opencode neither starts the subprocess nor includes the schema. `true` starts it at launch and injects all 31 schemas into every request. There is no per-tool granularity — it is all or nothing per server, so the convention is to flip it on for mesh sessions and back off afterwards.
 
-Muse Glimmer scores 75.5 on MCP Atlas — it is genuinely good at multi-step tool orchestration. Combined with uxarray-mcp, you can do things like:
-
-```
-"Analyze this MPAS mesh, compute vorticity from the u and v fields,
- plot a choropleth of the result, and tell me where the strongest
- cyclonic anomalies are."
-```
-
-The model will chain `get_capabilities` → `run_analysis(operation="curl")` → `plot_dataset` autonomously.
-
-### The `--enabled` flag in plain English
-
-`"enabled": false` means opencode does not start the MCP subprocess and does not include its tool schema in any request. The server binary still exists; it just does not run. `"enabled": true` starts the subprocess on opencode launch and injects all 31 tool schemas into every request context. There is no per-tool granularity — it is all-or-nothing at the server level, which is why the convention is to flip it only for sessions doing actual mesh analysis, then flip it back.
+Running locally the schema is free in dollar terms, so the flag can stay on. It is not free in latency: at 5 tok/s, 10.6k tokens of added prompt costs a few extra seconds of ingestion per turn at the measured 48 tok/s.
 
 ---
-
-## Does Muse Glimmer Generate Images?
-
-**No.** The model card is explicit:
-
-> *"Supported modalities: Input: text + image, Output: text"*
-
-It can *understand* images passed to it via the `--mmproj` vision encoder — interpreting screenshots, charts, and scientific figures — but it cannot produce images. For image generation you need a separate diffusion model.
-
----
-
-## When Will This Be Properly Fixed Upstream?
-
-Watch [llama.cpp PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788). Once it merges and appears in a Homebrew release:
-
-```bash
-brew upgrade llama.cpp
-```
-
-You can then use the Homebrew binary directly without maintaining a patched local build. Drop `--no-warmup` as well — that flag was only needed to prevent the warmup inference from crashing on the unpatched binary.
-
-For those who want even better performance once the kernel bugs are resolved: Meta also ships `meta-models/Muse-Glimmer-30B-ExecuTorch-PTE`, a pre-exported ExecuTorch artifact with Metal-native and MLX kernels compiled directly from PyTorch via `torch.export`. This is what Meta's own M4/M5 Max benchmarks used (23.7 tok/s baseline → 37.8 tok/s with DFlash). Once the ExecuTorch build toolchain is more accessible, this path will replace llama.cpp for Apple Silicon.
-
----
-
-
----
-
-## Honest Assessment: 5 tok/s Is Unbearable
-
-Let's not sugarcoat it. **At 5 tokens per second, Muse Glimmer is not usable for interactive work on M1 Max today.**
-
-To put that in perspective: a 500-word response takes roughly **2–3 minutes** to arrive. A typical opencode coding session — where you iterate back and forth, ask follow-ups, review diffs — involves maybe 20 exchanges. At 5 tok/s average, you are waiting **30–60 minutes of raw generation time** per session. Every. Single. Interaction. Is. Painful.
-
-For comparison:
-- **Claude Sonnet 5 via Argo:** 104 tok/s → 500 words in ~12 seconds
-- **Muse Glimmer local:** 5 tok/s → 500 words in ~2.5 minutes
-- **Speed ratio:** ~20× slower
-
-This is not a minor inconvenience. It is the difference between a tool that augments your thinking and a tool that breaks your flow entirely.
-
-### Why is M1 Max so much slower than Meta's numbers?
-
-Meta benchmarked on **M4 Max (23.7 tok/s baseline) and M5 Max (26.6 tok/s)**. These are not small differences:
-
-| Hardware | Baseline tok/s | With DFlash | Memory bandwidth |
-|---|---|---|---|
-| M1 Max (this machine) | ~5 | — (crashes without patch) | 400 GB/s |
-| M4 Max (Meta benchmark) | 23.7 | 37.8 | ~546 GB/s |
-| M5 Max (Meta benchmark) | 26.6 | 50.2 | ~600 GB/s |
-
-Two factors compound here. First, M4/M5 Max have significantly higher memory bandwidth — LLM inference on Apple Silicon is purely bandwidth-limited, so the newer chips are proportionally faster. Second, Meta's benchmarks used the **ExecuTorch Metal backend**, not llama.cpp. ExecuTorch exports a pre-compiled, backend-optimized compute graph with MLX-native kernels, while llama.cpp interprets the model in real time with more overhead.
-
-### When does local actually make sense?
-
-Despite the speed penalty, there are legitimate use cases for running locally on M1 Max *today*:
-
-- **Privacy-sensitive code** — You are not comfortable sending proprietary code to any external API
-- **Truly offline work** — No internet connection (travel, air-gapped environments)  
-- **Long batch jobs** — If you queue a set of 50 file summaries overnight, 5 tok/s is fine; you are not watching
-- **Cost at extreme scale** — If you are doing millions of tokens/day, local wins economically
-
-For interactive opencode sessions, though? Use Argo Claude Sonnet 5 until either (a) the ExecuTorch path is accessible on M1 Max, or (b) you upgrade hardware.
-
-### The path to actually usable local speed
-
-**Short term (months):** Track [llama.cpp PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788). Once the GDN Metal kernel fix merges and `brew upgrade llama.cpp` brings it in, the server stabilizes. Still ~5 tok/s, but at least no crash workarounds.
-
-**Medium term (6–12 months):** The ExecuTorch Metal path. Once `muse-glimmer-mlx` cmake preset is properly documented and the build is reliable, M1 Max users should see 15–20 tok/s — a 3–4× improvement from the llama.cpp path, because ExecuTorch uses properly compiled Metal kernels rather than the interpreted path.
-
-**Long term:** M4/M5 Max hardware. 37.8–50 tok/s with DFlash is genuinely interactive. It is not Claude Sonnet 5 speed, but it is usable.
-
----
-
-## UXarray MCP: Not Required Here
-
-To be direct about the UXarray MCP integration mentioned earlier: **you do not need it to run Muse Glimmer**. The two are independent.
-
-The UXarray MCP server (`~/uxarray-mcp-server`) is a specialized tool for climate mesh analysis — inspecting MPAS/UGRID/SCRIP grids, computing vorticity, divergence, zonal means, remapping, and so on. It is relevant only if you are doing that kind of scientific computing work.
-
-What the two have in common is that **local Muse Glimmer makes the UXarray MCP cheaper to use**. The server exposes 31 tools, which inject ~10,600 tokens of schema into every request. On a remote metered API, that is real money on every turn. Running locally, the token cost is zero — so you can enable the full schema without thinking about it.
-
-But if you are just setting up Muse Glimmer as a local coding assistant, skip the UXarray MCP entirely.
-
----
-
-## How to Promote This Post
-
-The article connects to several active communities and upstream projects. Here is how to amplify it effectively.
-
-### Link back to llama.cpp PR #25788
-
-The crash fix is a concrete, reproducible contribution to the upstream project. Leave a comment on [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788) pointing to this post as real-world evidence from an M1 Max machine — the PR author (@angt) and the llama.cpp maintainers (@ggerganov) can confirm M1 Max behavior from this writeup.
-
-**Draft comment for PR #25788** (keep short per public-comment rules):
-
-> Confirmed: this patch resolves the Metal crash on M1 Max (macOS 26.6.1, build 10450+). After applying and rebuilding, llama-server survives multiple inferences. Full writeup with M1 Max timing vs. remote Claude Sonnet 5: [rajeeja.github.io/blog/muse-glimmer-30b-local-setup](https://rajeeja.github.io/blog/muse-glimmer-30b-local-setup/)
-
-### Reply to the Meta / PyTorch announcement
-
-The PyTorch Foundation published the official announcement on August 10, 2026:
-[**pytorch.org/blog/fast-ondevice-agentic-ai-with-executorch/**](https://pytorch.org/blog/fast-ondevice-agentic-ai-with-executorch/)
-
-And the Meta AI blog has coverage at:
-[**ai.meta.com/blog/**](https://ai.meta.com/blog/)
-
-### Draft LinkedIn post
-
-```
-Just published: a full technical writeup on running Meta's Muse Glimmer 30B
-locally on M1 Max — including the Metal crash that hits every M1/M2 user,
-the upstream llama.cpp patch that fixes it, real timing benchmarks vs.
-Claude Sonnet 5, and honest thoughts on whether 5 tok/s is actually usable
-(spoiler: it is not, for interactive work).
-
-→ https://rajeeja.github.io/blog/muse-glimmer-30b-local-setup/
-
-Key findings:
-• Applying PR #25788 from @ggml-org/llama.cpp fixes the GDN Metal kernel crash
-• Local speed: ~5 tok/s (M1 Max) vs. ~104 tok/s remote — a 20× gap
-• ExecuTorch Metal path (M4/M5 Max target) is the right long-term answer
-• opencode integration works cleanly via @ai-sdk/openai-compatible
-
-#LocalLLM #AppleSilicon #OpenSource #MetaAI #llama #AIEngineering
-```
-
-### Draft X/Twitter post
-
-```
-Ran Meta Muse Glimmer 30B locally on M1 Max:
-
-✅ Works — after applying llama.cpp PR #25788 (Metal GDN kernel patch)  
-❌ Slow — 5 tok/s vs ~104 tok/s for remote Claude Sonnet 5  
-❌ Not interactive — 2-3 min per response is unbearable in a coding session
-
-Full writeup with the patch, benchmarks, and opencode setup:
-→ rajeeja.github.io/blog/muse-glimmer-30b-local-setup/
-
-cc @aiatmeta @pytorch
-```
-
-### Suggested X reply to Meta AI announcement
-
-Find the Meta AI / PyTorch X post announcing Muse Glimmer and reply:
-
-```
-Tested on M1 Max — hits a Metal GDN kernel crash on every inference 
-(llama.cpp b10450). Fix: apply PR #25788 + rebuild. After patch: stable 
-but 5 tok/s — too slow for interactive use. M4 Max is the real target. 
-Full breakdown: rajeeja.github.io/blog/muse-glimmer-30b-local-setup/
-```
 
 ## Summary
 
 | | |
 |---|---|
-| **Model** | Meta Muse Glimmer 30B (Apache 2.0, Aug 2026) |
-| **Best quant on 64 GB M1 Max** | KQuant-Dynamic Q4_K_XL — 19.7 GB, 0.2% degradation |
-| **Critical bug** | Metal GDN kernel crash on M1 Max after every inference |
-| **Fix** | Apply [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788) and rebuild (~90s) |
-| **Critical flags** | `--jinja` (mandatory), `--no-warmup` (M1 Max), `-ngl 99` |
-| **Local speed** | 5 tok/s generation, 48 tok/s prompt ingestion |
-| **Remote Sonnet 5** | ~104 tok/s — ~20× faster |
-| **Image generation** | ❌ No — image input understanding only |
-| **opencode** | `@ai-sdk/openai-compatible` on `http://127.0.0.1:8080/v1` |
-| **UXarray MCP** | Enable locally (free tokens), keep disabled on remote (10.6k schema cost/request) |
-| **Restart server** | `~/Models/Muse-Glimmer-30B-GGUF/start-server.sh` |
+| Model | Meta Muse Glimmer 30B, Apache 2.0, August 2026 |
+| Quant on 64 GB M1 Max | KQuant-Dynamic Q4_K_XL — 19.7 GB, −0.2% |
+| Blocking bug | GDN Metal kernel crash, every inference, M1 Max |
+| Fix | apply [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788), rebuild (~90 s); still open upstream as of 24 Aug 2026 |
+| Required flags | `--jinja`, `--no-warmup`, `-ngl 99` |
+| Measured local | 5.2 tok/s generation, 48.4 tok/s ingestion, text only |
+| Remote comparison | ~104 tok/s effective, Claude Sonnet 5 via Argo |
+| Image output | none — image input understanding only |
+| opencode | `@ai-sdk/openai-compatible` against `http://127.0.0.1:8080/v1` |
+| Verdict | correct and stable after the patch; too slow for interactive use on M1 Max |

@@ -48,3 +48,6 @@ scripts/daily-refresh.sh
 scripts/fill-ashby.mjs
 scripts/gmail-*.mjs
 scripts/jobs-discover.mjs
+
+# R session artifacts
+.Rhistory
