@@ -39,6 +39,22 @@ Everything below was run on one machine on 17 August 2026. Numbers are what that
 
 ---
 
+## Read This First — Should You Attempt It?
+
+The setup works. The result is not usable interactively on this hardware, and the reason is predictable in advance. Check your machine against this before spending an afternoon:
+
+| Your machine | Expect | Advice |
+|---|---|---|
+| M1/M2 Pro or Max, 32–64 GB | ~5 tok/s | Works after patching, but too slow for interactive use. Read the crash section, then run a smaller model instead |
+| M1/M2, 16 GB | will not fit | 20 GB resident against 16 GB of shared memory. Don't |
+| M3/M4/M5 Max, 36 GB+ | 20–27 tok/s (Meta's figures) | Worth it. No Metal crash on these |
+| Discrete GPU, 24 GB+ VRAM | 40+ tok/s by roofline | The straightforward answer if you own one |
+| Anything with <24 GB usable memory | won't fit at Q4 | Pick a smaller model, not a smaller quant |
+
+The honest summary for older Apple Silicon: **this model is a poor fit, and no flag will fix it.** The limit is memory bandwidth, and you cannot configure your way past it. What follows is still worth reading if you want the crash fix — it is the same GDN bug on any M1/M2 machine — or if you want the arithmetic for deciding what hardware would actually work.
+
+---
+
 ## Machine Specifications
 
 <div class="stat-row">
@@ -346,15 +362,68 @@ Same prompt in both cases: an explanation of gradient descent covering intuition
 
 At 5 tok/s a 500-word answer takes roughly two and a half minutes. A twenty-exchange coding session is thirty to sixty minutes of pure generation wait. That is not a tuning problem; it rules out interactive use on this hardware.
 
+### The GPU was not the bottleneck
+
+Worth being precise about what is slow, because the obvious reading is wrong. This ran with `-ngl 99` — every layer resident on the Metal GPU. The GPU was fully engaged and almost entirely idle.
+
+Generating one token from a dense 30B model reads **every weight exactly once**. That is the whole 19.65 GB file, per token, again for the next token. The arithmetic attached to that traffic is small: roughly `2 × 29.6e9 ≈ 59 GFLOP` per token.
+
+Put those against the machine:
+
+| Quantity | Value |
+|---|---|
+| Weights read per token | 19.65 GB |
+| Memory bandwidth | ~400 GB/s |
+| Bandwidth ceiling | 400 / 19.65 ≈ **20 tok/s** |
+| Measured | **5.2 tok/s** — 26% of ceiling |
+| Compute demanded at 5.2 tok/s | ~0.3 TFLOP/s |
+| GPU capability | ~10 TFLOP/s |
+| GPU utilization | **~3%** |
+
+The GPU spends the overwhelming majority of each token waiting for weights to arrive. It is starved, not slow. This is also why 64 GB of RAM bought nothing — 23 GB resident, 41 GB idle. Capacity was never the constraint; the rate at which memory can be streamed was.
+
+### How the memory bus sets that ceiling
+
+Bandwidth is a width-times-rate product. M1 Max drives a 512-bit LPDDR5 interface at 6400 MT/s: 64 bytes × 6.4 G/s ≈ 410 GB/s. M4 Max keeps the 512-bit width and raises the rate to 8533 MT/s, giving 546 GB/s. The generational gain is a faster bus, not a fundamentally different memory system.
+
+Apple's unified memory removes the discrete-GPU copy — CPU and GPU address one pool, so weights never cross PCIe. The tradeoff is that DRAM speed becomes the hard ceiling. A discrete card pays a one-time PCIe transfer and then reads from dedicated VRAM at rates well above what LPDDR5 delivers; there is no equivalent fast local tier here to hide in.
+
+One more reason servers do not see this: batching. Read a weight once, apply it across many concurrent sequences, and the read amortizes. At `-np 1` every token pays the full traversal.
+
 ### Why this machine is far off Meta's numbers
 
-| Hardware | Baseline tok/s | With DFlash | Bandwidth |
-|---|---|---|---|
-| M1 Max (measured here) | ~5 | not measured | 400 GB/s |
-| M4 Max (Meta) | 23.7 | 37.8 | ~546 GB/s |
-| M5 Max (Meta) | 26.6 | 50.2 | ~600 GB/s |
+| Hardware | Baseline tok/s | With DFlash | Bandwidth | Roofline | % of roofline |
+|---|---|---|---|---|---|
+| M1 Max (measured here) | 5.2 | not measured | 400 GB/s | ~20 tok/s | **26%** |
+| M4 Max (Meta) | 23.7 | 37.8 | ~546 GB/s | ~28 tok/s | **85%** |
+| M5 Max (Meta) | 26.6 | 50.2 | ~600 GB/s | ~31 tok/s | **87%** |
 
-Two effects compound. Decode on Apple Silicon is bandwidth-bound, and M4/M5 Max have 1.4–1.5× the bandwidth. Separately, Meta's figures come from the ExecuTorch Metal backend, which runs a pre-compiled graph with MLX-native kernels, not llama.cpp's runtime-interpreted path. The bandwidth ratio alone does not account for a 5× gap, so most of the remainder is backend.
+This separates the two effects cleanly. M4/M5 Max carry 1.4–1.5× the bandwidth, which is real but nowhere near the observed ~5× gap. The larger factor is that ExecuTorch extracts roughly 85% of the available bandwidth while llama.cpp extracts about a quarter of it. ExecuTorch runs a pre-compiled graph with MLX-native Metal kernels; llama.cpp dispatches through a runtime-interpreted path. Most of the deficit is backend, not silicon.
+
+Caveat on the comparison: Meta's figures come from the ExecuTorch PTE artifact, not this GGUF, so the per-token byte count may differ somewhat and the roofline percentages should be read as approximate. KV-cache traffic is also excluded, though at 8K context it is small next to 19.65 GB of weights.
+
+### What it would take to be bearable
+
+Define the target first. Around 10 tok/s a response arrives roughly as fast as you read it. Around 25 tok/s it stops feeling like waiting. Below 10 you are watching a progress bar.
+
+Required bandwidth follows directly from `target × 19.65 GB ÷ efficiency`:
+
+| Target | With a compiled backend (85%) | With llama.cpp today (26%) |
+|---|---|---|
+| 10 tok/s | ~230 GB/s | ~760 GB/s |
+| 15 tok/s | ~350 GB/s | ~1130 GB/s |
+| 25 tok/s | ~580 GB/s | ~1890 GB/s |
+
+Read the right-hand column carefully: on llama.cpp's current efficiency, **no Apple Silicon laptop reaches 15 tok/s on a 30B model.** Not the M5 Max. The backend has to improve, or the hardware has to be something else.
+
+That leaves four levers, cheapest first.
+
+1. **Run a smaller model.** The strongest lever available today and the one most people skip. Bytes-per-token scale with model size, so an 8B at Q4 is roughly 5 GB and would run near 20 tok/s on this same M1 Max, unchanged. Trading 30B quality for 4× speed is usually the right call on constrained hardware. Note this is a *model* change, not a *quant* change — dropping to the 17 GB build saves 14% of the traffic and buys almost nothing.
+2. **Wait for a compiled backend.** ExecuTorch reaches ~85% of roofline on M4/M5. The same efficiency here would be ~17 tok/s — genuinely usable, no hardware purchase. Extrapolated, not measured.
+3. **Buy bandwidth.** M4 Max at 546 GB/s gets 23.7 tok/s measured by Meta; M5 Max 26.6. Both need the compiled backend to hit those numbers.
+4. **Use a discrete GPU.** A 24 GB card in the RTX 3090/4090 class carries roughly 940–1010 GB/s of spec bandwidth — a 2.4× on M1 Max — and CUDA backends run close to roofline. That puts a 30B Q4 in the 40+ tok/s range. Derived from spec sheets, not tested here.
+
+Where this machine was specifically inferior: not RAM (41 GB spare), not GPU compute (~3% used), not storage or CPU. One number — 400 GB/s — and one immature backend. Everything else was adequate.
 
 ### Where local still wins
 
@@ -368,7 +437,7 @@ For interactive sessions on M1 Max, a remote frontier model remains the right ca
 ### Paths to usable local speed
 
 - **Short term.** [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788) merges and reaches Homebrew. Stability, not speed — still ~5 tok/s, but no patched build to maintain, and `--no-warmup` becomes unnecessary.
-- **Medium term.** ExecuTorch Metal. `meta-models/Muse-Glimmer-30B-ExecuTorch-PTE` is a pre-exported artifact with Metal and MLX kernels compiled from PyTorch via `torch.export`. If the M1 Max gap is mostly backend rather than bandwidth, this is where the multiple comes from — but no M1 Max figure has been published, so the size of that gain is an open question.
+- **Medium term.** ExecuTorch Metal. `meta-models/Muse-Glimmer-30B-ExecuTorch-PTE` is a pre-exported artifact with Metal and MLX kernels compiled from PyTorch via `torch.export`. If it hit the same ~85% of roofline here that it reaches on M4/M5 Max, M1 Max would land near 17 tok/s — a 3× gain with no hardware change. That is an extrapolation, not a measurement: no M1 Max ExecuTorch figure has been published, and this is the number I would most like to see someone produce.
 - **Long term.** Newer hardware. 37.8–50 tok/s with DFlash on M4/M5 Max is interactive.
 
 ---
@@ -439,6 +508,7 @@ Running locally the schema is free in dollar terms, so the flag can stay on. It 
 | Required flags | `--jinja`, `--no-warmup`, `-ngl 99` |
 | Measured local | 5.2 tok/s generation, 48.4 tok/s ingestion, text only |
 | Remote comparison | ~104 tok/s effective, Claude Sonnet 5 via Argo |
+| Binding constraint | memory bandwidth, not RAM or GPU — 26% of a 20 tok/s roofline, GPU ~3% utilized |
 | Image output | none — image input understanding only |
 | opencode | `@ai-sdk/openai-compatible` against `http://127.0.0.1:8080/v1` |
 | Verdict | correct and stable after the patch; too slow for interactive use on M1 Max |
