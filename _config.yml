@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Rajeev Jain"
 title_separator          : "-"
 name                     : &name "Rajeev Jain"
-description              : &description "Principal Specialist in Research Software Engineering at Argonne with 16+ years in scientific computing, ML infrastructure, and HPC systems"
+description              : &description "Principal Specialist in Research Software Engineering at Argonne. 16+ years in scientific computing and HPC, now building AI agent infrastructure and verifying what it produces against measurement"
 url                      : https://rajeeja.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "rajeeja/rajeeja.github.io"
@@ -87,7 +87,7 @@ analytics:
 author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
-  bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years in ML infrastructure, HPC systems, and scientific computing."
+  bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years in HPC and scientific computing. Builds AI agent tooling, then checks it against a measurement."
   cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :

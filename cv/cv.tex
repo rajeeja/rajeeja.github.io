@@ -24,7 +24,7 @@
 }
 
 \section{Professional Profile}
-Principal research software engineer with 16+ years delivering production systems at the intersection of scientific computing, ML infrastructure, and HPC. Led UXarray from zero to the standard Python tool for DOE labs and NCAR, including an MCP server that lets AI agents inspect, analyze, and visualize production Earth-system meshes on HPC clusters via Globus Compute — no SSH, no scripts, full provenance. Ran 10,000+ ML training experiments using Swift/T across Summit, Theta, and Cori for cancer drug response research; applied noise injection and counterfactual analysis to identify genes driving tumor classification decisions. Reduced FLASH-X checkpoint overhead 40--70\% on Summit via async HDF5 and lossy compression. Generated a 101M-element MONJU reactor mesh on 712 processors in under 7 minutes — a mesh the serial path could not build at all. Two R\&D 100 Awards (2022, 2023). Work spans Python platforms and MCP server development, C++ and Fortran HPC codebases, exascale GPU porting (Intel XPU / CUDA), and cross-institution program coordination.
+Principal research software engineer with 16+ years delivering production systems at the intersection of AI infrastructure, scientific computing, and HPC. Led UXarray from zero to the standard Python tool for DOE labs and NCAR, including an MCP server that lets AI agents inspect, analyze, and visualize production Earth-system meshes on HPC clusters via Globus Compute — no SSH, no scripts, full provenance. Pairs that with a verification practice: measuring what AI tooling and machine-assisted code actually do rather than accepting the reported figure, which has surfaced silent numerical drift, hidden heap allocation in a faithful port, and vendor throughput numbers that are unreachable by construction. Ran 10,000+ ML training experiments using Swift/T across Summit, Theta, and Cori for cancer drug response research; applied noise injection and counterfactual analysis to identify genes driving tumor classification decisions. Reduced FLASH-X checkpoint overhead 40--70\% on Summit via async HDF5 and lossy compression. Generated a 101M-element MONJU reactor mesh on 712 processors in under 7 minutes — a mesh the serial path could not build at all. Two R\&D 100 Awards (2022, 2023). Work spans Python platforms and MCP server development, C++ and Fortran HPC codebases, exascale GPU porting (Intel XPU / CUDA), and cross-institution program coordination.
 
 \section{Education}
 \textbf{University of Chicago} \hfill 2020 \\
@@ -87,6 +87,18 @@ B.Tech. in Mechanical Engineering
   \item Designed the core API, conservative zonal averaging via exact spherical polygon intersection with error-free transformation arithmetic, vector calculus operators (gradient, divergence, curl), YAC remapping backend, multi-grid support, geometry operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, automated tests, CI/CD, and release workflows.
   \item Built the UXarray MCP server: 20+ typed tools allowing AI agents to inspect, subset, visualize, and analyze production Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance on every operation. Presented at SciFoundationModels 2026 (SciFM26).
   \item Tutorials and presentations at SC24, AMS 2024/2025/2026, SciPy 2023, EGU 2024/2025/2026, AGU, and ESDS.
+\end{itemize}
+
+\entryheader
+  {AI Code and Benchmark Verification}
+  {2025 -- Present}
+  {Independent}
+  {Measurement practice for AI tooling and machine-assisted code}
+\begin{itemize}
+  \item Published a reproducible benchmark harness for local LLM inference (scripts, raw data, and protocol, MIT-licensed) covering four model architectures on one machine. Established that bytes read per generated token must be parsed from the GGUF tensor table rather than taken from file size, which overstates by 64\% on models using gathered per-layer embeddings, and that the memory-bandwidth denominator must be measured (340 GB/s) rather than read from the 400 GB/s datasheet pin rate.
+  \item Result: all four architectures extract 36--41\% of memory bandwidth, so an 8$\times$ spread in tokens per second is explained entirely by a 6.8$\times$ spread in bytes per token --- throughput is a property of model size and runtime efficiency, not architecture. Protocol records background load as a covariate rather than gating on it, and reports the mean of two order-reversed passes with the pass-to-pass spread visible.
+  \item Correctness work in numerical Python: identified naive floating-point accumulation producing 0.68 m of drift on a production Earth mesh and replaced it with compensated summation and error-free transformations; recovered a 1.67$\times$ speedup in a Numba hot path by eliminating heap allocation that a faithful C++-to-Python translation had silently introduced.
+  \item Wrote the case against general-purpose chat rollout as an AI strategy, arguing for typed, scoped, provenance-tracked tools as the architecture that actually returns value.
 \end{itemize}
 
 \entryheader
@@ -180,6 +192,7 @@ B.Tech. in Mechanical Engineering
 \pubentry{2008}{Argod, V., Belegundu, A. D., Aziz, A., Agrawala, V., \textbf{Jain, R.}, and Rajan, S. D. ``MPI-enabled shape optimization of panels subjected to air blast loading.'' \textit{International Journal for Simulation and Multidisciplinary Design Optimization}.}
 
 \section{Peer-Reviewed Conference and Workshop Proceedings}
+\pubentry{2026}{\textbf{Jain, R.} and Jacob, R. ``\href{https://agent4sc.github.io/}{Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray}.'' \textit{1st Workshop on Agentic AI for Large-scale Science (AGENT4SC) at IEEE eScience 2026}, Naples, Italy. Accepted; to be presented.}
 \pubentry{2025}{Gwinn, J., Wozniak, J. M., \textbf{Jain, R.}, Zhu, Y., Partin, A., Brettin, T., and Stevens, R. ``A Workflow for Error Analysis for Drug Response Prediction via Statistical Standardization and Distribution Analysis.'' \textit{Workshop on Workflows in Support of Large-Scale Science (WORKS)}.}
 \pubentry{2024}{\textbf{Jain, R.}, Tang, H., Dhruv, A., and Byna, S. ``\href{https://doi.org/10.1109/SCW63240.2024.00043}{Enabling Data Reduction for Flash-X Simulations}.'' \textit{SC24 Workshops: DRBSD-10}.}
 \pubentry{2024}{\textbf{Jain, R.}, Wozniak, J. M., Partin, A., Wilke, A., Zhu, Y., Vasanthakumari, P., Narykov, O., Overbeek, J., Weaver, R., Wang, C., Liu, Y., Weil, M. R., Brettin, T., and Stevens, R. ``\href{https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf}{Cross-HPO: Optimizing Neural Networks for Cancer Drug Response Using Hyperparameter Tuning on Multiple Pharmacogenomic Datasets}.'' \textit{Computational Approaches for Cancer Workshop at SC24}.}
@@ -239,12 +252,14 @@ B.Tech. in Mechanical Engineering
 \textbf{UXarray MCP} & MCP server exposing UXarray as typed AI-agent tools with Globus Compute HPC backend; structured provenance on every call. Presented at SciFM26. \\[4pt]
 \textbf{FLASH-X} & I/O and compression lead for a million-line multiphysics simulation engine (astrophysics, combustion, fluid dynamics). R\&D 100 Award, 2022. \\[4pt]
 \textbf{CANDLE / IMPROVE} & HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt) and \texttt{improvelib} benchmark framework for cancer drug response; GitHub Actions CI/CD and UNO dual-branch model. R\&D 100 Award, 2023. \\[4pt]
-\textbf{Pangu-Weather} & PyTorch / SFNO climate emulator ported to 60,000+ Intel XPUs on Aurora: PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline. \\[4pt]
-\textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\
+\textbf{Pangu-Weather} & PyTorch / SFNO climate emulator ported to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline, measured one-node 12-rank run. \\[4pt]
+\textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\[4pt]
+\textbf{LLM Bench} & \texttt{local-llm-bench-m1max}: reproducible harness and open data for local LLM inference. GGUF bytes-per-token parsing, measured streaming-bandwidth denominator, roofline efficiency across four model architectures. \href{https://github.com/rajeeja/local-llm-bench-m1max}{GitHub}. \\
 \end{tabularx}
 
 \section{Professional Service}
 \begin{itemize}
+  \item Program committee member, \href{https://agent4sc.github.io/}{1st Workshop on Agentic AI for Large-scale Science (AGENT4SC)} at IEEE eScience 2026, Naples, Italy.
   \item SBIR / STTR proposal reviewer for the U.S. Department of Energy.
   \item Panelist, ``Revolutionizing Public Infrastructure: The Impact of AI and Machine Learning,'' 5th Infraday Midwest Event.
   \item Reviewer for the \textit{Journal of Open Research Software} and NumGrid.

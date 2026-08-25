@@ -4,7 +4,7 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructure | HPC | Scientific Computing"
+excerpt: "Principal Specialist, Research Software Engineering | AI Systems and Verification | HPC | Scientific Computing"
 ---
 
 <div class="cv" id="about">
@@ -12,8 +12,8 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
 <header class="cv-head">
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
-    <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; ML Infrastructure &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms that research teams can actually maintain across institutions and years. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+    <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; AI Systems and Verification &middot; HPC &middot; Scientific Computing</p>
+    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Sixteen years of numerical code makes me a hard sell on a benchmark. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
@@ -30,12 +30,17 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
   <ul class="cv-items">
     <li>
       <div class="item-head"><strong><a href="https://github.com/UXARRAY/uxarray">UXarray</a></strong><span class="item-role">Lead developer &middot; open-source climate analysis</span></div>
-      Python library for unstructured climate grid analysis &mdash; the standard tool for DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes. Conservative zonal averaging via Gauss-Legendre quadrature; grid I/O for ESMF, MPAS, SCRIP, and HEALPix; MCP server for AI-agent dataset exploration across local and HPC execution.
+      Python library for unstructured climate grid analysis &mdash; the standard tool for DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes. Conservative zonal averaging via Gauss-Legendre quadrature; grid I/O for ESMF, MPAS, SCRIP, and HEALPix; MCP server for AI-agent dataset exploration across local and HPC execution. Also the correctness and performance work underneath it &mdash; compensated summation in the spherical-geometry kernels after naive accumulation drifted 0.68 m on a real Earth mesh, and a 1.67&times; speedup in a Numba hot path once hidden heap allocation turned out to be the actual cost rather than the math.
       <span class="item-links"><a href="https://uxarray.readthedocs.io">Docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">GitHub</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP article</a></span>
     </li>
     <li>
-      <div class="item-head"><strong><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></strong><span class="item-role">60,000+ Intel GPUs &middot; Argonne Leadership Computing Facility</span></div>
-      PyTorch reimplementation of Pangu-Weather using the Spectral Fourier Neural Operator for DOE exascale Earth system modeling. First stable portable DDP baseline on Aurora: PMIX/PALS environment mapping, XPU/CUDA device branching, device-aware mixed precision with gradient scaling on CUDA and bf16 on Intel XPU.
+      <div class="item-head"><strong><a href="/blog/muse-glimmer-30b-local-setup/">Local LLM inference, measured</a></strong><span class="item-role">Benchmark harness &middot; open data and protocol</span></div>
+      Four models on one machine, taken apart to find what actually sets throughput. Bytes read per token parsed from GGUF tensor tables rather than taken from file size, which overstates by 64% on a model with gathered embeddings; the bandwidth denominator measured at 340 GB/s rather than read off the 400 GB/s datasheet figure, which is a pin rate and unreachable. All four models land between 36% and 41% of memory bandwidth regardless of architecture &mdash; the 8&times; spread in tokens per second is explained entirely by bytes per token. Scripts, raw data, and protocol published so every number regenerates.
+      <span class="item-links"><a href="/blog/muse-glimmer-30b-local-setup/">Book</a> &middot; <a href="https://github.com/rajeeja/local-llm-bench-m1max">Repo</a></span>
+    </li>
+    <li>
+      <div class="item-head"><strong><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></strong><span class="item-role">Intel XPU port &middot; Argonne Leadership Computing Facility</span></div>
+      PyTorch climate emulator on the Spherical Fourier Neural Operator, ported to Aurora&rsquo;s Intel XPU stack for DOE exascale Earth system modeling. First stable portable DDP baseline: PMIX/PALS environment mapping, XPU/CUDA device branching, device-aware mixed precision with gradient scaling on CUDA and bf16 on Intel XPU. Measured baseline is one node, 12 XPU ranks, ~12 s steady-state epochs; full-dataset scale-up is still ahead.
       <span class="item-links"><a href="/blog/panguweather-aurora-climate-emulator/">Article</a></span>
     </li>
     <li>
@@ -58,6 +63,26 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
 <section class="cv-section" id="writing">
   <h2 class="cv-label">Writing</h2>
   <ul class="cv-items cv-items--compact">
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/muse-glimmer-30b-local-setup/">I decided to write a basics book while setting up Meta Muse Glimmer 30B locally on my M1 Max</a>
+      <span class="item-dek">Book-length, from what a model file is to a measured explanation of why a 30B model gives about six words per second on a 64 GB laptop — and why no setting you change will fix that.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/kahan-compensated-arithmetic/">The Bug Hiding in Every Sum: Kahan Summation, Compensated Arithmetic, and Where They Actually Matter</a>
+      <span class="item-dek">A $0.0085 drift in a $50 million ledger and a 0.68-meter error on a real Earth mesh, both from the same one-line bug: adding floats in the naive order.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/loops/">Loops: The Oldest Primitive, and How One Nearly Wrecked a C++-to-Python Port</a>
+      <span class="item-dek">Agentic AI runs the world in a while-true, but the humble for-loop still hides the most common way a faithful C++-to-Python port turns slow.</span>
+    </li>
+    <li>
+      <span class="item-venue">2026</span>
+      <a href="/blog/numba-heap-scalars-uxarray/">Where Your Numbers Live: Killing Hidden Heap Allocations in a Numba Hot Path</a>
+      <span class="item-dek">A 1.67× speedup that came not from better math but from where the numbers lived — heap versus registers, and why NumPy's ndarray is always the former.</span>
+    </li>
     <li>
       <span class="item-venue">2026</span>
       <a href="/blog/mcp-landscape-seps-community-2026/">MCP in 2026: From Anthropic Side Project to Industry Infrastructure</a>
@@ -104,6 +129,7 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
 <section class="cv-section" id="publications">
   <h2 class="cv-label">Selected papers</h2>
   <ul class="cv-items">
+    <li><strong>Jain, R.</strong>, Jacob, R. <a href="https://agent4sc.github.io/">Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray.</a> <em>AGENT4SC &mdash; 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</em>, Naples. Accepted; to be presented.</li>
     <li>Partin, A., ..., <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2025.</li>
     <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 Workshop, SC24, 2024.</li>
     <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW24, SC24, 2024.</li>
@@ -114,6 +140,7 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
 
   <h2 class="cv-label cv-label--sub">Recent talks</h2>
   <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">eScience 2026</span> <a href="https://agent4sc.github.io/">AGENT4SC: Beyond Tool Execution &mdash; Evaluating Scientific MCP Interfaces with UXarray</a> &mdash; Naples, September 2026</li>
     <li><span class="item-venue">SciFM26</span> Presented UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</li>
     <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
     <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
@@ -130,6 +157,12 @@ excerpt: "Principal Specialist, Research Software Engineering | ML Infrastructur
     <li><span class="item-venue">R&amp;D 100, 2022</span> <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a> &mdash; multiphysics simulation engine</li>
     <li><span class="item-venue">IMR 2010</span> Best Paper &mdash; reactor core mesh generation with lattice hierarchy encoding</li>
     <li><span class="item-venue">ATPESC 2015</span> Scholar &mdash; Argonne training program on extreme-scale computing</li>
+  </ul>
+
+  <h2 class="cv-label cv-label--sub">Service</h2>
+  <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">2026</span> Program committee &mdash; <a href="https://agent4sc.github.io/">AGENT4SC</a>, 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</li>
+    <li><span class="item-venue">Ongoing</span> SBIR/STTR proposal reviewer, U.S. Department of Energy &middot; reviewer, <em>Journal of Open Research Software</em></li>
   </ul>
 
   <h2 class="cv-label cv-label--sub">Funding</h2>
