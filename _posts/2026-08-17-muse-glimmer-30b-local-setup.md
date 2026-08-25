@@ -224,7 +224,7 @@ llama-server --version
 # version: 0.1.0-dev (build 10450, commit ece963f41)
 ```
 
-`muse_glimmer` architecture support merged in [PR #26841](https://github.com/ggml-org/llama.cpp/pull/26841) on 10 August 2026, so the minimum build is b10353. Homebrew delivers b10450.
+`muse-glimmer` architecture support merged in [PR #26841](https://github.com/ggml-org/llama.cpp/pull/26841) on 10 August 2026, so the minimum build is b10353. Homebrew delivers b10450.
 
 The Homebrew binary is not sufficient on M1 Max — it loads the model and then dies on inference. See the Metal crash section before launching anything.
 
@@ -327,6 +327,8 @@ cmake --build build --config Release -j8 --target llama-server
 
 Build time on M1 Max: about 90 seconds. After this, inference is stable across repeated requests.
 
+That recipe builds only `llama-server`, which is all you need to *run* the model. The benchmarks below additionally need `llama-bench` and `test-backend-ops`, which live under `tools/` and `tests/`, so they came from a second configure of the same tree with `-DLLAMA_BUILD_TOOLS=ON -DLLAMA_BUILD_TESTS=ON` and `--target llama-bench test-backend-ops`. Also turn `-DLLAMA_BUILD_UI=OFF`: it defaults on at this commit and drags in a full node/npm build.
+
 Two practical notes learned the hard way. The v1 of this post used `git apply` on a `.diff` from the PR page; use `cherry-pick` instead, because all four touched files changed between the patch base and the pin, and a flat apply either fails or silently mis-applies. And **fetch the patch by commit SHA, not by PR URL** — this PR was force-pushed twice on 24 August, and its current head patches a file that does not exist at the pinned commit. The state that existed on 17 August is only reachable through the fork's push-event log, which GitHub expires after about 90 days.
 
 ---
@@ -376,7 +378,7 @@ print(m['id'], '|', m['meta']['ftype'], '|', 'ctx:', m['meta']['n_ctx'])
 | `-c` | 8192–32768 | context, divided across `-np` slots |
 | `-np` | 1 | parallel request slots |
 | `--jinja` | flag | **mandatory** — activates the embedded chat template; without it the server aborts immediately |
-| `--no-warmup` | flag | skips the startup inference; needed on M1 Max, since on an unpatched binary that warmup is itself a crash |
+| `--no-warmup` | flag | skips the startup inference. Mandatory on an *unpatched* binary, where the warmup pass is itself the crash. On the patched build it is probably unnecessary — I kept it for continuity with the v1 config and never went back to test removing it |
 | `--temp` / `--top-p` / `--top-k` | 1.0 / 0.95 / 64 | Meta's recommended sampling |
 | `--mmproj` | path | perception encoder for image input, +1.4 GB |
 | `-md` / `-ngld` | path / 99 | DFlash drafter, +1.6 GB — Meta reports a speedup on M4/M5 Max; unmeasured here |
@@ -958,7 +960,7 @@ python3 analyze.py --rgpu 340
 | Quant on 64 GB M1 Max | KQuant-Dynamic Q4_K_XL — 19.7 GB on disk, 18.884 GB read per token |
 | Blocking bug | GDN Metal kernel crash, every inference, M1 Max |
 | Fix | cherry-pick [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788), rebuild (~90 s); still open upstream as of 24 Aug 2026 |
-| Required flags | `--jinja`, `--no-warmup`, `-ngl 99` |
+| Required flags | `--jinja` and `-ngl 99`; plus `--no-warmup` on an unpatched binary |
 | Measured decode | 6.55 tok/s controlled (5.2 tok/s in a contended real session) |
 | Measured prefill | 87 tok/s — the fastest of the three 30B-class models tested |
 | Memory bandwidth | 340 GB/s measured streaming read, 400 GB/s datasheet |
