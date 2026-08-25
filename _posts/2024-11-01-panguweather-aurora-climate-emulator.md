@@ -1,5 +1,5 @@
 ---
-title: "Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs"
+title: "Pangu-Weather on Aurora: Porting a Weather Foundation Model to Intel GPUs"
 date: 2024-11-01
 permalink: /blog/panguweather-aurora-climate-emulator/
 categories:
@@ -11,7 +11,7 @@ tags:
   - pytorch
   - sfno
   - machine-learning
-excerpt: "How we ported Pangu-Weather to 60,000 Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP."
+excerpt: "How we ported Pangu-Weather and SFNO to Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP — plus the first measured one-node training run."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -19,7 +19,7 @@ toc_sticky: true
 
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Engineering note &middot; Aurora &middot; 2026</p>
-  <h1 class="article-title">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</h1>
+  <h1 class="article-title">Pangu-Weather on Aurora: Porting a Weather Foundation Model to Intel GPUs</h1>
   <p class="article-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU — building a stable, portable training baseline on Argonne's exascale system.</p>
 </div>
 
@@ -34,7 +34,7 @@ toc_sticky: true
 <div class="stat-row">
   <div class="stat-card">
     <span class="stat-card__value">60,000+</span>
-    <span class="stat-card__label">Intel GPUs on the Argonne Aurora exascale system</span>
+    <span class="stat-card__label">Intel GPUs on Aurora &mdash; the system this port targets</span>
   </div>
   <div class="stat-card stat-card--amber">
     <span class="stat-card__value">SFNO</span>

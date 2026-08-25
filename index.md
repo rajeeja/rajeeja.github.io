@@ -105,8 +105,8 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     </li>
     <li>
       <span class="item-venue">2024</span>
-      <a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora: Porting a Weather Foundation Model to 60,000 Intel GPUs</a>
-      <span class="item-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU to get a stable training baseline on Aurora.</span>
+      <a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora: Porting a Weather Foundation Model to Intel GPUs</a>
+      <span class="item-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU to get a stable training baseline on Aurora — plus the first measured one-node run.</span>
     </li>
     <li>
       <span class="item-venue">2023</span>
