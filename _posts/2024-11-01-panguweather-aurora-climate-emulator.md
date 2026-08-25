@@ -293,6 +293,40 @@ For this codebase, that means the right chunking discussion is not "we already s
 
 Compression belongs in the same conversation. Smaller files can help storage pressure, but compression only helps training throughput when the chunk geometry still matches the way ranks read data. Otherwise, the workflow just trades one bottleneck for another: less data on disk, but more decompression and more unnecessary reads.
 
+## What the one-node run actually produced
+
+Everything above is about the path. This section is about the first time that path carried a real training job end to end on one Aurora node. The model in that run is SFNO, whose implementation was taken from the `ai2cm/modulus` fork and driven by an SFNO PlaSim HDF5 config. Both architectures live in this repository, and the bring-up work covers the shared runtime — device selection, launcher mapping, AMP policy, checkpointing — so it applies to either.
+
+The validation suite runs first: environment checks, device selection, trainer construction, and the two-rank DDP bridge described earlier. Eight of eight pass. That matters more than it sounds, because on a new accelerator stack most failures are not training failures. They are import failures, device-placement failures, or launcher-mapping failures that only surface once the job is actually launched under the system's MPI stack rather than interactively.
+
+Then the training run itself. Twelve ranks on a single node, `WORLD_SIZE=12` — one rank per GPU tile, since an Aurora node carries six Intel GPUs of two tiles each. Every rank logs `Selected device: xpu` and joins the DDP process group. No CPU fallback, no rank silently landing on the host.
+
+| What | Measured |
+| --- | --- |
+| Ranks | 12 on one Aurora node |
+| Device per rank | Intel XPU (`Selected device: xpu`) |
+| Iterations per epoch | 23 |
+| First epoch, wall clock | ~1 min 41 s, including warmup |
+| Steady-state epoch | ~12 s |
+| Throughput | ~1.9 iterations/s |
+| Loss, epochs 1–3 | 1.0509 → 0.8932 → 0.6961 |
+
+Two things are worth reading off that table.
+
+The first epoch costs roughly eight times a steady-state epoch. That gap is warmup, not training: kernel compilation on first use, the first allocation of DDP's gradient buckets, and the first full pass through the data loader. On a short job that one-time cost dominates the reported average, which is exactly why a two-epoch timing on a freshly ported stack is close to meaningless unless the warmup epoch is separated out.
+
+The loss falls monotonically and by a meaningful margin, about a third across three epochs. That does not say the emulator is good. It says gradients are being reduced correctly across twelve XPU ranks and the optimizer is actually being applied. For a port, a descending loss curve is the signal that the distributed plumbing is right. The science question comes after.
+
+### The scale this does not answer
+
+That 12 s/epoch is on a one-year sample, not the full dataset. The two should never be placed side by side as though they were the same measurement.
+
+For allocation planning against the complete dataset, the working estimate sits on a different order entirely: roughly 5 to 10 node-hours per epoch, 100 to 500 node-hours for a full experiment, 1,000 to 2,000 node-hours for an initial development phase, and 5,000 to 10,000 for production runs. Those are projections, not measurements. The full-scale run has not happened.
+
+So the honest state is: the path works, one node trains, and the cost model at real scale is still estimated rather than observed.
+
+---
+
 ## What still needs work before scaling further
 
 The Aurora documentation is explicit that the current path is not yet "every historical config on every machine." The main remaining issues are mundane but important:
