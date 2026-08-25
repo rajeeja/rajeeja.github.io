@@ -1,7 +1,6 @@
 ---
-title: "Running Meta Muse Glimmer 30B Locally on M1 Max: Setup, the Metal Crash, and What Actually Limits Local Inference"
+title: "I decided to write a basics book while setting up Meta Muse Glimmer 30B locally on my M1 Max"
 date: 2026-08-17
-last_modified_at: 2026-08-25
 permalink: /blog/muse-glimmer-30b-local-setup/
 categories:
   - blog
@@ -14,16 +13,16 @@ tags:
   - metal
   - agentic-ai
   - benchmarking
-excerpt: "Running Meta's open-weights agentic model on a 64 GB M1 Max — quantization choice, the Gated Delta Net Metal crash and the upstream patch that fixes it, and then a controlled four-model benchmark that overturns the first version of this post's main conclusion."
+excerpt: "A book-length introduction to running large language models on your own laptop, built around one machine and four models. Starts from what a model file even is, ends at a measured explanation of why a 30-billion-parameter model produces about six words per second on a 64 GB M1 Max — and why no setting you change will fix that."
 author_profile: false
 toc: true
 toc_sticky: true
 ---
 
 <div class="article-banner article-banner--warm">
-  <p class="eyebrow">Engineering note &middot; Local LLM &middot; August 2026</p>
-  <h1 class="article-title">Running Meta Muse Glimmer 30B Locally on M1 Max</h1>
-  <p class="article-dek">Quantization fit on 64 GB, the Gated Delta Net Metal crash and the upstream patch that fixes it, and a controlled benchmark of what actually limits token generation on this hardware.</p>
+  <p class="eyebrow">A basics book &middot; Local LLM &middot; One laptop, four models</p>
+  <h1 class="article-title">I decided to write a basics book while setting up Meta Muse Glimmer 30B locally on my M1 Max</h1>
+  <p class="article-dek">Everything you need to understand before downloading a 20 GB model file — what the numbers in its name mean, what your laptop can and cannot do with it, and then the measurements that show exactly where the speed goes.</p>
 </div>
 
 <div class="post-tags">
@@ -35,863 +34,1570 @@ toc_sticky: true
 
 ---
 
-## Correction notice — 25 August 2026
+I wanted to run a large model on my own laptop. Not through anyone's API, not in a browser tab — the actual weights, on my own disk, generating text with the network turned off.
 
-The first version of this post, published 17 August, measured one model on one machine and drew a general conclusion from it: that llama.cpp's Metal backend was extracting only 26% of the memory-bandwidth roofline, and that this said something about the backend as a whole.
+It works. It is also much slower than the marketing around local AI would lead you to expect, and the reason it is slow turns out to be interesting, measurable, and almost entirely unrelated to the things people usually blame. It is not the model. It is not the software being badly written. It is a single number about the machine, and once you know that number you can predict the speed of any model on any laptop to within a few percent.
 
-That was one uncontrolled datapoint. It could not distinguish three quite different explanations, and I picked the wrong one.
+Getting to that point required understanding maybe fifteen concepts I did not have solid intuitions for. So this is both things at once: the setup log, and the book I wish I had read first.
 
-I have since run three control models on the same binary, the same machine and the same flags, measured the roofline denominator instead of reading it off a datasheet, and computed bytes-per-token from the actual tensor tables instead of using file size. The decision rule was written down and committed before any data was collected.
+**Who this is for.** You write code. You may have shipped things with AI assistants. You do not have a machine learning background, and you may not have thought hard about memory buses since school, or ever. That is exactly the right starting point. Nothing here assumes linear algebra, and every term is defined at the moment it first appears.
 
-What changed:
-
-| Claim in v1 | Status | What the data says |
-|---|---|---|
-| Muse Glimmer runs at 5.2 tok/s | **Revised** | 6.55 tok/s under controlled conditions. The original run was contended and possibly power-throttled |
-| 26% of a 400 GB/s roofline | **Revised** | 36% of a *measured* 340 GB/s, or 31% of the 400 GB/s datasheet figure |
-| Muse Glimmer's new GDN kernels are a plausible culprit | **Refuted** | A 16-month-old dense model gets 39.9%. Muse Glimmer gets 36.4%. A 3.5-point spread |
-| "Most of the deficit is backend, not silicon" | **Survives, smaller** | ExecuTorch ~82% vs llama.cpp ~36%, so a 2.3× efficiency gap, not the 3.3× v1 implied |
-| "No Apple Silicon laptop reaches 15 tok/s on a 30B model" | **Survives, narrowly** | An M5 Max would reach ~11.8 tok/s at llama.cpp's measured efficiency |
-
-The one genuinely new finding is the flat one. Four models spanning a 6.8× range in bytes-per-token, three architecture families, 35 to 64 layers, and sixteen months of kernel age all land between 123 and 140 GB/s of achieved bandwidth. Whatever is costing the other ~60%, it is not specific to any architecture, and it is not a maturity curve.
-
-I also made an error during this second round and caught it before publishing. It is described in full below, because a post about measurement error that hides its own is not worth much.
-
-The full pre-registration, all six amendments, the raw JSON and the analysis scripts are listed under [reproducing this](#reproducing-this).
+**What you'll be able to do at the end.** Look at any model on Hugging Face, read its name and its card, and say with confidence: this will run on my machine at roughly N tokens per second, or it will not run at all — and here is the specific reason.
 
 ---
 
-## Scope and provenance
+## Contents
 
-The setup, crash and patch sections were run on one machine on 17 August 2026. The benchmark sections were run on the same machine on 24–25 August 2026. Numbers are what that machine produced; where a figure comes from a model card or from hardware I do not have, it is labelled as such. Upstream PR states were re-checked on 24 August 2026.
+<nav markdown="1">
+
+**Part I — What you are dealing with**
+
+1. [Open weights, closed weights](#ch1) — What you can actually download and own, what the licence lets you do with it, and why "open source" is usually the wrong phrase for a model.
+2. [Tokens, and tokens per second](#ch2) — The only two units in this book. What a token is, how fast is fast enough, and why a speed quoted without saying *which* speed is meaningless.
+3. [Why run one locally at all](#ch3) — The honest case for and against, including the part where a remote model is twenty times faster and better.
+
+**Part II — What a model is**
+
+4. [A pile of matrices](#ch4) — What is actually inside the file. Layers, attention, the feed-forward block, and what "running" a model means mechanically.
+5. [How one gets made](#ch5) — Pretraining, post-training, distillation. Enough to make clear that you are doing none of it.
+6. [Reading a model card](#ch6) — Parameters, layers, hidden size, vocabulary, context window, dense versus mixture-of-experts. What each number costs you.
+7. [Quantization](#ch7) — Squeezing 16 bits into 4.5. Why this is a *speed* trick that happens to save space, and not the other way round.
+8. [GGUF, the file format](#ch8) — Header, tensor table, tensor data. The tensor table is why the byte accounting later in this book is exact rather than guessed.
+
+**Part III — The four models**
+
+9. [The four models in this book](#ch9) — Muse Glimmer 30B, Qwen3-32B, Gemma 4 31B, Gemma 3n E4B: who made each, what it is good at, how it is built, and what its makers do not tell you. Includes short explainers on grouped-query attention, sliding-window attention, linear attention, and MatFormer.
+
+**Part IV — The machine**
+
+10. [What a laptop is made of](#ch10) — CPU, GPU, memory, and the bus between them. Where "GB per second" comes from. Unified memory versus a graphics card.
+11. [The two speeds](#ch11) — Reading your prompt is a completely different kind of work from writing the answer. One is limited by arithmetic, the other by memory. This distinction explains everything that follows.
+12. [This machine](#ch12) — The M1 Max in detail, and the measured — not datasheet — bandwidth number that the rest of the book divides by.
+13. [Will it run on yours?](#ch13) — A table: memory floor and bandwidth needed per model, per machine class. Plus a plain list of what will not work and why no flag rescues it.
+
+**Part V — Doing it**
+
+14. [Setup](#ch14) — Install the runtime, pick a quantization, download 20 GB, verify it loads.
+15. [Reading a llama.cpp startup log](#ch15) — The log tells you a great deal, and two of its most alarming-looking lines mean the opposite of what they appear to say.
+16. [Launching the server](#ch16) — The flags that matter, context budgeting, and how to wire it to an editor.
+
+**Part VI — Measuring**
+
+17. [How performance was measured](#ch17) — Four experiments, the exact commands, and why the benchmark deliberately uses fake text.
+18. [Bytes per token](#ch18) — Why the file size is the wrong number, and how to get the right one out of the file itself.
+19. [The denominator](#ch19) — Why not to use the number on the spec sheet, and how to measure the real one in twenty lines of Python.
+
+**Part VII — What came out**
+
+20. [Results](#ch20) — Three 30-billion-parameter models with different architectures land within 3.5 percentage points of each other. Why that is the whole story.
+21. [Gemma 3n: what small buys and costs](#ch21) — Eight times the speed. What you give up for it.
+22. [Small and specific is probably the direction](#ch22) — Opinion, clearly labelled as such.
+23. [Hardware guidance](#ch23) — What it would actually take to make this pleasant, and the four levers available to you.
+24. [Using it day to day](#ch24) — Editor integration, and the surprising cost of giving a model tools.
+
+**Appendix**
+
+- [A — Reproducing this](#appendix-a) — Every script, and the one command that regenerates every number in Part VII.
+
+</nav>
 
 ---
 
-## Read This First — Should You Attempt It?
+# Part I — What you are dealing with
 
-The setup works. The result is not usable interactively on this hardware, and the reason is predictable in advance.
+## Chapter 1 — Open weights, closed weights {#ch1}
 
-| Your machine | Expect | Advice |
-|---|---|---|
-| M1/M2 Pro or Max, 32–64 GB | ~6.5 tok/s | Works after patching, but too slow for interactive use. Read the crash section, then run a smaller model instead |
-| M1/M2, 16 GB | will not fit | 20 GB resident against 16 GB of shared memory. Don't |
-| M4/M5 Max, 36 GB+ | 24–27 tok/s with Meta's ExecuTorch build; ~10–12 tok/s on llama.cpp | Worth it, but the backend matters more than the chip. No Metal crash on these |
-| Discrete GPU, 24 GB+ VRAM | 40+ tok/s by roofline | The straightforward answer if you own one |
-| Anything with <24 GB usable memory | won't fit at Q4 | Pick a smaller model, not a smaller quant |
+*This chapter establishes what you can and cannot download, and what you are permitted to do with it.*
 
-The honest summary for older Apple Silicon: **this model is a poor fit, and no flag will fix it.** The limit is memory bandwidth combined with a backend that extracts about a third of it. You cannot configure your way past either.
+A language model, as a thing on a disk, is a large file full of numbers. Those numbers are called **weights**. They are the entire model — there is no additional secret sauce held back on a server. If you have the weights and a program that knows how to feed numbers through them, you have the model, permanently, offline, yours.
 
----
+The industry splits roughly three ways.
 
-## Machine Specifications
+**Closed.** You cannot have the weights. Claude, GPT, Gemini. You send text to a server, you get text back, you pay per token. The company can change the model under you, rate-limit you, or read your inputs subject to whatever their policy says. In exchange you get the strongest models that exist and you need no hardware.
 
-<div class="stat-row">
-  <div class="stat-card">
-    <span class="stat-card__value">Apple M1 Max</span>
-    <span class="stat-card__label">10-core CPU (8P+2E) &middot; Metal GPU</span>
-  </div>
-  <div class="stat-card stat-card--amber">
-    <span class="stat-card__value">64 GB</span>
-    <span class="stat-card__label">Unified Memory &mdash; shared CPU/GPU pool</span>
-  </div>
-  <div class="stat-card stat-card--violet">
-    <span class="stat-card__value">340 GB/s</span>
-    <span class="stat-card__label">Measured streaming read &mdash; 400 GB/s on the datasheet</span>
-  </div>
+**Open weights.** You can download the file. Llama, Qwen, Gemma, Mistral, DeepSeek, and the model this book is built around. This is the category that makes local inference possible at all.
+
+**Open source, in the strict sense.** Almost nobody. Genuine open source would mean the training data, the training code, the data-cleaning pipeline, and a licence with no use restrictions — enough that you could rebuild the model from scratch. Models like OLMo do this. The big ones do not.
+
+That middle category is where nearly all the interesting local models live, and it is why "open source model" is a phrase to be a little careful with. You are getting the compiled binary, not the source.
+
+### Licences, in the twenty seconds they deserve
+
+Three of the four models in this book are **Apache 2.0**. That is a genuine, boring, permissive open source licence. Use it commercially, modify it, ship it inside a product, do not ask anyone. The only real obligation is attribution.
+
+The fourth, Gemma 3n, is under the **Gemma Terms of Use**. That is a custom licence, not an OSI-approved one. It is generous — commercial use is fine — but Google retains a use policy you must pass through to anyone you redistribute to, and they reserve the right to restrict uses they consider harmful. For a personal setup this is irrelevant. For a product it is a lawyer conversation.
+
+Worth internalising: **licences are attached to weights, not to capabilities**. A model being downloadable tells you nothing about whether you are allowed to use its outputs to train another model, which is the restriction that most often bites.
+
+<div class="callout callout--amber" markdown="1">
+**A note on how I treat capability claims in this book.** When I say a model is good at something, I am reporting what its own model card claims, and I say so. I did not run capability benchmarks. Everything in Part VI and Part VII, by contrast, is measured on this machine and reproducible from the linked repository. Keep the two categories separate as you read — I try hard to.
 </div>
 
-| Property | Value |
-|---|---|
-| Chip | Apple M1 Max |
-| CPU | 10 cores (8P + 2E) |
-| GPU | Integrated, Metal, ~10.4 TFLOP/s fp32 |
-| Unified memory | 64 GB |
-| Memory bandwidth, datasheet | 400 GB/s (512-bit LPDDR5-6400) |
-| Memory bandwidth, measured streaming read | ~340 GB/s |
-| System-level cache | 48 MB |
-| Storage free at test time | ~206 GB |
-| OS | macOS 26.6.1 (build 25G76) |
+---
 
-The gap between 400 and 340 matters, and getting it right took two attempts. See [the denominator](#the-denominator-and-the-error-i-made-finding-it).
+## Chapter 2 — Tokens, and tokens per second {#ch2}
+
+*This chapter establishes the only two units used in the rest of the book.*
+
+### What a token is
+
+Models do not read characters and they do not read words. They read **tokens**, which are chunks of text somewhere in between — usually a common word, a word fragment, or a piece of punctuation.
+
+"The quick brown fox" is four tokens, one per word. "unbelievability" is probably four tokens too — something like `un`, `bel`, `iev`, `ability` — because it is a rare word and the tokenizer never learned it whole. Code tokenizes badly: indentation, braces, and identifiers like `getUserById` shatter into pieces.
+
+A workable rule of thumb for English prose: **one token is about four characters, or about 0.75 words.** A thousand words is roughly 1,300 tokens. A dense page of code is more.
+
+The model has a fixed **vocabulary** — a numbered list of every token it knows. Muse Glimmer's has 202,048 entries. Every piece of text you send is converted to a list of numbers indexing into that table, and every piece of text it generates comes back as such a list. Text never enters the model as text.
+
+Why this matters practically: your bill, your context limit, and your speed are all denominated in tokens, and tokens are not words. When a model says "128K context", that is 128,000 tokens, which is roughly 96,000 words, which is roughly a 380-page book.
+
+### Tokens per second
+
+Generation is sequential. The model produces token 1, then reads its own token 1 in order to produce token 2, and so on. It cannot produce token 5 before token 4 exists. This is the single most important structural fact about how these things run, and Chapter 11 is entirely about its consequences.
+
+So speed is **tokens per second (tok/s)**, and here is the scale:
+
+| tok/s | What it feels like |
+|---|---|
+| 3–5 | Painful. You watch each word appear. Fine for a batch job you walk away from. |
+| 6–10 | Slightly slower than reading aloud. Usable for chat, frustrating for long answers. |
+| 15–20 | Comfortable reading speed. This is the threshold where it stops being annoying. |
+| 40+ | Faster than you read. Feels instant. |
+| 100+ | What a hosted frontier model gives you. |
+
+Human reading speed is roughly 250 words per minute, which is about **5.5 tokens per second**. That is a useful anchor: a model running at 6 tok/s is producing text at almost exactly the rate you can read it, and it still feels slow, because you also want time to think.
+
+### The trap: one number, two meanings
+
+Here is where quoted benchmarks mislead, and it is worth being irritated about.
+
+Running a model has two phases, and they run at wildly different speeds:
+
+- **Prefill** (also called prompt processing) — the model reads your prompt. It can process all of your prompt's tokens *simultaneously*, because they all already exist. Fast.
+- **Decode** (also called generation) — the model writes the answer, one token at a time, each depending on the last. Slow.
+
+On the machine in this book, the same model does prefill at **87 tokens per second** and decode at **6.55 tokens per second**. Thirteen times apart. Both are honestly "tokens per second for Muse Glimmer on an M1 Max."
+
+So when someone posts "I'm getting 90 tok/s on my laptop!", the first question is always: *which phase?* Nine times out of ten it is prefill, which is the number that does not determine how long you wait.
+
+**In this book, an unqualified tok/s figure always means decode**, because decode is what you experience. Prefill numbers are labelled as prefill every time.
 
 ---
 
-## Model
+## Chapter 3 — Why run one locally at all {#ch3}
 
-Released 9 August 2026 by Meta's Superintelligence Lab under Apache 2.0.
+*This chapter establishes the honest case in both directions, so you can decide before spending an afternoon on it.*
 
-| Property | Value |
-|---|---|
-| Parameters | 29.6B, dense (not MoE) |
-| Architecture | Dense causal transformer + 1.8B ViT-G/14 perception encoder |
-| Novel layers | Gated Delta Net (GDN) + Lightning Indexer — hybrid SSM/attention |
-| Context window | 131,072 tokens |
-| Modalities | Text + image **input**, text **output** — no image generation |
-| Reasoning | Always on; exposed in the `reasoning_content` field |
-| Speculative decoding | DFlash block-diffusion drafter (16-token blocks), shipped alongside |
-| Distilled from | Muse Spark |
-| Knowledge cutoff | 4 January 2026 |
-| License | Apache 2.0 |
+### The case for
 
-Vision is understanding only. The `--mmproj` encoder lets the model read screenshots, charts, and figures; it cannot produce images. That needs a separate diffusion model.
+**Privacy that is structural, not promised.** Nothing leaves the machine. Not a policy commitment — a network-level fact. For source code under NDA, medical notes, unpublished research, legal documents, this is not a preference; it is the only option that clears review.
 
-### Reported benchmarks
+**It works with no network.** Planes, trains, bad conference wifi, air-gapped environments.
 
-From the model card, against same-size peers. Not independently reproduced here.
+**Fixed cost.** You already own the laptop. Marginal cost per token is electricity. If you are running something in a loop over ten thousand documents, this can matter enormously.
 
-| Benchmark | Muse Glimmer 30B | Gemma4-31B | Qwen3.6-27B |
-|---|:---:|:---:|:---:|
-| MCP Atlas | **75.5** | 54.2 | 62.5 |
+**Nothing changes underneath you.** The weights on your disk in August behave identically in December. Hosted models get silently updated, deprecated, and retired. If you have built an evaluation suite against specific behaviour, that stability is worth real money.
+
+**You can look inside.** Attention patterns, logits, per-layer activations. Impossible through an API.
+
+### The case against
+
+I will be blunt, because a lot of writing about local models is not.
+
+**It is much slower.** Claude Sonnet 5 delivers about 104 tok/s wall clock to my terminal. Muse Glimmer on this laptop delivers 6.55. That is a factor of **twenty**. An answer that streams in five seconds from a hosted model takes a minute and a half locally.
+
+**It is meaningfully less capable.** A 30-billion-parameter model quantized to about 4.5 bits is not a frontier model. It is good. It is not the same thing, and any post telling you a 30B local model "matches GPT-4" is comparing on a benchmark that has leaked into training data.
+
+**It costs 20 GB of disk and most of your RAM.** While the model is loaded, roughly 23 GB of my 64 GB is gone. On a 16 GB machine, a model this size is simply not an option — Chapter 13 covers what is.
+
+**The setup is not one command.** It is closer to an afternoon, and this book is largely a record of that afternoon.
+
+### The honest summary
+
+Local inference is worth it when **privacy, offline operation, or cost-at-volume** genuinely matter to you. It is not, today, worth it for raw capability or speed. Anyone selling you otherwise has something to sell.
+
+What surprised me is how much I learned by doing it anyway. The performance analysis in Part VII taught me more about how these systems actually work than a year of using hosted APIs did — because on a laptop, the physical limits are close enough to touch.
+
+---
+
+# Part II — What a model is
+
+## Chapter 4 — A pile of matrices {#ch4}
+
+*This chapter establishes what is physically inside the file and what "running" it means.*
+
+Forget neurons and brains. Here is the mechanical truth.
+
+A transformer language model is a **stack of identical-looking layers**. Each layer is a handful of large rectangular grids of numbers — **matrices** — plus a few small ones. Running the model means: turn your token into a list of numbers, push that list through layer 1, take the output, push it through layer 2, and so on to the end. At the end you get a score for every token in the vocabulary. Pick a high-scoring one. That is the next token. Repeat.
+
+That is genuinely it. Everything else is detail about the shape of the grids.
+
+### The vector that flows through
+
+The list of numbers being pushed through is called the **hidden state** or **residual stream**. Its length is a fixed property of the model called **d_model**, or hidden size, or embedding length — three names for one number. For Muse Glimmer it is 6,656.
+
+So: one token in, one vector of 6,656 numbers created, that vector transformed 52 times (once per layer), and at the end converted into 202,048 scores.
+
+### What a matrix multiply is, if you need it
+
+If a matrix is new to you: it is a grid of numbers. Multiplying a vector by a matrix means producing a new vector where each output entry is the sum of (every input entry × its corresponding weight in one column of the grid).
+
+The important consequence, and honestly the only one this book needs: **to multiply a vector by a matrix, you must read every single number in the matrix.** All of them. There is no shortcut, no partial read, no caching your way out of it. A matrix with 44 million entries requires reading 44 million numbers to use it once.
+
+Hold onto that. It is the whole book.
+
+### Inside one layer
+
+Each layer does two things in sequence.
+
+**1. Attention** — the mechanism that lets a token look at earlier tokens. Mechanically it builds three vectors from the hidden state, called **query**, **key**, and **value** (Q, K, V), via three matrices. The query of the current token is compared against the keys of all earlier tokens to produce weights; those weights are used to average the values. The result goes through a fourth matrix, the **output projection**.
+
+The intuition: "which earlier words are relevant to what I'm doing right now, and what should I pull from them?" In "the cat sat on the mat because *it* was warm", attention is how *it* gets connected to *mat*.
+
+**2. The feed-forward network (FFN or MLP)** — two or three much bigger matrices that expand the vector to several times its width, apply a nonlinear function, and squeeze it back. Muse Glimmer expands 6,656 → 19,968 → 6,656. No token talks to any other token here; this is pure per-token processing.
+
+The FFN is where **most of the weights live** — typically two-thirds of the model. When you read later that decode is bandwidth-bound, the FFN is the main thing being read.
+
+Sprinkled between these are **normalization layers** (tiny, cheap, they keep numbers from exploding) and **residual connections** (the layer's output is added to its input rather than replacing it, which is what lets you stack 52 of them without the signal degrading).
+
+### The two ends
+
+**Embedding** (`token_embd`) — a lookup table with one row per vocabulary entry. Token 4,127 means "read row 4,127". This is a *gather*, not a multiply: you read one row, not the whole table. This distinction becomes financially important in Chapter 18.
+
+**Output head** (`output`) — converts the final 6,656-vector into 202,048 scores. This *is* a full multiply, and it is one of the largest single matrices in the model.
+
+Some models **tie** these two — literally reuse the same matrix for both, transposed — which saves a lot of file size. Gemma 4 and Gemma 3n do. Muse Glimmer and Qwen3 do not. Again: Chapter 18.
+
+### The KV cache
+
+One optimisation you need to know because it eats your RAM.
+
+When generating token 500, attention needs the keys and values of tokens 1–499. Recomputing them every step would be quadratic and absurd. So they are computed once and kept. That store is the **KV cache**.
+
+It grows linearly with conversation length and is, unlike the weights, *unbounded* — a long conversation can consume gigabytes. It is the reason a local model that was fine at the start of a session gets slower and eventually falls over. Chapter 16 covers budgeting it.
+
+---
+
+## Chapter 5 — How one gets made {#ch5}
+
+*This chapter establishes what training is, mainly so it is clear you are not doing any of it.*
+
+You are doing **inference** — using a finished model. Training is a separate universe with a separate cost structure, and understanding the boundary keeps you from misreading model cards.
+
+### Pretraining
+
+Take an enormous pile of text — Qwen3 used roughly **36 trillion tokens**, Gemma 3n roughly 11 trillion — and repeatedly ask the model to predict the next token, adjusting the weights slightly each time it is wrong.
+
+That is the whole objective. Everything the model appears to know — grammar, facts, code idioms, the shape of an argument — falls out of doing next-token prediction at that scale.
+
+Cost: thousands of GPUs for weeks or months. Tens of millions of dollars for a model this size. This is what "foundation model" means and why only about a dozen organisations produce them.
+
+Note what pretraining produces: something that continues text. Ask it a question and it might reply with more questions, because that is a plausible continuation. It is not yet an assistant.
+
+### Post-training
+
+Turning a text-continuer into something useful.
+
+**Supervised fine-tuning (SFT)** — train further on curated examples of instruction and good response. This is where "act like a helpful assistant" is installed.
+
+**Reinforcement learning from feedback (RLHF / RLAIF)** — generate multiple answers, have humans or another model rank them, push the weights toward the winners. This shapes tone, refusal behaviour, and formatting.
+
+**Reasoning training** — more recent. Reward the model for producing correct answers *after* generating a chain of intermediate steps. This is what produces models that "think" before answering. Muse Glimmer has this always on, which is relevant to speed: reasoning tokens are tokens, and you pay for them at the same tokens-per-second.
+
+Post-training is orders of magnitude cheaper than pretraining and is where most of the differentiation between similarly-sized models now comes from.
+
+### Distillation
+
+Train a small model to imitate a big one — not on human text, but on the big model's own output distributions. The small model learns not just the answer but the shape of the big model's uncertainty, which turns out to transfer a surprising amount of capability.
+
+This is directly relevant here: **Muse Glimmer 30B is distilled from Muse Spark**, Meta's closed flagship. That is why a 30B model punches above what 30B used to mean. It is also why "parameter count" has become a much weaker predictor of quality than it was two years ago.
+
+### What this means for you
+
+Nothing you do at inference time changes the weights. Not the system prompt, not the temperature, not the context you paste in. The model is frozen. All you control is what goes in and how the output is sampled.
+
+Fine-tuning — cheaply adapting a model on your own data with a technique like LoRA — is real and doable on a laptop for small models. It is out of scope here. This book is about inference.
+
+---
+
+## Chapter 6 — Reading a model card {#ch6}
+
+*This chapter establishes what each number on a model's page implies for the machine that has to run it.*
+
+A Hugging Face model card is dense with numbers. Here is what each one costs you.
+
+### Parameter count
+
+The headline number. "30B" means roughly 30 billion individual weights.
+
+Its direct consequence is **file size**, via the bits-per-weight of the quantization (Chapter 7). At about 4.5 bits per weight, 30 billion parameters is about 17 GB. At 16 bits — the format the model was trained in — it would be 60 GB.
+
+Its indirect consequence is **speed**, and this is the one people miss: because decode must read every weight for every token (Chapter 4), parameter count is very nearly a direct divisor on tokens per second. Doubling the model halves your speed. Not approximately — nearly exactly, on a bandwidth-limited machine.
+
+Beware the label. Muse Glimmer's file says `size_label: 28B`, its card says 30B, and it actually has 29.6 billion text parameters plus a 1.8 billion parameter vision encoder. These are marketing-rounded. Use the file size.
+
+### Layers, hidden size, heads
+
+| Term | Also called | What it is | Muse Glimmer |
+|---|---|---|---|
+| Layers | blocks, `n_layer` | How many times the stack repeats | 52 |
+| Hidden size | `d_model`, embedding length | Width of the vector flowing through | 6,656 |
+| FFN size | intermediate size | Width the FFN expands to | 19,968 |
+| Attention heads | `n_head` | Parallel attention computations per layer | 32 |
+| KV heads | `n_head_kv` | How many of those share key/value data | 2 |
+
+Roughly, parameters ≈ layers × (attention matrices + FFN matrices), and the FFN dominates. Deep-and-narrow versus shallow-and-wide is a real design choice with real performance consequences — Chapter 20 measures it.
+
+That **32 heads / 2 KV heads** line is worth flagging now. It means grouped-query attention, explained in Chapter 9, and it is the single biggest factor in how much RAM your conversation consumes.
+
+### Context window
+
+The maximum number of tokens the model can attend to at once: prompt plus generated output plus everything earlier in the conversation.
+
+Muse Glimmer: 131,072. Gemma 4: 262,144. Qwen3-32B: 40,960 natively.
+
+**The catch that catches everyone**: the advertised context is what the model *architecturally supports*, not what you can afford. Filling 131K tokens of context requires enough RAM for a 131K-token KV cache, which for many models is more memory than the weights themselves. You will typically run at a fraction of the maximum. Chapter 16 does the arithmetic.
+
+### Dense versus mixture-of-experts
+
+**Dense** — every weight is used for every token. All four models here are dense.
+
+**Mixture of experts (MoE)** — the FFN is split into many "experts" and a router picks a few per token. A model might have 100B total parameters but only activate 10B for any given token.
+
+For local inference the distinction is sharp and important:
+
+- **RAM** is set by *total* parameters. You must hold all the experts, since any token might need any of them.
+- **Speed** is set by *active* parameters, because only those get read per token.
+
+So MoE is the good trade if you have lots of RAM and limited bandwidth — which is precisely the situation on a big unified-memory Mac. A 100B MoE with 10B active can be *faster* than a 30B dense model while being far more capable. This is not hypothetical; it is why MoE has taken over the open-weights space.
+
+### Modality
+
+Text-only, or does it also take images or audio? Multimodal models ship extra encoder weights — Muse Glimmer's vision encoder is a separate 1.4 GB file. You can skip loading it if you only want text, and save the RAM.
+
+### The things not on the card
+
+Usually absent, and their absence is informative: training data composition, exact token count, energy cost, and evaluation results on anything the model does badly. Model cards are marketing documents with a technical vocabulary.
+
+---
+
+## Chapter 7 — Quantization {#ch7}
+
+*This chapter establishes why the model file is a third of the size it "should" be, and why that is mainly a speed decision.*
+
+Models are trained with 16 bits per weight. A 30B model in its native format is 60 GB. **Quantization** stores each weight in fewer bits — commonly 4 to 5 — bringing that to 17–20 GB.
+
+### Why it works at all
+
+Neural network weights are extraordinarily redundant. A given weight's exact value barely matters; what matters is the aggregate behaviour of millions of them. Rounding each one to a coarse grid loses much less than intuition suggests.
+
+### How it works: blocks and scales
+
+The naive version — clamp everything to one global scale — destroys the model, because weight magnitudes vary enormously across the network.
+
+The real version divides each tensor into small **blocks** (typically 32 weights), and stores per block:
+
+- A **scale** — the largest magnitude in this block, at higher precision.
+- **32 small integers**, each 4 bits, indexing a position on that block's local grid.
+
+Reconstruction is `weight ≈ integer × scale`. Because the scale is local, a block of tiny weights and a block of huge weights each get the full resolution of their 4 bits.
+
+The per-block overhead is why "4-bit" quantization is actually about 4.5 bits per weight in practice. That extra half-bit is the scales.
+
+**K-quants**, the family used throughout this book, refine this further: the scales themselves are quantized against a super-block, and — importantly — different tensors get different precision. Attention matrices, which are more sensitive, get more bits than the bulk FFN matrices.
+
+### The naming scheme
+
+`Q4_K_M` decodes as:
+
+- `Q4` — about 4 bits per weight
+- `K` — K-quant family
+- `M` — medium; `S` is small, `L` is large, indicating how generous the mixed-precision policy is
+
+`Q4_K_XL` and the various "dynamic" variants push further, assigning higher precision to the tensors that empirically matter most.
+
+### The quality curve
+
+Roughly, in perplexity terms (a standard measure of prediction quality — lower is better):
+
+| Quantization | Size, 30B model | Quality loss |
+|---|---|---|
+| fp16 | 60 GB | baseline |
+| Q8_0 | 32 GB | negligible |
+| Q6_K | 25 GB | ~0.1% |
+| Q5_K_M | 21 GB | ~0.3% |
+| **Q4_K_M** | **17 GB** | **~1%** |
+| Q3_K_M | 14 GB | ~3%, noticeable |
+| Q2_K | 11 GB | badly degraded |
+
+The knee is at Q4. Above it you pay a lot of gigabytes for very little quality. Below it, quality falls off a cliff.
+
+The community rule of thumb is well supported and worth stating plainly: **a larger model at Q4 beats a smaller model at Q8 at the same file size.** If you have 20 GB to spend, spend it on a 30B at Q4, not a 13B at Q8.
+
+### Why this is a speed decision
+
+Here is the reframe that took me longest to internalise, and it is the hinge of this book.
+
+Everyone describes quantization as a way to fit big models in small memory. That is true, and it is the *lesser* benefit.
+
+Decode reads every weight, every token. Time per token is therefore (bytes of weights) ÷ (bandwidth). Quantizing from 16 bits to 4.5 bits cuts the bytes by 3.5×, which cuts the time per token by **3.5×**.
+
+Quantization is the single largest speed lever available on a laptop, and it is a speed lever that happens to also save disk. If your machine had unlimited RAM you would still quantize, for exactly this reason.
+
+The cost — dequantizing those blocks back to floats on the GPU — is real, and Chapter 20 measures it. It is nowhere near 3.5×.
+
+---
+
+## Chapter 8 — GGUF, the file format {#ch8}
+
+*This chapter establishes the file layout, because reading it directly is what makes Part VI exact instead of estimated.*
+
+**GGUF** — GGML Universal Format — is the file format used by llama.cpp and therefore by most consumer local-inference tooling. One file, self-describing, memory-mappable.
+
+Three sections:
+
+**1. Header.** Magic bytes `GGUF`, version, tensor count, metadata count.
+
+**2. Metadata.** Arbitrary key-value pairs. This is where everything you need to know lives:
+
+```
+general.architecture           = muse-glimmer
+general.size_label             = 28B
+general.license                = apache-2.0
+muse-glimmer.block_count       = 52
+muse-glimmer.embedding_length  = 6656
+muse-glimmer.feed_forward_length = 19968
+muse-glimmer.attention.head_count = 32
+muse-glimmer.attention.head_count_kv = 2
+muse-glimmer.context_length    = 131072
+muse-glimmer.rope.freq_base    = 500000
+tokenizer.ggml.tokens          = [202048 entries]
+```
+
+The `general.architecture` string is load-bearing: it tells llama.cpp which C++ graph-building function to call. A model whose architecture string the runtime does not recognise will not load at all, however valid the file. This is why new models need a llama.cpp release before they work.
+
+**3. Tensor table, then tensor data.** For every tensor: its name, its dimensions, its quantization type, and its byte offset into the data section.
+
+That table is the thing that makes Part VI honest. Because every tensor's exact size and type is listed, you can compute precisely how many bytes must be read to produce one token — as opposed to using the file size, which includes the vocabulary strings, the metadata, and tensors that are *not* read per token. On one of the models in this book, the difference is **64%**. Chapter 18 goes through it.
+
+### Memory mapping
+
+llama.cpp `mmap`s the file rather than reading it. The OS maps the file into the address space and pages it in on demand.
+
+Consequences worth knowing:
+
+- Load appears near-instant; the real cost is deferred to the first inference.
+- The pages are file-backed, so under memory pressure the OS can evict them without writing to swap. Cheaper than anonymous memory.
+- Activity Monitor will report alarming numbers. It is counting mapped pages, not committed RAM. Do not panic.
+
+### Getting the metadata out
+
+```bash
+python3 -c "
+from gguf import GGUFReader
+r = GGUFReader('model.gguf')
+for f in r.fields.values():
+    print(f.name)
+"
+```
+
+Or just start the server: llama.cpp prints most of it during load, which is the subject of Chapter 15.
+
+---
+# Part III — The four models
+
+## Chapter 9 — The four models in this book {#ch9}
+
+*This chapter establishes what each model is, who built it, what it is claimed to be good at, and how it is built — the last of which comes from the files on my disk rather than from anyone's marketing.*
+
+I benchmarked four models. Three are 30-billion-parameter class; one is deliberately tiny, as a control. Every architecture number below was read out of the GGUF metadata on this machine, so you can check it yourself against your own copy.
+
+### The comparison, up front
+
+| | **Muse Glimmer 30B** | **Qwen3-32B** | **Gemma 4 31B** | **Gemma 3n E4B** |
+|---|---|---|---|---|
+| Maker | Meta Superintelligence Labs | Alibaba | Google DeepMind | Google DeepMind |
+| Released | Aug 2026 | Apr 2025 | Mar 2026 | Jun 2025 |
+| Licence | Apache 2.0 | Apache 2.0 | Apache 2.0 | Gemma Terms |
+| Architecture string | `muse-glimmer` | `qwen3` | `gemma4` | `gemma3n` |
+| Layers | 52 | 64 | 60 | 35 |
+| Hidden size | 6,656 | 5,120 | 5,376 | 2,048 |
+| FFN size | 19,968 | 25,600 | 21,504 | 16,384 |
+| Heads / KV heads | 32 / 2 | 64 / 8 | 32 / per-layer | 8 / 2 |
+| Head dimension | 128 | 128 | 512 global, 256 sliding | 256 |
+| Context | 131,072 | 40,960 | 262,144 | 32,768 |
+| Sliding window | 2,048, 3:1 | none | 1,024, 5:1 | 512, 4:1 |
+| Vocabulary | 202,048 | 151,936 | 262,144 | 262,144 |
+| Tied embeddings | no | no | yes | yes |
+| Tensors in file | 731 | 707 | 833 | 847 |
+| File on disk | 19.65 GB | 19.76 GB | 19.60 GB | 4.54 GB |
+
+Three of these are nearly the same size on disk and were chosen for exactly that reason: it makes the comparison in Part VII a controlled experiment rather than a list.
+
+---
+
+### Muse Glimmer 30B
+
+Meta released this on 9 August 2026 under Apache 2.0, from Meta Superintelligence Labs. At the time of writing it has around half a million downloads. It is **distilled from Muse Spark**, Meta's closed flagship, which is the interesting part: it is a small model carrying a large model's fingerprints.
+
+**What it is.** 29.6 billion text parameters, plus a separate 1.8 billion parameter vision encoder (a ViT-G/14 from Meta's Perception Encoder line, [arXiv:2504.13181](https://arxiv.org/abs/2504.13181)). Text and images in, text out. Knowledge cutoff 4 January 2026.
+
+**Reasoning is always on.** There is no toggle. Every response begins with an internal reasoning pass emitted in a `reasoning_content` field before the visible answer. This is a real cost in a local setting — those are tokens, generated at the same tokens per second as everything else. A short answer might spend 300 tokens thinking. At 6.55 tok/s that is 45 seconds before you see the first visible word.
+
+**What it is claimed to be good at.** Agentic work — tool calling, multi-step tasks, search loops. The model card's numbers, which I did not verify:
+
+| Benchmark | Muse Glimmer | Gemma 4 31B | Qwen3.6 27B |
+|---|---|---|---|
+| MCP Atlas (tool use) | **75.5** | 54.2 | 62.5 |
 | SWE-Bench Pro | **51.2** | 36.9 | 50.2 |
-| AIME 2026 | **94.7** | 89.2 | 94.1 |
+| AIME 2026 (maths) | **94.7** | 89.2 | 94.1 |
 | DeepSearch QA | **74.6** | 61.7 | 71.1 |
 | Charxiv Reasoning | **78.8** | 77.7 | 78.4 |
 
-The MCP Atlas and SWE-Bench Pro margins are the ones that matter for tool-driven agent work.
+The gap on MCP Atlas is the notable one — a 21-point lead on tool use over the nearest comparison. If that holds up, it is the most interesting thing about this model for anyone wiring it into an editor.
+
+**What is not published.** Pretraining token count, data composition, the distillation recipe. Post-training is described only as "Safety SFT" and "Safety RL". Standard for a 2026 frontier-adjacent release.
+
+**Architecture, read off my disk.** This is a plain grouped-query-attention transformer. No state-space layers, no linear attention, nothing exotic. What it does have:
+
+- **Sliding-window attention** with a 2,048-token window, in a 3:1 pattern — three sliding layers then one full-attention layer, repeating.
+- **QK-norm** — normalization applied to queries and keys before the attention dot product. A training-stability trick that stuck.
+- **An attention output gate** — a sigmoid-gated multiply applied to the attention result before the output projection. The model learns to attenuate attention's contribution per-channel.
+- **Final logit softcapping** at 20.0 — the output scores are squashed through a `tanh` so no single token can dominate. Borrowed from Gemma.
+- **RoPE base 500,000** — the positional encoding is stretched for long context.
+
+**Shipped extras.** A multimodal projector (`mmproj`, 1.4 GB) for images, and a **DFlash draft model** (1.6 GB). DFlash ([arXiv:2602.06036](https://arxiv.org/abs/2602.06036)) is a 5-layer block-diffusion draft head that proposes 16 tokens at a time for speculative decoding — explained in Chapter 23, and measured in Chapter 20.
+
+llama.cpp support merged 10 August 2026 in PR #26841; you need build b10353 or later.
 
 ---
 
-## Background: how a model like this is actually made
+### Qwen3-32B
 
-Skip this if you already know. Everything after it assumes these four ideas, and the performance analysis is impossible to follow without the third and fourth.
+Alibaba, April 2025, Apache 2.0, [arXiv:2505.09388](https://arxiv.org/abs/2505.09388). The oldest architecture here by a wide margin — about sixteen months, which in this field is a generation and a half.
 
-### 1. A model is a pile of matrices
+**What it is.** 32.8 billion parameters, dense, text-only. 64 layers — the deepest and narrowest of the four. Trained on roughly **36 trillion tokens** across 119 languages, which is among the largest disclosed pretraining runs of any open-weights model.
 
-"29.6 billion parameters" means 29.6 billion numbers. They are organised into a few hundred matrices, grouped into **layers** — Muse Glimmer has 52, Qwen3-32B has 64. Each layer holds roughly the same set of matrices:
+**What it is claimed to be good at.** Multilingual work, where it is genuinely exceptional, and general reasoning. Its distinguishing feature is **hybrid thinking**: `/think` and `/no_think` in the prompt switch reasoning on and off, letting you pay for deliberation only when you want it. Muse Glimmer, by comparison, gives you no choice.
 
-- **Attention projections** (`Q`, `K`, `V`, `O`) — let each position in the text look at earlier positions.
-- **Feed-forward / MLP** (`gate`, `up`, `down`) — the bulk of the parameters, typically 60–70%. A per-position nonlinear transform.
-- **Norms** — small vectors, negligible in size.
+**What is published.** Unusually much. A 3-stage pretraining curriculum (general → knowledge-intensive → long-context) and a 4-stage post-training pipeline (long chain-of-thought SFT → reasoning RL → thinking-mode fusion → general RL) are all described in the paper. If you want to understand how a modern model is actually assembled, this is the most transparent of the four by some distance.
 
-Plus two matrices outside the layer stack: `token_embd`, which maps a token ID to a vector, and the output head, which maps the final vector back to a score per vocabulary entry. These are `vocab_size × d_model`, so for a 200,000-token vocabulary they are not small.
+**Architecture.** Plain GQA transformer, no sliding window at all — every layer attends to the full context. Native 32K context, extendable to 131K with YaRN (a rescaling trick applied at inference). 64 heads to 8 KV heads.
 
-Running the model is: turn text into token IDs, look up a vector per token, push the vectors through all 52 layers of matrix multiplies, and read off which token is most likely next. Append it, repeat.
-
-There is nothing else in there. No database, no lookup of training text. The knowledge is in the numbers.
-
-### 2. Training sets the numbers; you are not doing that
-
-Two phases, both far out of reach of a laptop.
-
-**Pretraining** runs next-token prediction over trillions of tokens of text. The loss is "how surprised was the model by the token that actually came next", and gradient descent nudges all 29.6 billion numbers to reduce it. This is the part that costs millions of dollars and weeks on thousands of accelerators.
-
-**Post-training** takes the pretrained model and shapes its behaviour: supervised fine-tuning on demonstrations, then some preference-optimisation method to make it prefer helpful answers over unhelpful ones. Muse Glimmer additionally is *distilled* from a larger model (Muse Spark) — the big model's output distribution is used as the training target, which transfers some of its behaviour into a smaller parameter count.
-
-Everything in this post is about **inference**: the weights are frozen, and we are only asking how fast the machine can push data through them.
-
-### 3. Quantization: making the numbers smaller
-
-Training produces 16-bit floats. 29.6B parameters at 2 bytes each is 59 GB, which does not fit comfortably in 64 GB of shared memory alongside everything else.
-
-Quantization stores each weight in fewer bits. The `Q4_K_M` scheme used here is roughly 4.5 bits per weight, achieved by splitting weights into small blocks (256 at a time), storing a 4-bit integer per weight, and storing a couple of higher-precision scale factors per block to reconstruct the approximate original value. 4.5 bits works out to **0.5625 bytes per weight**, so 29.6B parameters become about 17 GB — and the "K-quant" family spends extra bits on the layers that are most sensitive, which is why the file is 19.7 GB rather than 16.7 GB.
-
-The quality cost for this model is −0.2% averaged over 15 benchmarks, per Meta's card. That is a good trade and it is why nobody runs fp16 locally.
-
-The critical consequence for everything below: **quantization changes how many bytes you have to read, and reading bytes is the bottleneck.** It is not primarily a memory-capacity trick, it is a bandwidth trick.
-
-### 4. GGUF: the file format
-
-`.gguf` is llama.cpp's container. It holds a key-value header (architecture name, layer count, vocabulary, RoPE settings, chat template) followed by a **tensor table** — one entry per matrix, giving its name, shape, quantization type and byte offset — followed by the tensor data.
-
-The tensor table is what makes the analysis below possible. You can ask a GGUF file exactly how many bytes each matrix occupies without loading it, which is how bytes-per-token gets computed properly instead of guessed from the file size.
+Its inclusion here is as an **architectural control**: it is the oldest, plainest, most conventional design in the set, at essentially the same file size as the other two. If architecture were driving performance, this is the one that should look different.
 
 ---
 
-## Quantization Choice on 64 GB
+### Gemma 4 31B
 
-`meta-models/Muse-Glimmer-30B-GGUF` is ungated and ships two text builds plus two companions.
+Google DeepMind, released 31 March 2026, [arXiv:2607.02770](https://arxiv.org/abs/2607.02770). Notable as the **first Gemma released under plain Apache 2.0** — earlier Gemmas carried Google's custom terms, and this was a deliberate and welcome change.
 
-| File | Disk | Resident (weights + KV) | Quality vs full precision |
+**What it is.** 30.7 billion parameters, dense, text and images in. Part of a family that includes E2B and E4B (small, on-device), a 26B mixture-of-experts with 3.8B active, this 31B dense, and a 12B "Unified" variant.
+
+**What it is claimed to be good at.** General-purpose assistant work with a very long context — 262,144 tokens, the longest here by 2×. Strong multimodal document understanding.
+
+**Architecture, and this one is unusual.** Gemma 4 has the most aggressive attention design of the four:
+
+- **Sliding-window attention with a 5:1 ratio** — five layers with a mere 1,024-token window, then one full-attention layer. Only ten of its sixty layers see the whole context.
+- **Asymmetric head dimensions** — 512 for the global-attention layers, 256 for the sliding ones. I have not seen this elsewhere.
+- **Per-layer KV head counts** — the metadata carries an array, `[16,16,16,16,16,4,...]`, rather than a single number. Different layers have genuinely different attention shapes.
+- **Tied embeddings** and **logit softcapping** at 30.0.
+
+That 5:1 sliding pattern is what makes a 262K context affordable: full attention over 262K tokens in every layer would need an unusable KV cache. This is the clearest example in the set of an architecture designed around a memory constraint rather than around accuracy.
+
+---
+
+### Gemma 3n E4B
+
+Google DeepMind. Preview May 2025, full release June 2025. Under the **Gemma Terms of Use**, not Apache — the only non-OSI licence here.
+
+**What it is.** Explicitly built for phones. About 8 billion raw parameters but roughly **4 billion "effective"** — the `E` in the name — because of a mechanism explained below. Trained on ~11 trillion tokens, cutoff June 2024. Text, images, and **audio** in, via a 12-layer conformer audio encoder and a MobileNet-V5 vision tower.
+
+**Why it is in this book.** As a control at the other end of the scale. It is 4.5 GB against the others' ~19.6 GB. If the performance story in Part VII were about model architecture, this model — which is architecturally the strangest of the four — should behave completely differently. It does, in tokens per second. It does not, in the number that turns out to matter.
+
+**Architecture, and it is genuinely novel.** Three ideas worth knowing because they represent where on-device models are going:
+
+**MatFormer** ([arXiv:2310.07707](https://arxiv.org/abs/2310.07707)) — "Matryoshka Transformer". The model is trained such that smaller models are *nested inside* the big one. You can slice out a 2B model from the 4B weights and it works, without retraining. One download, a family of models, chosen at load time by how much RAM you have.
+
+**Per-Layer Embeddings (PLE)** — instead of one embedding table at the input, each layer gets its own small learned per-token embedding, added as the token passes through. The clever part for deployment: these tables are large but *sparsely accessed* — you read one row per layer per token, not the whole table. They can therefore live on slower storage while the actual weights sit in fast memory. This is the trick that makes an 8B model behave like a 4B one on a phone. It has a dramatic and measurable consequence in Chapter 18.
+
+**AltUp (Alternating Updates)** — the hidden state is split into four parallel sub-streams, only one of which is fully processed per layer while the others are cheaply predicted and corrected. Effective width without the full cost.
+
+Also: activation sparsity (a learned threshold that zeroes most FFN activations) and 15 shared-KV layers, where several layers reuse one layer's keys and values instead of computing their own.
+
+---
+
+### Four concepts these models depend on
+
+Four things appeared in the tables above without explanation. They matter for the rest of the book.
+
+#### Grouped-query attention (GQA)
+
+All four models use it. It is the reason your conversation fits in RAM.
+
+In the original transformer, every attention head had its own key and value projections. 32 heads meant 32 sets of keys and values cached per token. The KV cache was enormous.
+
+GQA makes several query heads **share** one key/value pair. Muse Glimmer has 32 query heads and 2 KV heads: sixteen query heads share each KV head. The KV cache shrinks by 16×, at very little measured quality cost.
+
+You can read this straight off any model card. `n_head / n_head_kv` is your KV cache compression ratio. High ratio, small cache, long conversations affordable.
+
+#### Sliding-window attention
+
+Full attention means every token can see every earlier token. Cost grows with the square of the sequence, and the KV cache grows linearly and never stops.
+
+Sliding-window attention limits most layers to the last N tokens — 2,048 for Muse Glimmer, 1,024 for Gemma 4. Those layers only need to keep N tokens of cache, ever, regardless of conversation length.
+
+But then nothing could see far back, so a minority of layers are left with full attention. Muse Glimmer: three sliding to one full. Gemma 4: five to one. The full-attention layers carry long-range information; the sliding ones do local work cheaply.
+
+Practical consequence: **KV cache does not grow linearly with context on these models.** It grows on the full-attention layers only. Gemma 4's 262K context is affordable precisely because only ten of sixty layers pay for it.
+
+#### Linear attention, and why I am mentioning it
+
+Some 2026 architectures replace attention with recurrent, constant-memory mechanisms — **Gated Delta Net**, Mamba-style state-space layers, **Lightning Indexer** sparse attention. These have a fixed-size state instead of a cache that grows, which changes the memory story completely.
+
+**None of the four models here use any of them.** I am defining the terms anyway for one specific reason: llama.cpp prints startup lines that read as though your model does use them, and it prints those lines for every model. Chapter 15 shows the log and explains why. It is a genuinely useful thing to be able to read correctly, and I would have saved myself several hours if I could.
+
+#### Speculative decoding
+
+Since decode is limited by memory rather than arithmetic (Chapter 11), the GPU spends most of its time waiting. Speculative decoding uses that idle arithmetic.
+
+A small, fast **draft model** proposes the next several tokens. The big model then verifies all of them **in one pass** — which costs barely more than generating one token, because the expensive part was reading the weights, and you read them once for the whole batch. Accepted drafts are free. Rejected ones cost nothing but the draft model's time.
+
+Muse Glimmer ships DFlash for this: a 5-layer draft head proposing 16-token blocks. Its reported speedups are 3.1× on an RTX 5090 and 1.5–1.8× on M4/M5 Max. Chapter 20 has what it did here.
+
+---
+
+# Part IV — The machine
+
+## Chapter 10 — What a laptop is made of {#ch10}
+
+*This chapter establishes the four pieces of hardware that matter and, most importantly, the one number that will determine everything.*
+
+If you have never had reason to think about computer architecture, this is the chapter that makes the rest of the book work. Four components.
+
+### CPU
+
+A handful of powerful, general-purpose cores. Good at branchy, sequential, unpredictable work. Bad at doing the same simple arithmetic ten billion times. Mine has ten cores — eight performance, two efficiency.
+
+For LLM inference the CPU mostly organises work and hands it to the GPU.
+
+### GPU
+
+Thousands of simple cores, all doing the same operation on different data simultaneously. This is exactly the shape of a matrix multiply, which is why GPUs run neural networks and CPUs mostly do not.
+
+Measured in **FLOP/s** — floating-point operations per second. Mine does about **10.4 trillion** per second, written 10.4 TFLOP/s.
+
+That is a big number. Remember it, because in a few pages it becomes irrelevant, and the fact that it becomes irrelevant is the point of the book.
+
+### Memory
+
+RAM. The model must be here to be used — reading weights off an SSD per token would be a hundred times slower.
+
+Two numbers describe memory, and confusing them is the most common mistake in this whole area:
+
+- **Capacity** (GB) — how much fits. Determines *whether* a model runs.
+- **Bandwidth** (GB/s) — how fast you can read it. Determines *how fast* it runs.
+
+Capacity is a threshold: you have enough or you do not. Bandwidth is a rate, and it sets your tokens per second almost single-handedly.
+
+### The bus
+
+The wires between memory and processor. This is the thing nobody thinks about and the thing that decides your experience.
+
+Bandwidth comes from two factors multiplied:
+
+```
+bandwidth = bus width (bytes) × transfer rate (per second)
+```
+
+My M1 Max has a **512-bit** bus — 64 bytes wide — running LPDDR5 at **6.4 billion transfers per second**:
+
+```
+64 bytes × 6.4 × 10⁹ /s = 409.6 GB/s   (marketed as 400 GB/s)
+```
+
+For contrast, a typical Intel or AMD laptop has a 128-bit bus at similar rates: about 100 GB/s. That 4× difference in a spec nobody reads is why Apple Silicon became the default for local LLMs.
+
+<figure class="article-figure article-figure--wide">
+  <img loading="lazy" decoding="async" src="/images/blog/muse-bus.jpg" alt="Diagram: 64 GB of unified memory holding 18.9 GB of model weights on the left, a 512-bit-wide memory bus drawn as many parallel arrows in the middle, and the M1 Max GPU on the right. A single thin arrow returns one token." />
+  <figcaption><strong>The memory bus, and why it is the whole story.</strong> <em>Reading the diagram:</em> on the left is <strong>unified memory</strong> — the pool of RAM that both CPU and GPU read directly, 64 GB on this machine. Inside it sit the model's <strong>weights</strong>: 18.884 GB of numbers that <em>are</em> the model. The wide blue channel is the <strong>memory bus</strong>, the physical wires between memory and processor. Its speed is just two numbers multiplied: it is 512 bits (64 bytes) wide and moves data 6.4 billion times a second, giving 400 GB/s on paper. Measured, this machine sustains <strong>340 GB/s</strong>. The small white box is the <strong>cache</strong>, 48 MB of very fast memory next to the GPU — about 1/400th of what the weights need, so it cannot help here. <em>Why it matters:</em> to produce one <strong>token</strong> (roughly one word), the GPU must read every weight once. There is no way to read fewer. At 340 GB/s, 18.884 GB takes <strong>55.5 milliseconds</strong> — a hard floor of about 18 tokens per second no matter how fast the GPU is. Actual measured speed is 6.55 tokens per second, or <strong>152.7 ms per token</strong>; Chapter 20 accounts for the gap. Note the asymmetry: gigabytes flow right, and about <strong>two bytes</strong> — the token itself — flow back. A single 781-token answer moves <strong>14.7 terabytes</strong> across this bus.</figcaption>
+</figure>
+
+### Unified memory versus a graphics card
+
+On a PC with a discrete GPU, there are two separate memories: system RAM (large, slow-ish, 100 GB/s) and the graphics card's VRAM (small, very fast, 500–1000 GB/s), connected by a comparatively narrow PCIe link.
+
+For LLMs this is brutal and binary. If the model fits in VRAM, it is very fast. If it does not — even by one gigabyte — layers must stream across PCIe every token, and throughput collapses by an order of magnitude. A 24 GB RTX 4090 runs a 20 GB model beautifully and a 26 GB model appallingly.
+
+Apple Silicon has **one** memory pool, shared, with the GPU reading it directly. No copying, no VRAM ceiling. A 64 GB Mac can run models that no consumer graphics card can hold.
+
+The trade is bandwidth: 340 GB/s measured here against 1,000 GB/s on a high-end discrete card. So the shape of the trade-off is:
+
+- **Discrete GPU** — much faster, if it fits. Falls off a cliff if it does not.
+- **Unified memory** — slower, but the ceiling is your whole RAM, and degradation is graceful.
+
+For a 30B model on a laptop, unified memory usually wins, because 20 GB of VRAM is rare and 64 GB of unified memory is purchasable.
+
+### Cache
+
+A small amount of very fast memory next to the processor. My M1 Max has a 48 MB system-level cache.
+
+For most software, caches are transformative. For LLM decode they are useless, and the arithmetic is worth doing once: the weights are 18.884 GB, the cache is 0.048 GB. The working set is roughly **400 times** too large. Every weight is read from main memory, every token, and evicted before it could ever be reused.
+
+This is why Chapter 19 spends effort on measuring bandwidth with a working set that deliberately exceeds the cache. Measure it with a small buffer and you measure the cache, get a number that looks great, and draw a wrong conclusion. I made sure not to.
+
+---
+
+## Chapter 11 — The two speeds {#ch11}
+
+*This chapter establishes why reading your prompt and writing the answer are limited by completely different parts of the hardware. It is the most important chapter in the book.*
+
+### Two phases, two shapes of work
+
+**Prefill** — the model reads your prompt. All those tokens already exist, so they can be pushed through the network together, as a batch. Mechanically this is **matrix × matrix**: 512 token-vectors multiplied by a weight matrix at once.
+
+**Decode** — the model writes, one token at a time. Token N+1 requires token N. Nothing can be batched. Mechanically this is **matrix × vector**: one lonely token-vector against the same weight matrix.
+
+Same weights. Same arithmetic per token. Radically different economics.
+
+### Arithmetic intensity
+
+The concept that explains everything: for a given piece of work, how much arithmetic do you do per byte you read?
+
+```
+arithmetic intensity = FLOPs performed ÷ bytes read
+```
+
+Take a weight matrix of 4,096 × 14,336 in 4-bit quantization — about 29 million bytes.
+
+**Decode**, one token: about 117 million FLOPs. Intensity = **4 FLOP per byte**.
+
+**Prefill**, 512 tokens: about 60 billion FLOPs, reading *the same 29 million bytes*. Intensity = **2,048 FLOP per byte**.
+
+Five hundred times the intensity, from the same weights. Batching does not reduce the reading; it amortises it.
+
+### The ridge point
+
+Every processor has a break-even intensity where it flips from being limited by memory to being limited by arithmetic:
+
+```
+ridge point = peak FLOP/s ÷ peak bandwidth
+            = 10.4 × 10¹² ÷ 340 × 10⁹
+            = 30.6 FLOP per byte
+```
+
+Below 30.6, you are **memory-bound**: the GPU sits idle waiting for data, and adding compute changes nothing. Above it, you are **compute-bound**: the memory system keeps up, and faster arithmetic helps.
+
+Now place the two phases:
+
+| Phase | Intensity | Ridge point | Verdict |
 |---|---|---|---|
-| `KQuant-17GB-Q4_K_M.gguf` | 16.8 GB | ~17 GB | −1.0% |
-| **`KQuant-Dynamic-Q4_K_XL.gguf`** | **19.7 GB** | **~20 GB** | **−0.2%** |
-| `mmproj-...Q4_K_M.gguf` (vision) | 1.4 GB | +1.4 GB | — |
-| `dflash-...Q4_K_M.gguf` (drafter) | 1.6 GB | +1.6 GB | — |
+| Decode | ~4 | 30.6 | Memory-bound, by 8× |
+| Prefill | ~2,048 | 30.6 | Compute-bound, by 67× |
 
-Dynamic + vision + DFlash is ~23 GB resident: 36% of 64 GB, leaving ~41 GB. The degradation figures are Meta's, measured across 15 benchmarks. On a 64 GB machine there is no reason to take the 17 GB build.
+**Decode is not close to the line. It is nowhere near it.** The M1 Max's 10.4 TFLOP/s is, for the purpose of generating text, almost entirely wasted. You could triple the GPU and decode would not move.
 
-Note in advance that dropping to the 17 GB build would save 14% of the per-token traffic and buy you roughly 14% more speed. That is not the lever you are looking for.
+### Measuring it, rather than asserting it
+
+That is theory. Here is the same matrix multiplied at three batch sizes on this machine, from llama.cpp's own operation benchmark:
+
+| Batch | Time | Achieved | Intensity | Effective bandwidth |
+|---|---|---|---|---|
+| 1 token (decode) | 157 µs | 0.75 TFLOP/s | 3.6 FLOP/byte | **210 GB/s** |
+| 8 tokens | 868 µs | 1.08 TFLOP/s | 28.4 FLOP/byte | 190 GB/s |
+| 512 tokens (prefill) | 12,742 µs | **4.72 TFLOP/s** | 1,820 FLOP/byte | 11 GB/s |
+
+Read that table twice. At batch 1, the GPU achieves 7% of its arithmetic peak and 62% of its bandwidth peak — it is a memory system with a GPU attached. At batch 512 it achieves 45% of its arithmetic peak and uses almost no bandwidth — a completely different machine, made of the same silicon.
+
+Notice too that batch 8 sits right at the ridge point (28.4 against 30.6) and is the worst of both worlds — neither limit is saturated. The theory predicts the crossover and the measurement finds it there.
+
+### The consequences, which are not intuitive
+
+**Your GPU's TFLOP/s number does not predict your tokens per second.** Bandwidth does. When comparing machines for local inference, look up GB/s and ignore everything else.
+
+**A bigger model is proportionally slower.** Twice the weights, twice the bytes, twice the time. This is nearly exact, not approximate.
+
+**Quantization is the biggest available speed lever**, for the reason given in Chapter 7 and now visible in the arithmetic.
+
+**Batching is free capacity.** Serving four users at once costs barely more than one, because you read the weights once for all four. This is why hosted inference is cheap and local inference is not — you are a batch of one.
+
+**Speculative decoding works** for precisely this reason: it converts a memory-bound problem into a slightly-less-memory-bound one by giving the idle arithmetic something to verify.
 
 ---
 
-## Setup
+## Chapter 12 — This machine {#ch12}
 
-### 1. Install llama.cpp
+*This chapter establishes the exact hardware and the measured bandwidth number that Part VII divides by.*
+
+<div class="stat-row">
+  <div class="stat-card"><strong>M1 Max</strong><br>10 CPU cores (8P + 2E)</div>
+  <div class="stat-card stat-card--violet"><strong>~10.4 TFLOP/s</strong><br>32-core GPU, fp32</div>
+  <div class="stat-card stat-card--amber"><strong>64 GB</strong><br>unified memory</div>
+  <div class="stat-card stat-card--green"><strong>340 GB/s</strong><br>measured streaming read</div>
+</div>
+
+| Component | Specification |
+|---|---|
+| Chip | Apple M1 Max, 5 nm, 2021 |
+| CPU | 10 cores: 8 performance, 2 efficiency |
+| GPU | 32 cores, ~10.4 TFLOP/s fp32 |
+| Memory | 64 GB LPDDR5-6400, unified |
+| Bus | 512-bit |
+| Bandwidth, datasheet | 400 GB/s |
+| Bandwidth, measured streaming read | **340 GB/s** |
+| System-level cache | 48 MB |
+| Free disk | ~206 GB |
+| OS | macOS 26.6.1 (25G76) |
+
+### Why 340 and not 400
+
+400 GB/s is the **pin rate** — what the memory interface is clocked at. Real transfers include refresh cycles, bank conflicts, controller scheduling, and page misses. No workload achieves the pin rate.
+
+So I measured it, with a working set of 2 GB — over forty times the cache, so nothing could be served from it. Chapter 19 gives the method and the script. Two independent runs returned 336.3 and 343.3 GB/s, and I use **340** throughout.
+
+This matters more than it sounds. Dividing achieved bandwidth by 400 instead of 340 understates efficiency by 15%, and 15% is the difference between "this runtime is doing badly" and "this runtime is doing about as well as anything could." Using a datasheet number as a denominator is the easiest way to reach a wrong conclusion in this whole area.
+
+### The ridge point, restated for this machine
+
+```
+10.4 TFLOP/s ÷ 340 GB/s = 30.6 FLOP per byte
+```
+
+Decode operates at about 4. This machine is, for text generation, a memory system with a very good GPU bolted on that has nothing to do.
+
+---
+
+## Chapter 13 — Will it run on yours? {#ch13}
+
+*This chapter establishes the two thresholds any machine must clear, and gives you the arithmetic to check your own.*
+
+Two independent questions, in order.
+
+### Question 1: does it fit?
+
+```
+RAM needed ≈ model file + KV cache + 2–3 GB overhead
+```
+
+The KV cache scales with context length, layer count, and KV head count. For a 30B model at a modest 8K context, budget 1–2 GB. At 32K, more like 4–8 GB.
+
+Working numbers for the models here:
+
+| Model | File | Minimum RAM | Comfortable RAM |
+|---|---|---|---|
+| Muse Glimmer 30B Q4_K_XL | 19.65 GB | 24 GB | 32 GB |
+| Muse Glimmer 30B Q4_K_M | 16.8 GB | 21 GB | 24 GB |
+| Qwen3-32B Q4_K_M | 19.76 GB | 24 GB | 32 GB |
+| Gemma 4 31B Q4_K_M | 19.60 GB | 24 GB | 32 GB |
+| Gemma 3n E4B Q4_K_M | 4.54 GB | 8 GB | 16 GB |
+
+"Minimum" means it will load and run. "Comfortable" means you can also have a browser open.
+
+There is no partial credit here. Exceed your RAM and the OS starts swapping to SSD, and since decode reads every weight every token, you are now reading gigabytes off flash storage per token. Throughput does not degrade — it falls off a cliff, by roughly 50×. If it does not fit, it does not run.
+
+### Question 2: will it be fast enough?
+
+Rearranging the roofline:
+
+```
+tokens per second = achieved bandwidth ÷ bytes per token
+```
+
+And from Part VII, **achieved bandwidth is about 36% of your machine's peak streaming bandwidth** when running llama.cpp on Metal. That fraction turns out to be remarkably stable across very different models, which is what makes this predictive.
+
+So:
+
+```
+tok/s ≈ (peak GB/s × 0.36) ÷ model GB
+```
+
+Try it on this machine: (340 × 0.36) ÷ 18.884 = 6.5 tok/s. Measured: 6.55.
+
+### The table
+
+Bandwidth required to hit 10 tok/s, at the 36% efficiency llama.cpp actually delivers:
+
+| Model | Bytes per token | Bandwidth for 10 tok/s |
+|---|---|---|
+| 30B class at Q4 | ~19 GB | **525 GB/s** |
+| 13B at Q4 | ~8 GB | 220 GB/s |
+| 7B at Q4 | ~4.5 GB | 125 GB/s |
+| Gemma 3n E4B | 2.77 GB | 77 GB/s |
+
+And what real machines have:
+
+| Machine | Memory | Bandwidth | 30B at Q4 | 7B at Q4 |
+|---|---|---|---|---|
+| MacBook Air M2, 16 GB | 16 GB | 100 GB/s | Will not fit | ~8 tok/s |
+| MacBook Pro M1 Max, 64 GB | 64 GB | 400 GB/s | **6.5 tok/s** | ~28 tok/s |
+| MacBook Pro M4 Max, 64 GB | 64 GB | 546 GB/s | ~10 tok/s | ~38 tok/s |
+| MacBook Pro M5 Max, 128 GB | 128 GB | 614 GB/s | ~12 tok/s | ~43 tok/s |
+| Typical Intel/AMD laptop | 32 GB | 90 GB/s | Will not fit usefully | ~7 tok/s |
+| Desktop + RTX 4090 | 24 GB VRAM | 1,000 GB/s | ~19 tok/s, barely fits | ~70 tok/s |
+| Desktop + RTX 5090 | 32 GB VRAM | 1,790 GB/s | ~34 tok/s | ~125 tok/s |
+
+### What will not work, and why no setting fixes it
+
+**A 30B model on 16 GB of RAM.** Not slowly — not at all. The weights alone exceed the machine. Offloading layers to CPU means those layers stream from SSD per token. You will see 0.2 tok/s. No flag changes this. Run a 7B model.
+
+**Getting a 30B model to 20 tok/s on any current laptop.** You would need 1,050 GB/s. The fastest laptop memory available is 614 GB/s. This is not a software problem and it will not be fixed by a better runtime; Chapter 23 goes through what the actual ceiling is.
+
+**Expecting a better GPU to help decode.** It will not. You are at 4 FLOP/byte against a ridge point of 30.6. The arithmetic units are already idle. Chapter 11 measured this.
+
+**Q2 quantization to make a big model fit.** It fits and it is worse than the Q4 of a smaller model. Below Q3 the degradation is not subtle.
+
+**Long contexts on a machine that barely fits the weights.** The KV cache is additional, and it grows as you talk. Fitting at 4K context tells you nothing about 32K.
+
+<div class="callout callout--green" markdown="1">
+**The one-line version.** Take your machine's memory bandwidth in GB/s, multiply by 0.36, divide by your model's size in GB. That is your tokens per second, and in this book it was accurate to within 1%.
+</div>
+
+---
+# Part V — Doing it
+
+## Chapter 14 — Setup {#ch14}
+
+*This chapter establishes the actual commands, from nothing installed to a model answering questions.*
+
+### The runtime
+
+**llama.cpp** is the C++ inference engine that most consumer local-LLM tooling is built on. Ollama, LM Studio, and Jan all wrap it. Using it directly means more flags and much more visibility, and visibility is the point of this book.
 
 ```bash
 brew install llama.cpp
+```
+
+That is sufficient. I want to state that plainly because a lot of writing on this topic reflexively tells you to build from source. I ran the same model through the Homebrew binary and through two builds from source at different commits, and they all work. Build from source when you want a specific unreleased commit, or when you need the benchmark tools — not because the packaged binary is somehow lesser.
+
+You do need a recent enough version. Muse Glimmer support landed in llama.cpp build **b10353** (PR #26841, 10 August 2026). Check with:
+
+```bash
 llama-server --version
-# version: 0.1.0-dev (build 10450, commit ece963f41)
 ```
 
-`muse-glimmer` architecture support merged in [PR #26841](https://github.com/ggml-org/llama.cpp/pull/26841) on 10 August 2026, so the minimum build is b10353. Homebrew delivers b10450.
+If your architecture is newer than your binary, the model will refuse to load with an unknown-architecture error. That is the failure mode, and it is unambiguous.
 
-The Homebrew binary is not sufficient on M1 Max — it loads the model and then dies on inference. See the Metal crash section before launching anything.
+### Building from source, if you want to
 
-### 2. Download weights
+You want this if you need `llama-bench` and `test-backend-ops`, which is what Part VI runs on.
 
 ```bash
-pip install huggingface_hub hf_xet   # hf_xet enables the fast xet transfer protocol
-mkdir -p ~/Models/Muse-Glimmer-30B-GGUF
-
-python3 << 'EOF'
-import hf_xet  # noqa: F401  — importing activates the xet protocol
-from huggingface_hub import hf_hub_download
-import os
-
-dest = os.path.expanduser("~/Models/Muse-Glimmer-30B-GGUF")
-for fname in [
-    "Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf",   # 19.7 GB
-    "mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",            #  1.4 GB
-    "dflash-Muse-Glimmer-30B-Q4_K_M.gguf",            #  1.6 GB
-]:
-    print(f"Downloading {fname}...")
-    hf_hub_download(repo_id="meta-models/Muse-Glimmer-30B-GGUF",
-                    filename=fname, local_dir=dest)
-print("Done.")
-EOF
+git clone https://github.com/ggml-org/llama.cpp ~/src/llamacpp
+cd ~/src/llamacpp
+cmake -B build -DGGML_METAL=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j8
 ```
 
-Observed throughput with `hf_xet`: ~150 MB/s, so the 19.7 GB file landed in about two minutes.
+One thing that cost me time: the default configure does **not** build the benchmark targets. If you want them, configure a second build directory with tests and tools enabled, and build the specific targets:
 
----
-
-## The Metal Crash
-
-### Symptom
-
-`llama-server` starts, loads the model, accepts a request, and the process exits before returning a response. No crash report, no Crash Reporter entry. It reproduces on every inference, not intermittently.
-
-```
-0.17.667.784  I slot print_timing: eval time = 12501.11 ms / 50 tokens (3.92 t/s)
-0.17.667.829  I slot release: id 0 | task 0 | stop processing: n_tokens = 106
-# process exits here
+```bash
+cmake -B build-bench -DGGML_METAL=ON -DLLAMA_BUILD_TESTS=ON -DLLAMA_BUILD_TOOLS=ON \
+      -DCMAKE_BUILD_TYPE=Release
+cmake --build build-bench -j8 --target llama-bench test-backend-ops
 ```
 
-### Cause
+`-DGGML_METAL=ON` is what enables the Apple GPU backend. Without it everything runs on CPU at roughly a fifth of the speed.
 
-Muse Glimmer introduces two layer types with no precedent in earlier models — Gated Delta Net (a linear-attention recurrent state layer) and Lightning Indexer (sparse retrieval). Both register at startup:
+### Choosing a quantization
 
-```
-I resolve_fused_ops: fused Gated Delta Net (autoregressive) enabled
-I resolve_fused_ops: fused Gated Delta Net (chunked) enabled
-I resolve_fused_ops: Lightning Indexer enabled
-```
+For Muse Glimmer on 64 GB, the realistic options:
 
-Their Metal kernels were still in flight when the model shipped. When a fused GDN op writes output directly into the KV cache it elides an intermediate destination, but the unpatched encode loop still registers that destination's memory range with the concurrency tracker. The spurious barrier that follows aborts on M1 Max's older Metal GPU architecture.
+| Build | File | Total resident | Quality cost |
+|---|---|---|---|
+| `Q4_K_M` | 16.8 GB | ~17 GB | ~1.0% |
+| **`Q4_K_XL` (dynamic)** | **19.7 GB** | **~20 GB** | **~0.2%** |
+| `Q5_K_M` | 21.5 GB | ~22 GB | ~0.1% |
+| `Q6_K` | 25 GB | ~26 GB | negligible |
 
-The fix is [ggml-org/llama.cpp #25788](https://github.com/ggml-org/llama.cpp/pull/25788), *"metal: gated_delta_net cache fusion"* by @angt — opened 16 July 2026, **still open as of 24 August 2026**.
+I took `Q4_K_XL`. The reasoning: 64 GB is enough that the extra 3 GB over `Q4_K_M` is free in practice, and the dynamic variant's mixed precision recovers most of the quality gap for that cost.
 
-Meta's macOS benchmarks were run on M4 Max and M5 Max, which do not exhibit this, which is a plausible reason it was not caught pre-release.
+Be aware of the trade you are making, though, and it is the one this book is about. That extra 3 GB is 3 GB you read *per token*. Choosing `Q4_K_XL` over `Q4_K_M` costs you roughly 15% of your generation speed in exchange for about 0.8% of quality. On a machine with less headroom, or if speed matters more to you than the last fraction of quality, `Q4_K_M` is the better pick and I would not argue.
 
-### Workarounds that do not help
+Adding the optional pieces:
 
-| Attempt | Result |
+| Component | Size |
 |---|---|
-| `-fa off` (disable flash attention) | still crashes |
-| `--no-op-offload` | one inference succeeds, then crash |
-| `-ngl 0` (CPU only) | still crashes — GDN is in the compute graph either way |
-| `-ngl 26` (partial offload) | still crashes |
-| `METAL_DEBUG_ERROR_MODE=0` | still crashes |
-| `GGML_METAL_N_CB=1` | still crashes |
-| drop `-md` (no drafter) | still crashes |
+| Main weights, `Q4_K_XL` | 19.7 GB |
+| Vision projector (`mmproj`) | 1.4 GB |
+| DFlash draft model | 1.6 GB |
+| **Total resident** | **~23 GB** |
 
-### Applying the patch
+23 GB of 64 GB, or 36%. Comfortable, with room for the KV cache and everything else you have open.
 
-PR #25788 adds a `state_out_stride` field to the GDN kernel args struct, adds a `fuse_elide_dst` method that marks consumed nodes elided so the concurrency tracker skips their ranges, and corrects the Metal shader to use the stride.
-
-Build somewhere persistent. My original build lived in `/tmp` and was gone the next time the machine cleared it; `~/src` costs nothing and survives.
+### Downloading
 
 ```bash
-# 1. Full clone — a 3-way merge needs the pre-image blobs
-git clone https://github.com/ggml-org/llama.cpp ~/src/llamacpp-head
-cd ~/src/llamacpp-head
+pip install -U "huggingface_hub[cli]"
 
-# 2. Apply PR #25788 as a proper 3-way merge, not a flat patch
-git remote add angt https://github.com/angt/llama.cpp
-git fetch angt 85a466332d636f88ba5e6a5608f09c92ef00bb27
-git fetch origin 86a9c79f8667          # the patch base
-git tag pr25788-aug17 85a466332d63     # freeze it locally
-git checkout -b bench-pinned 087f94d82e59
-git cherry-pick pr25788-aug17
-
-# 3. Build — Metal is on by default on macOS
-cmake -B build -DGGML_METAL=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release \
-      -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF .
-cmake --build build --config Release -j8 --target llama-server
-
-# 4. Confirm
-~/src/llamacpp-head/build/bin/llama-server --version
-# version: 0.1.1-dev (build 1, commit 087f94d+)
+hf download meta-models/Muse-Glimmer-30B-GGUF \
+   --include "*Q4_K_XL*" --local-dir ~/Models/Muse-Glimmer-30B-GGUF
 ```
 
-Build time on M1 Max: about 90 seconds. After this, inference is stable across repeated requests.
+20 GB. Expect a while. The download resumes if interrupted, which you will need.
 
-That recipe builds only `llama-server`, which is all you need to *run* the model. The benchmarks below additionally need `llama-bench` and `test-backend-ops`, which live under `tools/` and `tests/`, so they came from a second configure of the same tree with `-DLLAMA_BUILD_TOOLS=ON -DLLAMA_BUILD_TESTS=ON` and `--target llama-bench test-backend-ops`. Also turn `-DLLAMA_BUILD_UI=OFF`: it defaults on at this commit and drags in a full node/npm build.
+### Verifying
 
-Two practical notes learned the hard way. The v1 of this post used `git apply` on a `.diff` from the PR page; use `cherry-pick` instead, because all four touched files changed between the patch base and the pin, and a flat apply either fails or silently mis-applies. And **fetch the patch by commit SHA, not by PR URL** — this PR was force-pushed twice on 24 August, and its current head patches a file that does not exist at the pinned commit. The state that existed on 17 August is only reachable through the fork's push-event log, which GitHub expires after about 90 days.
+```bash
+llama-cli -m ~/Models/Muse-Glimmer-30B-GGUF/Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf \
+          -ngl 99 -p "Explain what a memory bus is in two sentences." -n 64
+```
+
+`-ngl 99` means "put 99 layers on the GPU", which in practice means all of them. If you omit it, llama.cpp runs on CPU and you will conclude, wrongly, that your machine is far too slow.
+
+Words appearing is success. Now the interesting part: the log it printed while doing it.
 
 ---
 
-## Launching the Server
+## Chapter 15 — Reading a llama.cpp startup log {#ch15}
 
-This is the configuration that was actually used for the v1 timings — text only, all layers on the GPU:
+*This chapter establishes how to read the wall of text that scrolls past on load — including two lines that mean the precise opposite of what they appear to mean.*
 
-```bash
-~/src/llamacpp-head/build/bin/llama-server \
-    -m     ~/Models/Muse-Glimmer-30B-GGUF/Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf \
-    -a     muse-glimmer-30B \
-    -ngl   99 \
-    -c     8192 -np 1 \
-    --host 127.0.0.1 --port 8080 \
-    --jinja --temp 1.0 --top-p 0.95 --top-k 64 \
-    --no-warmup
+llama.cpp prints a great deal at startup, and almost all of it is useful. Learning to read it is the difference between debugging by guesswork and debugging by evidence.
+
+### The parts worth reading
+
+**Architecture and geometry.** Everything from Chapter 6, confirmed from the file rather than from a web page:
+
+```
+llama_model_loader: - kv 2: general.architecture str = muse-glimmer
+llama_model_loader: - kv 8: muse-glimmer.block_count u32 = 52
+llama_model_loader: - kv 9: muse-glimmer.embedding_length u32 = 6656
+print_info: n_head = 32
+print_info: n_head_kv = 2
+print_info: n_swa = 2048
 ```
 
-Vision and speculative decoding are opt-in additions. Neither was active during any benchmark, so treat their cost and benefit on M1 Max as unmeasured:
+If any of these disagree with what you expected, you have downloaded a different model than you think.
 
-```bash
-    --mmproj ~/Models/Muse-Glimmer-30B-GGUF/mmproj-Muse-Glimmer-30B-Q4_K_M.gguf \
-    -md      ~/Models/Muse-Glimmer-30B-GGUF/dflash-Muse-Glimmer-30B-Q4_K_M.gguf \
-    -ngld 99
+**Quantization mix.** llama.cpp lists the type of every tensor. This is where you confirm a "Q4" file is genuinely mixed-precision rather than uniformly Q4.
+
+**Backend and offload.**
+
+```
+ggml_metal_init: found device: Apple M1 Max
+load_tensors: offloaded 53/53 layers to GPU
+load_tensors: Metal_Mapped model buffer size = 18884.38 MiB
 ```
 
-Verify:
+`53/53` is what you want. Anything less means some layers are on CPU and you will be slow. The buffer size line is your ground truth for how much memory the weights actually occupy — and note that it matches the bytes-per-token figure in Chapter 18, because it is the same quantity.
+
+**KV cache size.**
+
+```
+llama_kv_cache: Metal KV buffer size = 416.00 MiB
+```
+
+Check this against your RAM budget before you increase the context.
+
+### The two lines that mislead
+
+Now the part I want to spend real time on, because it is a lovely example of a log telling you something true that reads as something false.
+
+Run any model with verbose logging on and you will see this:
+
+```
+resolve_fused_ops: Flash Attention enabled
+resolve_fused_ops: resolving fused Gated Delta Net support:
+resolve_fused_ops:   fused Gated Delta Net (autoregressive) enabled
+resolve_fused_ops:   fused Gated Delta Net (chunked) enabled
+resolve_fused_ops: resolving fused Lightning Indexer support:
+resolve_fused_ops:   Lightning Indexer enabled
+resolve_fused_ops: resolving fused DeepSeek V4 HC support:
+resolve_fused_ops:   fused DeepSeek V4 HC pre enabled
+resolve_fused_ops:   fused DeepSeek V4 HC comb enabled
+resolve_fused_ops:   fused DeepSeek V4 HC post enabled
+```
+
+Read naively, that says your model uses Gated Delta Net, Lightning Indexer, and DeepSeek V4 hierarchical compression. It is very easy to read it that way — the lines are indented under the model's own load sequence and use the word "enabled".
+
+The last group gives the game away. **This is Muse Glimmer's log.** Muse Glimmer is not DeepSeek V4. It shares no architecture with DeepSeek V4. Yet three DeepSeek V4 features report as enabled.
+
+**What these lines actually report is backend capability, not model architecture.** The function walks a list of fused-operation probes, and for each one asks: is there any device in this setup that would *fail* to run this operation? It scans the reserved compute graph for nodes matching the probe's operation type. If it finds none — which is exactly what happens when the model does not use that operation at all — nothing mismatches, and it prints "enabled".
+
+So "enabled" means *"nothing here prevents this"*, not *"this is in use"*. The line prints for every model. It is a report about Metal, not about your weights.
+
+You can confirm this from the model's own definition. Muse Glimmer is implemented in `src/models/muse-glimmer.cpp`, 208 lines, and it builds a plain grouped-query-attention transformer: pre- and post-attention norms, QK-norm, a sigmoid gate on the attention output, a gated feed-forward network, and a `tanh` logit softcap. Search it for `GATED_DELTA_NET` and you get zero hits. Gated Delta Net lives in `delta-net-base.cpp`; Lightning Indexer lives in the DeepSeek and MiniMax files. Muse Glimmer is in neither.
+
+<div class="callout callout--amber" markdown="1">
+**The general lesson, which is worth more than the specific one.** When a log line is emitted from a loop over a capability table rather than from the code path that does the work, it will happily report on things that never happen. Before building a theory on a log line, find the line in the source and see what condition actually produces it. Here, `grep` for the message text takes about thirty seconds and settles it completely.
+</div>
+
+### On stability
+
+I did hit an instability during my first evening of setup — the server loading fine and then dying during inference. I pinned a build and moved on.
+
+When I came back to establish the cause properly, I could not reproduce it on any binary I tried: not the Homebrew build, not a source build at the pinned commit, not a source build at the commit *before* the patch I had assumed was responsible. Four inference runs on each, all clean.
+
+So I have no causal story to offer, and I would rather say that than invent one. What I can tell you is what currently works, which is: everything I tested. If you hit something similar, the useful move is to pin a known-good build and check whether it reproduces before theorising — which is the step I skipped the first time.
+
+Everything measured in Part VII ran on a source build at commit `8cb03844d`.
+
+---
+
+## Chapter 16 — Launching the server {#ch16}
+
+*This chapter establishes the flags that matter and how to budget context.*
+
+```bash
+llama-server \
+  -m ~/Models/Muse-Glimmer-30B-GGUF/Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL.gguf \
+  --mmproj ~/Models/Muse-Glimmer-30B-GGUF/mmproj-Muse-Glimmer-30B-F16.gguf \
+  -md ~/Models/Muse-Glimmer-30B-GGUF/DFlash-Muse-Glimmer-30B-Q8_0.gguf \
+  -ngl 99 -ngld 99 \
+  -c 32768 --parallel 1 \
+  -fa on \
+  --host 127.0.0.1 --port 8080 \
+  --jinja
+```
+
+### What each flag does
+
+| Flag | Meaning |
+|---|---|
+| `-m` | The weights |
+| `--mmproj` | Vision projector. Omit for text-only and save 1.4 GB |
+| `-md` | Draft model for speculative decoding |
+| `-ngl 99` | Put all layers on the GPU. Non-negotiable |
+| `-ngld 99` | Same, for the draft model |
+| `-c 32768` | Total context in tokens |
+| `--parallel 1` | One slot. Context is *divided* between slots |
+| `-fa on` | Flash attention. Faster, less memory. Leave on |
+| `--jinja` | Use the model's own chat template from the GGUF. Required for tool calling |
+
+### Context budgeting, the part that surprises people
+
+`-c` is the **total** context, split across `--parallel` slots. `-c 32768 --parallel 4` gives each slot 8,192 tokens, not 32,768. Every "why does it forget after a few messages" report I have seen traces to this.
+
+For agentic use — where a single conversation carries a long file, a tool schema, and a growing history — you want **one slot with all the context**.
+
+Sizing it: a reasoning model emitting 500 thinking tokens plus a 700-token answer needs 1,200 tokens per turn on top of your input. Add a 40 KB source file at roughly 12,000 tokens, and 32K context gives you maybe eight or nine substantial turns before eviction. That is the real number, and it is smaller than the 131,072 on the model card.
+
+### Sampling
+
+Defaults are reasonable. If you touch anything:
+
+- `--temp 0.7` for general use, `--temp 0.2` for code
+- `--top-p 0.9`
+- `--repeat-penalty 1.1` if it loops
+
+Reasoning models are more sensitive to high temperature than instruct models — the chain of thought compounds early randomness. Keep it low.
+
+### Confirming it works
 
 ```bash
 curl -s http://127.0.0.1:8080/health
-# {"status":"ok"}
-
-curl -s http://127.0.0.1:8080/v1/models | python3 -c "
-import json,sys; m=json.load(sys.stdin)['data'][0]
-print(m['id'], '|', m['meta']['ftype'], '|', 'ctx:', m['meta']['n_ctx'])
-"
-# muse-glimmer-30B | Q4_K - Medium | ctx: 8192
+curl -s http://127.0.0.1:8080/v1/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"user","content":"Say hi."}],"max_tokens":32}' | jq -r '.choices[0].message.content'
 ```
 
-### Flags that matter
+The endpoint is OpenAI-compatible, so anything that speaks to OpenAI speaks to this by changing a base URL.
 
-| Flag | Value | Effect |
-|---|---|---|
-| `-m` | path | main text model |
-| `-ngl` | 99 | offload all layers to the Metal GPU |
-| `-c` | 8192–32768 | context, divided across `-np` slots |
-| `-np` | 1 | parallel request slots |
-| `--jinja` | flag | **mandatory** — activates the embedded chat template; without it the server aborts immediately |
-| `--no-warmup` | flag | skips the startup inference. Mandatory on an *unpatched* binary, where the warmup pass is itself the crash. On the patched build it is probably unnecessary — I kept it for continuity with the v1 config and never went back to test removing it |
-| `--temp` / `--top-p` / `--top-k` | 1.0 / 0.95 / 64 | Meta's recommended sampling |
-| `--mmproj` | path | perception encoder for image input, +1.4 GB |
-| `-md` / `-ngld` | path / 99 | DFlash drafter, +1.6 GB — Meta reports a speedup on M4/M5 Max; unmeasured here |
+---
 
-### Context per slot
+# Part VI — Measuring
 
-`-c` is divided across `-np`. With `-c 8192 -np 4` each slot gets 2048 tokens, which is not enough for a model that reasons before answering. Either keep `-np 1` or scale `-c` to match:
+## Chapter 17 — How performance was measured {#ch17}
+
+*This chapter establishes the experiments, the exact commands, and the choices that make the results trustworthy.*
+
+Everything in Part VII comes from four measurements. All scripts are in the [companion repository](https://github.com/rajeeja/local-llm-bench-m1max).
+
+### Experiment 1 — throughput, four models
 
 ```bash
--c 32768 -np 4   # four slots, 8K each
-```
-
-### Reasoning depth
-
-Reasoning cannot be disabled, only tuned.
-
-```bash
-# server-wide: low / medium / high / xhigh (default high)
---chat-template-kwargs '{"reasoning_strength":"low"}'
-
-# hard cap on thinking tokens
---reasoning-budget 512
-```
-
-Per request, put `{"role":"system","content":"Reasoning strength: low"}` in the messages.
-
-Reasoning goes to `reasoning_content`, the answer to `content`. An empty `content` with `finish_reason: "length"` means reasoning consumed the whole budget — raise `max_tokens`.
-
-### Stop tokens
-
-Stop only on `<|end_of_text|>` (200001) and `<|eot|>` (200008). Do not stop on `<|eom|>` — it marks end of message, not end of turn, and stopping there collapses parallel tool calls.
-
----
-
-## What inference actually does, and why it has two speeds
-
-This is the section that makes the rest of the post readable. Every local-LLM benchmark reports two numbers, they differ by more than an order of magnitude, and the reason is a property of matrix multiplication rather than anything to do with language.
-
-### Prefill and decode
-
-Generating a response happens in two phases.
-
-**Prefill** processes your prompt. If you send 512 tokens, all 512 are pushed through the model *at once*. Every layer's weight matrix is multiplied against a matrix of 512 column vectors, one per token position.
-
-**Decode** generates the answer, one token at a time. It has to be sequential: token 200 depends on token 199, which the model has not produced yet. So each step pushes exactly *one* vector through all 52 layers.
-
-Measured here on Muse Glimmer: prefill 87 tok/s, decode 6.55 tok/s. A 13× difference, on the same weights, the same GPU, the same instant.
-
-### Why: mat×mat versus mat×vec
-
-Take one weight matrix `W` of shape `[4096 × 14336]`, which is a realistic MLP projection. At Q4_K that matrix occupies 33 MB.
-
-**Prefill** computes `W × X` where `X` is `[14336 × 512]` — 512 tokens side by side. You read `W` once, 33 MB, and do `2 × 4096 × 14336 × 512 ≈ 60 GFLOP` of arithmetic. Every byte of `W` that you loaded gets used 512 times.
-
-**Decode** computes `W × x` where `x` is `[14336 × 1]` — a single token. You read the same 33 MB and do `2 × 4096 × 14336 ≈ 117 MFLOP`. Every byte gets used *once*.
-
-The ratio of arithmetic to bytes moved is called **arithmetic intensity**, and it is the whole story:
-
-| Operation | Bytes read | FLOP | Arithmetic intensity |
-|---|---:|---:|---:|
-| Prefill, 512 tokens (`mat×mat`) | 33 MB | 60 GFLOP | **1820 FLOP/byte** |
-| Decode, 1 token (`mat×vec`) | 33 MB | 117 MFLOP | **3.6 FLOP/byte** |
-
-The M1 Max can do about 10.4 TFLOP/s and move about 340 GB/s. Divide them and you get the **ridge point**: 30.6 FLOP/byte. Below that intensity, the GPU finishes its arithmetic and sits waiting for memory. Above it, memory keeps up and the arithmetic units are the limit.
-
-Prefill at 1820 is 60× above the ridge — solidly compute-bound. Decode at 3.6 is 8.5× below it — solidly memory-bound. This is not a llama.cpp property or an Apple property. It is arithmetic, and it is why every "tokens per second" claim needs to say which phase it means.
-
-These are measured numbers, not a derivation. See [the microbenchmarks](#test-3-per-operation-microbenchmarks) below.
-
-### Consequences you can feel
-
-- **Decode speed does not depend on what you asked.** The same weights are read whatever the token is. A poem and a Rust refactor generate at the same rate. (This stops being true for mixture-of-experts models, which route different tokens to different weights. None of the models here are MoE.)
-- **Batching is free performance, and you are not getting it.** Serving 32 users at once reads `W` once for all 32 — arithmetic intensity 32× higher, and decode moves toward compute-bound. This is why an API endpoint generates faster per user than your laptop does for one user. At `-np 1` you pay full price for every token.
-- **A bigger GPU will not help decode.** The GPU is already idle most of the time.
-
----
-
-## Measured Throughput, v1: the original real-prompt run
-
-Kept for continuity, and because it is what a real session looks like.
-
-The prompt, in full, was a request for an explanation of gradient descent covering intuition, the math, learning rate, momentum, and practical guidance. It produced 781 tokens of output through `llama-server` with the configuration above. Numbers come from the `timings` block of the API response:
-
-| Metric | Value |
-|---|---|
-| Prompt ingestion | 48.4 tok/s |
-| Token generation | 5.2 tok/s |
-| Time to first token | ~0.58 s |
-| Total generation | ~150 s for 781 tokens |
-
-**Remote comparison — Claude Sonnet 5 via Argo proxy on `localhost:44445`.** Wall-clock only; the proxy does not expose per-token timings, so this is an effective rate over the whole response and is not directly comparable to a `timings`-derived figure.
-
-| | Local Muse Glimmer 30B | Remote Claude Sonnet 5 |
-|---|---|---|
-| Generation | 5.2 tok/s | ~104 tok/s |
-| Ratio | 1× | ~20× |
-| TTFT | ~0.6 s | <0.5 s |
-| Data location | on device | leaves the machine |
-| Marginal cost | none | metered |
-| Context | 8K as configured (131K model max) | 200K |
-| Works offline | yes | no |
-
-The controlled re-measurement below gets **6.55 tok/s** for the same model — 26% faster. I cannot fully attribute the gap, and it is worth being explicit about the candidates rather than picking a flattering one:
-
-- **Power state was not recorded.** The machine may have been on battery with Low Power Mode active, which caps GPU clocks. This is my leading suspect and it is entirely my fault for not checking.
-- **Background load was not controlled.** The v2 runs record it continuously; see below for how much it matters.
-- **Cold page cache.** `--no-warmup` was set, so the first tokens included paging 19.7 GB off SSD.
-- **Different harness.** `llama-server` carries HTTP, tokenizer, sampler and template overhead per token that `llama-bench` does not.
-- **KV cache growth.** By token 781 there was ~900 tokens of KV to read per step. Small — under 1% of the weight traffic — but not zero.
-
-The direction is consistent: v1 measured a machine that was doing worse than it can. Treat 5.2 as a floor for a real session on a contended laptop and 6.55 as the ceiling for a quiet one. Both are too slow.
-
----
-
-## The control experiment
-
-### Why one datapoint was not enough
-
-v1 observed one model at one speed and concluded something about llama.cpp's Metal backend in general. But that observation is consistent with at least three different worlds:
-
-- **(A)** llama.cpp Metal is inefficient on this machine for *every* model.
-- **(B)** llama.cpp's brand-new Gated Delta Net and Lightning Indexer kernels are slow, while mature dense-transformer kernels are fine.
-- **(C)** llama.cpp gives *any* recently-added architecture immature Metal kernels — recency, not exoticism, predicts efficiency.
-
-(B) was the most plausible when I wrote v1 — the GDN kernels were two weeks old and had a live correctness bug, which is not the profile of well-optimised code. (B) and (C) each require a different rewrite, and (A) means the post stands.
-
-You cannot tell these apart with one model. You can tell them apart with three.
-
-### The three controls
-
-| Role | Model | arch | arch age | file GB | B_tok GB |
-|---|---|---|---|---:|---:|
-| Reference | `Muse-Glimmer-30B-KQuant-Dynamic-Q4_K_XL` | `muse-glimmer` | ~2 weeks | 19.654 | 18.884 |
-| Mature control | `Qwen3-32B-Q4_K_M` | `qwen3` | ~16 months | 19.762 | 19.319 |
-| Recency control | `google_gemma-4-31B-it-Q4_K_M` | `gemma4` | ~5 months | 19.598 | 19.583 |
-| Phone comparison | `gemma-3n-E4B-it-Q4_K_M` | `gemma3n` | ~14 months | 4.539 | 2.771 |
-
-The first three are within ±0.6% of each other by file size and all in the Q4_K family, so neither the byte count nor the dequantization kernel differs meaningfully between them. The only variable left is the architecture and how long its Metal kernels have been getting attention.
-
-- **Qwen3-32B** is a plain dense transformer — grouped-query attention, RoPE, SwiGLU — in llama.cpp since April 2025. The mature baseline.
-- **Gemma 4 31B** is dense but not vanilla: 512-wide keys, per-layer KV head counts, a 5:1 sliding-window interleave, logit softcapping. Shipped March 2026. Recent *without* being exotic, which is exactly what separates (B) from (C).
-- **Gemma 3n E4B** is a different question entirely and is discussed [in its own section](#gemma-3n-what-small-actually-buys-and-costs). It is not part of the A/B/C decision.
-
-### Pre-registration
-
-The decision rule, the byte-count table and the exact benchmark invocation were written into `PREREGISTRATION.md` and committed **before any data was collected**. The rule:
-
-| Condition | Verdict |
-|---|---|
-| Qwen ≤ 35% of roofline and all three within 8 points | **(A)** — backend-wide inefficiency |
-| Qwen ≥ 55%, Gemma ≥ 55%, Muse ≤ 35% | **(B)** — GDN kernels specifically |
-| Qwen ≥ 55%, Gemma ≤ 40%, Muse ≤ 35% | **(C)** — recency curve |
-| 35% < Qwen < 55% | **Indeterminate** — do not force it; escalate to per-op measurement |
-
-The point of writing this down first is that once you see the numbers, every result looks like it supports whatever you already believed. A rule committed in advance cannot be bent to fit.
-
-It did not survive entirely intact, and the honest version of that story is in the amendments: six of them, the fifth of which relaxed a background-load rejection criterion **after** I had seen preliminary numbers. The criterion was genuinely mis-specified — it gated on the *maximum* observed load, which grows mechanically with the number of samples, so it was rejecting windows whose median load was *below* the quiet-machine baseline. But I noticed it because it rejected a run, which means the amendment is not blind, and the pre-registration is weaker than if I had caught it beforehand. The change was applied identically to all four models, and the defect is arguable from the sample counts alone. I think the direction of the verdict is trustworthy. I do not think I get to claim a clean pre-registration.
-
----
-
-## How performance was measured
-
-Four separate measurements feed the analysis. Each is described with the exact command, because "we benchmarked it" is not a method.
-
-### Test 1: throughput — `llama-bench`
-
-```bash
-llama-bench -m "$MODEL" -ngl 99 -p 512 -n 128 -d 0 -fa on,off -t 8 \
-            -b 2048 -ub 512 -ctk f16 -ctv f16 -lm auto \
+llama-bench -m "$MODEL" -ngl 99 -p 512 -n 128 -d 0 -fa on,off \
+            -t 8 -b 2048 -ub 512 -ctk f16 -ctv f16 -lm auto \
             -r 5 --delay 8 --progress -o json
 ```
 
-**There is no text prompt.** This surprises people, so it is worth stating plainly: `-p 512` does not send 512 tokens of English. It synthesises 512 dummy token IDs and measures how fast the model ingests them. `-n 128` then generates 128 tokens starting from an essentially empty context.
+`-p 512` measures prefill on a 512-token prompt. `-n 128` measures decode over 128 generated tokens. `-r 5` repeats each five times. `--delay 8` idles between repetitions so thermals settle.
 
-That is legitimate here, and it is the reason to prefer it over timing a real chat. As established above, for a dense model the decode cost is identical regardless of which token you are processing — the same 18.884 GB of weights gets read either way. Using synthetic tokens removes tokenizer differences, chat-template differences, and any chance that one model happened to write a longer answer. It would *not* be legitimate for a mixture-of-experts model, where token content selects which experts are read.
+**Two full passes, with the model order reversed in the second.** Pass 1 runs Muse Glimmer, Qwen3, Gemma 4, Gemma 3n; pass 2 runs the same four backwards. Any drift from the machine warming up across a pass shows as a systematic difference between the passes, and reporting the mean of the two cancels it. Every number in Part VII is such a mean.
 
-Flag by flag:
+Before each model, a pre-gate checks the machine is on AC power with Low Power Mode off. Those two conditions genuinely invalidate a measurement — Low Power Mode caps GPU clocks outright. Background CPU load is *recorded* rather than gated on: a sampler writes foreign CPU usage every three seconds to a sidecar file, so throughput can be reported against the load it ran under. The alternative — rejecting any window with a load spike — measures a quiet machine that no actual user ever has.
 
-| Flag | Why |
-|---|---|
-| `-ngl 99` | every layer on the GPU — matches how anyone would actually run this |
-| `-p 512` | prefill measurement, 512 synthetic tokens |
-| `-n 128` | decode measurement, 128 generated tokens |
-| `-d 0` | **start from zero context.** This keeps KV-cache traffic under 0.25% of bytes read for all four models, which is what makes a weights-only roofline exact rather than hand-waved |
-| `-fa on,off` | sweep flash attention. The default `auto` resolves *per architecture*, so leaving it would let a hidden per-model decision drive the result |
-| `-r 5` | five repetitions per cell |
-| `--delay 8` | eight seconds between repetitions |
-| `-o json` | the only output format carrying per-repetition samples |
+### Why the benchmark uses fake text
 
-`-d 0` deserves a note because it is the flag that could most easily have produced a flattering answer. At `-d 8192` the KV term would range from +1.0% for Muse Glimmer (2 KV heads, plus a 2048-token sliding window over three quarters of its layers) to +16.0% for Gemma 4 (512-wide keys on its global layers). That 15-point spread would have made Muse Glimmer look better against exactly the models it was being compared to — biasing the measurement toward the hypothesis under test. Depth zero removes the term instead of modelling it.
+`llama-bench` feeds synthetic tokens, not real prose. This looks like a flaw and is the opposite.
 
-Two full passes were run, the second in reverse model order and starting deliberately hot, so any thermal drift shows up as an order-dependent gradient rather than hiding inside a single ordering.
+Decode speed is set by how many bytes must be read per token, and that is fixed by the architecture — identical for every token regardless of content. What *would* vary with real text is early stopping, tokenizer behaviour, and prompt-cache hits, none of which are properties of the hardware. Synthetic tokens remove those confounds and measure the thing being measured.
 
-### Test 2: background load — a sampler running alongside
+The honest caveat: this measures raw generation. It does not measure your experience with a reasoning model that emits 400 thinking tokens before answering. That is a real cost, and it is a property of the model's behaviour, not its speed.
 
-Every benchmark window had a sampler recording, every three seconds:
+### Experiment 2 — bytes per token
 
-```
-foreign% = (100 - system_idle%) - bench_cpu% / n_cpu
-```
+A script that opens the GGUF, walks the tensor table, and classifies every tensor by whether it is read on every token. Chapter 18 is this experiment.
 
-That is: total CPU busy, minus the benchmark's own legitimate CPU use, normalised across ten cores. It answers "how much of this machine is something other than the thing I am measuring".
+### Experiment 3 — memory bandwidth
 
-Originally this was a *rejection* criterion — windows above a threshold were discarded. That turned out to be both statistically wrong and unrealistic: nobody runs a model on a machine with nothing else on it. It is now recorded as a covariate and reported. Median foreign load across the eight windows ranged from 10.0% to 16.6%.
+A working set far larger than cache, streamed on the GPU. Chapter 19.
 
-### Test 3: per-operation microbenchmarks
+### Experiment 4 — kernel-level arithmetic intensity
 
 ```bash
-test-backend-ops perf -b Metal -o MUL_MAT --output csv
-test-backend-ops perf -b Metal -o CPY --output csv
+test-backend-ops perf -o MUL_MAT
 ```
 
-This is llama.cpp's own per-kernel harness. It runs a single operation in isolation, thousands of times, and reports time and throughput. It is what produced the arithmetic-intensity table above:
-
-```
-MUL_MAT(q4_K, m=4096, n=1,   k=14336):   157.22 us/run -> 747 GFLOPS,  3.6 FLOP/byte
-MUL_MAT(q4_K, m=4096, n=8,   k=14336):   867.75 us/run -> 1.08 TFLOPS, 28.4 FLOP/byte
-MUL_MAT(q4_K, m=4096, n=512, k=14336): 12741.96 us/run -> 4.72 TFLOPS, 1820 FLOP/byte
-```
-
-`n` is the batch: `n=1` is decode, `n=512` is prefill. Same matrix, same kernel, 6.3× the FLOP rate purely because the bytes get reused.
-
-Converting the `n=1` row to bandwidth: 33.0 MB of weights in 157.22 µs is **210 GB/s**. Hold onto that number.
-
-### Test 4: streaming bandwidth — the denominator
-
-Described in its own section below, because getting it right took two attempts and the first one was wrong.
+llama.cpp's own operation benchmark, run on one matrix shape at batch 1, 8, and 512. This produced the table in Chapter 11 and is what pins the ridge-point crossover to a measurement rather than a calculation.
 
 ---
 
-## B_tok: the bytes that actually move
+## Chapter 18 — Bytes per token {#ch18}
 
-The roofline is `bandwidth ÷ bytes-read-per-token`. v1 used the file size, 19.65 GB, for the second term. That is wrong, and it is wrong in a direction that mattered.
+*This chapter establishes why the file size is the wrong number, and how to get the right one.*
 
-**`token_embd` is not streamed.** It is a lookup table of shape `vocab_size × d_model`. Generating a token reads exactly *one row* of it — the row for the token you just produced. A few kilobytes, not the whole matrix. Counting all of it as per-token traffic overstates the denominator.
+The roofline model needs bytes read per token. The obvious source is the file size. The obvious source is wrong, and on one model here it is wrong by 64%.
 
-Except when the model has **tied embeddings**, where the same matrix serves as both the input lookup and the output head. Then it *is* fully read every token, because computing the score for every possible next token requires multiplying against every row.
+### What the file contains that decode does not read
 
-So the correction is per model, and its size tracks vocabulary size:
+A GGUF holds:
 
-| Model | file GB | `token_embd` | tied? | gathered, not streamed | **B_tok** | file-size error |
-|---|---:|---:|:--:|---:|---:|---:|
-| Muse Glimmer Q4_K_XL | 19.654 | 0.756 | no | 0.770 | **18.884** | +4.1% |
-| Qwen3-32B Q4_K_M | 19.762 | 0.438 | no | 0.443 | **19.319** | +2.3% |
-| Gemma 4 31B Q4_K_M | 19.598 | 1.156 | **yes** | 0.015 | **19.583** | +0.1% |
-| Gemma 3n E4B Q4_K_M | 4.539 | 0.302 | **yes** | 1.762 | **2.771** | +63.8% |
+- **Weight tensors that decode reads every token.** Attention matrices, FFN matrices, norms, output head. These are the number we want.
+- **Tensors that are *gathered*, not streamed.** The embedding table has one row per vocabulary entry, and a token reads exactly one row. Reading 6,656 numbers out of a 202,048 × 6,656 table costs the one row, not the table.
+- **Metadata and tokenizer.** 202,048 vocabulary strings and their scores. Tens of megabytes. Read at load, never during inference.
 
-Note the direction. The correction is largest for Muse Glimmer (+4.1%) and essentially zero for Gemma 4 — because Muse Glimmer has a 202,048-token vocabulary and untied embeddings, while Gemma 4 ties its embeddings and therefore streams the whole thing. Using file size would have inflated Muse Glimmer's apparent bandwidth relative to its controls, flattering exactly the model under suspicion.
+So: walk the tensor table, and for each tensor decide whether it is streamed or gathered.
 
-Gemma 3n is the extreme case at +63.8%, and for a different reason: its embeddings *are* tied, so `token_embd` is fully streamed and not subtracted at all. What comes out instead is a 1.762 GB `per_layer_token_embd` tensor, part of its per-layer-embeddings design, which is another per-token gather. Using the file size would have made it look nearly twice as bandwidth-efficient as it is.
+```python
+GATHERED = {"token_embd.weight", "per_layer_token_embd.weight"}
 
-These come from parsing the GGUF tensor tables, not from estimation. Recomputing v1's headline number with the corrected value: `5.2 × 18.884 = 98.2 GB/s`, which is 24.6% of 400 GB/s — so v1's "26%" was itself inflated by the file-size error.
-
----
-
-## The denominator, and the error I made finding it
-
-v1 divided by 400 GB/s, the datasheet figure. That is a pin rate: width times clock, `64 bytes × 6.4 G/s = 410 GB/s`. No real workload reaches it, so dividing by it makes every piece of software look worse than it is.
-
-The first attempt at a real number came from `test-backend-ops`:
-
-```
-CPY(q4_0->f32, ne_src=[8192,512,2,1])
-  8980 runs - 121.34 us/run - 37376 kB/run - 293.79 GB/s
+streamed = 0
+for t in reader.tensors:
+    if t.name in GATHERED:
+        continue
+    streamed += t.n_bytes
 ```
 
-37,376 kB is 36.5 MB, re-read 8,980 times, on a machine with a 48 MB system-level cache. Whatever that measures, it is not the rate at which you can stream 19 GB. So I wrote a direct measurement: allocate fp16 buffers from 16 MB up to 2 GB, run a read-only reduction over each, and time it.
+Plus one adjustment: if the model has **tied embeddings** — no separate `output` tensor, the embedding matrix reused transposed for the output head — then that matrix *is* fully read for the output projection, and must be counted after all.
 
-**And I misread the result.** The raw curve looked like this:
+### The results
 
-| Working set | Measured read |
-|---:|---:|
-| 16 MB | 33.7 GB/s |
-| 48 MB | 73.5 GB/s |
-| 128 MB | 126.6 GB/s |
-| 512 MB | 291.9 GB/s |
-| 2048 MB | 336.3 GB/s |
+| Model | Streamed per token (B_tok) | File size | File overstates by |
+|---|---|---|---|
+| Muse Glimmer | **18.884 GB** | 19.654 GB | +4.1% |
+| Qwen3-32B | **19.319 GB** | 19.762 GB | +2.3% |
+| Gemma 4 31B | **19.583 GB** | 19.598 GB | +0.1% |
+| Gemma 3n E4B | **2.771 GB** | 4.539 GB | **+63.8%** |
 
-Bandwidth rising steeply and then flattening, with the steep part below 48 MB. I wrote that up as a cache knee: small working sets sit in the SLC, large ones go to DRAM, ratio 0.22×.
+The three 30B models are close enough that file size would have been a tolerable approximation. Gemma 3n is not close at all, and its gap is the most instructive result in this chapter.
 
-That reading is backwards, and it should have been obvious. A working set that *fits* in cache should be **faster**, not slower. Cache cannot make you slower than DRAM.
+### Where the differences come from
 
-The real cause was my instrument. The machine had torch 1.13.1, which predates `torch.mps.synchronize()`, so the script waited for the GPU by pulling one element back to the host — a fixed cost of roughly 0.3–0.8 ms per timed iteration. Fitting `time = overhead + bytes/bandwidth` over the large sizes recovers it: that fixed cost is **69% of the 16 MB measurement and 5% of the 2 GB one**. Subtract it and the curve is flat from 256 MB upward. There is no knee. There never was.
+| Model | `token_embd` | Tied? | Gathered, not streamed |
+|---|---|---|---|
+| Muse Glimmer | 0.756 GB | no | 0.770 GB |
+| Qwen3-32B | 0.438 GB | no | 0.443 GB |
+| Gemma 4 31B | 1.156 GB | **yes** | 0.015 GB |
+| Gemma 3n E4B | 0.302 GB | **yes** | **1.762 GB** |
 
-I could not resolve a cache effect with this tool, and I am not claiming one.
+**Untied models** (Muse Glimmer, Qwen3) have a separate output head, so the input embedding table is pure gather and comes off the total.
 
-The overhead-corrected extrapolation is also not reportable: it is a two-parameter fit over a short lever arm, and it moved from 354 GB/s to 400 GB/s between two consecutive runs. The second figure is the datasheet pin rate exactly, which is a good sign the fit is fitting noise.
+**Gemma 4 is tied.** Its 1.156 GB embedding matrix is read in full every token for the output projection, so almost nothing is excluded. Its file size and its bytes-per-token are within 0.1%.
 
-**So: `R_stream = 340 GB/s`,** the mean of the raw largest-working-set reads across two runs (336.3 and 343.3). This is a *measured lower bound* — instrument overhead can only push it down — which means efficiency percentages computed against it are *upper* bounds. Percentages against the 400 GB/s datasheet figure are also given throughout, about 3 points lower.
+**Gemma 3n has Per-Layer Embeddings** — the mechanism from Chapter 9. `per_layer_token_embd` is a **1.762 GB** tensor, and it is gathered: one small row per layer per token. It is 39% of the file and it contributes almost nothing to per-token bandwidth.
 
-The load-bearing result below is a comparison *between* models, which is unaffected by this choice entirely.
+This is the design paying off exactly as intended. Google built a model where a large fraction of the file is deliberately not on the bandwidth-critical path, because on a phone bandwidth is the binding constraint and storage is not. Using the file size for this model would have made it look 64% more expensive per token than it is — and would have made the roofline analysis in Chapter 20 look like Gemma 3n was an outlier, when in fact it lands right on the line with everything else.
 
----
-
-## Results
-
-Two passes, reverse order, five repetitions per cell, flash attention swept. Decode figures are medians of repetitions 2–5 (dropping the first, which absorbs page-cache warmup), averaged across passes.
-
-### Decode — flash attention on
-
-| Model | arch | arch age | B_tok | tok/s | achieved GB/s | % of 340 | % of 400 |
-|---|---|---|---:|---:|---:|---:|---:|
-| Muse Glimmer 30B | `muse-glimmer` | ~2 weeks | 18.884 | 6.55 | 123.6 | **36.4%** | 30.9% |
-| Gemma 4 31B | `gemma4` | ~5 months | 19.583 | 6.36 | 124.5 | **36.6%** | 31.1% |
-| Qwen3-32B | `qwen3` | ~16 months | 19.319 | 7.02 | 135.7 | **39.9%** | 33.9% |
-| Gemma 3n E4B | `gemma3n` | ~14 months | 2.771 | 50.45 | 139.8 | **41.1%** | 34.9% |
-
-Flash attention off moves everything by less than a point and changes no ordering.
-
-**The spread across the three size-matched models is 3.5 percentage points.** A two-week-old architecture with a live correctness bug in its Metal kernels, a five-month-old one, and a sixteen-month-old one all extract essentially the same fraction of memory bandwidth.
-
-Hypotheses (B) and (C) are refuted. There is no GDN penalty and there is no maturity curve. The pre-registered rule returns **indeterminate** on the letter of it — Qwen3 lands at 39.9%, inside the 35–55% dead band that says "do not force a verdict" — but the *shape* is unambiguously (A)'s: everything clusters. The honest summary is that (A) is right about the pattern and v1 was wrong about the magnitude. The backend is uniformly inefficient, and it is less inefficient than v1 claimed.
-
-### Prefill — the ordering inverts
-
-| Model | pass 1 | pass 2 | mean |
-|---|---:|---:|---:|
-| Muse Glimmer 30B | 83.4 | 90.8 | **87.1** |
-| Qwen3-32B | 77.3 | 72.1 | 74.7 |
-| Gemma 4 31B | 74.8 | 73.3 | 74.1 |
-| Gemma 3n E4B | 689.3 | 684.9 | 687.1 |
-
-The newest and most exotic architecture is the **fastest** of the three at prompt ingestion, by 17%. When the GPU is actually saturated — the compute-bound regime — Muse Glimmer's kernels are not merely adequate, they win.
-
-This is the single cleanest refutation of the "immature kernels" story. Immature kernels would be slow in both regimes. These are fast where compute matters and average where bandwidth matters, which is the signature of a bandwidth problem that has nothing to do with the kernels.
-
-### Where the missing bandwidth is
-
-Three measurements of the same machine, in increasing order of realism:
-
-| What | Achieved read bandwidth |
-|---|---:|
-| Streaming read, 2 GB working set | 340 GB/s |
-| Isolated `q4_K` batch-1 mat-vec, 33 MB re-read 6,816 times | 210 GB/s |
-| Full decode, four real models | 124–140 GB/s |
-
-The isolated kernel — under conditions far friendlier than reality, with a working set that fits in cache and is read thousands of times — already reaches only 62% of streaming bandwidth. Real decode then reaches only about 60% of *that*.
-
-So the deficit is in two places, and neither of them is a specific architecture's kernels. Roughly a third is lost inside the mat-vec kernel itself even in the best case, and roughly another third to everything the full graph does that an isolated kernel does not: dispatching hundreds of small operations per token, synchronising between them, and touching the KV cache and norms and residuals between the large multiplies.
-
-### A dead end worth reporting
-
-My first explanation for the residual was fixed per-layer dispatch overhead — Metal command-buffer cost paid once per layer regardless of layer size. It predicts that microseconds-per-layer should be roughly constant across models. It is not:
-
-| Model | layers | MB/layer | µs/layer |
-|---|---:|---:|---:|
-| Muse Glimmer | 52 | 363.2 | 2936 |
-| Gemma 4 31B | 60 | 326.4 | 2621 |
-| Qwen3-32B | 64 | 301.9 | 2226 |
-| Gemma 3n E4B | 35 | 79.2 | 566 |
-
-Per-layer cost varies 5.2× and is monotonic in bytes-per-layer, which itself varies 4.6×. The cost is proportional to data moved, not to the number of dispatches — the model with the *most* layers is not the slowest per layer, the one with the fattest layers is. Fixed-overhead-per-layer is refuted, by my own data, and I am recording it because the negative result is what rules out the most intuitive explanation.
-
-### Reproducibility, and one failure
-
-Pass-to-pass agreement was within 3% for every model except Gemma 4, which differed by 11.7% at flash-attention-on and 6.6% at flash-attention-off.
-
-It is not thermal and not ordering — the reverse-order second pass rules both out, and the other three models agree across it. The recorded background load points at contention:
-
-| Window | median | 90th pct | peak | tok/s |
-|---|---:|---:|---:|---:|
-| Gemma 4, pass 1 | 12.8% | 18.6% | 32.8% | 6.73 |
-| **Gemma 4, pass 2** | **16.6%** | **24.4%** | **42.3%** | **5.98** |
-| Gemma 3n, pass 2 | 16.3% | 20.5% | 23.8% | 50.06 |
-| other five windows | 10.0–14.2% | 18.6–22.4% | 26.5–36.3% | — |
-
-Gemma 4's second pass is the only window whose 90th-percentile load exceeded 24% and whose peak exceeded 40%, and it is the slowest cell in the matrix. But note the third row: Gemma 3n's second pass had almost the same *median* load with much lower peaks, and lost only 1.5%. So sustained peaks look like the thing that hurts rather than average load — which is plausible, and which eight windows are nowhere near enough to establish. I am reporting the association, not claiming a dose-response curve.
-
-This is also the reason the load criterion was changed from a rejection filter to a recorded covariate partway through. Under the original design that window would have been discarded and the sensitivity never observed. The practical takeaway is unchanged either way: close things before benchmarking, and remember that the number you actually live with on a working machine is the contended one.
-
-Pageouts grew from 2,019 to 2,473 across the full matrix, about 7 MB, confirming RAM was never exceeded.
+<div class="callout callout--green" markdown="1">
+**Worth generalising.** Anyone comparing local models on a bytes-per-token basis using file sizes will systematically mis-rank models that use sparse or gathered structures. Parse the tensor table. It is about forty lines of Python and it is the difference between an estimate and a measurement.
+</div>
 
 ---
 
-## Gemma 3n: what "small" actually buys, and costs
+## Chapter 19 — The denominator {#ch19}
 
-Gemma 3n E4B was included to answer a different question — how a laptop compares to a phone — and it turned into the most interesting result in the set.
+*This chapter establishes the bandwidth figure that Part VII divides by, and why it is measured rather than quoted.*
 
-**50.45 tok/s on the same machine, same binary, same flags.** Against Muse Glimmer's 6.55. That is 7.7× faster, and it comes almost entirely from reading 6.8× fewer bytes per token: 2.771 GB versus 18.884 GB. Its achieved bandwidth, 139.8 GB/s, is barely different from anyone else's.
+Efficiency is achieved bandwidth over peak bandwidth. Choosing "peak" badly is the easiest way to reach a confident wrong answer, and there are two distinct traps.
 
-That is the whole lesson in one line. **Nothing about the software got better. It just had less to read.**
+### Trap one: the datasheet
 
-### How it gets small
+400 GB/s is the pin rate. Refresh cycles, bank conflicts, controller scheduling, and page misses all take a cut. No workload sees it. Dividing by 400 understates efficiency by about 15% against reality.
 
-"E4B" means *effective* 4B — the model has more parameters than that on disk but activates about 4B worth per token, through two mechanisms:
+### Trap two: measuring the cache
 
-- **MatFormer nesting.** The model is trained so that a smaller model is embedded inside the larger one, sharing weights, like nested Russian dolls. You can extract and run the smaller nesting without retraining.
-- **Per-layer embeddings (PLE).** A large chunk of the parameters — the 1.762 GB `per_layer_token_embd` tensor — is a lookup table indexed by token, not a matrix you multiply against. It is *gathered*, a row at a time, not streamed. This is why its file size is 4.539 GB but its B_tok is 2.771 GB.
+The subtler trap, and the one I nearly fell into. llama.cpp's own operation benchmark reports a copy kernel at 294 GB/s — a tempting number, already measured, right there.
 
-PLE is a genuinely clever bandwidth trick: it moves capacity into a structure that costs a lookup instead of a full read. It is also why file-size-based roofline math is off by 64% for this model.
+Look at the working set: 37,376 kB, or 36.5 MB. The M1 Max system-level cache is 48 MB. **The entire buffer fit in cache and was re-read nine thousand times.** That measures cache bandwidth, not memory bandwidth.
+
+Decode streams 18.884 GB per token, roughly 400× the cache. Nothing is ever reused. The two situations have nothing to do with each other.
+
+### Measuring it properly
+
+Sweep the working set from below cache to far above it, using two kernels whose traffic is unambiguous: a sum (reads N bytes, writes ~0) and an in-place add (reads N, writes N). Read bandwidth is the relevant one, since decode reads weights and writes almost nothing.
+
+```
+   MB    read GB/s   note
+   16         33.7   fits in 48 MB cache
+   48         73.5   fits in 48 MB cache
+  128        126.6
+  512        291.9
+ 2048        336.3
+```
+
+Two independent runs of the largest size gave 336.3 and 343.3 GB/s. I use **340 GB/s**.
+
+### Reading that curve honestly
+
+The curve rises with size, which looks like a cache effect and is not one. Fitting `time = overhead + bytes/bandwidth` over the large sizes recovers a fixed per-iteration cost of about 0.3 ms — the synchronisation this script uses to make sure it times GPU work rather than enqueue time. That overhead dominates the small sizes and is what produces the rise. Subtract it and the curve is flat from 256 MB up, so no cache knee is resolvable here, and I do not claim one.
+
+Which is why the reported number is the **raw** measurement at the largest working set, not the overhead-corrected extrapolation. The extrapolation is a two-parameter fit over a short lever arm and it moved by 46 GB/s between two runs. The raw number is a measured lower bound: instrument overhead can only depress it, never inflate it. A lower bound on the denominator makes the efficiency figures in Part VII conservative, which is the direction to err.
+
+### The ladder
+
+Three honest bandwidth numbers for the same chip, each measuring something different:
+
+| Measurement | GB/s | What it is |
+|---|---|---|
+| Datasheet pin rate | 400 | The interface clock |
+| Streaming read, 2 GB working set | **340** | What memory sustains |
+| One isolated q4_K mat×vec kernel | 210 | Best case for the operation decode does |
+| Full decode, all four models | 124–140 | What actually happens |
+
+340 is the denominator for the roofline. 210 is interesting because it bounds how much of the remaining gap is attributable to the operation itself rather than to everything around it — and Chapter 20 uses that to split the loss into parts.
+
+---
+# Part VII — What came out
+
+## Chapter 20 — Results {#ch20}
+
+*This chapter establishes what four very different models actually did on one machine, and what the pattern in those numbers means.*
+
+### Decode
+
+Mean of two passes, flash attention on. Achieved bandwidth is tokens per second × bytes per token from Chapter 18.
+
+| Model | tok/s | Bytes/token | Achieved GB/s | % of 340 measured | % of 400 datasheet |
+|---|---|---|---|---|---|
+| Muse Glimmer 30B | 6.55 | 18.884 GB | 123.6 | **36.4%** | 30.9% |
+| Gemma 4 31B | 6.36 | 19.583 GB | 124.5 | **36.6%** | 31.1% |
+| Qwen3-32B | 7.02 | 19.319 GB | 135.7 | **39.9%** | 33.9% |
+| Gemma 3n E4B | 50.45 | 2.771 GB | 139.8 | **41.1%** | 34.9% |
+
+One caveat before the interpretation. Three of the four models agreed between the two passes to within 1.5%. Gemma 4 did not — its two passes differ by 11.7%, and the load sidecars show its second window ran under heavier background load. I report the mean with that spread visible in the [raw data](https://github.com/rajeeja/local-llm-bench-m1max) rather than dropping the window, because a machine with background load is the machine people actually have. It does not change any conclusion below; Gemma 4's two passes bracket 36.6% efficiency from both sides.
+
+Sit with that last column for a moment.
+
+Four models. Different makers, different countries, different years. Architectures that disagree about nearly everything — 35 to 64 layers, hidden sizes from 2,048 to 6,656, sliding-window ratios of none to 5:1, tied and untied embeddings, one of them using MatFormer and per-layer embeddings and alternating updates. Sizes spanning **7×**. Speeds spanning **8×**.
+
+They all extract between 36.4% and 41.1% of this machine's memory bandwidth.
+
+The three 30B-class models are within **3.5 percentage points** of each other. Gemma 3n, which is architecturally the strangest model here and eight times faster, is only 4.7 points above Muse Glimmer.
+
+**The 8× difference in tokens per second is entirely explained by the 6.8× difference in bytes per token.** Once you divide it out, the models are indistinguishable. Architecture is not what makes one of these faster than another on this hardware. Size is.
+
+<figure class="article-figure article-figure--wide">
+  <img loading="lazy" decoding="async" src="/images/blog/muse-bandwidth-waterfall.jpg" alt="Four descending bars: 400 GB/s datasheet pin rate, 340 measured streaming read, 210 for one isolated q4_K matrix-vector kernel, and 124 to 140 GB/s for real decode across all four models." />
+  <figcaption><strong>Four honest answers to "how fast is memory on this chip", each smaller than the last.</strong> <em>Reading the chart:</em> <strong>GB/s</strong> is gigabytes per second — how much data can be pulled out of memory in one second. Bar 1 is the <strong>datasheet pin rate</strong>, the speed the memory interface is clocked at; no real workload reaches it. Bar 2 is what this machine <strong>actually sustains</strong> when reading a large block of memory end to end, which is the honest ceiling and the number this book divides by. Bar 3 is one <strong>q4_K mat×vec</strong> in isolation — a single 4-bit-quantized weight matrix multiplied by one token's vector, the exact operation generating text performs. It loses 130 GB/s to unpacking those 4-bit numbers back into floats and to the fixed cost of launching a GPU operation. Bar 4 is a <strong>real model decoding</strong>, which loses another 80 GB/s to doing that operation 52 to 64 times over (once per layer), plus normalization and attention between each. <em>Why it matters:</em> the four tokens-per-second figures on the right differ by 8× — and all four land inside the same narrow bandwidth band. Divide out how many bytes each model must read per token and the models become indistinguishable. Speed here is not a property of the model. It is a property of how much of the bus the runtime manages to keep busy, and that figure is about <strong>36%</strong> for everything.</figcaption>
+</figure>
+
+### Where the missing 64% goes
+
+Three honest measurements bracket the loss:
+
+```
+340 GB/s   streaming read, 2 GB working set        ← the ceiling
+210 GB/s   one q4_K mat×vec kernel, in isolation   ← 62% of ceiling
+124 GB/s   full decode, whole model                ← 36% of ceiling
+```
+
+The first drop, 340 → 210, is **38% lost inside a single operation**. That is dequantization — unpacking 4-bit blocks and their scales back into floats — plus per-kernel launch overhead, plus the fact that a matrix-vector product has poor reuse of anything the GPU has loaded into registers.
+
+The second drop, 210 → 124, is **41% lost to everything around the operations**. Fifty-two to sixty-four sequential layers per token, each with its own dispatch. Normalization, attention, softmax, residual adds. Synchronisation between dependent kernels. None of it individually large; collectively larger than the dequantization cost.
+
+That second gap is where a runtime could plausibly improve. But note that it is a *dispatch and orchestration* problem, not a kernel problem, and Metal's command submission model puts a floor under it. Nobody is getting this to 80% on this stack.
+
+### The per-layer hypothesis, and why the data kills it
+
+A tempting story: if the loss is fixed dispatch overhead per layer, models with more layers should be less efficient. Qwen3 has 64 layers to Muse Glimmer's 52 — it should be worse.
+
+It is better. So let me put actual numbers on it:
+
+| Model | Layers | Bytes per layer | Time per layer |
+|---|---|---|---|
+| Muse Glimmer | 52 | 363.2 MB | 2,936 µs |
+| Gemma 4 31B | 60 | 326.4 MB | 2,621 µs |
+| Qwen3-32B | 64 | 301.9 MB | 2,226 µs |
+| Gemma 3n E4B | 35 | 79.2 MB | 566 µs |
+
+If dispatch overhead dominated, time-per-layer would be roughly constant. It varies by **5.2×**, and it varies monotonically with bytes per layer. Fixed per-layer cost is not the story; per-layer *bytes* is.
+
+The residual trend is real though. Ranking by bytes per layer gives exactly the reverse of ranking by efficiency: Muse Glimmer has the fattest layers and the lowest efficiency, Qwen3 has thinner layers and does better, Gemma 3n has the thinnest and does best. Deeper-and-narrower extracts slightly more bandwidth than shallower-and-wider. It is a second-order effect worth a few percent, sitting on top of a first-order effect worth everything.
+
+### Prefill, and an inversion
+
+Mean of two passes, 512-token prompt:
+
+| Model | Prefill tok/s | Decode tok/s | Ratio |
+|---|---|---|---|
+| Muse Glimmer 30B | **87.1** | 6.55 | 13.3× |
+| Qwen3-32B | 74.7 | 7.02 | 10.6× |
+| Gemma 4 31B | 74.1 | 6.36 | 11.7× |
+| Gemma 3n E4B | 687.1 | 50.45 | 13.6× |
+
+Muse Glimmer is **slowest at decode among the 30B models and fastest at prefill**. That inversion is Chapter 11 made visible.
+
+Prefill is compute-bound. What helps is doing your arithmetic in a small number of large, GPU-friendly matrix multiplies. Muse Glimmer's 52 fat layers (6,656 wide) do exactly that. Qwen3's 64 thin layers (5,120 wide) mean more, smaller multiplies — better for the memory-bound phase, worse for the compute-bound one.
+
+The same architectural choice that costs Muse Glimmer 7% of decode buys it 17% of prefill. There is no free lunch; there is a dial, and the two phases want it turned opposite ways.
+
+Practically: if your workload is long prompts and short answers — summarisation, classification, extraction — Muse Glimmer's shape is the right one. If it is short prompts and long answers, it is the wrong one.
+
+### Flash attention
+
+Enabling flash attention changed decode throughput by under 1% on every model, at a 512-token prompt. That is expected and not a disappointment: flash attention optimises the attention computation, which at short context is a small fraction of the work. Its benefit grows with context length, and at 32K it is substantial. Leave it on; do not expect it to rescue you here.
+
+### Speculative decoding
+
+Running the server with the DFlash draft model attached, the first generation came in at **9.14 tok/s** against roughly 6.4 without it — about a **1.4× speedup**, and in the same range as the 1.5–1.8× reported for M4 and M5 Max. A subsequent generation gave 7.42 tok/s, which is the expected behaviour: the acceptance rate depends on how predictable the text is, so the speedup varies by content.
+
+This is measured at the server, not through the benchmark harness, so treat it as an indication rather than a controlled result. But it is the largest single speed win available here, and it is free — the draft model costs 1.6 GB and idle arithmetic that was going to waste anyway.
+
+### The one-sentence version
+
+**On a bandwidth-limited machine, tokens per second is bytes per token divided by about 36% of your memory bandwidth, and nothing about the model's design moves that 36% by more than a few points.**
+
+---
+
+## Chapter 21 — Gemma 3n: what small buys and costs {#ch21}
+
+*This chapter establishes what the 8× speed difference actually feels like, and what it costs you.*
+
+Gemma 3n E4B ran at **50.45 tok/s**. Muse Glimmer ran at 6.55. Same machine, same session, same afternoon.
+
+50 tok/s is faster than you read. Answers appear essentially complete. There is no watching, no waiting, no tabbing away and coming back. It is, subjectively, a completely different product — and this is worth saying plainly, because a table of numbers does not convey it. The gap between 6.5 and 50 tok/s is not a quantitative difference in the same experience. It is the difference between a tool you use and a tool you avoid.
+
+It is also, on the bandwidth measure, the *same machine doing the same thing at the same efficiency*: 41.1% against 36.4%. It reads 2.771 GB per token instead of 18.884.
 
 ### What you give up
 
-Quality was **not measured here** — this benchmark measured speed, and I will not invent numbers for the other axis. But the structural trade-offs are not mysterious:
+Real things, and I would not pretend otherwise:
 
-- **Knowledge.** Fewer active parameters means less memorised world knowledge. A 4B model has read the same internet and retained much less of it.
-- **Reasoning depth.** 35 layers versus 52. Multi-step problems that need to hold several intermediate results have less machinery to hold them in.
-- **Long-context coherence.** Small models drift over long outputs and lose track of constraints stated early in a prompt.
-- **Code and agentic work.** This is where the gap is widest. Muse Glimmer's whole reason to exist is the MCP Atlas and SWE-Bench Pro margins in the table at the top. A 4B model is not doing multi-step tool use with a large tool schema.
+**Reasoning depth.** Multi-step problems, subtle instructions, long chains of inference. This is where parameter count still buys you something no architecture trick replaces.
 
-The right way to hold both facts: Gemma 3n at 50 tok/s is genuinely interactive and Muse Glimmer at 6.5 tok/s genuinely is not, and Muse Glimmer would do things Gemma 3n cannot attempt. On this hardware you do not get to have both.
+**Breadth of knowledge.** ~11 trillion training tokens against Qwen3's ~36 trillion, in a model a seventh the size. It knows less. The cutoff is June 2024, which is old.
+
+**Code generation.** Usable for small, well-specified functions. Not for anything architectural.
+
+**Long context.** 32K against Gemma 4's 262K.
+
+### What you keep
+
+More than I expected. Conversation, summarisation, extraction, classification, rewriting, simple tool calls, and answering questions about text you give it. For a large fraction of what people actually use a local model for, the 4B model at 50 tok/s is the better product than the 30B model at 6.5.
 
 ### Laptop versus phone
 
-| | tok/s | TTFT |
-|---|---:|---:|
-| M1 Max, 2021 laptop | 50.45 | — |
-| Pixel 10 Pro XL, 2025 phone | 9.74 | 557 ms |
-| ratio | **5.2×** | — |
+Google reports Gemma 3n E4B at **9.74 tok/s on a Pixel 10 Pro XL**, with 557 ms to the first token. That is a reported figure from a different runtime, not something I measured, and I flag it as such.
 
-Two caveats before reading anything into that ratio, both mine. The laptop figure is Gemma 3n E4B Q4_K_M under `llama-bench`, measured here. **The phone figure is second-hand**, reported to me for a Gemma-3n-class model on the device's own runtime — I did not run it, I did not verify the exact checkpoint or quantization, and the on-device runtime is not llama.cpp. So this is a rough same-family comparison, not the controlled same-binary comparison the rest of this post is built on.
-
-And I did not measure the phone's memory bandwidth, so **no roofline percentage is quoted for it.** The ratio is a throughput comparison, not an efficiency comparison.
-
-With those attached: a four-year-old laptop is roughly five times a current flagship phone in the same weight class. Less than the spec-sheet gap would suggest, and the phone number is entirely usable — 9.74 tok/s is about reading speed.
+Taken at face value it is a 5.2× gap to this laptop, which is roughly the ratio of the two memory bandwidths. The same physics governs both. A phone runs a small model at usable speed for the same reason a laptop runs a large one at unusable speed — the ratio of bytes-per-token to bandwidth. The hardware differs by a factor of five; the model differs by a factor of seven; the arithmetic is identical.
 
 ---
 
-## Small, domain-specific models are probably the interesting direction
+## Chapter 22 — Small and specific is probably the direction {#ch22}
 
-This is opinion, flagged as such, but it is opinion the measurements above push me toward.
+<div class="callout callout--amber" markdown="1">
+**This chapter is opinion.** Everything before it is measurement. I am flagging the switch explicitly because the two should not be read the same way.
+</div>
 
-The bottleneck for local inference is bytes-per-token, and bytes-per-token is set by parameter count and quantization. Everything else — a faster GPU, a better backend, more RAM — is a smaller lever than simply having fewer parameters to read. Gemma 3n gets 7.7× on this machine by being small. No amount of backend work is going to get llama.cpp 7.7×.
+The Gemma 3n result reframed how I think about this.
 
-And most of a general-purpose 30B model is capacity you are not using. If your local model exists to write Python, summarise papers in one field, or drive a specific set of tools, the parameters holding sixteenth-century poetry and Portuguese football statistics are pure bandwidth cost on every token you generate.
+A 30B general-purpose model on a laptop is, right now, a slightly unhappy compromise: not as capable as a hosted frontier model, not fast enough to be pleasant, and consuming a third of your RAM to be neither. It is the worst point on the curve, and it is the point almost everyone starts at because it is the one with the impressive number in its name.
 
-The pieces to make small-and-specific work are largely in place: distillation from a strong teacher, which is how Muse Glimmer itself was made; LoRA and QLoRA fine-tuning that fits on a single consumer machine; MatFormer-style nesting that lets one training run yield several sizes; retrieval, which moves factual recall out of the weights and into a database where updating a fact costs a write instead of a training run.
+The interesting direction is the other one. A **4B model fine-tuned for one job**, running at 50 tok/s, using 5 GB, is a genuinely good product for that job. And most jobs are narrow: extract fields from these invoices, classify these tickets, rewrite this in house style, answer questions about this codebase, transcribe and summarise these meetings.
 
-The plausible shape is a small model that is *actually good* at one domain, with retrieval for facts and tool calls for anything requiring precision — running at 40+ tok/s on hardware people already own, rather than a 30B generalist at 6.5 tok/s.
+The economics favour this strongly, and the favour compounds:
 
-The honest counterargument, which I take seriously: the agentic benchmarks at the top of this post are exactly where small models are weakest, and Muse Glimmer's lead on MCP Atlas is large. Multi-step tool use seems to need general capability in a way that summarisation does not. Nobody has yet shown a 4B model doing competent agentic work in a narrow domain. If that turns out to be impossible, the argument above is wrong.
+- **Speed** is the whole difference between a tool you reach for and one you avoid. 8× is not a tuning improvement; it is a category change.
+- **Fine-tuning a 4B model** on your own data is achievable on hardware you already own. Fine-tuning a 30B model is not.
+- **Bandwidth is the constraint**, and it improves at maybe 15% a year. Model quality at a given size improves much faster than that. The gap between "what a 4B model can do" and "what you need" closes from the model side, not the hardware side.
+- **You can run several at once.** Five specialised 4B models fit where one 30B does, and they fit in memory simultaneously.
+
+The counter-argument is real: for genuinely open-ended agentic work — the kind where the model has to decide what to do, use tools, recover from failure, and keep a long context straight — capability is not decomposable and the big model wins. That is also, notably, the use case Muse Glimmer is built for and where its tool-use benchmark lead sits.
+
+So I would put it this way. Big general models on laptops are a transitional artefact of a moment when small models were not good enough. That moment is ending faster than laptop memory buses are getting wider, and the bus is the thing that is not going to save us.
 
 ---
 
-## Revised hardware guidance
+## Chapter 23 — Hardware guidance {#ch23}
 
-### Comparison with Meta's published figures
+*This chapter establishes what it would actually take to make a 30B model pleasant locally, and the four things you can change.*
 
-Meta's numbers come from their ExecuTorch PTE artifact, not this GGUF, so the per-token byte count may differ and these percentages are approximate. M5 Max bandwidth is corrected here from v1's "~600 GB/s" — it is 614 GB/s for the 40-core part and 460 GB/s for the 32-core.
+### A useful comparison point
 
-| Hardware | Backend | tok/s | Bandwidth | Achieved GB/s | % of bandwidth |
-|---|---|---:|---:|---:|---:|
-| M1 Max (measured here) | llama.cpp | 6.55 | 340 measured / 400 spec | 123.6 | **36% / 31%** |
-| M4 Max (Meta) | ExecuTorch | 23.7 | 546 spec | 447.6 | **~82%** |
-| M5 Max, 40-core (Meta) | ExecuTorch | 26.6 | 614 spec | 502.3 | **~82%** |
+Meta published ExecuTorch numbers for Muse Glimmer on newer Apple hardware. Their runtime is not llama.cpp, and the difference is the most informative part.
 
-The two ExecuTorch datapoints land on the same efficiency from different chips and different reported speeds, which is a mild consistency check on the whole framework — the model of "bytes per token divided by bandwidth" reproduces both.
+| Runtime | Machine | Peak GB/s | tok/s | Achieved GB/s | Efficiency |
+|---|---|---|---|---|---|
+| llama.cpp Metal | M1 Max | 340 measured | 6.55 | 123.6 | **36%** |
+| ExecuTorch | M4 Max | 546 | 23.7 | 447.6 | **~82%** |
+| ExecuTorch | M5 Max, 40-core | 614 | 26.6 | 502.3 | **~82%** |
 
-The v1 conclusion survives with a smaller magnitude. M4/M5 Max carry 1.4–1.5× the bandwidth of M1 Max, which is real but nowhere near the ~4× observed gap. The larger factor is that ExecuTorch extracts about 82% of available bandwidth while llama.cpp extracts about 36% — a 2.3× efficiency gap, not the 3.3× v1 implied. ExecuTorch runs a pre-compiled graph with MLX-native Metal kernels; llama.cpp dispatches through a runtime-interpreted path.
+That 82% is remarkable, and it separates two things that are easy to conflate.
 
-Most of the deficit is still backend, not silicon. It is just not *as* much of it, and — the correction that matters — it is not specific to Muse Glimmer's architecture.
+**How much is the hardware?** M5 Max has 1.8× the bandwidth of this machine. Running llama.cpp at its 36% on an M5 Max would give roughly **11.8 tok/s** — better, not transformative.
 
-### What it would take to be bearable
+**How much is the software?** ExecuTorch's efficiency on this M1 Max, if it were available here, would give roughly **14.8 tok/s** at 340 GB/s. On the same silicon I already own.
 
-Around 10 tok/s a response arrives roughly as fast as you read it. Around 25 it stops feeling like waiting.
+**The software gap is larger than the hardware gap.** A 2026 laptop running llama.cpp is slower than a 2021 laptop running a runtime that keeps the bus busy. That is worth knowing before spending four thousand dollars.
 
-Required bandwidth is `target × 18.884 GB ÷ efficiency`:
+Two caveats I will not skip. ExecuTorch is Meta's runtime measured by Meta on Meta's model, which is the best possible case for it. And llama.cpp is doing something much harder — supporting dozens of architectures and quantization formats across five backends. Generality has a cost and this is what it looks like.
 
-| Target | With a compiled backend (82%) | With llama.cpp today (36%) |
+### What each speed target requires
+
+| Target | Bandwidth needed at 82% | Bandwidth needed at 36% |
 |---|---|---|
-| 10 tok/s | ~230 GB/s | ~525 GB/s |
-| 15 tok/s | ~345 GB/s | ~790 GB/s |
-| 25 tok/s | ~575 GB/s | ~1310 GB/s |
+| 10 tok/s | 230 GB/s | 525 GB/s |
+| 15 tok/s | 345 GB/s | 790 GB/s |
+| 25 tok/s | 575 GB/s | 1,310 GB/s |
 
-At llama.cpp's measured efficiency, an M5 Max 40-core — 614 GB/s, the fastest Apple laptop available — would reach about **11.8 tok/s** on this model. Better than this machine's 6.55, and still short of comfortable. The v1 claim that no Apple Silicon laptop reaches 15 tok/s on a 30B model through llama.cpp survives, more narrowly than it was stated.
+At llama.cpp's current efficiency, **comfortable reading speed for a 30B model on a laptop is not purchasable**. 790 GB/s does not exist in a portable machine. At ExecuTorch's efficiency it is already here — a current M4 Max would do it.
 
-Four levers, cheapest first:
+### The four levers, ranked by what they actually return
 
-1. **Run a smaller model.** By far the strongest lever, and the measurement above quantifies it: Gemma 3n E4B gets 7.7× on this exact machine with no changes to anything else. Bytes-per-token scale with parameter count, and nothing else in this analysis moves by more than about 2×. Note this is a *model* change, not a *quant* change — dropping to the 17 GB build saves 14% of the traffic and buys 14% of speed.
-2. **Close your other applications.** Small, free, and measurable: the one benchmark window that ran under heavy background load was 11.7% slower than its twin.
-3. **Wait for a compiled backend.** ExecuTorch reaches ~82% of roofline on M4/M5. The same efficiency on this machine would be ~14.8 tok/s — usable, no hardware purchase. Extrapolated, not measured, and the number I would most like to see someone produce.
-4. **Buy bandwidth, or buy a discrete GPU.** M5 Max gets to 26.6 tok/s with Meta's backend. A 24 GB card in the RTX 3090/4090 class carries roughly 940–1010 GB/s and CUDA backends run close to roofline, which puts a 30B Q4 in the 40+ tok/s range. Derived from spec sheets, not tested here.
+**1. Run a smaller model.** 8× from a 7× size reduction, immediately, free. This is not a consolation prize; per Chapter 22 it is probably the right answer.
 
-Where this machine was specifically inferior: not RAM (41 GB spare), not GPU compute (idle most of every token), not storage or CPU. Memory bandwidth, and a backend that extracts about a third of it.
+**2. Speculative decoding.** 1.4× measured here, up to 1.8× reported on newer chips. Costs 1.6 GB and nothing else. If your model ships a draft model, use it.
 
-### Where local still wins
+**3. A better runtime.** 2.3× available in principle, based on the ExecuTorch comparison. Not available to you today for arbitrary models on this stack, but it is the largest single number on this list and the one most likely to move.
 
-- Code or data that must not leave the machine.
-- Genuinely offline work — travel, air-gapped sites.
-- Batch jobs. Fifty file summaries queued overnight do not care about 6.5 tok/s.
-- Very high sustained volume, where marginal token cost dominates hardware cost.
-- Anything a small model can do well. This is the growing category.
+**4. Better hardware.** 1.8× for the price of a new laptop, and it does not change the shape of the problem. Buy it for the RAM, which lets you run models you cannot run at all — not for the speed.
 
-For interactive 30B sessions on M1 Max, a remote frontier model remains the right call.
+Notice what is absent: nothing about your GPU, your CPU cores, your thread count, or any flag in `llama-server`. Those are not the constraint and adjusting them is how people spend an evening learning that.
 
-### Paths to usable local speed
+### Where local still wins outright
 
-- **Short term.** [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788) merges and reaches Homebrew. Stability, not speed — still ~6.5 tok/s, but no patched build to maintain, and `--no-warmup` becomes unnecessary.
-- **Medium term.** ExecuTorch Metal. `meta-models/Muse-Glimmer-30B-ExecuTorch-PTE` is a pre-exported artifact with Metal and MLX kernels compiled from PyTorch via `torch.export`. At the ~82% these figures imply, M1 Max would land near 14.8 tok/s — a 2.3× gain with no hardware change.
-- **Also medium term, and now better supported.** Given that the deficit is uniform across architectures rather than specific to new ones, generic llama.cpp graph-level work — fusing more operations, cutting per-token dispatch count — would lift every model at once. The measurements above suggest that is where the headroom is, not in per-architecture kernel tuning.
-- **Long term.** Newer hardware, or smaller models. The second one is available today.
+**Batch work overnight.** 6.55 tok/s is 23,000 tokens an hour. Run it over a thousand documents while you sleep and speed stops mattering. Cost per token is electricity.
+
+**Anything that cannot leave the building.** No speed comparison applies, because the alternative is not available.
+
+**Small models for narrow jobs.** Covered at length in Chapter 22, and the strongest case here.
+
+**Prefill-heavy work.** 87 tok/s of prefill against 6.55 of decode. Summarising a long document is 90% prefill, and prefill on this machine is respectable.
 
 ---
 
-## opencode Integration
+## Chapter 24 — Using it day to day {#ch24}
 
-opencode's `@ai-sdk/openai-compatible` provider talks to `llama-server`'s OpenAI-compatible endpoint directly. In `~/.config/opencode/opencode.json`:
+*This chapter establishes how to wire a local model into an editor, and one cost nobody warns you about.*
+
+### Editor integration
+
+[opencode](https://opencode.ai) is a terminal coding agent that accepts any OpenAI-compatible endpoint. In `~/.config/opencode/opencode.json`:
 
 ```json
 {
   "provider": {
-    "local-llamacpp": {
+    "local": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Local llama.cpp (Muse Glimmer)",
-      "options": {
-        "baseURL": "http://127.0.0.1:8080/v1",
-        "apiKey": "none"
-      },
+      "name": "Local llama.cpp",
+      "options": { "baseURL": "http://127.0.0.1:8080/v1" },
       "models": {
-        "muse-glimmer-30B": {
-          "name": "Muse Glimmer 30B (local, M1 Max)",
-          "contextLength": 8192,
-          "attachments": true
+        "muse-glimmer-30b": {
+          "name": "Muse Glimmer 30B (local)",
+          "tools": true,
+          "reasoning": true,
+          "limit": { "context": 32768, "output": 8192 }
         }
       }
     }
@@ -899,76 +1605,70 @@ opencode's `@ai-sdk/openai-compatible` provider talks to `llama-server`'s OpenAI
 }
 ```
 
-Switch per session with `/model`, or set the default with `{ "model": "local-llamacpp/muse-glimmer-30B" }`.
+`"tools": true` enables function calling — required for anything agentic, and it depends on `--jinja` being set on the server so the model's own chat template is used. `"reasoning": true` tells opencode to expect and render the `reasoning_content` field rather than showing it as body text.
 
-One tuning note: send `max_tokens` of 800 or more. The model reasons before answering, and a budget that runs out mid-reasoning returns an empty `content`. For interactive use, pair that with a `Reasoning strength: low` system message.
+Set `"limit".context` to match your server's `-c`, or the client will happily send more than the server can hold.
+
+### The honest experience
+
+At 6.55 tok/s, a single-file edit takes a minute or two. Anything spanning several files is a coffee break. It works; the model follows instructions and uses tools competently. It is not a replacement for a hosted model in an interactive loop, and I do not use it as one.
+
+Where it is genuinely good: work you can fire and forget. Refactors with a clear spec. Batch edits across a repository. Anything where you would have context-switched away anyway.
+
+### The tool schema cost, which is not obvious
+
+If you connect an MCP server — the protocol for exposing tools to a model — every tool's JSON schema is sent with **every single request**.
+
+I connect a mesh-analysis server exposing 31 tools. Its schemas total roughly **10,600 tokens**. Every request.
+
+Against a 32K context that is a third of your budget consumed before you have said anything. At 87 tok/s of prefill, that is 2 minutes of prefill per request just to re-read the tool definitions.
+
+Consequences worth acting on:
+
+- **Enable MCP servers per-session, not globally.** Turn them on for work that needs them.
+- **Prefer few, broad tools over many narrow ones.** A dozen focused tools beat thirty granular ones on a local model, and the difference is measured in minutes.
+- **Watch the prefill time in the server log.** It tells you immediately when schema bloat has crept in.
+
+This is a cost that is essentially invisible on a hosted model, where prefill is fast and context is large. Locally it is one of the biggest levers you have.
 
 ---
 
-## Optional: UXarray MCP Alongside It
+# Appendix A — Reproducing this {#appendix-a}
 
-Not required to run Muse Glimmer — the two are independent. It is worth pairing only if you do climate mesh work, and the reason is cost structure.
+Every number in Part VII comes from these scripts, and they are all in **[github.com/rajeeja/local-llm-bench-m1max](https://github.com/rajeeja/local-llm-bench-m1max)** along with the raw output of both passes.
 
-`uxarray-mcp-server` exposes 31 tools for mesh analysis (`inspect_mesh`, `calculate_area`, `calculate_zonal_mean`, `run_analysis` for vorticity/divergence/gradient/remap, `plot_dataset`, and others). Enabling it injects roughly 10,600 tokens of tool schema into every request, whether or not the turn touches a mesh. On a metered remote model that is a standing per-turn cost, which is why it stays off:
-
-```json
-"mcp": {
-  "uxarray": {
-    "type": "local",
-    "command": ["uv", "--directory", "/Users/mbook/uxarray-mcp-server",
-                "run", "uxarray-mcp", "serve"],
-    "enabled": false
-  }
-}
-```
-
-`"enabled": false` means opencode neither starts the subprocess nor includes the schema. `true` starts it at launch and injects all 31 schemas into every request. There is no per-tool granularity — it is all or nothing per server, so the convention is to flip it on for mesh sessions and back off afterwards.
-
-Running locally the schema is free in dollar terms, so the flag can stay on. It is not free in latency: 10,600 tokens of added prompt costs about two extra minutes of ingestion per turn at the measured 87 tok/s prefill rate. That is the prefill number doing real work — it is the one that governs how much prompt you can afford.
-
----
-
-## Reproducing this
-
-Everything is scripted and the raw outputs are kept.
-
-| File | What |
+| Script | What it does |
 |---|---|
-| `PREREGISTRATION.md` | the decision rule, committed before data collection, plus all six amendments including the two errors described above |
-| `run_pass.sh` | the benchmark runner — power gate, load sampler, both passes |
-| `gguf_btok.py` | parses GGUF tensor tables to compute B_tok |
-| `stream_bw.py` | the streaming-bandwidth measurement, with the overhead artifact documented in the source |
-| `analyze.py` | applies the pre-registered rule mechanically to the raw JSON |
-| `*_pass{1,2}.json` | raw `llama-bench` output, per-repetition |
-| `*_pass{1,2}.load.json` | background-load statistics per window |
+| `run_pass.sh` | Runs one full benchmark pass over all four models, with power pre-gate and background-load sampling |
+| `analyze.py` | Reads both passes' JSON, computes achieved bandwidth, roofline efficiency, per-layer figures |
+| `gguf_btok.py` | Parses a GGUF tensor table and computes bytes streamed per token |
+| `stream_bw.py` | Sweeps GPU working-set size to measure streaming read bandwidth |
 
-The analysis is one command:
+Full reproduction:
 
 ```bash
+./run_pass.sh pass1
+./run_pass.sh pass2          # reverse order, thermal control
+python3 stream_bw.py         # gives the denominator
+python3 gguf_btok.py <model.gguf>
 python3 analyze.py --rgpu 340
 ```
 
-`analyze.py` implements the decision rule as code specifically so that reading the result cannot influence how it is scored.
+`analyze.py` regenerates every table in Chapter 20.
+
+**Environment.** All measurements on macOS 26.6.1 (25G76), M1 Max 64 GB, on AC power with Low Power Mode off. Benchmark binary built from llama.cpp source at commit `8cb03844d`. Models as listed in Chapter 9, all Q4_K quantizations.
 
 ---
 
-## Summary
+## Where this leaves me
 
-| | |
-|---|---|
-| Model | Meta Muse Glimmer 30B, Apache 2.0, August 2026 |
-| Quant on 64 GB M1 Max | KQuant-Dynamic Q4_K_XL — 19.7 GB on disk, 18.884 GB read per token |
-| Blocking bug | GDN Metal kernel crash, every inference, M1 Max |
-| Fix | cherry-pick [PR #25788](https://github.com/ggml-org/llama.cpp/pull/25788), rebuild (~90 s); still open upstream as of 24 Aug 2026 |
-| Required flags | `--jinja` and `-ngl 99`; plus `--no-warmup` on an unpatched binary |
-| Measured decode | 6.55 tok/s controlled (5.2 tok/s in a contended real session) |
-| Measured prefill | 87 tok/s — the fastest of the three 30B-class models tested |
-| Memory bandwidth | 340 GB/s measured streaming read, 400 GB/s datasheet |
-| Achieved | 123.6 GB/s — 36% of measured, 31% of datasheet |
-| Control result | Qwen3-32B 39.9%, Gemma 4 31B 36.6%, Muse Glimmer 36.4%. A 3.5-point spread across 16 months of kernel age |
-| Binding constraint | memory bandwidth plus a uniformly inefficient backend — **not** the new GDN kernels, which win at prefill |
-| Fastest lever | a smaller model. Gemma 3n E4B: 50.45 tok/s on the same machine, 7.7× |
-| Phone comparison | Gemma 3n E4B — M1 Max 50.45 tok/s measured, vs a reported 9.74 tok/s on a Pixel 10 Pro XL, 5.2× |
-| Image output | none — image input understanding only |
-| opencode | `@ai-sdk/openai-compatible` against `http://127.0.0.1:8080/v1` |
-| Verdict | correct and stable after the patch; too slow for interactive use on M1 Max, and the reason is not the model |
+I set out to run a large model on my laptop and ended up writing down everything I had to learn to understand why it was slow.
+
+The answer is one number. Generating a token requires reading the entire model, and the memory bus reads about 340 GB per second, and llama.cpp keeps roughly 36% of that busy. Everything else — the architecture, the layer count, the attention scheme, the quantization family, the flags — is second-order or noise. Four models designed by four teams across five years land within five percentage points of each other on the only measure that decides how long you wait.
+
+That is a satisfying kind of answer. It means you can predict this. Take the bandwidth of any machine, multiply by 0.36, divide by the model's size in gigabytes, and you have its speed to within a percent or two. No benchmarking required.
+
+It also means the interesting work is not in tuning. It is in the two places where the constant actually moves: **smaller models**, which change the numerator by an order of magnitude, and **better runtimes**, which have already been shown to more than double the 36%. The hardware will improve at 15% a year and will not rescue anyone.
+
+If you take one thing from this book: **look up your machine's memory bandwidth before you download anything.** It is the number that decides, and it is the number nobody puts in the model card.
+
