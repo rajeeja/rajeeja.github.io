@@ -19,6 +19,13 @@ layout: default
       <section class="page__content" itemprop="text">
         {{ content }}
       </section>
+
+      {% if page.date %}
+      <footer class="post-footer-meta">
+        Published <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.last_modified_at %} &middot; updated {{ page.last_modified_at | date: "%B %-d, %Y" }}{% endif %}
+        &middot; <a href="{{ base_path }}/blog/">All posts</a>
+      </footer>
+      {% endif %}
     </div>
   </article>
 </div>

@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Rajeev Jain"
 title_separator          : "-"
 name                     : &name "Rajeev Jain"
-description              : &description "Principal Specialist in Research Software Engineering at Argonne. 16+ years in scientific computing and HPC, now building AI agent infrastructure and verifying what it produces against measurement"
+description              : &description "Principal Specialist in Research Software Engineering at Argonne National Laboratory. Scientific computing and HPC since 2009; now building AI agent infrastructure and checking what it produces against measurement."
 url                      : https://rajeeja.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "rajeeja/rajeeja.github.io"
@@ -78,16 +78,16 @@ social:
 
 # Analytics
 analytics:
-  provider               :  "google-gtag" # false (default), "google", "google-universal", "custom"
+  provider               : false # false (default), "google", "google-universal", "custom"
   google:
-    measurement_id       : "G-VHR4H2S5F3"
+    measurement_id       :
 
 
 # Site Author
 author:
   name             : "Rajeev Jain"
   avatar           : "profile.png"
-  bio		   : "Principal Specialist, Research Software Engineering at Argonne. 16+ years in HPC and scientific computing. Builds AI agent tooling, then checks it against a measurement."
+  bio		   : "Principal Specialist, Research Software Engineering at Argonne. HPC and scientific computing since 2009. Builds AI agent tooling, then checks it against a measurement."
   cv		   : "https://rajeeja.github.io/files/Rajeev_Jain_CV.pdf"
   location         : "Chicago, IL"
   employer         :
@@ -143,6 +143,17 @@ exclude:
   - tmp
   - vendor
   - images/blog/originals
+  - "job applications"
+  - soa-*.txt
+  - cv-*.txt
+  - "*.tex"
+  - "*.aux"
+  - "*.log"
+  - "*.out"
+  - "*.fls"
+  - "*.fdb_latexmk"
+  - scripts
+  - cv
 keep_files:
   - .git
   - .svn

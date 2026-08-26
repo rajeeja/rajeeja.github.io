@@ -4,7 +4,8 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-excerpt: "Principal Specialist, Research Software Engineering | AI Systems and Verification | HPC | Scientific Computing"
+description: "Rajeev Jain --- Principal Specialist, Research Software Engineering at Argonne National Laboratory. Lead developer of UXarray; AI agent infrastructure for HPC, and measurement-based verification of what it produces."
+excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarray, AI agent infrastructure for HPC, and numerical correctness."
 ---
 
 <div class="cv" id="about">
@@ -13,7 +14,7 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
     <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; AI Systems and Verification &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Sixteen years of numerical code makes me a hard sell on a benchmark. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at <a href="https://cs.uchicago.edu/">the University of Chicago</a>.</p>
+    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Writing numerical code since 2009 makes me a hard sell on a benchmark. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
@@ -30,12 +31,12 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
   <ul class="cv-items">
     <li>
       <div class="item-head"><strong><a href="https://github.com/UXARRAY/uxarray">UXarray</a></strong><span class="item-role">Lead developer &middot; open-source climate analysis</span></div>
-      Python library for unstructured climate grid analysis &mdash; the standard tool for DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes. Conservative zonal averaging via Gauss-Legendre quadrature; grid I/O for ESMF, MPAS, SCRIP, and HEALPix; MCP server for AI-agent dataset exploration across local and HPC execution. Also the correctness and performance work underneath it &mdash; compensated summation in the spherical-geometry kernels after naive accumulation drifted 0.68 m on a real Earth mesh, and a 1.67&times; speedup in a Numba hot path once hidden heap allocation turned out to be the actual cost rather than the math.
+      Python library for unstructured climate grid analysis, used at DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes. Conservative zonal averaging via Gauss-Legendre quadrature; grid I/O for ESMF, MPAS, SCRIP, and HEALPix; MCP server for AI-agent dataset exploration across local and HPC execution. Also the correctness and performance work underneath it: error-free-transformation arithmetic in the spherical-geometry kernels, after catastrophic cancellation inside a cross product &mdash; a difference of nearly equal products, not a running sum &mdash; drifted 0.68 m on a real Earth mesh; and a 1.67&times; speedup in a Numba hot path once hidden heap allocation turned out to be the cost rather than the math. Both are in review (<a href="https://github.com/UXARRAY/uxarray/pull/1513">PR #1513</a>, <a href="https://github.com/UXARRAY/uxarray/issues/1571">issue #1571</a>).
       <span class="item-links"><a href="https://uxarray.readthedocs.io">Docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">GitHub</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP article</a></span>
     </li>
     <li>
       <div class="item-head"><strong><a href="/blog/muse-glimmer-30b-local-setup/">Local LLM inference, measured</a></strong><span class="item-role">Benchmark harness &middot; open data and protocol</span></div>
-      Four models on one machine, taken apart to find what actually sets throughput. Bytes read per token parsed from GGUF tensor tables rather than taken from file size, which overstates by 64% on a model with gathered embeddings; the bandwidth denominator measured at 340 GB/s rather than read off the 400 GB/s datasheet figure, which is a pin rate and unreachable. All four models land between 36% and 41% of memory bandwidth regardless of architecture &mdash; the 8&times; spread in tokens per second is explained entirely by bytes per token. Scripts, raw data, and protocol published so every number regenerates.
+      Four models on one machine, taken apart to find what actually sets throughput. Bytes read per token parsed from GGUF tensor tables rather than taken from file size, which overstates by 64% on a model whose per-layer embedding table is gathered rather than streamed; the bandwidth denominator measured at 340 GB/s rather than read off the 400 GB/s datasheet figure, which is a pin rate and unreachable. All four models land between 36% and 41% of memory bandwidth regardless of architecture &mdash; the 8&times; spread in tokens per second is explained entirely by bytes per token. Scripts, raw data, and protocol published so every number regenerates.
       <span class="item-links"><a href="/blog/muse-glimmer-30b-local-setup/">Book</a> &middot; <a href="https://github.com/rajeeja/local-llm-bench-m1max">Repo</a></span>
     </li>
     <li>
@@ -45,7 +46,7 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     </li>
     <li>
       <div class="item-head"><strong><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></strong><span class="item-role">Core contributor &middot; R&amp;D 100 Award 2023</span></div>
-      HPO and benchmarking infrastructure for cancer drug response models &mdash; 15+ researchers across Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
+      HPO and benchmarking infrastructure for cancer drug response models, built with collaborators at Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2025.
     </li>
     <li>
       <div class="item-head"><strong><a href="https://flash-x.org/">FLASH-X</a></strong><span class="item-role">I/O and compression lead &middot; R&amp;D 100 Award 2022</span></div>
@@ -54,7 +55,7 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     </li>
     <li>
       <div class="item-head"><strong><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></strong><span class="item-role">PI and software lead &middot; DOE NEAMS &middot; 2009&ndash;2016</span></div>
-      Open-source C++ toolkit for automated nuclear reactor core mesh generation. Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in under 7 minutes &mdash; a job the serial path couldn&rsquo;t run at all.
+      Open-source C++ toolkit for automated nuclear reactor core mesh generation. Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in about 7 minutes &mdash; a job the serial path couldn&rsquo;t run at all.
       <span class="item-links"><a href="/blog/rgg-meshkit-moose-reactor-module/">Blog post</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></span>
     </li>
   </ul>
@@ -66,17 +67,17 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     <li>
       <span class="item-venue">2026</span>
       <a href="/blog/muse-glimmer-30b-local-setup/">I decided to write a basics book while setting up Meta Muse Glimmer 30B locally on my M1 Max</a>
-      <span class="item-dek">Book-length, from what a model file is to a measured explanation of why a 30B model gives about six words per second on a 64 GB laptop — and why no setting you change will fix that.</span>
+      <span class="item-dek">Book-length, from what a model file is to a measured explanation of why a 30B model gives 6.55 tokens per second on a 64 GB laptop — and why no setting you change will fix that.</span>
     </li>
     <li>
       <span class="item-venue">2026</span>
       <a href="/blog/kahan-compensated-arithmetic/">The Bug Hiding in Every Sum: Kahan Summation, Compensated Arithmetic, and Where They Actually Matter</a>
-      <span class="item-dek">A $0.0085 drift in a $50 million ledger and a 0.68-meter error on a real Earth mesh, both from the same one-line bug: adding floats in the naive order.</span>
+      <span class="item-dek">A $0.0085 drift in a $50 million ledger and a 0.68-meter error on a real Earth mesh — the first from summing floats in naive order, the second from cancellation inside a cross product, which needs the multiplication analog rather than Kahan.</span>
     </li>
     <li>
       <span class="item-venue">2026</span>
       <a href="/blog/loops/">Loops: The Oldest Primitive, and How One Nearly Wrecked a C++-to-Python Port</a>
-      <span class="item-dek">Agentic AI runs the world in a while-true, but the humble for-loop still hides the most common way a faithful C++-to-Python port turns slow.</span>
+      <span class="item-dek">The most common way a faithful C++-to-Python port turns slow, and what removing it was worth: 17.9 ms to 2.8 ms on a 5,400-face cubed-sphere grid, byte-identical output.</span>
     </li>
     <li>
       <span class="item-venue">2026</span>
@@ -111,7 +112,7 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     <li>
       <span class="item-venue">2023</span>
       <a href="/blog/rgg-meshkit-moose-reactor-module/">From RGG and MeshKit to the MOOSE Reactor Module</a>
-      <span class="item-dek">Parallel CoreGen generated a 101M-element MONJU reactor mesh on 712 processors in under 7 minutes — a job the serial path couldn't run at all.</span>
+      <span class="item-dek">Parallel CoreGen generated a 101M-element MONJU reactor mesh on 712 processors in about 7 minutes — a job the serial path couldn't run at all.</span>
     </li>
     <li>
       <span class="item-venue">2022</span>
@@ -136,12 +137,12 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
     <li>Wozniak, J.M., ..., <strong>Jain, R.</strong>, et al. <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.</a> <em>BMC Bioinformatics</em>, 2018.</li>
     <li>Tautges, T.J., <strong>Jain, R.</strong> <a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries.</a> <em>Engineering with Computers</em>, 2011.</li>
   </ul>
-  <p class="cv-more"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full list on Google Scholar</a> &middot; 22+ publications</p>
+  <p class="cv-more"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full list on Google Scholar</a> &middot; 25 peer-reviewed publications &middot; 501 citations, h-index 11</p>
 
   <h2 class="cv-label cv-label--sub">Recent talks</h2>
   <ul class="cv-items cv-items--compact">
     <li><span class="item-venue">eScience 2026</span> <a href="https://agent4sc.github.io/">AGENT4SC: Beyond Tool Execution &mdash; Evaluating Scientific MCP Interfaces with UXarray</a> &mdash; Naples, September 2026</li>
-    <li><span class="item-venue">SciFM26</span> Presented UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</li>
+    <li><span class="item-venue">SciFM26</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</a> &mdash; Chicago, May 2026</li>
     <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
     <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
     <li><span class="item-venue">SC24</span> <a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&amp;sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></li>
@@ -192,8 +193,7 @@ excerpt: "Principal Specialist, Research Software Engineering | AI Systems and V
 
 <footer class="cv-footer" id="contact">
   <p class="cv-connect">Happy to connect &mdash; <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot; <a href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a></p>
-  <p class="cv-links-secondary"><a href="https://github.com/rajeeja">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot; <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a></p>
-  <p class="cv-footnote">U.S. permanent resident &middot; EB-1A (extraordinary ability)</p>
+  <p class="cv-links-secondary"><a href="https://github.com/rajeeja">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot; <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a> &middot; <a href="/feed.xml">RSS</a></p>
 </footer>
 
 </div>

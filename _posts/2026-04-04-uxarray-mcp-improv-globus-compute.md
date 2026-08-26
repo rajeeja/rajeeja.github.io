@@ -4,7 +4,7 @@ date: 2026-04-04
 permalink: /blog/uxarray-mcp-improv-globus-compute/
 categories:
   - blog
-excerpt: "A note on the UXarray MCP work presented at SciFM26: an MCP server for UXarray that lets AI agents inspect, visualize, and reason about production Earth-system meshes on HPC clusters — from a laptop, without SSH, without writing code."
+excerpt: "A note on the UXarray MCP work, later presented at SciFM26 in May 2026: an MCP server for UXarray that lets AI agents inspect, visualize, and reason about production Earth-system meshes on HPC clusters — from a laptop, without SSH, without writing code."
 tags:
   - hpc
   - climate
@@ -18,7 +18,7 @@ toc_sticky: true
 ---
 
 <div class="article-banner">
-  <p class="eyebrow">Presented at SciFM26</p>
+  <p class="eyebrow">UXarray MCP &middot; presented at SciFM26, Chicago, May 2026</p>
   <h1 class="article-title">UXarray MCP Server: AI-Agent Dataset Exploration with Globus Compute</h1>
   <p class="article-dek">Agentic analysis of production Earth-system meshes at facility scale — typed tools, Globus Compute, provenance, and a natural-language regional explorer.</p>
 </div>

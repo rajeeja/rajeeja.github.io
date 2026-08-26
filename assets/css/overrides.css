@@ -996,3 +996,24 @@ textarea:focus-visible,
   top: 0;
   color: #fff;
 }
+
+/* ── Post footer meta ───────────────────────────────────────── */
+
+.post-footer-meta {
+  max-width: 680px;
+  margin: 3rem auto 0;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.post-footer-meta a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.post-footer-meta a:hover {
+  text-decoration: underline;
+}
