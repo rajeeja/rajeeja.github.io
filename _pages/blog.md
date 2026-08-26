@@ -30,4 +30,14 @@ classes: wide
   </ul>
 </section>
 
+<section class="cv-section">
+  <h2 class="cv-label">Other</h2>
+  <ul class="cv-items">
+    <li>
+      <div class="item-head"><strong>Atma Siddhi Shastra</strong><span class="item-role"><a href="/atma_siddhi.html">English</a> &middot; <a href="/atma_siddhi_hindi.html">हिंदी</a></span></div>
+      An interactive guide to the text. Not an engineering note.
+    </li>
+  </ul>
+</section>
+
 </div>
