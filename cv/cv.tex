@@ -5,7 +5,7 @@
 
 \begin{document}
 \sloppy
-\setupcvfooter{May 2026}
+\setupcvfooter{September 2026}
 
 \makeprofileheader
   {Rajeev Jain}
@@ -18,9 +18,7 @@
 \highlightstrip{%
   At Argonne National Laboratory \textbf{since 2009} \highlightsep
   \textbf{2$\times$ R\&D 100 Awards} (CANDLE 2023, FLASH-X 2022) \highlightsep
-  \textbf{501 citations}, h-index 11, i10-index 13 \highlightsep
-  Lead developer, \textbf{UXarray} (DOE labs \& NCAR) \highlightsep
-  \textbf{25} peer-reviewed publications%
+  Lead developer, \textbf{UXarray} (DOE labs \& NCAR)%
 }
 
 \section{Professional Profile}
@@ -97,7 +95,7 @@ B.Tech. in Mechanical Engineering
 \begin{itemize}
   \item Published a reproducible benchmark harness for local LLM inference (scripts, raw data, and protocol, MIT-licensed) covering four model architectures on one machine. Established that bytes read per generated token must be parsed from the GGUF tensor table rather than taken from file size, which overstates by 64\% on models using gathered per-layer embeddings, and that the memory-bandwidth denominator must be measured (340 GB/s) rather than read from the 400 GB/s datasheet pin rate.
   \item Result: all four architectures extract 36--41\% of memory bandwidth, so an 8$\times$ spread in tokens per second is explained entirely by a 6.8$\times$ spread in bytes per token --- throughput is a property of model size and runtime efficiency, not architecture. Protocol records background load as a covariate rather than gating on it, and reports the mean of two order-reversed passes with the pass-to-pass spread visible.
-  \item Correctness work in numerical Python: traced 0.68 m of drift on a production Earth mesh to catastrophic cancellation inside a spherical cross product --- a difference of nearly equal products, not a running sum --- and proposed error-free-transformation arithmetic (\texttt{two\_prod}) for the kernel rather than compensated summation, which does not address that failure mode (in review upstream); recovered a 1.67$\times$ speedup in a Numba hot path by eliminating heap allocation that a faithful C++-to-Python translation had silently introduced.
+  \item Correctness work in numerical Python: traced 0.68 m of drift on a production Earth mesh to catastrophic cancellation inside a spherical cross product --- a difference of nearly equal products, not a running sum --- and proposed error-free-transformation arithmetic (\texttt{two\_prod}) for the kernel rather than compensated summation, which does not address that failure mode (merged upstream, UXarray PR \#1513); recovered a 1.67$\times$ speedup in a Numba hot path by eliminating heap allocation that a faithful C++-to-Python translation had silently introduced.
   \item Wrote the case against general-purpose chat rollout as an AI strategy, arguing for typed, scoped, provenance-tracked tools as the architecture that actually returns value.
 \end{itemize}
 
@@ -178,9 +176,6 @@ B.Tech. in Mechanical Engineering
 \end{itemize}
 
 \section{Peer-Reviewed Journal Articles}
-\textit{\color{mutedgray}Bibliometrics (Google Scholar, 2026): 501 citations, h-index 11, i10-index 13. Most-cited: CANDLE/Supervisor (BMC Bioinformatics, 2018), 119 citations.}
-\vspace{4pt}
-
 \pubentry{2026}{Chen, H., Ullrich, P. A., Panetta, J., Marsico, D., Hanke, M., \textbf{Jain, R.}, Zhang, C., et al. ``Accurate and Robust Geometric Algorithms for Regridding on the Sphere.'' \textit{EGUsphere} (preprint).}
 \pubentry{2026}{Partin, A., Vasanthakumari, P., Narykov, O., Wilke, A., Koussa, N., Jones, S., Zhu, Y., \textbf{Jain, R.}, Overbeek, J. C., Fernando, G. D., Sanchez-Villalobos, C., Garcia-Cardona, C., Mohd-Yusof, J., Chia, N., Wozniak, J. M., Ghosh, S., Pal, R., Brettin, T. S., Weil, M. R., and Stevens, R. L. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models: datasets, models, tools, and metrics for cross-dataset generalization analysis}.'' \textit{Briefings in Bioinformatics} 27(1), bbaf667.}
 \pubentry{2022}{Dubey, A., Weide, K., O'Neal, J., Dhruv, A., Couch, S., Harris, J. A., Klosterman, T., \textbf{Jain, R.}, Rudi, J., Messer, B., Pajkos, M., Carlson, J., Chu, R., Wahib, M., Chawdhary, S., Ricker, P. M., Lee, D., Antypas, K., Riley, K. M., Daley, C., Ganapathy, M., Timmes, F. X., Townsley, D. M., Vanella, M., Bachan, J., Rich, P. M., Kumar, S., Endeve, E., Hix, W. R., Mezzacappa, A., and Papatheodore, T. ``Flash-X: A multiphysics simulation software instrument.'' \textit{SoftwareX}.}
