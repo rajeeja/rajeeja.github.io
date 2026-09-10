@@ -19,6 +19,15 @@ files/texmf-var/
 cv/cv.pdf
 cv/resume.pdf
 
+# Only the canonical CV sources are tracked. Tailored one-off CVs (per job,
+# per manager, per program) stay local and are never published — this repo is
+# a public site, so anything dropped in cv/ is ignored unless listed here.
+cv/*
+!cv/common.tex
+!cv/cv.tex
+!cv/resume.cls
+!cv/resume.tex
+
 # Image optimization backups (originals before WebP conversion)
 images/blog/originals/
 
