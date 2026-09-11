@@ -12,7 +12,7 @@
   {\faGlobe~\href{https://rajeeja.github.io}{rajeeja.github.io} \quad \faGithub~\href{https://github.com/rajeeja}{rajeeja} \quad \faLinkedin~\href{https://linkedin.com/in/rajeeja}{rajeeja} \quad \faGraduationCap~\href{https://scholar.google.com/citations?user=bC77n9MAAAAJ\&hl=en}{Google Scholar} \quad \faOrcid~\href{https://orcid.org/0000-0002-1235-918X}{ORCID}}
   {\faEnvelope~\href{mailto:jain@anl.gov}{jain@anl.gov} \quad \faEnvelope~\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad \faMapMarker~Chicago, IL}
 
-{\large\color{mutedgray} Principal Specialist, Research Software Engineering | AI Systems and Verification | HPC | Scientific Computing}\par
+{\large\color{mutedgray} Principal Specialist, Research Software Engineering | AI Systems | HPC | Scientific Computing}\par
 \vspace{7pt}
 
 \highlightstrip{%
@@ -23,7 +23,7 @@
 
 \Needspace{5\baselineskip}
 \section{Professional Profile}
-Principal research software engineer, at Argonne since 2009, delivering production systems at the intersection of AI infrastructure, scientific computing, and HPC. Led UXarray from zero to a Python library used at DOE labs and NCAR, including an MCP server that lets AI agents inspect, analyze, and visualize production Earth-system meshes on HPC clusters via Globus Compute — no SSH, no scripts, full provenance. Pairs that with a verification practice: measuring what AI tooling and machine-assisted code actually do rather than accepting the reported figure, which has surfaced silent numerical drift, hidden heap allocation in a faithful port, and vendor throughput numbers that are unreachable by construction. Ran 10,000+ ML training experiments using Swift/T across Summit, Theta, and Cori for cancer drug response research; applied noise injection and counterfactual analysis to identify genes driving tumor classification decisions. Reduced FLASH-X checkpoint overhead 40--70\% on Summit via async HDF5 and lossy compression. Generated a 101M-element MONJU reactor mesh on 712 processors in about 7 minutes — a mesh the serial path could not build at all. Two R\&D 100 Awards (2022, 2023). Work spans Python platforms and MCP server development, C++ and Fortran HPC codebases, exascale GPU porting (Intel XPU / CUDA), and cross-institution program coordination.
+Principal research software engineer, at Argonne since 2009, delivering production systems at the intersection of AI infrastructure, scientific computing, and HPC. Led UXarray from zero to a Python library used at DOE labs and NCAR, including an MCP server that lets AI agents inspect, analyze, and visualize production Earth-system meshes on HPC clusters via Globus Compute — no SSH, no scripts, full provenance. Pairs that with a verification habit: traced silent numerical drift on a production mesh to catastrophic cancellation and fixed it upstream, and recovered a hidden 1.67$\times$ slowdown in a faithful C++-to-Python port. Ran 10,000+ ML training experiments using Swift/T across Summit, Theta, and Cori for cancer drug response research; applied noise injection and counterfactual analysis to identify genes driving tumor classification decisions. Reduced FLASH-X checkpoint overhead 40--70\% on Summit via async HDF5 and lossy compression. Generated a 101M-element MONJU reactor mesh on 712 processors in about 7 minutes — a mesh the serial path could not build at all. Two R\&D 100 Awards (2022, 2023). Work spans Python platforms and MCP server development, C++ and Fortran HPC codebases, exascale GPU porting (Intel XPU / CUDA), and cross-institution program coordination.
 
 \Needspace{5\baselineskip}
 \section{Education}
@@ -88,19 +88,18 @@ B.Tech. in Mechanical Engineering
   \item Lead developer for a Python library enabling analysis of native unstructured climate and weather grids, used by NCAR, DOE labs, and universities.
   \item Designed the core API, conservative zonal averaging via exact spherical polygon intersection, vector calculus operators (gradient, divergence, curl), YAC remapping backend, multi-grid support, geometry operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, automated tests, CI/CD, and release workflows.
   \item Built the UXarray MCP server: 20+ typed tools allowing AI agents to inspect, subset, visualize, and analyze production Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance on every operation. Presented at SciFoundationModels 2026 (SciFM26).
+  \item Traced 0.68 m of positional drift on a production mesh to catastrophic cancellation in a spherical cross product and replaced the kernel with error-free-transformation arithmetic (\texttt{two\_prod}), merged as UXarray PR \#1513; recovered a 1.67$\times$ speedup in a Numba hot path by removing heap allocation introduced in a C++-to-Python translation.
   \item Tutorials and presentations at SC24, AMS 2024/2025/2026, SciPy 2023, EGU 2024/2025/2026, AGU, and ESDS.
 \end{itemize}
 
 \entryheader
-  {AI Code and Benchmark Verification}
-  {2025 -- Present}
-  {Independent}
-  {Measurement practice for AI tooling and machine-assisted code}
+  {ncvis}
+  {2026 -- Present}
+  {Maintainer}
+  {NetCDF visualizer for structured and unstructured grids (DOE SEATS)}
 \begin{itemize}
-  \item Published a reproducible benchmark harness for local LLM inference (scripts, raw data, and protocol, MIT-licensed) covering four model architectures on one machine. Established that bytes read per generated token must be parsed from the GGUF tensor table rather than taken from file size, which overstates by 64\% on models using gathered per-layer embeddings, and that the memory-bandwidth denominator must be measured (340 GB/s) rather than read from the 400 GB/s datasheet pin rate.
-  \item Result: all four architectures extract 36--41\% of memory bandwidth, so an 8$\times$ spread in tokens per second is explained entirely by a 6.8$\times$ spread in bytes per token --- throughput is a property of model size and runtime efficiency, not architecture. Protocol records background load as a covariate rather than gating on it, and reports the mean of two order-reversed passes with the pass-to-pass spread visible.
-  \item Correctness work in numerical Python: traced 0.68 m of drift on a production Earth mesh to catastrophic cancellation inside a spherical cross product --- a difference of nearly equal products, not a running sum --- and proposed error-free-transformation arithmetic (\texttt{two\_prod}) for the kernel rather than compensated summation, which does not address that failure mode (merged upstream, UXarray PR \#1513); recovered a 1.67$\times$ speedup in a Numba hot path by eliminating heap allocation that a faithful C++-to-Python translation had silently introduced.
-  \item Wrote the case against general-purpose chat rollout as an AI strategy, arguing for typed, scoped, provenance-tracked tools as the architecture that actually returns value.
+  \item Took over maintenance of the SEATS project's C++/wxWidgets visualizer in August 2026: reviewed and merged the community pull-request backlog (1D line plots, color-scale centering, macOS XQuartz refresh, CMake link order), building each branch on both build paths and running it against generated netCDF fixtures before merging.
+  \item Diagnosed a macOS link failure caused by \texttt{target\_link\_options} de-duplicating repeated \texttt{-framework} arguments and replaced the \texttt{wx-config} parsing with \texttt{find\_package} results; restored CMake 4 compatibility; fixed the \texttt{-var} startup option.
 \end{itemize}
 
 \entryheader
@@ -162,7 +161,7 @@ B.Tech. in Mechanical Engineering
 \Needspace{5\baselineskip}
 \section{Funding and Research Programs}
 \begin{itemize}
-  \item \textbf{DOE SEATS} (active): Simplifying ESM Analysis Through Standards.
+  \item \textbf{DOE SEATS} (active): Simplifying ESM Analysis Through Standards; UXarray and ncvis development.
   \item \textbf{NSF Raijin} (active): collaborative research in climate model analysis.
   \item \textbf{DOE ECP CANDLE} (2017 -- 2023): core contributor on cancer AI infrastructure.
   \item \textbf{DOE NEAMS} (2009 -- 2016): principal investigator for MeshKit and reactor mesh generation workflows.
@@ -260,8 +259,7 @@ B.Tech. in Mechanical Engineering
 \textbf{FLASH-X} & I/O and compression lead for a million-line multiphysics simulation engine (astrophysics, combustion, fluid dynamics). R\&D 100 Award, 2022. \\[4pt]
 \textbf{CANDLE / IMPROVE} & HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt) and \texttt{improvelib} benchmark framework for cancer drug response; GitHub Actions CI/CD and UNO dual-branch model. R\&D 100 Award, 2023. \\[4pt]
 \textbf{SFNO} & PyTorch climate emulator ported to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline, measured one-node 12-rank run. \\[4pt]
-\textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\[4pt]
-\textbf{LLM Bench} & \texttt{local-llm-bench-m1max}: reproducible harness and open data for local LLM inference. GGUF bytes-per-token parsing, measured streaming-bandwidth denominator, roofline efficiency across four model architectures. \href{https://github.com/rajeeja/local-llm-bench-m1max}{GitHub}. \\
+\textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\
 \end{tabularx}
 
 \Needspace{5\baselineskip}
