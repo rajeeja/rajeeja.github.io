@@ -114,7 +114,7 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
   <h2 class="cv-label">Roles</h2>
   <ul class="cv-items cv-items--compact">
     <li><span class="item-venue">2009&ndash;present</span> <strong>Argonne National Laboratory</strong> &mdash; Principal Specialist in Research Software Engineering</li>
-    <li><span class="item-venue">2023&ndash;present</span> <strong>University of Chicago</strong> &mdash; Staff At-Large, cancer pharmacogenomics and Earth system science</li>
+    <li><span class="item-venue">2023&ndash;present</span> <strong>University of Chicago</strong>, Consortium for Advanced Science and Engineering (CASE) &mdash; Staff At-Large, cancer pharmacogenomics and Earth system science</li>
     <li><span class="item-venue">2007&ndash;2009</span> <strong>Arizona State University</strong> &mdash; Research and teaching assistant, structural and computational mechanics</li>
   </ul>
 
