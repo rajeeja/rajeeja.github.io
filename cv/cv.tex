@@ -100,12 +100,12 @@ B.Tech. in Mechanical Engineering
 \end{itemize}
 
 \entryheader
-  {Pangu-Weather on Aurora}
+  {SFNO Climate Emulator on Aurora}
   {2024 -- Present}
   {Software Engineer}
-  {AI weather modeling on exascale Intel GPUs}
+  {AI climate emulation on exascale Intel GPUs}
 \begin{itemize}
-  \item Ported the Pangu-Weather climate emulator to Intel XPU on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, device-aware AMP (gradient scaling on CUDA, bf16 on XPU), and first stable DDP baseline on Aurora.
+  \item Ported the SFNO climate emulator to Intel XPU on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, device-aware AMP (gradient scaling on CUDA, bf16 on XPU), and first stable DDP baseline on Aurora.
   \item Established smoke-test and queue-aware bring-up scripts; separated launcher, backend, and device-placement failure modes from sharding bugs.
 \end{itemize}
 
@@ -248,7 +248,7 @@ B.Tech. in Mechanical Engineering
 \textbf{UXarray MCP} & MCP server exposing UXarray as typed AI-agent tools with Globus Compute HPC backend; structured provenance on every call. Presented at SciFM26. \\[4pt]
 \textbf{FLASH-X} & I/O and compression lead for a million-line multiphysics simulation engine (astrophysics, combustion, fluid dynamics). R\&D 100 Award, 2022. \\[4pt]
 \textbf{CANDLE / IMPROVE} & HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt) and \texttt{improvelib} benchmark framework for cancer drug response; GitHub Actions CI/CD and UNO dual-branch model. R\&D 100 Award, 2023. \\[4pt]
-\textbf{Pangu-Weather} & PyTorch climate emulator (SFNO architecture) ported to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline, measured one-node 12-rank run. \\[4pt]
+\textbf{SFNO} & PyTorch climate emulator ported to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline, measured one-node 12-rank run. \\[4pt]
 \textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\[4pt]
 \textbf{LLM Bench} & \texttt{local-llm-bench-m1max}: reproducible harness and open data for local LLM inference. GGUF bytes-per-token parsing, measured streaming-bandwidth denominator, roofline efficiency across four model architectures. \href{https://github.com/rajeeja/local-llm-bench-m1max}{GitHub}. \\
 \end{tabularx}

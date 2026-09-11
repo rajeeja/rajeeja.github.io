@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" fill="none" role="img" aria-labelledby="title desc">
-  <title id="title">PanguWeather DDP memory view</title>
+  <title id="title">SFNO DDP memory view</title>
   <desc id="desc">Diagram showing one device under DDP containing replicated parameters, gradients, optimizer state, and activations, with notes about AMP and activation checkpointing.</desc>
   <rect width="1400" height="760" rx="28" fill="#F8F5EF"/>
   <rect x="28" y="28" width="1344" height="704" rx="22" fill="#FFFCF8" stroke="#D9D2C6" stroke-width="2"/>

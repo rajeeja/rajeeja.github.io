@@ -1,7 +1,9 @@
 ---
-title: "Pangu-Weather on Aurora: Porting a Weather Foundation Model to Intel GPUs"
+title: "SFNO on Aurora: Porting a Climate Emulator to Intel GPUs"
 date: 2024-11-01
-permalink: /blog/panguweather-aurora-climate-emulator/
+permalink: /blog/sfno-aurora-climate-emulator/
+redirect_from:
+  - /blog/panguweather-aurora-climate-emulator/
 categories:
   - blog
 tags:
@@ -11,7 +13,7 @@ tags:
   - pytorch
   - sfno
   - machine-learning
-excerpt: "How we ported Pangu-Weather and SFNO to Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP — plus the first measured one-node training run."
+excerpt: "How we ported the SFNO climate emulator to Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP — plus the first measured one-node training run."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -19,7 +21,7 @@ toc_sticky: true
 
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Engineering note &middot; Aurora &middot; 2026</p>
-  <h1 class="article-title">Pangu-Weather on Aurora: Porting a Weather Foundation Model to Intel GPUs</h1>
+  <h1 class="article-title">SFNO on Aurora: Porting a Climate Emulator to Intel GPUs</h1>
   <p class="article-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU — building a stable, portable training baseline on Argonne's exascale system.</p>
 </div>
 
@@ -123,7 +125,7 @@ if dist.is_initialized():
 What is not present is just as important. There is no committed FSDP wrapper, no ZeRO-style optimizer sharding, and no tensor-parallel decomposition of the model. So relative to the usual menu of large-model strategies, this codebase sits squarely in the DDP bucket today.
 
 <figure class="article-figure article-figure--wide">
-  <img loading="lazy" decoding="async" src="/images/blog/panguweather-ddp-overview.svg" alt="Diagram showing the current parallel training strategy: DistributedSampler shards batches across ranks, each rank holds a full model replica, and gradients are synchronized with all-reduce." />
+  <img loading="lazy" decoding="async" src="/images/blog/sfno-ddp-overview.svg" alt="Diagram showing the current parallel training strategy: DistributedSampler shards batches across ranks, each rank holds a full model replica, and gradients are synchronized with all-reduce." />
   <figcaption>The current Aurora path is conventional DDP: each rank gets a shard of the batch, holds a full model replica, and synchronizes gradients. That keeps the semantics simple while the runtime path is still being hardened across CUDA and Intel XPU.</figcaption>
 </figure>
 
@@ -153,32 +155,40 @@ DDP is straightforward, but it pays for that simplicity by replicating model sta
 That is why memory pressure becomes central long before tensor parallelism makes sense.
 
 <figure class="article-figure article-figure--wide">
-  <img loading="lazy" decoding="async" src="/images/blog/panguweather-memory-and-io.svg" alt="Diagram showing per-rank GPU memory with replicated model parameters, gradients, optimizer state, and activations, alongside a note that activations and optimizer state often dominate memory pressure in DDP." />
+  <img loading="lazy" decoding="async" src="/images/blog/sfno-memory-and-io.svg" alt="Diagram showing per-rank GPU memory with replicated model parameters, gradients, optimizer state, and activations, alongside a note that activations and optimizer state often dominate memory pressure in DDP." />
   <figcaption>Under DDP, every device carries the full training state. If memory becomes the limiter, the first question is not “should we jump to tensor parallelism?” but “which of parameters, gradients, optimizer state, or activations is actually dominating?”</figcaption>
 </figure>
 
-This repository already contains cheaper mitigation levers than sharded training. Both the Pangu model path and the SFNO path expose activation-checkpointing hooks, and the model code threads `checkpointing` and `use_reentrant` through the blocks:
+This repository already contains cheaper mitigation levers than sharded training. The SFNO model exposes a tiered activation-checkpointing knob, read from the run config and threaded down through the encoder, the spectral blocks, and the MLPs inside them:
 
 ```python
-self.checkpointing = 0
-self.use_reentrant = False
-if hasattr(params, 'checkpointing'):
-    self.checkpointing = params.checkpointing
-if hasattr(params, 'use_reentrant'):
-    self.use_reentrant = params.use_reentrant
+self.checkpointing = (
+    params.checkpointing if hasattr(params, "checkpointing") else checkpointing
+)
 ```
 
-and later:
+and later, with increasing levels wrapping more of the network:
 
 ```python
-if self.checkpointing == 2 and train:
-    x = checkpoint(self.layer1, x, use_reentrant=self.use_reentrant)
+def _forward_features(self, x):
+    for blk in self.blocks:
+        if self.checkpointing >= 3:
+            x = checkpoint(blk, x)
+        else:
+            x = blk(x)
+    return x
+
+def forward(self, x):
+    ...
+    if self.checkpointing >= 1:
+        x = checkpoint(self.encoder, x)
+    else:
+        x = self.encoder(x)
 ```
 
 So the codebase does have a memory-relief path already. What is notable on Aurora is that the committed smoke configuration keeps it off by default:
 
 ```yaml
-use_reentrant: False
 checkpointing: 0
 ```
 
@@ -285,7 +295,7 @@ dataset.to_netcdf(os.path.join(savedir, filename))
 That is a small but important clue about where this codebase can go next. The current training work is mostly about runtime portability. The next layer of systems work, especially if multi-node scale becomes important, is to make data layout match the access pattern more deliberately.
 
 <figure class="article-figure article-figure--wide">
-  <img loading="lazy" decoding="async" src="/images/blog/panguweather-chunking-path.svg" alt="Diagram showing ranks reading time-step HDF5 files and a comparison between poorly aligned versus access-aligned chunk layouts for climate data." />
+  <img loading="lazy" decoding="async" src="/images/blog/sfno-chunking-path.svg" alt="Diagram showing ranks reading time-step HDF5 files and a comparison between poorly aligned versus access-aligned chunk layouts for climate data." />
   <figcaption>Chunking is not the main training abstraction in this repo today, but it still matters. DDP increases concurrent readers, so storage layout and access pattern start to matter well before a model demands tensor parallelism.</figcaption>
 </figure>
 
@@ -295,7 +305,7 @@ Compression belongs in the same conversation. Smaller files can help storage pre
 
 ## What the one-node run actually produced
 
-Everything above is about the path. This section is about the first time that path carried a real training job end to end on one Aurora node. The model in that run is SFNO, whose implementation was taken from the `ai2cm/modulus` fork and driven by an SFNO PlaSim HDF5 config. Both architectures live in this repository, and the bring-up work covers the shared runtime — device selection, launcher mapping, AMP policy, checkpointing — so it applies to either.
+Everything above is about the path. This section is about the first time that path carried a real training job end to end on one Aurora node. The model in that run is SFNO, whose implementation was taken from the `ai2cm/modulus` fork and driven by an SFNO PlaSim HDF5 config. The bring-up work lives in the shared runtime — device selection, launcher mapping, AMP policy, checkpointing — rather than in the model code itself.
 
 The validation suite runs first: environment checks, device selection, trainer construction, and the two-rank DDP bridge described earlier. Eight of eight pass. That matters more than it sounds, because on a new accelerator stack most failures are not training failures. They are import failures, device-placement failures, or launcher-mapping failures that only surface once the job is actually launched under the system's MPI stack rather than interactively.
 

@@ -40,9 +40,9 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
       <span class="item-links"><a href="/blog/muse-glimmer-30b-local-setup/">Book</a> &middot; <a href="https://github.com/rajeeja/local-llm-bench-m1max">Repo</a></span>
     </li>
     <li>
-      <div class="item-head"><strong><a href="/blog/panguweather-aurora-climate-emulator/">Pangu-Weather on Aurora</a></strong><span class="item-role">Intel XPU port &middot; Argonne Leadership Computing Facility</span></div>
+      <div class="item-head"><strong><a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a></strong><span class="item-role">Intel XPU port &middot; Argonne Leadership Computing Facility</span></div>
       PyTorch climate emulator on the Spherical Fourier Neural Operator, ported to Aurora&rsquo;s Intel XPU stack for DOE exascale Earth system modeling. First stable portable DDP baseline: PMIX/PALS environment mapping, XPU/CUDA device branching, device-aware mixed precision with gradient scaling on CUDA and bf16 on Intel XPU. Measured baseline is one node, 12 XPU ranks, ~12 s steady-state epochs; full-dataset scale-up is still ahead.
-      <span class="item-links"><a href="/blog/panguweather-aurora-climate-emulator/">Article</a></span>
+      <span class="item-links"><a href="/blog/sfno-aurora-climate-emulator/">Article</a></span>
     </li>
     <li>
       <div class="item-head"><strong><a href="https://flash-x.org/">FLASH-X</a></strong><span class="item-role">I/O and compression lead &middot; R&amp;D 100 Award 2022</span></div>

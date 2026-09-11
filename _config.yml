@@ -165,10 +165,12 @@ timezone: America/Chicago # http://en.wikipedia.org/wiki/List_of_tz_database_tim
 plugins:
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-redirect-from
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-redirect-from
 
 
 # HTML Compression
