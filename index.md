@@ -14,7 +14,7 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
     <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; AI Systems and Verification &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Writing numerical code since 2009 makes me a hard sell on a benchmark. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
+    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Writing numerical code since 2009 makes me skeptical of a plausible-looking number. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
@@ -35,9 +35,9 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
       <span class="item-links"><a href="https://uxarray.readthedocs.io">Docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">GitHub</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP article</a></span>
     </li>
     <li>
-      <div class="item-head"><strong><a href="/blog/muse-glimmer-30b-local-setup/">Local LLM inference, measured</a></strong><span class="item-role">Benchmark harness &middot; open data and protocol</span></div>
-      Four models on one machine, taken apart to find what actually sets throughput. Bytes read per token parsed from GGUF tensor tables rather than taken from file size, which overstates by 64% on a model whose per-layer embedding table is gathered rather than streamed; the bandwidth denominator measured at 340 GB/s rather than read off the 400 GB/s datasheet figure, which is a pin rate and unreachable. All four models land between 36% and 41% of memory bandwidth regardless of architecture &mdash; the 8&times; spread in tokens per second is explained entirely by bytes per token. Scripts, raw data, and protocol published so every number regenerates.
-      <span class="item-links"><a href="/blog/muse-glimmer-30b-local-setup/">Book</a> &middot; <a href="https://github.com/rajeeja/local-llm-bench-m1max">Repo</a></span>
+      <div class="item-head"><strong><a href="https://github.com/SEATStandards/ncvis">ncvis</a></strong><span class="item-role">Maintainer &middot; DOE SEATS</span></div>
+      NetCDF visualizer for structured and unstructured grids, C++/wxWidgets. Took over maintenance in August 2026: reviewed and merged the community pull-request backlog (1D line plots, color-scale centering, macOS XQuartz refresh, CMake link order), testing each branch on both build paths against generated netCDF fixtures. Diagnosed a macOS link failure caused by <code>target_link_options</code> de-duplicating repeated <code>-framework</code> arguments and replaced the <code>wx-config</code> parsing with <code>find_package</code> results; restored CMake 4 compatibility.
+      <span class="item-links"><a href="https://github.com/SEATStandards/ncvis">GitHub</a></span>
     </li>
     <li>
       <div class="item-head"><strong><a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a></strong><span class="item-role">Intel XPU port &middot; Argonne Leadership Computing Facility</span></div>
