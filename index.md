@@ -97,6 +97,7 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
 
   <h2 class="cv-label cv-label--sub">Service</h2>
   <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">2026</span> Program committee &mdash; <a href="https://ornl.github.io/events/agenticai4hpc2026/">AgenticAI4HPC</a>, 1st International Workshop on Agentic AI for HPC, SC26</li>
     <li><span class="item-venue">2026</span> Program committee &mdash; <a href="https://agent4sc.github.io/">AGENT4SC</a>, 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</li>
     <li><span class="item-venue">Ongoing</span> SBIR/STTR proposal reviewer, U.S. Department of Energy &middot; reviewer, <em>Journal of Open Research Software</em></li>
   </ul>
