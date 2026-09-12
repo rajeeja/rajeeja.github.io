@@ -4,8 +4,8 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-description: "Rajeev Jain --- Principal Specialist, Research Software Engineering at Argonne National Laboratory. Lead developer of UXarray; AI agent infrastructure for HPC, and measurement-based verification of what it produces."
-excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarray, AI agent infrastructure for HPC, and numerical correctness."
+description: "Rajeev Jain --- Research Software Engineer at Argonne National Laboratory. Lead developer of UXarray and its agentic AI / MCP server for HPC; 15+ years of computational science across cancer genomics, astrophysics, urban climate, and nuclear engineering."
+excerpt: "Research Software Engineer at Argonne National Laboratory. UXarray, agentic AI for HPC, and computational science across climate, genomics, and astrophysics."
 ---
 
 <div class="cv" id="about">
@@ -13,8 +13,8 @@ excerpt: "Principal Specialist, Research Software Engineering at Argonne. UXarra
 <header class="cv-head">
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
-    <p class="cv-tagline">Principal Specialist, Research Software Engineering &middot; AI Systems and Verification &middot; HPC &middot; Scientific Computing</p>
-    <p class="cv-bio">The gap between prototype and production is where I work &mdash; ML training pipelines that scale on new accelerator hardware, I/O that doesn&rsquo;t bottleneck at exascale, Python platforms research teams can actually maintain across institutions and years. Lately most of that is AI systems: giving agents typed, scoped, provenance-tracked tools instead of a chat box, and checking what comes back against a measurement rather than a plausible story. Writing numerical code since 2009 makes me skeptical of a plausible-looking number. Principal Specialist at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
+    <p class="cv-tagline">Research Software Engineer, Argonne National Laboratory &middot; Computational Science</p>
+    <p class="cv-bio">Lead developer of UXarray, an analysis library for kilometer-scale Earth-system climate grids, and its MCP server for agentic AI on HPC systems &mdash; along with a verification practice for whether that agentic output can be trusted. Before that: HPO infrastructure that ran 10,000+ cancer drug-response experiments, asynchronous checkpoint I/O for astrophysics simulations, a coupled weather-to-building-to-CFD workflow for urban microclimate, and reactor core mesh generation at parallel scale. 15+ years designing, building, and running the software each question needed &mdash; at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
