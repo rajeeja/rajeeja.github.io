@@ -64,7 +64,7 @@ excerpt: "Research Software Engineer at Argonne National Laboratory. UXarray, ag
 <section class="cv-section" id="publications">
   <h2 class="cv-label">Selected papers</h2>
   <ul class="cv-items">
-    <li><strong>Jain, R.</strong>, Jacob, R. <a href="https://agent4sc.github.io/">Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray.</a> <em>AGENT4SC &mdash; 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</em>, Naples. Accepted; to be presented. <span class="item-links"><a href="https://doi.org/10.5281/zenodo.21463232">Artifacts &amp; DOI</a></span></li>
+    <li><strong>Jain, R.</strong>, Jacob, R. <a href="https://agent4sc.github.io/">Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray.</a> <em>AGENT4SC &mdash; 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</em>, Naples. Presented September 2026. <span class="item-links"><a href="https://doi.org/10.5281/zenodo.21463232">Artifacts &amp; DOI</a></span></li>
     <li>Partin, A., ..., <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2026.</li>
     <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 Workshop, SC24, 2024.</li>
     <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW24, SC24, 2024.</li>
@@ -76,6 +76,7 @@ excerpt: "Research Software Engineer at Argonne National Laboratory. UXarray, ag
   <h2 class="cv-label cv-label--sub">Recent talks</h2>
   <ul class="cv-items cv-items--compact">
     <li><span class="item-venue">AMS 2027</span> Accurate Conservative Zonal Averaging for Unstructured Earth-System Grids: A Python Implementation of Robust Spherical Geometry Algorithms &mdash; 107th Annual Meeting, accepted</li>
+    <li><span class="item-venue">SC26</span> Research poster: Refuse to Guess &mdash; A Declared Precondition in a UXarray MCP Server Caught What No Model Checked &mdash; St. Louis, November 2026, accepted</li>
     <li><span class="item-venue">eScience 2026</span> <a href="https://agent4sc.github.io/">AGENT4SC: Beyond Tool Execution &mdash; Evaluating Scientific MCP Interfaces with UXarray</a> &mdash; Naples, September 2026</li>
     <li><span class="item-venue">SciFM26</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</a> &mdash; Chicago, May 2026</li>
     <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
