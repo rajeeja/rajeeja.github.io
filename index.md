@@ -4,8 +4,8 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-description: "Rajeev Jain --- Research Software Engineer at Argonne National Laboratory. Lead developer of UXarray and its agentic AI / MCP server for HPC; 15+ years of computational science across cancer genomics, astrophysics, urban climate, and nuclear engineering."
-excerpt: "Research Software Engineer at Argonne National Laboratory. UXarray, agentic AI for HPC, and computational science across climate, genomics, and astrophysics."
+description: "Rajeev Jain, research software engineer at Argonne National Laboratory. SimBoard for E3SM, UXarray, and scientific software for HPC."
+excerpt: "Research software engineer at Argonne National Laboratory. SimBoard for E3SM, UXarray, and scientific software for HPC."
 ---
 
 <div class="cv" id="about">
@@ -13,124 +13,107 @@ excerpt: "Research Software Engineer at Argonne National Laboratory. UXarray, ag
 <header class="cv-head">
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
-    <p class="cv-tagline">Research Software Engineer, Argonne National Laboratory &middot; Computational Science</p>
-    <p class="cv-bio">Lead developer of UXarray, an analysis library for kilometer-scale Earth-system climate grids, and its MCP server for agentic AI on HPC systems &mdash; along with a verification practice for whether that agentic output can be trusted. Before that: HPO infrastructure that ran 10,000+ cancer drug-response experiments, asynchronous checkpoint I/O for astrophysics simulations, a coupled weather-to-building-to-CFD workflow for urban microclimate, and reactor core mesh generation at parallel scale. 15+ years designing, building, and running the software each question needed &mdash; at <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a>, with a joint appointment at the University of Chicago.</p>
+    <p class="cv-tagline">Research software engineer, Mathematics and Computer Science Division, <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a></p>
+    <p class="cv-bio">I've been at Argonne since 2009. Most of my time now goes to SimBoard for <a href="https://e3sm.org/">E3SM</a> and to UXarray.</p>
     <p class="cv-links">
-      <a href="/files/Rajeev_Jain_CV.pdf">CV</a>
-      <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>
-      <a href="https://github.com/rajeeja">GitHub</a>
+      <a href="/files/Rajeev_Jain_CV.pdf">CV</a> &middot;
+      <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot;
+      <a href="https://github.com/rajeeja">GitHub</a> &middot;
+      <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Scholar</a> &middot;
       <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
-      <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a>
     </p>
   </div>
   <img class="cv-portrait" src="/images/bio-photo.jpg" alt="Rajeev Jain">
 </header>
 
 <section class="cv-section" id="projects">
-  <h2 class="cv-label">Work</h2>
+  <h2 class="cv-label">Current work</h2>
   <ul class="cv-items">
     <li>
-      <div class="item-head"><strong><a href="https://github.com/UXARRAY/uxarray">UXarray</a></strong><span class="item-role">Lead developer &middot; open-source climate analysis</span></div>
-      Python library for unstructured climate grid analysis, used at DOE labs, NCAR, and universities working with MPAS, ICON, SAM, and next-generation meshes. Conservative zonal averaging via Gauss-Legendre quadrature; grid I/O for ESMF, MPAS, SCRIP, and HEALPix; MCP server for AI-agent dataset exploration across local and HPC execution. Also the correctness and performance work underneath it: error-free-transformation arithmetic in the spherical-geometry kernels, after catastrophic cancellation inside a cross product &mdash; a difference of nearly equal products, not a running sum &mdash; drifted 0.68 m on a real Earth mesh; and a 1.67&times; speedup in a Numba hot path once hidden heap allocation turned out to be the cost rather than the math. Both are merged upstream (<a href="https://github.com/UXARRAY/uxarray/pull/1513">PR #1513</a>, <a href="https://github.com/UXARRAY/uxarray/pull/1577">PR #1577</a>); the point-in-face and face-bounds split is still in review (<a href="https://github.com/UXARRAY/uxarray/pull/1627">PR #1627</a>).
-      <span class="item-links"><a href="https://uxarray.readthedocs.io">Docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">GitHub</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP article</a></span>
+      <div class="item-head"><strong><a href="https://github.com/E3SM-Project/simboard">SimBoard</a></strong> <span class="item-role">contributor, E3SM</span></div>
+      A web catalog of E3SM simulation runs: case metadata, provenance, and links out to the diagnostics for each run.
+      <span class="item-links"><a href="https://simboard-dev.e3sm.org/">app</a> &middot; <a href="https://simboard.readthedocs.io/">docs</a> &middot; <a href="https://github.com/E3SM-Project/simboard">code</a></span>
     </li>
     <li>
-      <div class="item-head"><strong><a href="https://github.com/SEATStandards/ncvis">ncvis</a></strong><span class="item-role">Maintainer &middot; DOE SEATS</span></div>
-      NetCDF visualizer for structured and unstructured grids, C++/wxWidgets. Took over maintenance in August 2026: reviewed and merged the community pull-request backlog (1D line plots, color-scale centering, macOS XQuartz refresh, CMake link order), testing each branch on both build paths against generated netCDF fixtures. Diagnosed a macOS link failure caused by <code>target_link_options</code> de-duplicating repeated <code>-framework</code> arguments and replaced the <code>wx-config</code> parsing with <code>find_package</code> results; restored CMake 4 compatibility.
-      <span class="item-links"><a href="https://github.com/SEATStandards/ncvis">GitHub</a></span>
+      <div class="item-head"><strong><a href="https://github.com/UXARRAY/uxarray">UXarray</a></strong> <span class="item-role">lead developer</span></div>
+      Python library for analysis on unstructured climate grids, used at DOE labs and NCAR. I also maintain its MCP server, which lets AI agents run UXarray analyses on HPC systems.
+      <span class="item-links"><a href="https://uxarray.readthedocs.io">docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">code</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP write-up</a></span>
     </li>
     <li>
-      <div class="item-head"><strong><a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a></strong><span class="item-role">Intel XPU port &middot; Argonne Leadership Computing Facility</span></div>
-      PyTorch climate emulator on the Spherical Fourier Neural Operator, ported to Aurora&rsquo;s Intel XPU stack for DOE exascale Earth system modeling. First stable portable DDP baseline: PMIX/PALS environment mapping, XPU/CUDA device branching, device-aware mixed precision with gradient scaling on CUDA and bf16 on Intel XPU. Measured baseline is one node, 12 XPU ranks, ~12 s steady-state epochs; full-dataset scale-up is still ahead.
-      <span class="item-links"><a href="/blog/sfno-aurora-climate-emulator/">Article</a></span>
+      <div class="item-head"><strong><a href="https://github.com/E3SM-Project/e3sm-ai-platform">E3SM AI platform</a></strong> <span class="item-role">contributor</span></div>
+      An assistant for E3SM documentation that cites its sources or declines to answer. I added Argonne's Argo gateway as a model provider.
     </li>
     <li>
-      <div class="item-head"><strong><a href="https://flash-x.org/">FLASH-X</a></strong><span class="item-role">I/O and compression lead &middot; R&amp;D 100 Award 2022</span></div>
-      Checkpoint and restart redesign for a million-line multiphysics engine. Async HDF5 with Argobots plus SZ3/ZFP compression: 40&ndash;70% checkpoint overhead reduction and 50%+ storage savings on Summit. Cross-checkpoint restart between AMReX and Paramesh &mdash; removing a hard constraint that forced full restarts when switching solvers.
-      <span class="item-links"><a href="https://doi.org/10.1109/SCW63240.2024.00043">SC24 paper</a></span>
+      <div class="item-head"><strong><a href="https://github.com/SEATStandards/ncvis">ncvis</a></strong> <span class="item-role">maintainer, DOE SEATS</span></div>
+      A NetCDF viewer for structured and unstructured grids, written in C++.
     </li>
-    <li>
-      <div class="item-head"><strong><a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE / IMPROVE</a></strong><span class="item-role">Core contributor &middot; R&amp;D 100 Award 2023</span></div>
-      HPO and benchmarking infrastructure for cancer drug response models, built with collaborators at Argonne, LLNL, and ORNL. 10,000+ training experiments across Summit, Theta, and Cori using Swift/T. Published in <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013"><em>Briefings in Bioinformatics</em></a>, 2026.
-    </li>
-    <li>
-      <div class="item-head"><strong><a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a></strong><span class="item-role">PI and software lead &middot; DOE NEAMS &middot; 2009&ndash;2016</span></div>
-      Open-source C++ toolkit for automated nuclear reactor core mesh generation. Parallel CoreGen: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in about 7 minutes &mdash; a job the serial path couldn&rsquo;t run at all.
-      <span class="item-links"><a href="/blog/rgg-meshkit-moose-reactor-module/">Blog post</a> &middot; <a href="https://bitbucket.org/fathomteam/meshkit">Source</a></span>
-    </li>
+  </ul>
+</section>
+
+<section class="cv-section" id="earlier">
+  <h2 class="cv-label">Earlier</h2>
+  <ul class="cv-items cv-items--compact">
+    <li><span class="item-venue">2025&ndash;26</span> <a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a>. Ported a PyTorch climate emulator to Aurora's Intel GPUs.</li>
+    <li><span class="item-venue">2017&ndash;25</span> <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE and IMPROVE</a>. Hyperparameter search and benchmarking for cancer drug-response models.</li>
+    <li><span class="item-venue">2019&ndash;24</span> <a href="https://flash-x.org/">FLASH-X</a>. Checkpoint I/O and compression for the multiphysics code.</li>
+    <li><span class="item-venue">2016&ndash;19</span> Urban ECP. A weather-to-building-to-CFD workflow for downtown Chicago.</li>
+    <li><span class="item-venue">2009&ndash;16</span> <a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a>. Mesh generation for nuclear reactor cores, as PI under DOE NEAMS.</li>
   </ul>
 </section>
 
 <section class="cv-section" id="publications">
   <h2 class="cv-label">Selected papers</h2>
-  <ul class="cv-items">
-    <li><strong>Jain, R.</strong>, Jacob, R. <a href="https://agent4sc.github.io/">Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray.</a> <em>AGENT4SC &mdash; 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</em>, Naples. Presented September 2026. <span class="item-links"><a href="https://doi.org/10.5281/zenodo.21463232">Artifacts &amp; DOI</a></span></li>
-    <li>Partin, A., ..., <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2026.</li>
-    <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 Workshop, SC24, 2024.</li>
-    <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW24, SC24, 2024.</li>
-    <li>Wozniak, J.M., ..., <strong>Jain, R.</strong>, et al. <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.</a> <em>BMC Bioinformatics</em>, 2018.</li>
+  <ul class="cv-items cv-items--refs">
+    <li><strong>Jain, R.</strong>, Jacob, R. <a href="https://agent4sc.github.io/">Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray.</a> AGENT4SC at IEEE eScience, 2026.</li>
+    <li>Partin, A., &hellip;, <strong>Jain, R.</strong>, et al. <a href="https://academic.oup.com/bib/article/27/1/bbaf667/7002013">Benchmarking community drug response prediction models.</a> <em>Briefings in Bioinformatics</em>, 2026.</li>
+    <li><strong>Jain, R.</strong>, Tang, H., Dhruv, A., Byna, S. <a href="https://doi.org/10.1109/SCW63240.2024.00043">Enabling Data Reduction for FLASH-X Simulations.</a> DRBSD-10 at SC24, 2024.</li>
+    <li><strong>Jain, R.</strong>, Wozniak, J.M., Partin, A., et al. <a href="https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf">Cross-HPO: Optimizing Neural Networks for Cancer Drug Response.</a> CAFCW at SC24, 2024.</li>
+    <li>Wozniak, J.M., &hellip;, <strong>Jain, R.</strong>, et al. <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4">CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research.</a> <em>BMC Bioinformatics</em>, 2018.</li>
     <li>Tautges, T.J., <strong>Jain, R.</strong> <a href="https://doi.org/10.1007/s00366-011-0236-8">Creating Geometry and Mesh Models for Nuclear Reactor Core Geometries.</a> <em>Engineering with Computers</em>, 2012.</li>
   </ul>
-  <p class="cv-more"><a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Full list on Google Scholar</a></p>
+  <p class="cv-more">Everything else is on <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a>.</p>
 
   <h2 class="cv-label cv-label--sub">Recent talks</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">AMS 2027</span> Accurate Conservative Zonal Averaging for Unstructured Earth-System Grids: A Python Implementation of Robust Spherical Geometry Algorithms &mdash; 107th Annual Meeting, accepted</li>
-    <li><span class="item-venue">SC26</span> Research poster: Refuse to Guess &mdash; A Declared Precondition in a UXarray MCP Server Caught What No Model Checked &mdash; St. Louis, November 2026, accepted</li>
-    <li><span class="item-venue">eScience 2026</span> <a href="https://agent4sc.github.io/">AGENT4SC: Beyond Tool Execution &mdash; Evaluating Scientific MCP Interfaces with UXarray</a> &mdash; Naples, September 2026</li>
-    <li><span class="item-venue">SciFM26</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">UXarray MCP Server for agentic analysis of unstructured Earth-system meshes</a> &mdash; Chicago, May 2026</li>
-    <li><span class="item-venue">SC24</span> <a href="https://uxarray.readthedocs.io/">Tutorial: UXarray for Analysis of Unstructured Climate Data</a></li>
-    <li><span class="item-venue">SC24</span> <a href="https://doi.org/10.1109/SCW63240.2024.00043">DRBSD-10: Enabling Data Reduction for FLASH-X</a></li>
-    <li><span class="item-venue">SC24</span> <a href="https://sc24.conference-program.com/presentation/?id=ws_cafcw105&amp;sess=sess764">CAFCW24: Cross-HPO for Cancer Drug Response</a></li>
-    <li><span class="item-venue">AMS 2024</span> <a href="https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/434638">UXarray: Extending Xarray with Support for Unstructured Grids</a></li>
-    <li><span class="item-venue">SciPy 2023</span> <a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for Unstructured Climate Data</a></li>
+    <li><span class="item-venue">AMS 2027</span> Conservative zonal averaging on unstructured Earth-system grids</li>
+    <li><span class="item-venue">SC26</span> Poster: Refuse to Guess, a declared precondition in the UXarray MCP server</li>
+    <li><span class="item-venue">eScience 26</span> <a href="https://agent4sc.github.io/">Evaluating scientific MCP interfaces with UXarray</a></li>
+    <li><span class="item-venue">SciFM26</span> <a href="/blog/uxarray-mcp-improv-globus-compute/">A UXarray MCP server for unstructured Earth-system meshes</a></li>
+    <li><span class="item-venue">SC24</span> Tutorial: UXarray for unstructured climate data</li>
+    <li><span class="item-venue">SciPy 2023</span> <a href="https://www.youtube.com/watch?v=qwqJeOO8m6A">UXarray for unstructured climate data</a></li>
   </ul>
 </section>
 
 <section class="cv-section" id="recognition">
   <h2 class="cv-label">Recognition</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">R&amp;D 100, 2023</span> <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a> &mdash; cancer AI infrastructure across Argonne, LLNL, and ORNL</li>
-    <li><span class="item-venue">R&amp;D 100, 2022</span> <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a> &mdash; multiphysics simulation engine</li>
-    <li><span class="item-venue">IMR 2010</span> Best Paper &mdash; reactor core mesh generation with lattice hierarchy encoding</li>
-    <li><span class="item-venue">ATPESC 2015</span> Scholar &mdash; Argonne training program on extreme-scale computing</li>
+    <li><span class="item-venue">2023</span> R&amp;D 100 Award, <a href="https://www.rdworldonline.com/candle-cancer-distributed-learning-environment-is-the-rd-100-winner-of-the-day/">CANDLE</a></li>
+    <li><span class="item-venue">2022</span> R&amp;D 100 Award, <a href="https://www.rdworldonline.com/rd-100-2022-winner/flash-x-a-multiphysics-simulation-software/">FLASH-X</a></li>
+    <li><span class="item-venue">2015</span> ATPESC scholar</li>
+    <li><span class="item-venue">2010</span> Best paper, International Meshing Roundtable</li>
+    <li><span class="item-venue">2004</span> First prize, low-budget car design contest, IIT Kharagpur</li>
   </ul>
 
   <h2 class="cv-label cv-label--sub">Service</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">2026</span> Program committee &mdash; <a href="https://ornl.github.io/events/agenticai4hpc2026/">AgenticAI4HPC</a>, 1st International Workshop on Agentic AI for HPC, SC26</li>
-    <li><span class="item-venue">2026</span> Program committee &mdash; <a href="https://agent4sc.github.io/">AGENT4SC</a>, 1st Workshop on Agentic AI for Large-scale Science, IEEE eScience 2026</li>
-    <li><span class="item-venue">Ongoing</span> SBIR/STTR proposal reviewer, U.S. Department of Energy &middot; reviewer, <em>Journal of Open Research Software</em></li>
-  </ul>
-
-  <h2 class="cv-label cv-label--sub">Funding</h2>
-  <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">Active</span> DOE SEATS &mdash; Software Ecosystem for Advancing Climate Tools and Services</li>
-    <li><span class="item-venue">Active</span> NSF Raijin &mdash; collaborative research in climate model analysis</li>
-    <li><span class="item-venue">2017&ndash;2023</span> DOE ECP CANDLE &mdash; core contributor</li>
-    <li><span class="item-venue">2009&ndash;2016</span> DOE NEAMS &mdash; principal investigator, MeshKit</li>
+    <li><span class="item-venue">2026</span> Program committee, <a href="https://ornl.github.io/events/agenticai4hpc2026/">AgenticAI4HPC</a> at SC26 and <a href="https://agent4sc.github.io/">AGENT4SC</a> at eScience</li>
+    <li><span class="item-venue">Ongoing</span> DOE SBIR/STTR proposal reviewer</li>
   </ul>
 </section>
 
 <section class="cv-section" id="background">
-  <h2 class="cv-label">Roles</h2>
+  <h2 class="cv-label">Background</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">2009&ndash;present</span> <strong>Argonne National Laboratory</strong> &mdash; Principal Specialist in Research Software Engineering</li>
-    <li><span class="item-venue">2023&ndash;present</span> <strong>University of Chicago</strong>, Consortium for Advanced Science and Engineering (CASE) &mdash; Staff At-Large, cancer pharmacogenomics and Earth system science</li>
-    <li><span class="item-venue">2007&ndash;2009</span> <strong>Arizona State University</strong> &mdash; Research and teaching assistant, structural and computational mechanics</li>
-  </ul>
-
-  <h2 class="cv-label cv-label--sub">Education</h2>
-  <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">2020</span> M.S. Computer Science &mdash; University of Chicago</li>
-    <li><span class="item-venue">2009</span> M.S. Structural Engineering &mdash; Arizona State University</li>
-    <li><span class="item-venue">2006</span> B.Tech. Mechanical Engineering &mdash; IIT ISM Dhanbad</li>
+    <li><span class="item-venue">2009&ndash;</span> Argonne National Laboratory, Principal Specialist in Research Software Engineering</li>
+    <li><span class="item-venue">2023&ndash;</span> University of Chicago, CASE, staff at-large</li>
+    <li><span class="item-venue">2020</span> M.S. Computer Science, University of Chicago</li>
+    <li><span class="item-venue">2009</span> M.S. Structural Engineering, Arizona State University</li>
+    <li><span class="item-venue">2006</span> B.Tech. Mechanical Engineering, IIT (ISM) Dhanbad</li>
   </ul>
 </section>
 
 <footer class="cv-footer" id="contact">
-  <p class="cv-connect">Happy to connect &mdash; <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot; <a href="mailto:rajeeja@gmail.com">rajeeja@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a></p>
-  <p class="cv-links-secondary"><a href="https://github.com/rajeeja">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Google Scholar</a> &middot; <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a> &middot; <a href="/feed.xml">RSS</a></p>
+  <p>Email is the best way to reach me: <a href="mailto:jain@anl.gov">jain@anl.gov</a>. Also <a href="https://orcid.org/0000-0002-1235-918X">ORCID</a> and <a href="/feed.xml">RSS</a>.</p>
 </footer>
 
 </div>

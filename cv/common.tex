@@ -1,6 +1,11 @@
-\usepackage[margin=0.7in]{geometry}
+\usepackage[margin=0.75in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+% XCharter: a sturdy, wide serif designed to stay legible at small sizes.
+% Latin Modern was too thin to read comfortably at 10pt. The website uses
+% Charter too, so the PDF and the page look like the same document.
+\usepackage[lf]{XCharter}
+\usepackage[scaled=0.92]{sourcesanspro}
+\linespread{1.06}
 \usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
@@ -16,7 +21,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\tabcolsep}{0pt}
-\setlist[itemize]{leftmargin=1.1em,itemsep=1.5pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=2pt,topsep=2pt,parsep=0pt,partopsep=0pt,after=\vspace{5pt}}
 
 % --- Palette -------------------------------------------------------------
 % accent  : section labels / name
@@ -25,7 +30,7 @@
 \providecommand{\accenthex}{1A3D5C}   % deep slate blue
 \definecolor{accent}{HTML}{\accenthex}
 \definecolor{rulegray}{HTML}{C8CDD4}
-\definecolor{mutedgray}{HTML}{55606B}
+\definecolor{mutedgray}{HTML}{505050}
 \definecolor{linkblue}{HTML}{2F5D9A}
 \hypersetup{
   colorlinks=true,
@@ -36,9 +41,9 @@
 
 % --- Section headers: small-caps label with a full-width hairline rule ----
 \titleformat{\section}
-  {\normalfont\scshape\small\bfseries\color{accent}}
-  {}{0em}{}[\vspace{2pt}{\color{rulegray}\titlerule[0.6pt]}]
-\titlespacing*{\section}{0pt}{9pt}{4pt}
+  {\normalfont\large\bfseries\color{accent}}
+  {}{0em}{}[\vspace{1pt}{\color{rulegray}\titlerule[0.5pt]}]
+\titlespacing*{\section}{0pt}{11pt}{5pt}
 
 % --- Experience / project entry: bold title + right-aligned date ----------
 \newcommand{\entryheader}[4]{%
@@ -58,20 +63,6 @@
 % --- Skills row -----------------------------------------------------------
 \newcommand{\skillrow}[2]{\textbf{\color{accent}#1:}~~#2\par\vspace{1pt}}
 
-% --- Highlights / metrics strip (boxed key facts) -------------------------
-% Usage: \highlightstrip{item a \highlightsep item b \highlightsep ...}
-\newcommand{\highlightsep}{\quad\textcolor{rulegray}{\textbar}\quad}
-\newcommand{\highlightstrip}[1]{%
-  \begingroup
-  \setlength{\fboxsep}{7pt}%
-  \noindent\colorbox{accent!6}{%
-    \parbox{\dimexpr\textwidth-2\fboxsep\relax}{%
-      \footnotesize\color{mutedgray}#1%
-    }%
-  }\par\vspace{8pt}%
-  \endgroup
-}
-
 % --- Header: name, tagline, contact line ----------------------------------
 % #1 = name, #2 = first contact line, #3 = second contact line
 \newcommand{\makeprofileheader}[3]{%
@@ -79,9 +70,9 @@
   \vspace{5pt}
   {\color{rulegray}\hrule height 1pt}
   \vspace{7pt}
-  {\footnotesize\color{mutedgray}#2\par}
+  {\small\color{mutedgray}#2\par}
   \vspace{2pt}
-  {\footnotesize\color{mutedgray}#3\par}
+  {\small\color{mutedgray}#3\par}
   \vspace{6pt}
 }
 

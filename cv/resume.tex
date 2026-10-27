@@ -11,11 +11,8 @@
   {\faGlobe~\href{https://rajeeja.github.io}{rajeeja.github.io} \quad \faGithub~\href{https://github.com/rajeeja}{rajeeja} \quad \faLinkedin~\href{https://linkedin.com/in/rajeeja}{rajeeja} \quad \faGraduationCap~\href{https://scholar.google.com/citations?user=bC77n9MAAAAJ}{Google Scholar} \quad \faOrcid~\href{https://orcid.org/0000-0002-1235-918X}{ORCID}}
   {\faEnvelope~\href{mailto:jain@anl.gov}{jain@anl.gov} \quad \faEnvelope~\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad \faMapMarker~Chicago, IL}
 
-{\large\color{mutedgray} Principal Specialist, Research Software Engineering \textbar{} AI Systems and Verification \textbar{} HPC \textbar{} Scientific Computing}\par
+{\large\color{mutedgray} Principal Specialist, Research Software Engineering, Argonne National Laboratory}\par
 \vspace{6pt}
-
-\section{Profile}
-Principal research software engineer, at Argonne since 2009, turning research prototypes into production systems across AI infrastructure, scientific computing, and HPC. Lead developer of UXarray, a Python library for unstructured climate-grid analysis used at DOE labs and NCAR, including an MCP server that gives AI agents typed, scoped, provenance-tracked access to Earth-system meshes on HPC clusters via Globus Compute --- the alternative to handing a team general-purpose chat and calling it a strategy. Equally focused on verifying what such systems produce: traced silent numerical drift on a production mesh to catastrophic cancellation and fixed it upstream. Ran 10,000+ cancer-AI training experiments on Summit; ported the SFNO climate emulator to Intel XPUs on Aurora. Two R\&D 100 Awards (CANDLE 2023, FLASH-X 2022).
 
 \section{Professional Experience}
 \entryheader
@@ -24,11 +21,14 @@ Principal research software engineer, at Argonne since 2009, turning research pr
   {Principal Specialist, Research Software Engineering}
   {Mathematics and Computer Science Division, Chicago, IL}
 \begin{itemize}
-  \item \textbf{UXarray and MCP server.} Lead developer of a Python library for unstructured climate grid analysis used at DOE labs and NCAR. Designed grid I/O for ESMF / MPAS / SCRIP / HEALPix and conservative zonal averaging. Built the UXarray MCP server: 20+ typed tools letting AI agents inspect, subset, visualize, and run analysis on Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance. Presented at SciFM26.
-  \item \textbf{SFNO climate emulator on Aurora.} Ported the SFNO climate emulator to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher mapping, XPU/CUDA device branching, device-aware AMP (GradScaler on CUDA, bf16 on XPU), first stable DDP baseline. Established smoke-test and queue-aware bring-up scripts separating launcher, backend, and device-placement failures. Measured one-node baseline: 12 XPU ranks under DDP, $\sim$12 s steady-state epochs after a warmup epoch 8$\times$ longer.
-  \item \textbf{CANDLE / IMPROVE.} Built CANDLE/Supervisor HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt/TPE); ran 10,000+ cancer drug response experiments on Summit, Theta, and Cori. Applied noise injection and counterfactual analysis to NT3 tumor classification; identified PLOD2, RGS5, and TP53I13 as decision-boundary drivers. Led IMPROVE: \texttt{improvelib} Python package with GitHub Actions CI/CD (unit tests, Docker, Parsl CSA) and UNO dual-branch neural network for cross-study benchmarking. 15+ researchers across Argonne, LLNL, ORNL. R\&D 100 Award, 2023.
-  \item \textbf{FLASH-X.} I/O and compression lead for a million-line multiphysics engine. Async HDF5 with Argobots plus SZ3 / ZFP compression reduced checkpoint overhead 40--70\% on Summit with 50\%+ storage savings. Enabled cross-checkpoint restart between AMReX and Paramesh. R\&D 100 Award, 2022.
-  \item \textbf{MeshKit and Urban ECP.} PI for MeshKit (DOE NEAMS, 2009--2016): C++ toolkit for reactor mesh generation; parallel CoreGen produced a 101M-element MONJU mesh on 712 processors in about 7 minutes. Led Urban ECP: coupled WRF/HRRR $\rightarrow$ EnergyPlus $\rightarrow$ Nek5000 workflow with full 3D downtown Chicago domain. Published in \textit{Journal of Building Performance Simulation}, 2020.
+  \item SimBoard (E3SM): contributor to the web catalog of E3SM simulation runs, with case metadata, provenance, and links to diagnostics.
+  \item UXarray: lead developer of a Python library for analysis on unstructured climate grids, used at DOE labs and NCAR. Wrote its MCP server, which runs analyses for AI agents on HPC systems.
+  \item E3SM AI platform and ncvis: added the Argo model provider to the E3SM documentation assistant; maintain the SEATS NetCDF viewer.
+  \item SPOTTER-AI (DOE Genesis Mission): attention capture and poisoning experiments on cancer drug-response models.
+  \item SFNO on Aurora: ported a PyTorch climate emulator to Intel GPUs.
+  \item CANDLE and IMPROVE: hyperparameter search workflow (10,000+ runs on Summit, Theta, Cori) and the IMPROVE benchmark framework. R\&D 100 Award, 2023.
+  \item FLASH-X: asynchronous checkpoint I/O and compression. R\&D 100 Award, 2022.
+  \item MeshKit (PI, DOE NEAMS) and Urban ECP: reactor core mesh generation; coupled weather-to-CFD workflow for downtown Chicago.
 \end{itemize}
 
 \entryheader
@@ -37,7 +37,7 @@ Principal research software engineer, at Argonne since 2009, turning research pr
   {Staff At-Large}
   {Consortium for Advanced Science and Engineering (CASE), Chicago, IL}
 \begin{itemize}
-  \item Joint appointment supporting cancer pharmacogenomics and Earth science software collaborations; mentoring graduate students on software design and HPC workflows.
+  \item Joint appointment for cancer and Earth science software collaborations.
 \end{itemize}
 
 \entryheader
@@ -46,7 +46,7 @@ Principal research software engineer, at Argonne since 2009, turning research pr
   {Research and Teaching Assistant}
   {Structural and Computational Mechanics Lab, Tempe, AZ}
 \begin{itemize}
-  \item FEM research on blast mitigation and design optimization; supported structural engineering coursework.
+  \item Finite element research on blast mitigation.
 \end{itemize}
 
 \entryheader
@@ -57,17 +57,14 @@ Principal research software engineer, at Argonne since 2009, turning research pr
 \vspace{0.3em}
 
 \section{Technical Skills}
-\skillrow{Languages}{Python, C++, Fortran, Bash, R, SQL}
-\skillrow{ML / AI}{PyTorch, TensorFlow, NumPy, Pandas, Xarray, Scikit-learn; Bayesian HPO (mlrMBO, Hyperopt/TPE), genetic algorithms (DEAP)}
-\skillrow{AI Systems}{MCP server design (typed tools, scoped access, structured provenance), Claude API, LLM tool-use and agent workflows, Globus Compute for HPC-backed agents}
-\skillrow{Correctness / Perf}{Numerical analysis (compensated summation, error-free transformations), profiling, review of ported numerical code}
-\skillrow{HPC / Systems}{MPI, OpenMP, HDF5, NetCDF, MOAB, Argobots, SZ3/ZFP, Intel XPU / CUDA, PBS/SLURM}
-\skillrow{Workflow / DevOps}{GitHub Actions, Docker, Singularity, Parsl, Swift/T, release automation, CI/CD, Globus Compute}
-\skillrow{Domains}{Climate and weather modeling, cancer pharmacogenomics, computational physics, reactor mesh generation}
+\skillrow{Languages}{Python, C++, Fortran, Bash}
+\skillrow{Scientific Python}{NumPy, Xarray, Numba, PyTorch, Pandas}
+\skillrow{HPC}{MPI, OpenMP, HDF5, NetCDF, PBS and Slurm, Intel and NVIDIA GPUs}
+\skillrow{Workflow}{GitHub Actions, Docker, Parsl, Swift/T, Globus Compute, MCP}
 
 \section{Selected Publications}
 \begin{itemize}
-  \item \textbf{Jain, R.} and Jacob, R. ``\href{https://agent4sc.github.io/}{Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray}.'' \textit{1st Workshop on Agentic AI for Large-scale Science (AGENT4SC) at IEEE eScience 2026}, Naples --- presented September 2026. Artifacts: \href{https://doi.org/10.5281/zenodo.21463232}{doi:10.5281/zenodo.21463232}.
+  \item \textbf{Jain, R.} and Jacob, R. ``\href{https://agent4sc.github.io/}{Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray}.'' \textit{AGENT4SC at IEEE eScience}, 2026.
   \item Partin, A., ..., \textbf{Jain, R.}, et al. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models}.'' \textit{Briefings in Bioinformatics}, 2026.
   \item \textbf{Jain, R.}, Tang, H., Dhruv, A., and Byna, S. ``\href{https://doi.org/10.1109/SCW63240.2024.00043}{Enabling Data Reduction for Flash-X Simulations}.'' \textit{SC24 / DRBSD-10}, 2024.
   \item \textbf{Jain, R.}, Wozniak, J. M., et al. ``\href{https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf}{Cross-HPO: Optimizing Neural Networks for Cancer Drug Response}.'' \textit{CAFCW at SC24}, 2024.
@@ -75,13 +72,11 @@ Principal research software engineer, at Argonne since 2009, turning research pr
 \end{itemize}
 Full list: \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ}{Google Scholar}.
 
-\section{Awards, Recognition, and Service}
+\section{Awards and Service}
 \begin{itemize}
-  \item Program committee member, 1st Workshop on Agentic AI for Large-scale Science (AGENT4SC) at IEEE eScience 2026.
-  \item R\&D 100 Award, CANDLE (2023) \textbar{} R\&D 100 Award, FLASH-X (2022).
-  \item DOE SBIR Phase I \& II (RGG reactor mesh generator; Kitware, 2014--2017).
-  \item ATPESC Scholar, Argonne Training Program on Extreme-Scale Computing (2015).
-  \item Best Paper Award, International Meshing Roundtable (2010).
+  \item R\&D 100 Awards: CANDLE (2023), FLASH-X (2022).
+  \item Best Paper, International Meshing Roundtable (2010). ATPESC scholar (2015).
+  \item Program committee, AgenticAI4HPC at SC26 and AGENT4SC at eScience 2026. DOE SBIR/STTR reviewer.
 \end{itemize}
 
 \section{Education}

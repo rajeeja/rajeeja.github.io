@@ -5,25 +5,137 @@
 
 \begin{document}
 \sloppy
-\setupcvfooter{September 2026}
+\setupcvfooter{October 2026}
 
 \makeprofileheader
   {Rajeev Jain}
   {\faGlobe~\href{https://rajeeja.github.io}{rajeeja.github.io} \quad \faGithub~\href{https://github.com/rajeeja}{rajeeja} \quad \faLinkedin~\href{https://linkedin.com/in/rajeeja}{rajeeja} \quad \faGraduationCap~\href{https://scholar.google.com/citations?user=bC77n9MAAAAJ\&hl=en}{Google Scholar} \quad \faOrcid~\href{https://orcid.org/0000-0002-1235-918X}{ORCID}}
   {\faEnvelope~\href{mailto:jain@anl.gov}{jain@anl.gov} \quad \faEnvelope~\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad \faMapMarker~Chicago, IL}
 
-{\large\color{mutedgray} Principal Specialist, Research Software Engineering | AI Systems | HPC | Scientific Computing}\par
+{\large\color{mutedgray} Principal Specialist, Research Software Engineering, Argonne National Laboratory}\par
 \vspace{7pt}
 
-\highlightstrip{%
-  At Argonne National Laboratory \textbf{since 2009} \highlightsep
-  \textbf{2$\times$ R\&D 100 Awards} (CANDLE 2023, FLASH-X 2022) \highlightsep
-  Lead developer, \textbf{UXarray} (DOE labs \& NCAR)%
-}
+\Needspace{5\baselineskip}
+\section{Professional Experience}
+\entryheader
+  {Argonne National Laboratory}
+  {2009 -- Present}
+  {Principal Specialist, Research Software Engineering}
+  {Mathematics and Computer Science Division, Chicago, IL}
+
+\entryheader
+  {University of Chicago}
+  {2023 -- Present}
+  {Staff At-Large}
+  {Consortium for Advanced Science and Engineering (CASE), Chicago, IL}
+
+\entryheader
+  {Arizona State University}
+  {2007 -- 2009}
+  {Research and Teaching Assistant}
+  {Structural and Computational Mechanics Lab, Tempe, AZ}
+
+\entryheader
+  {Earlier Industry Experience}
+  {2005 -- 2007}
+  {Project Engineer, Wipro Technologies; Engineering Intern, Tata Motors}
+  {India}
+\vspace{0.3em}
 
 \Needspace{5\baselineskip}
-\section{Professional Profile}
-Principal research software engineer, at Argonne since 2009, delivering production systems at the intersection of AI infrastructure, scientific computing, and HPC. Led UXarray from zero to a Python library used at DOE labs and NCAR, including an MCP server that lets AI agents inspect, analyze, and visualize production Earth-system meshes on HPC clusters via Globus Compute — no SSH, no scripts, full provenance. Pairs that with a verification habit: traced silent numerical drift on a production mesh to catastrophic cancellation and fixed it upstream, and recovered a hidden 1.67$\times$ slowdown in a faithful C++-to-Python port. Ran 10,000+ ML training experiments using Swift/T across Summit, Theta, and Cori for cancer drug response research; applied noise injection and counterfactual analysis to identify genes driving tumor classification decisions. Reduced FLASH-X checkpoint overhead 40--70\% on Summit via async HDF5 and lossy compression. Generated a 101M-element MONJU reactor mesh on 712 processors in about 7 minutes — a mesh the serial path could not build at all. Two R\&D 100 Awards (2022, 2023). Work spans Python platforms and MCP server development, C++ and Fortran HPC codebases, exascale GPU porting (Intel XPU / CUDA), and cross-institution program coordination.
+\section{Projects}
+\entryheader
+  {SimBoard, E3SM}
+  {2026 -- Present}
+  {Contributor}
+  {\href{https://simboard-dev.e3sm.org/}{simboard-dev.e3sm.org}}
+\begin{itemize}
+  \item Web catalog of E3SM simulation runs: case metadata, provenance, and links to each run's diagnostics.
+\end{itemize}
+
+\entryheader
+  {UXarray}
+  {2022 -- Present}
+  {Lead Developer}
+  {\href{https://github.com/UXARRAY/uxarray}{github.com/UXARRAY/uxarray}}
+\begin{itemize}
+  \item Python library for analysis on unstructured climate grids, used at DOE labs, NCAR, and universities.
+  \item Wrote and maintain an MCP server that runs UXarray analyses for AI agents on HPC systems through Globus Compute.
+  \item Fixed precision loss in the spherical geometry kernels using error-free transformations.
+\end{itemize}
+
+\entryheader
+  {E3SM AI Platform}
+  {2026 -- Present}
+  {Contributor}
+  {\href{https://github.com/E3SM-Project/e3sm-ai-platform}{github.com/E3SM-Project/e3sm-ai-platform}}
+\begin{itemize}
+  \item Documentation assistant for E3SM that cites sources or declines to answer. Added Argonne's Argo gateway as a model provider.
+\end{itemize}
+
+\entryheader
+  {ncvis}
+  {2026 -- Present}
+  {Maintainer}
+  {DOE SEATS}
+\begin{itemize}
+  \item NetCDF viewer for structured and unstructured grids, in C++. Took over maintenance in 2026.
+\end{itemize}
+
+\entryheader
+  {SPOTTER-AI, DOE Genesis Mission}
+  {2026 -- Present}
+  {Contributor}
+  {PI: B.~Nicolae}
+\begin{itemize}
+  \item Attention capture and poisoning experiments on cancer drug-response models, for provenance-based integrity checks.
+\end{itemize}
+
+\entryheader
+  {SFNO on Aurora}
+  {2025 -- 2026}
+  {Software Engineer}
+  {ALCF}
+\begin{itemize}
+  \item Ported a PyTorch climate emulator to Aurora's Intel GPUs and set up its distributed training baseline.
+\end{itemize}
+
+\entryheader
+  {CANDLE and IMPROVE}
+  {2017 -- 2025}
+  {Core Contributor}
+  {DOE ECP and NCI}
+\begin{itemize}
+  \item Built the CANDLE/Supervisor hyperparameter search workflow on Swift/T, used for 10,000+ training runs on Summit, Theta, and Cori.
+  \item Led the IMPROVE benchmark framework for cancer drug-response models. R\&D 100 Award, 2023.
+\end{itemize}
+
+\entryheader
+  {FLASH-X}
+  {2019 -- 2024}
+  {I/O and Compression Lead}
+  {Multiphysics simulation code}
+\begin{itemize}
+  \item Asynchronous HDF5 checkpointing with lossy compression, and restart across AMReX and Paramesh. R\&D 100 Award, 2022.
+\end{itemize}
+
+\entryheader
+  {Urban ECP}
+  {2016 -- 2019}
+  {Software Lead}
+  {With C.~Catlett}
+\begin{itemize}
+  \item Coupled weather, building energy, and CFD simulations for downtown Chicago.
+\end{itemize}
+
+\entryheader
+  {MeshKit}
+  {2009 -- 2016}
+  {Principal Investigator}
+  {DOE NEAMS}
+\begin{itemize}
+  \item Open-source C++ toolkit for nuclear reactor core mesh generation, including a parallel path for full-core meshes.
+\end{itemize}
 
 \Needspace{5\baselineskip}
 \section{Education}
@@ -41,155 +153,26 @@ Graduate Fellowship Recipient (2007--2009)
 B.Tech. in Mechanical Engineering
 
 \Needspace{5\baselineskip}
-\section{Professional Experience}
-\entryheader
-  {Argonne National Laboratory}
-  {2009 -- Present}
-  {Principal Specialist, Research Software Engineering}
-  {Mathematics and Computer Science Division, Chicago, IL}
+\section{Funding}
 \begin{itemize}
-  \item Principal software engineer and program lead across six multi-year DOE research software programs spanning climate analytics, scientific AI, simulation infrastructure, and exascale HPC porting — from initial architecture through production release, CI/CD, and cross-institution coordination.
-\end{itemize}
-
-\entryheader
-  {University of Chicago}
-  {2023 -- Present}
-  {Staff At-Large}
-  {Consortium for Advanced Science and Engineering (CASE), Chicago, IL}
-\begin{itemize}
-  \item Joint appointment supporting cancer pharmacogenomics and Earth science collaborations.
-  \item Mentor students and research staff on software design, experimentation, and reproducibility.
-\end{itemize}
-
-\entryheader
-  {Arizona State University}
-  {2007 -- 2009}
-  {Research and Teaching Assistant}
-  {Structural and Computational Mechanics Lab, Tempe, AZ}
-\begin{itemize}
-  \item Conducted FEM-based research in blast mitigation and supported structural analysis coursework.
-\end{itemize}
-
-\entryheader
-  {Earlier Industry Experience}
-  {2005 -- 2007}
-  {Project Engineer, Wipro Technologies; Engineering Intern, Tata Motors}
-  {India}
-\vspace{0.3em}
-
-\Needspace{5\baselineskip}
-\section{Research Software Leadership and Projects}
-\entryheader
-  {UXarray}
-  {2022 -- Present}
-  {Lead Developer}
-  {Open-source climate analysis platform}
-\begin{itemize}
-  \item Lead developer for a Python library enabling analysis of native unstructured climate and weather grids, used by NCAR, DOE labs, and universities.
-  \item Designed the core API, conservative zonal averaging via exact spherical polygon intersection, vector calculus operators (gradient, divergence, curl), YAC remapping backend, multi-grid support, geometry operators, grid I/O for ESMF / MPAS / SCRIP / HEALPix, automated tests, CI/CD, and release workflows.
-  \item Built the UXarray MCP server: 20+ typed tools allowing AI agents to inspect, subset, visualize, and analyze production Earth-system meshes locally or on HPC clusters (Argonne Improv, UCAR Derecho) via Globus Compute, with structured provenance on every operation. Presented at SciFoundationModels 2026 (SciFM26).
-  \item Traced 0.68 m of positional drift on a production mesh to catastrophic cancellation in a spherical cross product and replaced the kernel with error-free-transformation arithmetic (\texttt{two\_prod}), merged as UXarray PR \#1513; recovered a 1.67$\times$ speedup in a Numba hot path by removing heap allocation introduced in a C++-to-Python translation.
-  \item Tutorials and presentations at SC24, AMS 2024/2025/2026, SciPy 2023, EGU 2024/2025/2026, AGU, and ESDS.
-\end{itemize}
-
-\entryheader
-  {ncvis}
-  {2026 -- Present}
-  {Maintainer}
-  {NetCDF visualizer for structured and unstructured grids (DOE SEATS)}
-\begin{itemize}
-  \item Took over maintenance of the SEATS project's C++/wxWidgets visualizer in August 2026: reviewed and merged the community pull-request backlog (1D line plots, color-scale centering, macOS XQuartz refresh, CMake link order), building each branch on both build paths and running it against generated netCDF fixtures before merging.
-  \item Diagnosed a macOS link failure caused by \texttt{target\_link\_options} de-duplicating repeated \texttt{-framework} arguments and replaced the \texttt{wx-config} parsing with \texttt{find\_package} results; restored CMake 4 compatibility; fixed the \texttt{-var} startup option.
-\end{itemize}
-
-\entryheader
-  {SPOTTER-AI (DOE Genesis Mission)}
-  {2026 -- Present}
-  {Contributor}
-  {Provenance-based detection of poisoning in scientific AI workflows (PI: B. Nicolae)}
-\begin{itemize}
-  \item Reproduced the Duo cancer drug-response baseline and brought HiDRA and PaccMann-MCA up on the same IMPROVE data and split so a single poisoning harness can drive all three models; documented the environment and patches needed on current Python.
-  \item Found PaccMann-MCA silently training on an all-zero gene-expression matrix caused by a loader/data-version mismatch that raised no error; fixed it and reported the failure class to the IMPROVE team.
-  \item Co-authored ``Cancer Data Quality Analysis via Forensic Provenance Capture and Importance Awareness'' (Wozniak, Jain, Nicolae), submitted to the Computational Approaches for Cancer Workshop at SC26.
-\end{itemize}
-
-\entryheader
-  {SFNO Climate Emulator on Aurora}
-  {2025 -- 2026}
-  {Software Engineer}
-  {AI climate emulation on exascale Intel GPUs}
-\begin{itemize}
-  \item Ported the SFNO climate emulator to Intel XPU on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, device-aware AMP (gradient scaling on CUDA, bf16 on XPU), and first stable DDP baseline on Aurora.
-  \item Established smoke-test and queue-aware bring-up scripts; separated launcher, backend, and device-placement failure modes from sharding bugs.
-\end{itemize}
-
-\entryheader
-  {CANDLE / IMPROVE}
-  {2017 -- 2025}
-  {Core Contributor}
-  {Cancer AI infrastructure and benchmarking}
-\begin{itemize}
-  \item Built the CANDLE/Supervisor HPO workflow using Swift/T, mlrMBO (Bayesian/GP), DEAP (genetic algorithms), and Hyperopt/TPE; ran 10,000+ model training experiments across Summit, Theta, and Cori at up to 1,000 concurrent jobs.
-  \item Applied noise injection and counterfactual analysis to the NT3 tumor classification benchmark; identified PLOD2, RGS5, TP53I13, and related genes as decision-boundary drivers — confirming the model used biologically meaningful signal.
-  \item Led the IMPROVE benchmark framework: \texttt{improvelib} Python package with standardized loaders, canonical train/test splits, and evaluation metrics; GitHub Actions CI/CD covering unit tests, end-to-end Docker pipelines, and parallel cross-study analysis (CSA) via Parsl.
-  \item Designed and implemented UNO, a dual-branch neural network (separate drug and cell-line embeddings) that participates in the IMPROVE CSA benchmark; results published in \textit{Briefings in Bioinformatics} (2026).
-  \item Supported a 15+ researcher multi-lab collaboration. R\&D 100 Award, 2023.
-\end{itemize}
-
-\entryheader
-  {FLASH-X}
-  {2019 -- 2024}
-  {I/O and Compression Lead}
-  {Multiphysics simulation software}
-\begin{itemize}
-  \item Implemented asynchronous HDF5 I/O with Argobots and integrated SZ3 / ZFP compression for checkpoint and restart workflows.
-  \item Reduced checkpoint overhead by 40-70\% on Summit and achieved storage savings above 50\%.
-  \item Enabled cross-checkpoint restart between AMReX and Paramesh solvers. Work contributed to an R\&D 100 Award in 2022.
-\end{itemize}
-
-\entryheader
-  {MeshKit}
-  {2009 -- 2016}
-  {Principal Investigator / Software Lead}
-  {DOE NEAMS reactor mesh generation}
-\begin{itemize}
-  \item Principal investigator for MeshKit within DOE NEAMS, leading open-source C++ toolkit for automated nuclear reactor core mesh generation.
-  \item Developed parallel CoreGen workflow: 712 processors, 101 million hexahedral elements, 14 GB MONJU reactor mesh in about 7 minutes — serial path could not run at all.
-  \item Built AssyGen/CoreGen pipeline encoding reactor lattice hierarchy; supported PostBL boundary-layer generation and multi-format mesh workflows.
-\end{itemize}
-
-\entryheader
-  {Urban ECP}
-  {2016 -- 2019}
-  {Software Lead}
-  {DOE urban microclimate and CFD workflows}
-\begin{itemize}
-  \item Led seed-funded urban exascale proposal with Charlie Catlett (Argonne / University of Chicago); developed a three-layer coupled simulation workflow: WRF/HRRR mesoscale weather \textrightarrow{} EnergyPlus building energy \textrightarrow{} Nek5000 wall-resolved LES for downtown Chicago.
-  \item Built the full 3D urban geometry model for the CFD domain, including architecturally complex structures such as Lake Point Tower.
-  \item Published in \textit{Journal of Building Performance Simulation} (2020); presented at AGU 2018/2019 and International Conference on Urban Climate 2018.
+  \item DOE E3SM (active): SimBoard and the E3SM AI platform.
+  \item DOE SEATS (active): UXarray and ncvis.
+  \item NSF Raijin (active): climate model analysis.
+  \item DOE Genesis Mission, SPOTTER-AI (Phase I, 2026).
+  \item DOE ECP CANDLE (2017 -- 2023).
+  \item Urban ECP seed funding (2016 -- 2019).
+  \item DOE NEAMS (2009 -- 2016): PI, MeshKit.
 \end{itemize}
 
 \Needspace{5\baselineskip}
-\section{Funding and Research Programs}
+\section{Awards}
 \begin{itemize}
-  \item \textbf{DOE SEATS} (active): Simplifying ESM Analysis Through Standards; UXarray and ncvis development.
-  \item \textbf{DOE Genesis Mission SPOTTER-AI} (Phase I, submitted 2026): contributor, cancer drug-response poisoning and ground-truth pipeline.
-  \item \textbf{NSF Raijin} (active): collaborative research in climate model analysis.
-  \item \textbf{DOE ECP CANDLE} (2017 -- 2023): core contributor on cancer AI infrastructure.
-  \item \textbf{DOE NEAMS} (2009 -- 2016): principal investigator for MeshKit and reactor mesh generation workflows.
-  \item \textbf{Urban ECP} (2016 -- 2019): software lead and coordinator for urban microclimate and CFD workflows across multiple labs.
-\end{itemize}
-
-\Needspace{5\baselineskip}
-\section{Awards \& Recognition}
-\begin{itemize}
-  \item R\&D 100 Award --- CANDLE, Cancer Distributed Learning Environment (2023).
-  \item R\&D 100 Award --- FLASH-X, multiphysics simulation software (2022).
-  \item DOE SBIR Phase I \& II --- RGG (Reactor Geometry \& mesh Generator) tool, awarded to Kitware Inc. (2014 -- 2017).
+  \item R\&D 100 Award, CANDLE (2023).
+  \item R\&D 100 Award, FLASH-X (2022).
   \item ATPESC Scholar, Argonne Training Program on Extreme-Scale Computing (2015).
   \item Best Paper Award, International Meshing Roundtable (2010).
   \item University Graduate Fellowship, Arizona State University (2007 -- 2009).
-  \item First Prize, Low-Budget Car Design Contest --- Minda Ltd. \& IIT Kharagpur (2004).
+  \item First prize, low-budget car design contest, Minda Ltd.\ and IIT Kharagpur (2004).
 \end{itemize}
 
 \Needspace{5\baselineskip}
@@ -265,32 +248,21 @@ B.Tech. in Mechanical Engineering
 \pubentry{2013}{\textbf{Jain, R.} and Tautges, T. J. ``MeshKit.'' ANL/MCS-TM-336.}
 \pubentry{2012}{Tautges, T. J., Fischer, P., Grindeanu, I., \textbf{Jain, R.}, Mahadevan, V., Obabko, A., Smith, M. A., Hamilton, S., Clarno, K., and Baird, M. ``A Coupled Thermal / Hydraulics -- Neutronics -- Fuel Performance Analysis of an SFR Fuel Assembly.'' Report to the U.S. Department of Energy.}
 
-\Needspace{26\baselineskip}
-\section{Software and Open Source}
-\begin{tabularx}{\textwidth}{@{}p{2.2cm}X@{}}
-\textbf{UXarray} & Lead developer; Python library for unstructured climate grid analysis used by NCAR and DOE labs. \href{https://github.com/UXARRAY/uxarray}{GitHub} · \href{https://uxarray.readthedocs.io}{Docs}. \\[4pt]
-\textbf{UXarray MCP} & MCP server exposing UXarray as typed AI-agent tools with Globus Compute HPC backend; structured provenance on every call. Presented at SciFM26. \\[4pt]
-\textbf{FLASH-X} & I/O and compression lead for a million-line multiphysics simulation engine (astrophysics, combustion, fluid dynamics). R\&D 100 Award, 2022. \\[4pt]
-\textbf{CANDLE / IMPROVE} & HPO workflow (Swift/T, mlrMBO, DEAP, Hyperopt) and \texttt{improvelib} benchmark framework for cancer drug response; GitHub Actions CI/CD and UNO dual-branch model. R\&D 100 Award, 2023. \\[4pt]
-\textbf{SFNO} & PyTorch climate emulator ported to Aurora's Intel XPU stack (60,000+ GPUs): PMIX/PALS launcher, XPU/CUDA AMP, first stable DDP baseline, measured one-node 12-rank run. \\[4pt]
-\textbf{MeshKit} & Principal investigator; open-source C++ reactor mesh generation toolkit. Parallel CoreGen: 101M-element MONJU mesh on 712 processors. \href{https://bitbucket.org/fathomteam/meshkit}{Source}. \\
-\end{tabularx}
-
 \Needspace{5\baselineskip}
-\section{Professional Service}
+\section{Service}
 \begin{itemize}
-  \item Program committee member, \href{https://ornl.github.io/events/agenticai4hpc2026/}{1st International Workshop on Agentic AI for HPC (AgenticAI4HPC)} at SC26, Chicago, IL.
-  \item Program committee member, \href{https://agent4sc.github.io/}{1st Workshop on Agentic AI for Large-scale Science (AGENT4SC)} at IEEE eScience 2026, Naples, Italy.
-  \item SBIR / STTR proposal reviewer for the U.S. Department of Energy.
+  \item Program committee, \href{https://ornl.github.io/events/agenticai4hpc2026/}{AgenticAI4HPC} workshop at SC26.
+  \item Program committee, \href{https://agent4sc.github.io/}{AGENT4SC} workshop at IEEE eScience 2026.
+  \item DOE SBIR/STTR proposal reviewer.
   \item Panelist, ``Revolutionizing Public Infrastructure: The Impact of AI and Machine Learning,'' 5th Infraday Midwest Event.
-  \item Reviewer for the \textit{Journal of Open Research Software} and NumGrid.
+  \item Reviewer, \textit{Journal of Open Research Software} and NumGrid.
   \item Program committee member, NumGrid 2020.
   \item Session chair, Computational Geometries session, MC2015.
   \item Volunteer, South Side Science Festival, University of Chicago (2023, 2024).
 \end{itemize}
 
 \Needspace{5\baselineskip}
-\section{Professional Memberships}
+\section{Memberships}
 \begin{itemize}
   \item Association for Computing Machinery (ACM), since 2018.
   \item American Meteorological Society (AMS).
@@ -300,12 +272,11 @@ B.Tech. in Mechanical Engineering
 \Needspace{5\baselineskip}
 \section{Mentorship}
 \begin{itemize}
-  \item Mentored students, research aides, and staff on scientific Python, HPC workflows, systems engineering, and reproducible software development.
-  \item Rylie Weaver (Research Aide, 2022 -- 2024): IMPROVE project, HPO techniques for cancer drug response prediction.
-  \item Aaron Zedwick (Student, 2023 -- 2024): UXarray development, dual mesh routines, and remapping functionality.
-  \item Mark Bartoszek (Systems Administration, 2023): mentoring on systems administration practices at Argonne.
-  \item Brett Rhodes (SULI Summer Student, 2013): MeshKit documentation and examples.
-  \item Dayan Abdulla (Student, 2024 -- present): UXarray MCP server development, AI-agent dataset exploration, and Globus Compute integration for HPC execution.
+  \item Dayan Abdulla (student, 2024 -- present): UXarray MCP server.
+  \item Aaron Zedwick (student, 2023 -- 2024): UXarray dual mesh and remapping.
+  \item Mark Bartoszek (systems administration, 2023).
+  \item Rylie Weaver (research aide, 2022 -- 2024): hyperparameter search for IMPROVE.
+  \item Brett Rhodes (SULI summer student, 2013): MeshKit documentation.
 \end{itemize}
 
 \end{document}
