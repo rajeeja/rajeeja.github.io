@@ -130,7 +130,23 @@ def main():
     data_csv = os.path.join(repo_root, '_data', 'citations.csv')
 
     user_id = load_scholar_user_id(config_path)
-    rows = fetch_from_scholar(user_id)
+    try:
+        rows = fetch_from_scholar(user_id)
+    except Exception as e:  # network, parser, or Scholar refusing the client
+        print(f"::warning::Scholar fetch failed ({type(e).__name__}: {e}); keeping existing citations.csv")
+        return
+
+    # Google Scholar often throttles shared CI addresses and can return a
+    # partial or empty list rather than an error. Never let that replace a
+    # good file with a shorter one.
+    existing = 0
+    if os.path.exists(data_csv):
+        with open(data_csv, 'r', encoding='utf-8') as f:
+            existing = max(0, sum(1 for _ in f) - 1)
+    if len(rows) < max(1, int(existing * 0.9)):
+        print(f"::warning::Scholar returned {len(rows)} publications against {existing} on file; "
+              "looks throttled or partial, keeping existing citations.csv")
+        return
 
     y2025 = [r for r in rows if str(r['Year']).strip() == '2025']
     print(f"Fetched {len(rows)} publications from Scholar; {len(y2025)} entries for 2025.")

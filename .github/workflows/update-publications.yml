@@ -28,6 +28,11 @@ jobs:
           pip install -r scripts/requirements.txt
 
       - name: Update publications from Google Scholar
+        # Scholar throttles GitHub's shared runners; without a cap a blocked
+        # fetch hangs for the 6-hour job limit. The script keeps the existing
+        # data when the fetch is cut short.
+        timeout-minutes: 15
+        continue-on-error: true
         env:
           SCHOLAR_USER_ID: ''  # optional override; otherwise read from _config.yml
         run: |
