@@ -391,6 +391,75 @@ h1, h2, h3, h4, h5, h6,
   color: var(--link) !important;
 }
 
+/* Tools: a two-column definition list, not a card grid */
+
+.cv-skills {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 6px 16px;
+  margin: 0;
+}
+
+.cv-skills dt,
+.cv-skills dd {
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.cv-skills dt {
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.cv-skills dd {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+}
+
+/* Expandable detail under a project */
+
+.item-more {
+  margin: 4px 0 2px;
+}
+
+.item-more summary {
+  display: inline;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 0.92rem;
+  list-style: none;
+}
+
+.item-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.item-more summary::before {
+  content: "+ ";
+}
+
+.item-more[open] summary::before {
+  content: "\2212  ";
+}
+
+.item-more summary:hover {
+  color: var(--link);
+}
+
+.item-more ul {
+  margin: 6px 0 4px;
+  padding-left: 1.1em;
+  list-style: disc;
+}
+
+.item-more li {
+  margin: 0 0 4px;
+  font-size: 0.97rem;
+}
+
 /* Footer */
 
 .cv-footer {
@@ -847,8 +916,18 @@ h1, h2, h3, h4, h5, h6,
     font-size: 1.6rem !important;
   }
 
-  .cv-items--compact li {
+  .cv-items--compact li,
+  .cv-items--posts li {
     padding-left: 0;
+  }
+
+  .cv-skills {
+    grid-template-columns: 1fr;
+    gap: 0 0;
+  }
+
+  .cv-skills dd {
+    margin-bottom: 8px;
   }
 
   .cv-items--compact .item-venue {

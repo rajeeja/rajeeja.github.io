@@ -13,7 +13,7 @@ tags:
   - climate
   - memory-management
   - hpc
-excerpt: "The highest-resolution mesh in a next-generation climate simulation could not be opened by any tool. Not slowly — at all. The reason was that 86% of its 53.6 GiB of coordinates were the same points written over and over, and the reader insisted on holding every copy at once. Three hundred million cells now load in five minutes."
+excerpt: "The finest mesh in a new climate simulation couldn't be opened by any tool. 86% of its coordinates were repeats, and the reader held every copy at once. It now loads in about five minutes."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -22,7 +22,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">Performance engineering &middot; 2026</p>
   <h1 class="article-title">Opening a 63 GB Climate Mesh</h1>
-  <p class="article-dek">Three hundred million cells that no tool could read, and the one observation about duplicate coordinates that made them load in 306 seconds.</p>
+  <p class="article-dek">Three hundred million cells that no tool could read, and the observation about duplicate coordinates that made them load in 306 seconds.</p>
 </div>
 
 <div class="post-tags">

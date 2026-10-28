@@ -4,7 +4,7 @@ date: 2026-05-28
 permalink: /blog/ai-roi-mcp-discipline/
 categories:
   - blog
-excerpt: "Corporate leaders are questioning whether AI spending delivers returns. The problem isn't AI. It's that most enterprises handed out general-purpose chat access and called it a strategy. The projects delivering real value — including the UXarray MCP work I've been building — share an architecture that looks nothing like that."
+excerpt: "Companies are asking whether AI spending pays off. My view is that handing out general-purpose chat isn't a plan, and the projects that work look more like scoped tools with provenance."
 tags:
   - mcp
   - ai-agents
@@ -19,7 +19,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">AI in Production · May 2026</p>
   <h1 class="article-title">The AI ROI Problem Is Real. The Fix Isn't Cutting Licenses.</h1>
-  <p class="article-dek">Companies spent billions, got chatbots that check the weather, and are now hitting the brakes. That's not an AI problem — it's an architecture problem. Here's what disciplined AI actually looks like.</p>
+  <p class="article-dek">General-purpose chat isn't a strategy. Scoped tools with provenance are a better bet.</p>
 </div>
 
 <div class="post-tags">

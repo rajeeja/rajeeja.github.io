@@ -3,39 +3,47 @@
 \input{common.tex}
 \pagestyle{empty}
 
+% ATS note: no icon glyphs in the contact block (parsers read them as
+% garbage), standard section names, single column, real text throughout.
 \begin{document}
 \sloppy
 
-\makeprofileheader
-  {Rajeev Jain}
-  {\faGlobe~\href{https://rajeeja.github.io}{rajeeja.github.io} \quad \faGithub~\href{https://github.com/rajeeja}{rajeeja} \quad \faLinkedin~\href{https://linkedin.com/in/rajeeja}{rajeeja} \quad \faGraduationCap~\href{https://scholar.google.com/citations?user=bC77n9MAAAAJ}{Google Scholar} \quad \faOrcid~\href{https://orcid.org/0000-0002-1235-918X}{ORCID}}
-  {\faEnvelope~\href{mailto:jain@anl.gov}{jain@anl.gov} \quad \faEnvelope~\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad \faMapMarker~Chicago, IL}
+{\fontsize{22}{24}\selectfont\bfseries\color{accent}Rajeev Jain}\par
+\vspace{5pt}
+{\color{rulegray}\hrule height 1pt}
+\vspace{7pt}
+{\small\color{mutedgray}\href{mailto:jain@anl.gov}{jain@anl.gov} \quad\textbar\quad \href{https://rajeeja.github.io}{rajeeja.github.io} \quad\textbar\quad \href{https://github.com/rajeeja}{github.com/rajeeja} \quad\textbar\quad \href{https://linkedin.com/in/rajeeja}{linkedin.com/in/rajeeja} \quad\textbar\quad Chicago, IL\par}
+\vspace{8pt}
 
-{\large\color{mutedgray} Principal Specialist, Research Software Engineering, Argonne National Laboratory}\par
+{\large\color{mutedgray} Principal Research Software Engineer}\par
 \vspace{6pt}
 
-\section{Professional Experience}
+\section{Summary}
+Research software engineer at Argonne National Laboratory since 2009. I build scientific software that runs on DOE supercomputers, and lately the tooling that lets AI agents use it. Lead developer of UXarray and its MCP server; contributor to E3SM's SimBoard. Two R\&D 100 Awards.
+
+\section{Experience}
 \entryheader
   {Argonne National Laboratory}
   {2009 -- Present}
   {Principal Specialist, Research Software Engineering}
-  {Mathematics and Computer Science Division, Chicago, IL}
+  {Mathematics and Computer Science Division, Lemont, IL}
 \begin{itemize}
-  \item SimBoard (E3SM): contributor to the web catalog of E3SM simulation runs, with case metadata, provenance, and links to diagnostics.
-  \item UXarray: lead developer of a Python library for analysis on unstructured climate grids, used at DOE labs and NCAR. Wrote its MCP server, which runs analyses for AI agents on HPC systems.
-  \item E3SM AI platform and ncvis: added the Argo model provider to the E3SM documentation assistant; maintain the SEATS NetCDF viewer.
-  \item SPOTTER-AI (DOE Genesis Mission): attention capture and poisoning experiments on cancer drug-response models.
-  \item SFNO on Aurora: ported a PyTorch climate emulator to Intel GPUs.
-  \item CANDLE and IMPROVE: hyperparameter search workflow (10,000+ runs on Summit, Theta, Cori) and the IMPROVE benchmark framework. R\&D 100 Award, 2023.
-  \item FLASH-X: asynchronous checkpoint I/O and compression. R\&D 100 Award, 2022.
-  \item MeshKit (PI, DOE NEAMS) and Urban ECP: reactor core mesh generation; coupled weather-to-CFD workflow for downtown Chicago.
+  \item \textbf{SimBoard (E3SM).} Contribute to the web catalog of E3SM simulation runs: case metadata, provenance, and links to diagnostics. FastAPI, PostgreSQL, React, deployed at NERSC.
+  \item \textbf{UXarray.} Lead developer of a Python library for unstructured climate grids, used at DOE labs and NCAR. Made a 300-million-cell, 63\,GB mesh loadable in 306\,s; fixed 0.68\,m of geometric drift with error-free arithmetic; 1.67$\times$ faster in a Numba hot path.
+  \item \textbf{UXarray MCP server.} Wrote an MCP server that lets AI agents run UXarray analyses on HPC systems through Globus Compute. Presented at SciFM26 and IEEE eScience 2026.
+  \item \textbf{SPOTTER-AI (DOE Genesis Mission).} Attention capture and poisoning experiments on cancer drug-response models, for provenance-based integrity checks.
+  \item \textbf{SFNO on Aurora.} Ported a PyTorch climate emulator to Intel GPUs and set up distributed training.
+  \item \textbf{CANDLE and IMPROVE.} Built a hyperparameter search workflow that ran 10,000+ training jobs on Summit, Theta, and Cori; led the IMPROVE benchmark framework. R\&D 100 Award, 2023.
+  \item \textbf{FLASH-X.} Asynchronous HDF5 checkpointing with compression, cutting checkpoint overhead 40--70\% on Summit. R\&D 100 Award, 2022.
+  \item \textbf{MeshKit (PI, DOE NEAMS).} Reactor core mesh generation; a 101-million-element core mesh in about 7 minutes on 712 cores.
+  \item \textbf{Maintenance and review.} Maintain the ncvis NetCDF viewer (C++); added the Argo model provider to the E3SM AI platform; regular reviewer on UXarray.
 \end{itemize}
 
 \entryheader
   {University of Chicago}
   {2023 -- Present}
   {Staff At-Large}
-  {Consortium for Advanced Science and Engineering (CASE), Chicago, IL}
+  {Consortium for Advanced Science and Engineering (CASE)}
 \begin{itemize}
   \item Joint appointment for cancer and Earth science software collaborations.
 \end{itemize}
@@ -44,40 +52,34 @@
   {Arizona State University}
   {2007 -- 2009}
   {Research and Teaching Assistant}
-  {Structural and Computational Mechanics Lab, Tempe, AZ}
+  {Structural and Computational Mechanics Lab}
 \begin{itemize}
   \item Finite element research on blast mitigation.
 \end{itemize}
 
-\entryheader
-  {Earlier Experience}
-  {2005 -- 2007}
-  {Project Engineer, Wipro Technologies \textbar{} Engineering Intern, Tata Motors}
-  {India}
-\vspace{0.3em}
-
-\section{Technical Skills}
+\section{Skills}
 \skillrow{Languages}{Python, C++, Fortran, Bash}
-\skillrow{Scientific Python}{NumPy, Xarray, Numba, PyTorch, Pandas}
-\skillrow{HPC}{MPI, OpenMP, HDF5, NetCDF, PBS and Slurm, Intel and NVIDIA GPUs}
-\skillrow{Workflow}{GitHub Actions, Docker, Parsl, Swift/T, Globus Compute, MCP}
+\skillrow{Scientific Python}{NumPy, Xarray, Numba, Dask, Polars, PyTorch}
+\skillrow{AI systems}{MCP servers, agent evaluation, distributed training, hyperparameter search}
+\skillrow{HPC}{MPI, HDF5, NetCDF, SZ3 and ZFP compression, Intel and NVIDIA GPUs, PBS, Slurm}
+\skillrow{Engineering}{CMake, CI/CD, packaging (conda-forge, PyPI), Globus Compute, code review}
+
+\section{Awards}
+\begin{itemize}
+  \item R\&D 100 Award, CANDLE (2023). R\&D 100 Award, FLASH-X (2022).
+  \item Best Paper, International Meshing Roundtable (2010). ATPESC scholar (2015).
+  \item Program committee, AgenticAI4HPC at SC26 and AGENT4SC at IEEE eScience 2026. DOE SBIR/STTR proposal reviewer.
+\end{itemize}
 
 \section{Selected Publications}
 \begin{itemize}
   \item \textbf{Jain, R.} and Jacob, R. ``\href{https://agent4sc.github.io/}{Beyond Tool Execution: Evaluating Scientific MCP Interfaces with UXarray}.'' \textit{AGENT4SC at IEEE eScience}, 2026.
-  \item Partin, A., ..., \textbf{Jain, R.}, et al. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models}.'' \textit{Briefings in Bioinformatics}, 2026.
-  \item \textbf{Jain, R.}, Tang, H., Dhruv, A., and Byna, S. ``\href{https://doi.org/10.1109/SCW63240.2024.00043}{Enabling Data Reduction for Flash-X Simulations}.'' \textit{SC24 / DRBSD-10}, 2024.
-  \item \textbf{Jain, R.}, Wozniak, J. M., et al. ``\href{https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf}{Cross-HPO: Optimizing Neural Networks for Cancer Drug Response}.'' \textit{CAFCW at SC24}, 2024.
-  \item Wozniak, J. M., \textbf{Jain, R.}, et al. ``\href{https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4}{CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research}.'' \textit{BMC Bioinformatics}, 2018.
+  \item Partin, A., \ldots, \textbf{Jain, R.}, et al. ``\href{https://academic.oup.com/bib/article/27/1/bbaf667/7002013}{Benchmarking community drug response prediction models}.'' \textit{Briefings in Bioinformatics}, 2026.
+  \item \textbf{Jain, R.}, Tang, H., Dhruv, A., and Byna, S. ``\href{https://doi.org/10.1109/SCW63240.2024.00043}{Enabling Data Reduction for Flash-X Simulations}.'' \textit{DRBSD-10 at SC24}, 2024.
+  \item \textbf{Jain, R.}, Wozniak, J.\,M., et al. ``\href{https://web.cels.anl.gov/~woz/papers/IMPROVE_HPO_2024.pdf}{Cross-HPO: Optimizing Neural Networks for Cancer Drug Response}.'' \textit{CAFCW at SC24}, 2024.
+  \item Wozniak, J.\,M., \textbf{Jain, R.}, et al. ``\href{https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2508-4}{CANDLE/Supervisor: A workflow framework for machine learning applied to cancer research}.'' \textit{BMC Bioinformatics}, 2018.
 \end{itemize}
 Full list: \href{https://scholar.google.com/citations?user=bC77n9MAAAAJ}{Google Scholar}.
-
-\section{Awards and Service}
-\begin{itemize}
-  \item R\&D 100 Awards: CANDLE (2023), FLASH-X (2022).
-  \item Best Paper, International Meshing Roundtable (2010). ATPESC scholar (2015).
-  \item Program committee, AgenticAI4HPC at SC26 and AGENT4SC at eScience 2026. DOE SBIR/STTR reviewer.
-\end{itemize}
 
 \section{Education}
 \textbf{University of Chicago} \hfill 2020 \\
@@ -85,7 +87,7 @@ M.S. in Computer Science
 
 \vspace{4pt}
 \textbf{Arizona State University} \hfill 2009 \\
-M.S. in Structural Engineering \hfill Graduate Fellowship Recipient
+M.S. in Structural Engineering
 
 \vspace{4pt}
 \textbf{Indian Institute of Technology (ISM) Dhanbad} \hfill 2006 \\

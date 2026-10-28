@@ -12,7 +12,9 @@
   {\faGlobe~\href{https://rajeeja.github.io}{rajeeja.github.io} \quad \faGithub~\href{https://github.com/rajeeja}{rajeeja} \quad \faLinkedin~\href{https://linkedin.com/in/rajeeja}{rajeeja} \quad \faGraduationCap~\href{https://scholar.google.com/citations?user=bC77n9MAAAAJ\&hl=en}{Google Scholar} \quad \faOrcid~\href{https://orcid.org/0000-0002-1235-918X}{ORCID}}
   {\faEnvelope~\href{mailto:jain@anl.gov}{jain@anl.gov} \quad \faEnvelope~\href{mailto:rajeeja@gmail.com}{rajeeja@gmail.com} \quad \faMapMarker~Chicago, IL}
 
-{\large\color{mutedgray} Principal Specialist, Research Software Engineering, Argonne National Laboratory}\par
+{\large\color{mutedgray} Principal Research Software Engineer, Argonne National Laboratory}\par
+\vspace{4pt}
+Scientific software for supercomputers, and tooling that lets AI agents use it. At Argonne since 2009.\par
 \vspace{7pt}
 
 \Needspace{5\baselineskip}
@@ -21,7 +23,7 @@
   {Argonne National Laboratory}
   {2009 -- Present}
   {Principal Specialist, Research Software Engineering}
-  {Mathematics and Computer Science Division, Chicago, IL}
+  {Mathematics and Computer Science Division, Lemont, IL}
 
 \entryheader
   {University of Chicago}
@@ -50,7 +52,7 @@
   {Contributor}
   {\href{https://simboard-dev.e3sm.org/}{simboard-dev.e3sm.org}}
 \begin{itemize}
-  \item Web catalog of E3SM simulation runs: case metadata, provenance, and links to each run's diagnostics.
+  \item Web catalog of E3SM simulation runs: case metadata, provenance, and links to each run's diagnostics. FastAPI, PostgreSQL, and React, deployed at NERSC.
 \end{itemize}
 
 \entryheader
@@ -59,9 +61,10 @@
   {Lead Developer}
   {\href{https://github.com/UXARRAY/uxarray}{github.com/UXARRAY/uxarray}}
 \begin{itemize}
-  \item Python library for analysis on unstructured climate grids, used at DOE labs, NCAR, and universities.
-  \item Wrote and maintain an MCP server that runs UXarray analyses for AI agents on HPC systems through Globus Compute.
-  \item Fixed precision loss in the spherical geometry kernels using error-free transformations.
+  \item Lead developer of a Python library for analysis on unstructured climate grids, used at DOE labs, NCAR, and universities.
+  \item Wrote its MCP server, which lets AI agents run UXarray analyses on HPC systems through Globus Compute.
+  \item Made a 300-million-cell, 63\,GB mesh loadable in 306\,s by deduplicating coordinates before grid construction.
+  \item Fixed 0.68\,m of drift in the spherical geometry kernels with error-free arithmetic; 1.67$\times$ faster in a Numba hot path by removing hidden heap allocation.
 \end{itemize}
 
 \entryheader
@@ -106,7 +109,7 @@
   {Core Contributor}
   {DOE ECP and NCI}
 \begin{itemize}
-  \item Built the CANDLE/Supervisor hyperparameter search workflow on Swift/T, used for 10,000+ training runs on Summit, Theta, and Cori.
+  \item Built the CANDLE/Supervisor hyperparameter search workflow on Swift/T: 10,000+ training runs on Summit, Theta, and Cori.
   \item Led the IMPROVE benchmark framework for cancer drug-response models. R\&D 100 Award, 2023.
 \end{itemize}
 
@@ -116,7 +119,7 @@
   {I/O and Compression Lead}
   {Multiphysics simulation code}
 \begin{itemize}
-  \item Asynchronous HDF5 checkpointing with lossy compression, and restart across AMReX and Paramesh. R\&D 100 Award, 2022.
+  \item Asynchronous HDF5 checkpointing with SZ3 and ZFP compression: 40--70\% less checkpoint overhead on Summit. R\&D 100 Award, 2022.
 \end{itemize}
 
 \entryheader
@@ -134,8 +137,16 @@
   {Principal Investigator}
   {DOE NEAMS}
 \begin{itemize}
-  \item Open-source C++ toolkit for nuclear reactor core mesh generation, including a parallel path for full-core meshes.
+  \item Open-source C++ toolkit for reactor core mesh generation. Its parallel path built a 101-million-element core mesh in about 7 minutes on 712 cores.
 \end{itemize}
+
+\Needspace{5\baselineskip}
+\section{Tools}
+\skillrow{Languages}{Python, C++, Fortran, Bash}
+\skillrow{Scientific Python}{NumPy, Xarray, Numba, Dask, Polars, PyTorch}
+\skillrow{AI systems}{MCP servers, agent evaluation, distributed training, hyperparameter search}
+\skillrow{HPC}{MPI, HDF5, NetCDF, SZ3 and ZFP compression, Intel and NVIDIA GPUs, PBS, Slurm}
+\skillrow{Engineering}{CMake, CI/CD, packaging (conda-forge, PyPI), Globus Compute, code review}
 
 \Needspace{5\baselineskip}
 \section{Education}

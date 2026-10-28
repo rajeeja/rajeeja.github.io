@@ -11,7 +11,7 @@ tags:
   - nuclear-engineering
   - moose
   - scientific-computing
-excerpt: "A retrospective on the RGG and MeshKit work in DOE NEAMS, including parallel CoreGen, the MONJU reactor mesh, and how those ideas connect to later MOOSE Reactor Module meshing work."
+excerpt: "A look back at RGG and MeshKit in DOE NEAMS: parallel CoreGen, the MONJU reactor mesh, and how those ideas carried into the MOOSE Reactor Module."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -20,7 +20,7 @@ toc_sticky: true
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Research retrospective &middot; May 8, 2022</p>
   <h1 class="article-title">From RGG and MeshKit to the MOOSE Reactor Module</h1>
-  <p class="article-dek">How my RGG and MeshKit work on parallel reactor core meshing shaped my view of open, reusable meshing workflows for nuclear simulation.</p>
+  <p class="article-dek">Parallel reactor core meshing, and what it taught me about reusable meshing workflows.</p>
 </div>
 
 <div class="post-tags">

@@ -1,0 +1,33 @@
+name: No personal address or phone
+
+# This repo is a public site. Tailored CVs elsewhere carry a home address and
+# phone number; this check stops either from being published here by accident,
+# including inside the built PDFs.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Scan sources and PDFs
+        run: |
+          set -u
+          street='[0-9]{3,6}[[:space:]]+[NSEW]\.?[[:space:]]+[A-Z][a-z]+[[:space:]]+(Ln|Lane|St|Street|Ave|Avenue|Rd|Road|Dr|Drive|Ct|Court|Blvd|Way)\b'
+          # anchored so DOI fragments like 12859-018-2508-4 don't match
+          phone='(^|[^0-9/.-])(\([0-9]{3}\)[ ]?|[0-9]{3}[-. ])[0-9]{3}[-.][0-9]{4}([^0-9/.-]|$)'
+          files=$(git ls-files 'index.md' '_pages/*' '_posts/*' 'cv/*.tex' '_config.yml' 'README.md' '_includes/*' '_layouts/*')
+          hits=$(grep -nEH "$street|$phone" $files || true)
+          for pdf in $(git ls-files 'files/*.pdf'); do
+            t=$(pdftotext "$pdf" - | grep -nE "$street|$phone" || true)
+            [ -n "$t" ] && hits="$hits"$'\n'"$pdf: $t"
+          done
+          if [ -n "$(echo "$hits" | tr -d '[:space:]')" ]; then
+            echo "Possible street address or phone number:"; echo "$hits"; exit 1
+          fi
+          echo "clean"

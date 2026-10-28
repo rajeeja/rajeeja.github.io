@@ -11,7 +11,7 @@ tags:
   - scientific-computing
   - argonne
   - array-of-things
-excerpt: "How a seed-funded urban exascale project with Charlie Catlett connected Chicago's IoT sensor network, mesoscale weather models, building energy simulation, and high-fidelity CFD into one coherent research program."
+excerpt: "A seed-funded project with Charlie Catlett that tied Chicago's Array of Things sensors, weather models, building energy simulation, and CFD into one workflow."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -20,7 +20,7 @@ toc_sticky: true
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Urban computing &middot; 2020</p>
   <h1 class="article-title">Urban Microclimate at Scale: Array of Things, EnergyPlus, and CFD for Chicago</h1>
-  <p class="article-dek">How a seed-funded urban exascale project connected Chicago's IoT sensor network, mesoscale weather models, building energy simulation, and high-fidelity CFD into one coherent research program.</p>
+  <p class="article-dek">Chicago's sensor network, weather models, building energy, and CFD in one workflow.</p>
 </div>
 
 <div class="post-tags">

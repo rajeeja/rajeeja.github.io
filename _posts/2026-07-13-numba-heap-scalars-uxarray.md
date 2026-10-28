@@ -13,7 +13,7 @@ tags:
   - uxarray
   - memory-management
   - cpp
-excerpt: "A 1.67× speedup in a spherical-geometry kernel came not from better math but from where the numbers lived. A ground-up look at heap vs. registers, why NumPy's ndarray is always heap while C++'s std::array is not, and how scalarizing a Numba hot path recovered the performance the reference C++ design assumed."
+excerpt: "A 1.67x speedup in a spherical geometry kernel that came from where the numbers lived, not from the math. Heap versus registers, and how a faithful C++-to-Python port gets slow."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -22,7 +22,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">Performance engineering &middot; 2026</p>
   <h1 class="article-title">Where Your Numbers Live: Killing Hidden Heap Allocations in a Numba Hot Path</h1>
-  <p class="article-dek">A 1.67× speedup in a spherical-geometry kernel that had nothing to do with the math and everything to do with memory. A ground-up tour of the stack, the heap, and why a faithful C++-to-Python port can silently get slow.</p>
+  <p class="article-dek">A 1.67x speedup that came from memory layout, not math.</p>
 </div>
 
 <div class="post-tags">

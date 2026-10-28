@@ -4,7 +4,7 @@ date: 2026-05-28
 permalink: /blog/mcp-landscape-seps-community-2026/
 categories:
   - blog
-excerpt: "Eighteen months after launch, MCP has moved to the Linux Foundation, acquired a community governance process driven by SEPs and Discord working groups, and shipped five major spec changes that reshape what agents can do. Here is the full picture — timeline, governance, the five recently merged SEPs, and the active proposals that landed this week."
+excerpt: "Eighteen months in, MCP has moved to the Linux Foundation, picked up a governance process built on SEPs, and shipped five spec changes that affect what agents can do."
 tags:
   - mcp
   - ai-agents
@@ -19,7 +19,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">MCP Landscape · May 2026</p>
   <h1 class="article-title">MCP in 2026: From Anthropic Side Project to Industry Infrastructure</h1>
-  <p class="article-dek">Eighteen months after launch, MCP has a foundation, a governance process, five major spec changes, and a community that ships working groups on Discord every week. Here is where it stands.</p>
+  <p class="article-dek">MCP's foundation, governance, and recent spec changes, as of May 2026.</p>
 </div>
 
 <div class="post-tags">

@@ -11,7 +11,7 @@ tags:
   - scientific-computing
   - uxarray
   - floating-point
-excerpt: "A $0.0085 drift in a $50 million ledger and a 0.68-meter error on a real Earth mesh, both from the same one-line bug: adding floats in the naive order. A ground-up look at Kahan summation and error-free transformations — what they actually fix, what they cost, and runnable Python for a finance ledger and a real UXarray geometry kernel."
+excerpt: "A $0.0085 drift in a $50 million ledger and a 0.68 m error on an Earth mesh share one cause: adding floats in the naive order. Kahan summation, error-free transformations, and when they matter."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -20,7 +20,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">Numerical methods &middot; 2026</p>
   <h1 class="article-title">The Bug Hiding in Every Sum: Kahan Summation, Compensated Arithmetic, and Where They Actually Matter</h1>
-  <p class="article-dek">Two demos, two domains, one root cause. A ledger drifts by less than a penny after five million trades. A mesh edge on Earth lands 68 centimeters from where it should. Same bug, same one-line fix.</p>
+  <p class="article-dek">A ledger off by under a penny and a mesh edge off by 68 cm. Same bug, same fix.</p>
 </div>
 
 <div class="post-tags">

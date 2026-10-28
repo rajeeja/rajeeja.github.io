@@ -4,8 +4,8 @@ title: "Rajeev Jain"
 permalink: /
 author_profile: false
 classes: wide
-description: "Rajeev Jain, research software engineer at Argonne National Laboratory. SimBoard for E3SM, UXarray, and scientific software for HPC."
-excerpt: "Research software engineer at Argonne National Laboratory. SimBoard for E3SM, UXarray, and scientific software for HPC."
+description: "Rajeev Jain, principal research software engineer at Argonne National Laboratory. Scientific software and AI agent tooling for HPC: SimBoard for E3SM, UXarray, and its MCP server."
+excerpt: "Principal research software engineer at Argonne. SimBoard for E3SM, UXarray, and AI agent tooling for HPC."
 ---
 
 <div class="cv" id="about">
@@ -13,11 +13,11 @@ excerpt: "Research software engineer at Argonne National Laboratory. SimBoard fo
 <header class="cv-head">
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
-    <p class="cv-tagline">Research software engineer, Mathematics and Computer Science Division, <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a></p>
-    <p class="cv-bio">I've been at Argonne since 2009. Most of my time now goes to SimBoard for <a href="https://e3sm.org/">E3SM</a> and to UXarray.</p>
+    <p class="cv-tagline">Principal research software engineer, <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a></p>
+    <p class="cv-bio">I build scientific software that runs on supercomputers, and lately the tooling that lets AI agents use it. I've been at Argonne since 2009. Most of my time now goes to SimBoard for <a href="https://e3sm.org/">E3SM</a> and to UXarray.</p>
     <p class="cv-links">
-      <a href="/files/Rajeev_Jain_CV.pdf">CV</a> &middot;
-      <a href="mailto:jain@anl.gov">jain@anl.gov</a> &middot;
+      <a href="/files/Rajeev_Jain_CV.pdf">CV (PDF)</a> &middot;
+      <a href="mailto:jain@anl.gov">Email</a> &middot;
       <a href="https://github.com/rajeeja">GitHub</a> &middot;
       <a href="https://scholar.google.com/citations?user=bC77n9MAAAAJ&amp;hl=en">Scholar</a> &middot;
       <a href="https://www.linkedin.com/in/rajeeja/">LinkedIn</a>
@@ -31,12 +31,20 @@ excerpt: "Research software engineer at Argonne National Laboratory. SimBoard fo
   <ul class="cv-items">
     <li>
       <div class="item-head"><strong><a href="https://github.com/E3SM-Project/simboard">SimBoard</a></strong> <span class="item-role">contributor, E3SM</span></div>
-      A web catalog of E3SM simulation runs: case metadata, provenance, and links out to the diagnostics for each run.
+      A web catalog of E3SM simulation runs: case metadata, provenance, and links to each run's diagnostics. FastAPI, PostgreSQL, and React, deployed at NERSC.
       <span class="item-links"><a href="https://simboard-dev.e3sm.org/">app</a> &middot; <a href="https://simboard.readthedocs.io/">docs</a> &middot; <a href="https://github.com/E3SM-Project/simboard">code</a></span>
     </li>
     <li>
       <div class="item-head"><strong><a href="https://github.com/UXARRAY/uxarray">UXarray</a></strong> <span class="item-role">lead developer</span></div>
-      Python library for analysis on unstructured climate grids, used at DOE labs and NCAR. I also maintain its MCP server, which lets AI agents run UXarray analyses on HPC systems.
+      Python library for analysis on unstructured climate grids, used at DOE labs and NCAR. I wrote its MCP server, which lets AI agents run UXarray analyses on HPC systems through Globus Compute.
+      <details class="item-more">
+        <summary>Details</summary>
+        <ul>
+          <li>Made a 300-million-cell, 63 GB mesh loadable in 306 seconds by deduplicating coordinates before building the grid (<a href="/blog/scrip-dedup-63gb-mesh/">write-up</a>).</li>
+          <li>Replaced a cross product in the spherical geometry kernels with error-free arithmetic after it drifted 0.68 m on a real Earth mesh (<a href="https://github.com/UXARRAY/uxarray/pull/1513">PR&nbsp;1513</a>).</li>
+          <li>1.67&times; faster in a Numba hot path by removing hidden heap allocation (<a href="https://github.com/UXARRAY/uxarray/pull/1577">PR&nbsp;1577</a>, <a href="/blog/numba-heap-scalars-uxarray/">write-up</a>).</li>
+        </ul>
+      </details>
       <span class="item-links"><a href="https://uxarray.readthedocs.io">docs</a> &middot; <a href="https://github.com/UXARRAY/uxarray">code</a> &middot; <a href="/blog/uxarray-mcp-improv-globus-compute/">MCP write-up</a></span>
     </li>
     <li>
@@ -53,12 +61,23 @@ excerpt: "Research software engineer at Argonne National Laboratory. SimBoard fo
 <section class="cv-section" id="earlier">
   <h2 class="cv-label">Earlier</h2>
   <ul class="cv-items cv-items--compact">
-    <li><span class="item-venue">2025&ndash;26</span> <a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a>. Ported a PyTorch climate emulator to Aurora's Intel GPUs.</li>
-    <li><span class="item-venue">2017&ndash;25</span> <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE and IMPROVE</a>. Hyperparameter search and benchmarking for cancer drug-response models.</li>
-    <li><span class="item-venue">2019&ndash;24</span> <a href="https://flash-x.org/">FLASH-X</a>. Checkpoint I/O and compression for the multiphysics code.</li>
+    <li><span class="item-venue">2025&ndash;26</span> <a href="/blog/sfno-aurora-climate-emulator/">SFNO on Aurora</a>. Ported a PyTorch climate emulator to Aurora's Intel GPUs and set up distributed training.</li>
+    <li><span class="item-venue">2017&ndash;25</span> <a href="https://github.com/JDACS4C-IMPROVE/IMPROVE">CANDLE and IMPROVE</a>. Hyperparameter search for cancer drug-response models, 10,000+ training runs on Summit, Theta, and Cori. R&amp;D 100, 2023.</li>
+    <li><span class="item-venue">2019&ndash;24</span> <a href="https://flash-x.org/">FLASH-X</a>. Asynchronous checkpointing with compression, cutting checkpoint overhead 40&ndash;70% on Summit. R&amp;D 100, 2022.</li>
     <li><span class="item-venue">2016&ndash;19</span> Urban ECP. A weather-to-building-to-CFD workflow for downtown Chicago.</li>
-    <li><span class="item-venue">2009&ndash;16</span> <a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a>. Mesh generation for nuclear reactor cores, as PI under DOE NEAMS.</li>
+    <li><span class="item-venue">2009&ndash;16</span> <a href="https://bitbucket.org/fathomteam/meshkit">MeshKit</a>. Reactor core mesh generation, as PI. A 101-million-element core mesh in about 7 minutes on 712 cores.</li>
   </ul>
+</section>
+
+<section class="cv-section" id="skills">
+  <h2 class="cv-label">Tools</h2>
+  <dl class="cv-skills">
+    <dt>Languages</dt><dd>Python, C++, Fortran, Bash</dd>
+    <dt>Scientific Python</dt><dd>NumPy, Xarray, Numba, Dask, Polars, PyTorch</dd>
+    <dt>AI systems</dt><dd>MCP servers, agent evaluation, distributed training, hyperparameter search</dd>
+    <dt>HPC</dt><dd>MPI, HDF5, NetCDF, SZ3 and ZFP compression, Intel and NVIDIA GPUs, PBS, Slurm</dd>
+    <dt>Engineering</dt><dd>CMake, CI/CD, packaging (conda-forge, PyPI), Globus Compute, code review</dd>
+  </dl>
 </section>
 
 <section class="cv-section" id="publications">

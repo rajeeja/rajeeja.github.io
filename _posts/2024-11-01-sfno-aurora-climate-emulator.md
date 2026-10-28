@@ -13,7 +13,7 @@ tags:
   - pytorch
   - sfno
   - machine-learning
-excerpt: "How we ported the SFNO climate emulator to Intel XPUs on Aurora: PMIX/PALS launcher mapping, XPU/CUDA device branching, mixed-precision policy differences, and building a stable DDP baseline before reaching for FSDP — plus the first measured one-node training run."
+excerpt: "Porting the SFNO climate emulator to Intel GPUs on Aurora: launcher setup, device branching, mixed precision, and a stable DDP baseline before trying FSDP."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -22,7 +22,7 @@ toc_sticky: true
 <div class="article-banner article-banner--warm">
   <p class="eyebrow">Engineering note &middot; Aurora &middot; 2026</p>
   <h1 class="article-title">SFNO on Aurora: Porting a Climate Emulator to Intel GPUs</h1>
-  <p class="article-dek">Device abstraction, DDP setup, PMIX/PALS environment mapping, and mixed-precision on Intel XPU — building a stable, portable training baseline on Argonne's exascale system.</p>
+  <p class="article-dek">Device handling, launcher setup, and mixed precision on Intel GPUs, on the way to a stable training baseline.</p>
 </div>
 
 <div class="post-tags">

@@ -11,7 +11,7 @@ tags:
   - benchmarking
   - open-source
   - github-actions
-excerpt: "After CANDLE: building the IMPROVE benchmark framework, improvelib, the UNO model, and the CI/CD infrastructure that made cross-study drug response evaluation reproducible for the community."
+excerpt: "After CANDLE: the IMPROVE benchmark framework, improvelib, the UNO model, and the CI that made cross-study drug-response evaluation reproducible."
 author_profile: false
 toc: true
 toc_sticky: true
@@ -20,7 +20,7 @@ toc_sticky: true
 <div class="article-banner">
   <p class="eyebrow">Benchmarking infrastructure &middot; 2025</p>
   <h1 class="article-title">IMPROVE: Building Rigorous Benchmark Infrastructure for Cancer Drug Response Prediction</h1>
-  <p class="article-dek">After CANDLE: building the IMPROVE benchmark framework, improvelib, the UNO model, and the CI/CD infrastructure that made cross-study drug response evaluation reproducible across 15+ researchers at Argonne, LLNL, and ORNL.</p>
+  <p class="article-dek">The IMPROVE framework, improvelib, UNO, and the CI behind reproducible cross-study evaluation.</p>
 </div>
 
 <div class="post-tags">
