@@ -2,6 +2,9 @@ name: Build Resume PDFs
 
 on:
   push:
+    # Only master: this job commits PDFs back to master, so running it for a
+    # branch push races the master build and fails non-fast-forward.
+    branches: [master]
     paths:
       - 'cv/**.tex'
       - 'scripts/update_resume.sh'
