@@ -905,6 +905,9 @@ textarea:focus-visible,
 /* ── Post footer meta ───────────────────────────────────────── */
 
 .post-footer-meta {
+  /* .page__content is floated by the theme; without clearing, this footer
+     slides up behind the post and its top rule shows through the title. */
+  clear: both;
   max-width: 680px;
   margin: 3rem auto 0;
   padding-top: 1rem;

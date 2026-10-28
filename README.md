@@ -1,7 +1,7 @@
 # rajeeja.github.io
 
-Personal site of Rajeev Jain — profile, CV, and writing on scientific
-computing, HPC, and AI tooling. Built with Jekyll and served by GitHub Pages
+Personal site of Rajeev Jain: profile, CV, and notes on scientific
+computing and HPC. Built with Jekyll and served by GitHub Pages
 at <https://rajeeja.github.io>.
 
 ## Layout
@@ -12,8 +12,8 @@ at <https://rajeeja.github.io>.
 | `_posts/` | Blog posts, published under `/blog/` |
 | `_pages/` | Standalone pages (blog index, 404) |
 | `_layouts/`, `_includes/`, `_sass/` | Theme |
-| `assets/css/overrides.css` | Site-specific styling; edit this, not the SCSS |
-| `cv/` | LaTeX sources for the CV and resume (not published) |
+| `assets/css/overrides.css` | Site-specific styling (Charter, plain layout); edit this, not the SCSS |
+| `cv/` | LaTeX sources for the CV and resume, set in XCharter (not published) |
 | `files/` | Built CV and resume PDFs |
 | `scripts/` | CV build and publication-refresh helpers |
 
