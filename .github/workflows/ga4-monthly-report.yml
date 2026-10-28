@@ -38,10 +38,10 @@ jobs:
       GA4_REPORT_OUTPUT_DIR: .analytics-reports/monthly
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -64,7 +64,7 @@ jobs:
 
       - name: Upload analytics artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ga4-monthly-report-${{ github.run_number }}
           path: .analytics-reports/monthly
