@@ -14,7 +14,7 @@ excerpt: "Principal research software engineer at Argonne. SimBoard for E3SM, UX
   <div class="cv-head__copy">
     <h1 class="cv-name">Rajeev Jain</h1>
     <p class="cv-tagline">Principal research software engineer, <a href="https://www.anl.gov/mcs">Argonne National Laboratory</a></p>
-    <p class="cv-bio">I build scientific software that runs on supercomputers, and lately the tooling that lets AI agents use it. I've been at Argonne since 2009. Most of my time now goes to SimBoard for <a href="https://e3sm.org/">E3SM</a> and to UXarray.</p>
+    <p class="cv-bio">I build scientific software that runs on supercomputers, and lately the tooling that lets AI agents use it. I take ownership from problem definition through delivery and regularly deliver useful work beyond the original scope. I've been at Argonne since 2009. Most of my time now goes to SimBoard for <a href="https://e3sm.org/">E3SM</a> and to UXarray.</p>
     <p class="cv-links">
       <a href="/files/Rajeev_Jain_CV.pdf">CV (PDF)</a> &middot;
       <a href="mailto:jain@anl.gov">Email</a> &middot;
